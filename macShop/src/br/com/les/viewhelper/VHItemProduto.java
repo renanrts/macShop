@@ -46,7 +46,6 @@ public class VHItemProduto implements IViewHelper {
 			request.setAttribute("sucesso", mensagem);
 
 		try {
-			if (operacao.equals("TROCAR")) {
 			
 				request.setAttribute("pedidos", resultado.getListaResultado());
 				if (request.getParameter("Direcionamento").equals("CLIENTE")) {
@@ -58,7 +57,7 @@ public class VHItemProduto implements IViewHelper {
 					RequestDispatcher rd = request.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN");
 					rd.forward(request, response);
 				}
-			}
+
 
 
 

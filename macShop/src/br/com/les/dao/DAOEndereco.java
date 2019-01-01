@@ -206,7 +206,7 @@ public class DAOEndereco extends AbstractDAO {
 		
 		try {
 	
-
+			con = ConnectionFactory.getConnection();
 			
 			String sql = "SELECT * FROM estado WHERE est_id = ?";
 			stmt = con.prepareStatement(sql);

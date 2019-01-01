@@ -57,6 +57,7 @@ import br.com.les.negocio.StValidarFormaDePagamento;
 import br.com.les.negocio.StValidarQuantidadeAIncluirOuExcluirCarrinho;
 import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.negocio.StValidarValorExcendenteAoPagamento;
+import br.com.les.negocio.StVoltarAoEstoqueTroca;
 import br.com.les.util.Resultado;
 import service.CarrinhoServico;
 
@@ -219,18 +220,20 @@ public class Fachada implements IFachada {
 
 		Map<String, List<IStrategy>> rnsItemProduto = new HashMap<String, List<IStrategy>>();
 		rnsItemProduto.put("SALVAR", rnsSalvarItemProduto);
-		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
+		
 		
 		List<IStrategy> rnsAlterarItemProduto = new ArrayList<IStrategy>();
 		rnsAlterarItemProduto.add(new StAlterarStatusItemProduto());
+		rnsAlterarItemProduto.add(new StVoltarAoEstoqueTroca());
+		
 
 		rnsItemProduto.put("ALTERAR", rnsAlterarItemProduto);
-		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
+	
 		
 		List<IStrategy> rnsReprovarItemProduto = new ArrayList<IStrategy>();
 		rnsReprovarItemProduto.add(new StAlterarStatusItemProduto());
 
-		rnsItemProduto.put("EXCLUIR", rnsReprovarItemProduto);
+		rnsItemProduto.put("INATIVAR", rnsReprovarItemProduto);
 		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
 
 	}

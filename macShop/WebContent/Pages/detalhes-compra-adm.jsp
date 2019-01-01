@@ -285,6 +285,26 @@
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="REPROVAR">
             					   </form>
             					   </c:if> 
+            					   
+            					     <c:if test="${item.produto.ativo == 'Troca Autorizada'}">
+<form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
+                        				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
+                        				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VOLTAR AO ESTOQUE">
+            					   </form>
+            					   </c:if> 
+            					   
+            					     <c:if test="${item.produto.ativo == 'Troca Autorizada'}">
+<form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
+                        				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
+                        				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="RECEBIDO">
+            					   </form>
+            					   </c:if> 
             					                    
             					     </td>
 

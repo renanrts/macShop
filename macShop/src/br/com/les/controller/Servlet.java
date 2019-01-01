@@ -81,7 +81,9 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapCommand.put("CARRINHOALTERAR", new CmdCarrinhoAlterar());
 			mapCommand.put("TROCAR", new CmdSalvar());
 			mapCommand.put("APROVAR", new CmdSalvar());
-			mapCommand.put("REPROVAR", new CmdSalvar());
+			mapCommand.put("REPROVAR", new CmdInativar());
+			mapCommand.put("VOLTAR AO ESTOQUE", new CmdAlterar());
+			mapCommand.put("RECEBIDO", new CmdSalvar());
 			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
