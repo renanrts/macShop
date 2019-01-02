@@ -611,6 +611,7 @@ public class DAOPedido extends AbstractDAO {
 							a.setId(rsT.getInt("ele_id"));
 							a.setTipo("VHELETRONICO");
 							a.setEstoque(rsT.getInt("ele_estoque"));
+							a.setAtivo(prod2.getAtivo());
 							prod2 = (Produto) a;
 							item.setProduto(a);
 						}

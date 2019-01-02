@@ -261,7 +261,7 @@
             				
             				<c:if test="${pedido.status == 'Em transporte'}">
             				<input type="submit" style="display:inline-block" name="btnOperacao" value="CANCELAR">
-            				<input type="submit" style="display:inline-block" name="btnOperacao" value="RECEBIDO">
+            			
             				<form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
                         				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
@@ -270,7 +270,7 @@
             					   </form>  
             				</c:if>
             				
-            				<c:if test="${pedido.status == 'Recebido'}">
+            				<c:if test="${pedido.status == 'Entregue'}">
             				<input type="submit" style="display:inline-block" name="btnOperacao" value="TROCAR">
             				<input type="submit" style="display:inline-block" name="btnOperacao" value="DEVOLVER">
             				<form action="/macShop/Pages/orders" method="POST">

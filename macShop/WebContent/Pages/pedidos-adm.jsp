@@ -270,16 +270,36 @@
                             </td>
                             </c:if>
                             <td>
-                                <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
+                             <c:if test="${pedido.status  == 'Em transporte'}">
+                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
                                         class="material-icons" data-toggle="tooltip" title="Add"
                                         style="display:inline-block">check</i></a>
-
+                                        </c:if>
+                                        <c:if test="${pedido.status  == 'Entregue'}">
+                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
+                                        class="material-icons" data-toggle="tooltip" title="Add"
+                                        style="display:inline-block">check</i></a>
+                                        </c:if>
                             </td>
 
                             <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
+                            
+                              <c:if test="${pedido.status  == 'Em transporte'}">
+                                  <form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
+                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="ADMIN" />
+                        				  <input type="hidden" id="pedStatus" name="pedStatus" value="${pedido.status }" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="ALTERAR">
+            					   </form> 
+								</c:if>
+								
+								 <c:if test="${pedido.status  == 'Entregue'}">
+                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
+                                        class="material-icons" data-toggle="tooltip" title="Add"
+                                        style="display:inline-block">check</i></a>
+                                        </c:if>
+                                
 
                             </td>
 
