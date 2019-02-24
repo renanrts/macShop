@@ -249,6 +249,7 @@
 									<th>Categoria</th>
 									<th>Código de Barras</th>
 									<th>Estoque</th>
+									<th>Status</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -263,12 +264,14 @@
                                     <td>12 
 											
 									</td>
+									<td>Ativo</td>
                                     <td>
                                         <a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 										<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
 										<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-                                    </td>
-                                </tr>
+										<a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+
+									</tr>
 								<tr>
                                    
 										<td>002</td>
@@ -279,10 +282,12 @@
 										<td>12 
 												
 										</td>
+										<td>Ativo</td>
 										<td>
 												<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 												<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
 												<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
+												<a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
 										</td>
 									</tr>
                                   
@@ -296,10 +301,13 @@
 											<td>12 
 													
 											</td>
+											<td>Ativo</td>
 											<td>
 													<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
 													<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
+													<a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+
 												</td>
 										</tr>
 										<tr>
@@ -312,10 +320,13 @@
 												<td>12 
 														
 												</td>
+												<td>Ativo</td>
 												<td>
 														<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
 														<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
+														<a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+
 													</td>
 											</tr>				
 											<tr>
@@ -328,10 +339,13 @@
 													<td>12 
 															
 													</td>
+													<td>Ativo</td>
 													<td>
 															<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 															<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
 															<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
+															<a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+
 														</td>
 												</tr>
                             </tbody>
@@ -387,7 +401,26 @@
                     </div>
 				</div>					
 									
-									
+				<div id="inativar" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+									<form>
+											<div class="modal-header">						
+												<h4 class="modal-title">Ativar produto</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											</div>
+											<div class="modal-body">					
+												<p>Tem certeza que deseja ativar o produto?</p>
+												
+											</div>
+											<div class="modal-footer">
+												<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+												<input type="submit" class="btn btn-info" value="Ativar">
+											</div>
+										</form>
+							</div>
+						</div>
+					</div>					
 
 
                   
