@@ -308,7 +308,7 @@
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/iphone_banner.jpg);">
 		<h2 class="l-text2 t-center">
-			Consulta de Produtos
+			Consulta de Solicitações de Trocas
 		</h2>
 	</section>
 
@@ -336,36 +336,31 @@
 				
 					</div>
 					</div>
-					<div class="row align-items-end">
 					<div class="col-md-6">
 					<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Buscar produtos...">
+							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Buscar solicitação...">
 
 							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
 								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 							</button>
 						</div>
-						
 					</div>
-					<div class="col-md-3">
-					<a href="cad-produto.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-							Cadastrar novo
-						</a>
-			</div>
-					</div>
+					
                     <div class="table-wrapper">
                        
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                 
-                                    <th>Código</th>
-                                    <th>Nome</th>
-									<th>Modelo</th>
-									<th>Categoria</th>
-									<th>Código de Barras</th>
-									<th>Estoque</th>
-                                    <th>Ações</th>
+                                    <th>Código Pedido</th>
+                                    <th>Produto</th>
+									<th>Valor</th>
+									<th>Data Solicitação</th>
+                                    <th>Codigo Cliente</th>
+                                    <th>Status</th>
+                                    <th>Autorizado para troca?</th>
+                                    <th>Produto recebido?</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -373,87 +368,109 @@
                                    
                                     <td>001</td>
                                     <td>iPhone X Preto 64gb</td>
-									<td>X Preto 64gb</td>
-									<td>iPhone</td>
-									<td>5555735</td>
-                                    <td>12 
-											
-									</td>
-                                    <td>
-                                        <a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-										<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-										<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-                                    </td>
-                                </tr>
-								<tr>
+                                    <td>R$4.000,00</td>
+                                    <td>xx/xx/xxxx</td>
+                                    <td>001</td>
+									<td>Em Troca</td>									
+									<td>
+                                            
+                                            <a href="#autorizarTroca" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+
+                                      </td>
+                                       <td>
+                                            <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                                        </td>
                                    
-										<td>002</td>
-										<td>iPhone X Preto 64gb</td>
-										<td>X Preto 64gb</td>
-										<td>iPhone</td>
-										<td>5555735</td>
-										<td>12 
-												
-										</td>
-										<td>
-												<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-												<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-										</td>
-									</tr>
+                                          
+                                  
+                                </tr>
+                                <tr>
+                                   
+                                        <td>001</td>
+                                        <td>iPhone X Preto 64gb</td>
+                                        <td>R$4.000,00</td>
+                                        <td>xx/xx/xxxx</td>
+                                        <td>001</td>
+                                        <td>Em Troca</td>									
+                                        <td>
+                                                
+                                                <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+    
+                                          </td>
+                                           <td>
+                                                <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                                            </td>
+                                       
+                                              
+                                      
+                                    </tr>
                                   
                                     <tr>
                                    
-											<td>003</td>
-											<td>iPhone X Preto 64gb</td>
-											<td>X Preto 64gb</td>
-											<td>iPhone</td>
-											<td>5555735</td>
-											<td>12 
-													
-											</td>
-											<td>
-													<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-													<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-												</td>
-										</tr>
-										<tr>
+                                            <td>001</td>
+                                            <td>iPhone X Preto 64gb</td>
+                                            <td>R$4.000,00</td>
+                                            <td>xx/xx/xxxx</td>
+                                            <td>001</td>
+                                            <td>Em Troca</td>									
+                                            <td>
+                                                    
+                                                    <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+        
+                                              </td>
+                                               <td>
+                                                    <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                                                </td>
+                                           
+                                                  
+                                          
+                                        </tr>
+                                        <tr>
                                    
-												<td>004</td>
-												<td>iPhone X Preto 64gb</td>
-												<td>X Preto 64gb</td>
-												<td>iPhone</td>
-												<td>5555735</td>
-												<td>12 
-														
-												</td>
-												<td>
-														<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-														<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-													</td>
-											</tr>				
-											<tr>
+                                                <td>001</td>
+                                                <td>iPhone X Preto 64gb</td>
+                                                <td>R$4.000,00</td>
+                                                <td>xx/xx/xxxx</td>
+                                                <td>001</td>
+                                                <td>Em Troca</td>									
+                                                <td>
+                                                        
+                                                        <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+            
+                                                  </td>
+                                                   <td>
+                                                        <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                                                    </td>
+                                               
+                                                      
+                                              
+                                            </tr>		
+                                            <tr>
                                    
-													<td>005</td>
-													<td>iPhone X Preto 64gb</td>
-													<td>X Preto 64gb</td>
-													<td>iPhone</td>
-													<td>5555735</td>
-													<td>12 
-															
-													</td>
-													<td>
-															<a href="cad-produto.html" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-															<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-															<a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">add</i></a>
-														</td>
-												</tr>
+                                                    <td>001</td>
+                                                    <td>iPhone X Preto 64gb</td>
+                                                    <td>R$4.000,00</td>
+                                                    <td>xx/xx/xxxx</td>
+                                                    <td>001</td>
+                                                    <td>Em Troca</td>									
+                                                    <td>
+                                                            
+                                                            <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                
+                                                      </td>
+                                                       <td>
+                                                            <a href="#addEstoque" class="confirm" data-toggle="modal" style="display:inline-block"><i class="material-icons" data-toggle="tooltip" title="Add" style="display:inline-block">check</i></a>
+                                                        </td>
+                                                   
+                                                          
+                                                  
+                                                </tr>
+												
                             </tbody>
                         </table>
+                    </form>
                         <div class="clearfix">
-                            <div class="hint-text">Mostrando <b>5</b> de <b>25</b> produtos.</div>
+                            <div class="hint-text">Mostrando <b>5</b> de <b>25</b> pedidos.</div>
                             <ul class="pagination">
                                 <li class="page-item disabled"><a href="#">Anterior</a></li>
                                 <li class="page-item active"><a href="#" class="page-link">1</a></li>
@@ -469,39 +486,58 @@
 				<!-- Edit Modal HTML -->
 				
 
-	 <div id="addEstoque" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form>
-                                <div class="modal-header">						
-                                    <h4 class="modal-title">Adicionar Estoque</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div id="autorizarTroca" class="modal fade">
+                        <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form>
+                                        <div class="modal-header">						
+                                            <h4 class="modal-title">Autorizar troca</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">					
+                                            <p>Tem certeza que deseja autorizar a troca?</p>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                            <input type="submit" class="btn btn-info" value="Autorizar">
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="modal-body">					
-                                    <div class="form-group">
-											<label for="firstname">Quantidade</label>
-											<div class="flex-w bo5 of-hidden w-size17">
-												  <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-													  <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-												  </button>
-			  
-												  <input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="1">
-			  
-												  <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-													  <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-												  </button>
-											  </div>
-                                    </div>
-                                  				
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                                    <input type="submit" class="btn btn-info" value="Salvar">
-                                </div>
-                            </form>
+                            </div>
+                                    
+                                
+                            </div>
+                            <div id="addEstoque" class="modal fade">
+                                    <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form>
+                                                    <div class="modal-header">						
+                                                        <h4 class="modal-title">Devolução de Produto</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">					
+                                                        <p>Tem certeza que deseja autorizar a troca?</p>
+                                                    </div>
+                                                        <div class="modal-body">
+                                                        <label><input type="checkbox" value="" class="mr-2"> Retornar produto ao estoque.</label>
+                                                    </p>
+                                                    </div>
+                                                   
+                                                         
+                                                      
+                                                    <div class="modal-footer">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                                        <input type="submit" class="btn btn-info" value="Confirmar">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                                
+                                            
+                                        </div>
                         </div>
-                    </div>
-				</div>					
+                    </div>					
 									
 									
 
@@ -510,28 +546,6 @@
         
 				
 
-                <!-- Delete Modal HTML -->
-                <div id="deleteEmployeeModal" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form>
-                                <div class="modal-header">						
-                                    <h4 class="modal-title">Inativar produto</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                </div>
-                                <div class="modal-body">					
-                                    <p>Tem certeza que deseja inativar o produto?</p>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                                    <input type="submit" class="btn btn-danger" value="Inativar">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-	</section>
 
 
 <!-- Footer -->
