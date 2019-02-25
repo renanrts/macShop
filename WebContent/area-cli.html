@@ -374,7 +374,9 @@
                                                                                 <div class="form-group">
                                                                                         <div class="col-md-12">
                                                                                             <div class="radio">
-                                                                                               <label><input type="radio" name="optradio" class="mr-2">Endereço 1</label>
+                                                                                               <label><input type="radio" name="optradio" class="mr-2">Endereço 1      </label>
+                                                                                               <a href="#alterarEndereco" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                                               <a href="#inativar" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -382,14 +384,18 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="radio">
                                                                                                <label><input type="radio" name="optradio" class="mr-2">Endereço 2</label>
+                                                                                               <a href="#alterarEndereco" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit" style="display: align-right">&#xE254;</i></a>
+                                                                                               <a href="#inativar" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <div class="col-md-12">
                                                                                             <div class="radio">
-                                                                                               <label><input type="radio" name="optradio" class="mr-2">Endereço 3</label>
-                                                                                            </div>
+                                                                                                <label><input type="radio" name="optradio" class="mr-2">Endereço 3     </label>
+                                                                                                <a href="#alterarEndereco" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit" style="display: align-right">&#xE254;</i></a>
+                                                                                                <a href="#inativar" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
+                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                    
@@ -521,6 +527,8 @@
                                                                                                             <div class="col-md-12">
                                                                                                                 <div class="radio">
                                                                                                                    <label><input type="radio" name="optradio" class="mr-2">Cartão 1</label>
+                                                                                                                   <a href="#alterarCartao" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" style="display: align-right">&#xE254;</i></a>
+                                                                                                                   <a href="#inativarCartao" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
@@ -528,6 +536,8 @@
                                                                                                             <div class="col-md-12">
                                                                                                                 <div class="radio">
                                                                                                                    <label><input type="radio" name="optradio" class="mr-2">Cartão 2</label>
+                                                                                                                   <a href="#alterarCartao" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" style="display: align-right">&#xE254;</i></a>
+                                                                                                                   <a href="#inativarCartao" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
@@ -535,6 +545,8 @@
                                                                                                             <div class="col-md-12">
                                                                                                                 <div class="radio">
                                                                                                                    <label><input type="radio" name="optradio" class="mr-2">Cartão 3</label>
+                                                                                                                   <a href="#alterarCartao" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" style="display: align-right">&#xE254;</i></a>
+                                                                                                                   <a href="#inativarCartao" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
@@ -702,7 +714,243 @@
 																		</div>
 																	</section> <!-- .section -->
 
-									</div>
+                  </div>
+
+
+             
+
+                  <div id="alterarEndereco" class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form>
+                                <div class="modal-header">						
+                                  <h4 class="modal-title">Alterar Endereço</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body" style="background: #ecf0f1;">					
+                                    <div class="row align-items-end">
+                                    <div class="w-100"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="streetaddress">Tipo de residência</label>
+                                      <input type="text" class="form-control" placeholder="Casa, apartamento...">
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                              <label for="streetaddress">Tipo de logradouro</label>
+                                      <input type="text" class="form-control" placeholder="">
+                                    </div>
+                                    </div>
+                                    <div class="w-100"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="streetaddress">Logradouro</label>
+                                      <input type="text" class="form-control" placeholder="Logradouro">
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Número">
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">País</label>
+                                                <div class="select-wrap">
+                                              <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                              <select name="" id="" class="form-control">
+                                                  <option value="">Brasil</option>
+                                                <option value="">Canadá</option>
+                                              </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="country">Estado</label>
+                                                  <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select name="" id="" class="form-control">
+                                                    <option value="">São Paulo</option>
+                                                  <option value="">Rio de Janeiro</option>
+                                                </select>
+                                              </div>
+                                              </div>
+                                          </div>
+                                       
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                              <div class="form-group">
+                                                      <label for="country">Cidade</label>
+                                                      <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                    <select name="" id="" class="form-control">
+                                                        <option value="">São Paulo</option>
+                                                      <option value="">Mogi das Cruzes</option>
+                                                    </select>
+                                                  </div>
+                                                  </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="postcodezip">CEP</label>
+                                          <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        </div>
+        
+                                        <div class="col-md-12">
+                                              <div class="col-md-13">
+                                                      <div class="form-group">
+                                                      <label for="towncity">Observações</label>
+                                                    <textarea class="form-control" name="message" placeholder=""></textarea>
+                                                  </div>
+                                          </div>
+                                      </div>
+
+                                        </div>
+
+
+                                  
+                                </div>
+                              
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                  <input type="submit" class="btn btn-info" value="Salvar">
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                    </div>	
+
+
+
+
+
+                    
+
+                  
+                  
+
+
+
+          
+   <div id="inativarCartao" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <form>
+              <div class="modal-header">						
+                <h4 class="modal-title">Excluir cartão</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">					
+                <p>Tem certeza que deseja excluir o cartão?</p>
+                
+              </div>
+            
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                <input type="submit" class="btn btn-danger" value="Excluir">
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>		
+
+
+  <div id="inativar" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">						
+                  <h4 class="modal-title">Excluir endereço</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">					
+                  <p>Tem certeza que deseja excluir o endereço?</p>
+                  
+                </div>
+              
+                <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                  <input type="submit" class="btn btn-danger" value="Excluir">
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>	
+
+
+  <div id="alterarCartao" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">						
+                  <h4 class="modal-title">Alterar Cartão</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" style="background: #ecf0f1;">					
+                  
+                    <div class="row align-items-end">
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                        <label for="country">Bandeira</label>
+                                        <div class="select-wrap">
+                                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                      <select name="" id="" class="form-control">
+                                          <option value="">Visa</option>
+                                        <option value="">Master</option>
+                                      </select>
+                                    </div>
+                                    </div> 
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="postcodezip">Número</label>
+                          <input type="text" class="form-control" placeholder="">
+                        </div>
+                        </div>
+                          
+                           
+                            <div class="w-100"></div>
+                           
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="postcodezip">Nome</label>
+                              <input type="text" class="form-control" placeholder="Nome impresso no cartão">
+                            </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label for="postcodezip">Código de Segurança</label>
+                                      <input type="text" class="form-control" placeholder="">
+                                    </div>
+                          </div>
+
+
+
+
+                  
+                </div>
+              
+                <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                  <input type="submit" class="btn btn-danger" value="Excluir">
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>	
+
+
+
+
+
+
+
+         			
                 </div>
             </section>
 
