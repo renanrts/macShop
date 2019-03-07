@@ -50,9 +50,9 @@ public class Servlet extends HttpServlet{
 			
 			String formName = request.getParameter("FormName");
 	 		IViewHelper viewHelper = mapViewHelper.get(formName);
-			
+	 		
 			EntidadeDominio entidade = viewHelper.getEntidade(request);
-			
+		
 
 			Resultado resultado = command.executar(entidade);
 			

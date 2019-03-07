@@ -25,12 +25,19 @@ public class Resultado {
 	public void setResultado(EntidadeDominio resultado) {
 		this.resultado = resultado;
 	}
-	public boolean isErro() {
+	public boolean getErro() {
 		return erro;
 	}
-	public void setErro(boolean erro) {
-		this.erro = erro;
+	public void sucesso( String mensagem ) {
+		erro = false;
+		this.mensagem = mensagem;
 	}
+	
+	public void Erro( String mensagem ) {
+		erro = true;
+		this.mensagem = mensagem;
+	} 
+	
 	public String getMensagem() {
 		return mensagem;
 	}

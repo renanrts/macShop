@@ -225,22 +225,21 @@
 
 
 
-                                            <form action="#" class="billing-form bg-light p-3 p-md-5">
-
-
+                                            <form action="/macShop/Pages/servlet" method="POST" class="billing-form bg-light p-3 p-md-5">
+												<input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
 
                                                 <h3 class="mb-4 billing-heading">Cadastrar eletrônico</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Preço</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtPreco" name="txtPreco">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
@@ -251,8 +250,9 @@
                                                                 <div class="icon"><span
                                                                         class="ion-ios-arrow-down"></span></div>
                                                                 <select name="" id="" class="form-control">
-                                                                    <option value="">iPhone</option>
-                                                                    <option value="">iPad</option>
+                                                                    <option name="txtCategoria" value="iPhone">iPhone</option>
+                                                                    <option name="txtCategoria" value="iPad">iPad</option>
+                                                                    <option name="txtCategoria" value="Macbook">Macbook</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -261,106 +261,105 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Ano de Fabricação</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Modelo</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtModelo" name="txtModelo">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Cor</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCor" name="txtCor">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Dimensões</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="phone">Código de Barras</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="emailaddress">Foto do Produto</label>
                                                             <input type="text" class="form-control"
-                                                                placeholder="Inserir o caminho da foto">
+                                                                placeholder="Inserir o caminho da foto" id="txtFoto" name="txtFoto">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Memória</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder=""id="txtMemoria" name="txtMemoria" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Processador</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtProcessador" name="txtProcessador" >
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Tamanho Display</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtTamanhoDisplay" name="txtTamanhoDisplay">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Resolução Camera</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtResolucaoCamera" name="txtResolucaoCamera">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Conteúdo da embalagem</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtConteudoEmbalagem" name="txtConteudoEmbalagem">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Alimentação</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtAlimentacao" name="txtAlimentacao">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">RAM</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtRAM" name="txtRAM">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Sistema Operacional</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtSO" name="txtSO">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea class="form-control" name="message"
-                                                                placeholder=""></textarea>
+                                                            <textarea type="text" class="form-control" placeholder="" id="txtDescricao" name="txtDescricao"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Quantidade</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtQtde" name="txtQtde">
                                                         </div>
                                                     </div>
 
@@ -372,10 +371,9 @@
                                                         <center>
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
-                                                                <a href="#"
-                                                                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                    Salvar
-                                                                </a>
+                                                                
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
+                                                             
                                                             </div>
                                                         </center>
                                                     </div>

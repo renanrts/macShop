@@ -9,32 +9,32 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="../images/icons/favicon.png"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/themify/themify-icons.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/elegant-font/html-css/style.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/elegant-font/html-css/style.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/slick/slick.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/noui/nouislider.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -46,7 +46,7 @@
 	
 				<div class="wrap_header">
 					<!-- Logo -->
-					<a href="index.html" class="logo">
+					<a href="index.jsp" class="logo">
 						<img src="images/icons/logo.png" alt="IMG-LOGO">
 					</a>
 	
@@ -55,37 +55,37 @@
 							<nav class="menu">
 								<ul class="main_menu">
 									<li>
-										<a href="index.html">Home</a>
+										<a href="index.jsp">Home</a>
 										
 									</li>
 		
 									<li>
-										<a href="product.html">Catálogo de Produtos</a>
+										<a href="product.jsp">Catálogo de Produtos</a>
 									</li>
 		
 									<li>
-										<a href="contact.html">Contato</a>
+										<a href="contact.jsp">Contato</a>
 									</li>
 		
 									
 		
 										<li>
-												<a href="index.html">Área Cliente</a>
+												<a href="index.jsp">Área Cliente</a>
 												<ul class="sub_menu">
-													<li><a href="area-cli.html">Meus Dados</a></li>
-													<li><a href="pedidos-cli.html">Pedidos</a></li>
+													<li><a href="area-cli.jsp">Meus Dados</a></li>
+													<li><a href="pedidos-cli.jsp">Pedidos</a></li>
 													<li><a href="#">Logout</a></li>
 												</ul>
 											</li>
 		
 											<li>
-													<a href="index.html">Área Admin</a>
+													<a href="index.jsp">Área Admin</a>
 													<ul class="sub_menu">
-														<li><a href="consulta-cli.html">Consultar Clientes</a></li>
-														<li><a href="consulta-prod.html">Produtos</a></li>
-														<li><a href="troca.html">Consultar Trocas</a></li>
-														<li><a href="pedidos-adm.html">Consultar Pedidos</a></li>
-														<li><a href="relatorio.html">Relatórios</a></li>
+														<li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+														<li><a href="consulta-prod.jsp">Produtos</a></li>
+														<li><a href="troca.jsp">Consultar Trocas</a></li>
+														<li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
+														<li><a href="relatorio.jsp">Relatórios</a></li>
 													</ul>
 												</li>
 								</ul>
@@ -94,15 +94,15 @@
 		
 						<!-- Header Icon -->
 						<div class="header-icons">
-							<a href="login.html" class="header-wrapicon1 dis-block">
-								<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+							<a href="login.jsp" class="header-wrapicon1 dis-block">
+								<img src="../images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 							</a>
 	
 						<span class="linedivide1"></span>
 	
 						<div class="header-wrapicon2">
-								<a href="cart.html" class="header-wrapicon1 dis-block">
-										<img src="images/icons/icon-header-02.png" class="header-icon1" alt="ICON">
+								<a href="cart.jsp" class="header-wrapicon1 dis-block">
+										<img src="../images/icons/icon-header-02.png" class="header-icon1" alt="ICON">
 										</a>
 							
 	
@@ -114,8 +114,8 @@
 			<!-- Header Mobile -->
 			<div class="wrap_header_mobile">
 				<!-- Logo moblie -->
-				<a href="index.html" class="logo-mobile">
-					<img src="images/icons/logo.png" alt="IMG-LOGO">
+				<a href="index.jsp" class="logo-mobile">
+					<img src="../images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 	
 				<!-- Button show menu -->
@@ -123,13 +123,13 @@
 					<!-- Header Icon mobile -->
 					<div class="header-icons-mobile">
 						<a href="#" class="header-wrapicon1 dis-block">
-							<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+							<img src="../images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 						</a>
 	
 						<span class="linedivide2"></span>
 	
 						<div class="header-wrapicon2">
-							<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+							<img src="../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						
 						</div>
 					</div>
@@ -149,36 +149,36 @@
 						
 	
 						<li class="item-menu-mobile">
-							<a href="index.html">Home</a>
+							<a href="index.jsp">Home</a>
 								
 						</li>
 	
 						<li class="item-menu-mobile">
-							<a href="product.html">Catálogo de Produtos</a>
+							<a href="product.jsp">Catálogo de Produtos</a>
 						</li>
 	
 						<li class="item-menu-mobile">
-							<a href="contact.html">Contato</a>
+							<a href="contact.jsp">Contato</a>
 						</li>
 	
 						<li class="item-menu-mobile">
-								<a href="index.html">Área Cliente</a>
+								<a href="index.jsp">Área Cliente</a>
 								<ul class="sub-menu">
-									<li><a href="area-cli.html"">Meus Dados</a></li>
-									<li><a href="pedidos-cli.html">Pedidos</a></li>
+									<li><a href="area-cli.jsp"">Meus Dados</a></li>
+									<li><a href="pedidos-cli.jsp">Pedidos</a></li>
 									<li><a href="#">Logout</a></li>
 								</ul>
 								<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
 							</li>
 	
 							<li class="item-menu-mobile">
-									<a href="index.html">Área Admin</a>
+									<a href="index.jsp">Área Admin</a>
 									<ul class="sub-menu">
-											<li><a href="consulta-cli.html">Consultar Clientes</a></li>
-											<li><a href="consulta-prod.html">Produtos</a></li>
-											<li><a href="troca.html">Consultar Trocas</a></li>
-											<li><a href="pedidos-adm.html">Consultar Pedidos</a></li>
-											<li><a href="relatorio.html">Relatórios</a></li>
+											<li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+											<li><a href="consulta-prod.jsp">Produtos</a></li>
+											<li><a href="troca.jsp">Consultar Trocas</a></li>
+											<li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
+											<li><a href="relatorio.jsp">Relatórios</a></li>
 									</ul>
 									<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
 								</li>
@@ -190,7 +190,7 @@
 		</header>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/iphone_banner.jpg);">
+	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(../images/iphone_banner.jpg);">
 		<h2 class="l-text2 t-center">
 			Produtos Apple
 		</h2>
@@ -274,7 +274,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-02.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-02.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -289,7 +289,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -304,7 +304,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-03.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-03.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -319,7 +319,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -334,7 +334,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-05.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-05.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -349,7 +349,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Coach slim easton black
 									</a>
 
@@ -364,7 +364,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-07.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-07.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -379,7 +379,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Frayed denim shorts
 									</a>
 
@@ -394,7 +394,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-01.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-01.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -409,7 +409,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -424,7 +424,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-14.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-14.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -439,7 +439,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -454,7 +454,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-06.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-06.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -469,7 +469,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -484,7 +484,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-08.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-08.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -499,7 +499,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -514,7 +514,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-10.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-10.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -529,7 +529,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Coach slim easton black
 									</a>
 
@@ -544,7 +544,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-11.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-11.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -559,7 +559,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Frayed denim shorts
 									</a>
 
@@ -574,7 +574,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-12.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-12.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -589,7 +589,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -604,7 +604,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="images/item-15.jpg" alt="IMG-PRODUCT">
+									<img src="../images/item-15.jpg" alt="IMG-PRODUCT">
 
 									<div class="block2-overlay trans-0-4">
 										
@@ -619,7 +619,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.jsp" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -809,14 +809,14 @@
 
 
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
+	<script type="text/javascript" src="../vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
+	<script type="text/javascript" src="../vendor/select2/select2.min.js"></script>
 	<script type="text/javascript">
 		$(".selection-1").select2({
 			minimumResultsForSearch: 20,
@@ -829,23 +829,23 @@
 		});
 	</script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="../vendor/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="js/slick-custom.js"></script>
+	<script type="text/javascript" src="../vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="../js/slick-custom.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$('.block2-btn-addcart').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').jsp();
 			$(this).on('click', function(){
 				swal(nameProduct, "is added to cart !", "success");
 			});
 		});
 
 		$('.block2-btn-addwishlist').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').jsp();
 			$(this).on('click', function(){
 				swal(nameProduct, "is added to wishlist !", "success");
 			});
@@ -853,7 +853,7 @@
 	</script>
 
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
+	<script type="text/javascript" src="../vendor/noui/nouislider.min.js"></script>
 	<script type="text/javascript">
 		/*[ No ui ]
 	    ===========================================================*/
@@ -878,7 +878,7 @@
 	    });
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="../js/main.js"></script>
 
 </body>
 </html>
