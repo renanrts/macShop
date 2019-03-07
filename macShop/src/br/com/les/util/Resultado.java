@@ -33,7 +33,7 @@ public class Resultado {
 		this.mensagem = mensagem;
 	}
 	
-	public void Erro( String mensagem ) {
+	public void erro( String mensagem ) {
 		erro = true;
 		this.mensagem = mensagem;
 	} 

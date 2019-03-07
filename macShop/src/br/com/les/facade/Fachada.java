@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.negocio.IStrategy;
@@ -25,6 +27,8 @@ public class Fachada implements IFachada {
 		listStrategySalvar = new ArrayList<IStrategy>();
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
+		
+		mapDAO.put("ELETRONICO", new DAOEletronico());
 		
 
 	}
@@ -52,7 +56,7 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 			List<EntidadeDominio> l = new ArrayList<>();
 			l.add(entidade);
 			resultado.setListaResultado(l);
-			resultado.Erro(mensagens);
+			resultado.erro(mensagens);
 		}
 		
 		return resultado;

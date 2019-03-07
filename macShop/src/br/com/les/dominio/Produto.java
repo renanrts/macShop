@@ -1,13 +1,13 @@
 package br.com.les.dominio;
 
-import java.util.Date;
+
 
 public class Produto extends EntidadeDominio{
 	
 	protected int codigo;
 	protected String nome;
 	protected double preco;
-	protected Categoria categoria;
+	protected String categoria;
 	protected String dataaFabricacao;
 	protected String cor;
 	protected String dimensoes;
@@ -27,10 +27,10 @@ public class Produto extends EntidadeDominio{
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	public Categoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 	public String getDataaFabricacao() {

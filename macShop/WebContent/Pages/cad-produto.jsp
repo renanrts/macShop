@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -249,7 +251,7 @@
                                                             <div class="select-wrap">
                                                                 <div class="icon"><span
                                                                         class="ion-ios-arrow-down"></span></div>
-                                                                <select name="" id="" class="form-control">
+                                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
                                                                     <option name="txtCategoria" value="iPhone">iPhone</option>
                                                                     <option name="txtCategoria" value="iPad">iPad</option>
                                                                     <option name="txtCategoria" value="Macbook">Macbook</option>
@@ -353,7 +355,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea type="text" class="form-control" placeholder="" id="txtDescricao" name="txtDescricao"></textarea>
+                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -543,7 +545,12 @@
     </section>
 
 
-
+<c:forEach items="${erro}" var="msg">
+	                        <label style="color:red;">${msg}</label><br/>
+	                    </c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
 
 
 
