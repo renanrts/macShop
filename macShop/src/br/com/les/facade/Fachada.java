@@ -10,6 +10,7 @@ import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StTeste;
 import br.com.les.util.Resultado;
 
 
@@ -25,8 +26,9 @@ public class Fachada implements IFachada {
 		mapDAO = new HashMap<String, IDAO>();
 
 		listStrategySalvar = new ArrayList<IStrategy>();
-		
+
 		listStrategySalvar.add(new StValidarDadosObrigatorios());
+	
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		

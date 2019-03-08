@@ -546,8 +546,8 @@
 
 
 <c:forEach items="${erro}" var="msg">
-	                        <label style="color:red;">${msg}</label><br/>
-	                    </c:forEach>
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
 	                    <c:forEach items="${sucesso}" var="msg">
 	                        <label style="color:green;">${msg}</label><br/>
 	                    </c:forEach>
