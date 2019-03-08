@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
@@ -25,6 +25,8 @@ public class Fachada implements IFachada {
 		mapDAO = new HashMap<String, IDAO>();
 
 		listStrategySalvar = new ArrayList<IStrategy>();
+		
+		listStrategySalvar.add(new StValidarDadosObrigatorios());
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		

@@ -7,7 +7,7 @@ public class ConnectionFactory {
 	
 	public Connection getConnection(){
 		
-		String url = "jdbc:mariadb://localhost:3308/macshop";
+		String url = "jdbc:mariadb://localhost:3307/macshop";
 		
 		try{
 			Class.forName("org.mariadb.jdbc.Driver");

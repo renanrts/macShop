@@ -11,7 +11,7 @@ public class DAOEletronico extends AbstractDAO{
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-		Eletronico eletronico = (Eletronico) entidade;
+Eletronico eletronico = (Eletronico) entidade;
 		
 		Resultado resultado = new Resultado();
 		
@@ -53,7 +53,7 @@ public class DAOEletronico extends AbstractDAO{
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
 		}
-		
+
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class VHEletronico implements IViewHelper{
 		eletronico.setResolucaoCamera(request.getParameter("txtResolucaoCamera"));
 		eletronico.setSistemaOperacional(request.getParameter("txtSO"));
 		eletronico.setTamanhoDisplay(request.getParameter("txtTamanhoDisplay"));
-		eletronico.setNome(request.getParameter("txtQtde"));
+		eletronico.setNome(request.getParameter("txtNome"));
 
 		return eletronico;
 	}
