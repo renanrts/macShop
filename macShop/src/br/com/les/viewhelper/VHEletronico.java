@@ -70,13 +70,13 @@ public class VHEletronico implements IViewHelper{
 			}
 			else if(operacao.equals("CONSULTAR")){
 				if(resultado.getResultado() != null){					
-					RequestDispatcher rd = request.getRequestDispatcher("Visualizar.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
 					rd.forward(request, response);
 				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("Consulta.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("Consulta.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
 					rd.forward(request, response);
 				}
 			}
