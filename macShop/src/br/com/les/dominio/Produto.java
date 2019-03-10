@@ -4,7 +4,7 @@ package br.com.les.dominio;
 
 public class Produto extends EntidadeDominio{
 	
-	protected int codigo;
+
 	protected String nome;
 	protected double preco;
 	protected String categoria;
@@ -14,7 +14,14 @@ public class Produto extends EntidadeDominio{
 	protected String codigoBarras;
 	protected String caminhoFoto;
 	protected String descricao;
+	protected String ativo;
 
+	public String getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(String ativo) {
+		this.ativo = ativo;
+	}
 	public String getNome() {
 		return nome;
 	}

@@ -234,7 +234,7 @@
 
                 </div>
                 <div class="col-md-3">
-                <form action="/macShop/Pages/servlet" method="POST">
+                <form action="/macShop/Pages/consultaProdutos" method="POST">
 		                        		<input type="hidden" name="btnOperacao" value="CONSULTAR"/>
 		                        		<input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
 		                        		<input type="hidden" id="FormName" id="txtPreco" name="txtPreco" value="3000"/>

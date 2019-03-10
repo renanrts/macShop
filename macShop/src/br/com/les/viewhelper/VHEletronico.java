@@ -5,7 +5,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
@@ -16,10 +16,11 @@ public class VHEletronico implements IViewHelper{
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		
 		Eletronico eletronico = new Eletronico();
+
 		
 		eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
 		eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
-		eletronico.setCategoria(String.valueOf(request.getParameter("txtCategoria")));
+		eletronico.setCategoria(request.getParameter("txtCategoria"));
 		eletronico.setCodigoBarras(request.getParameter("txtCodBarras"));
 		eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
 		eletronico.setCor(request.getParameter("txtCor"));
@@ -29,7 +30,20 @@ public class VHEletronico implements IViewHelper{
 		eletronico.setDescricao(String.valueOf(request.getParameter("txtDescricao")));
 		eletronico.setMemoria(request.getParameter("txtMemoria"));
 		eletronico.setModelo(request.getParameter("txtModelo"));
-		eletronico.setPreco(Double.parseDouble(request.getParameter("txtPreco")));
+		
+		
+		
+		if(request.getParameter("txtPreco") != null)
+		{
+			try {
+				eletronico.setPreco(Double.parseDouble(request.getParameter("txtPreco")));
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+				
 		eletronico.setProcessador(request.getParameter("txtProcessador"));
 		eletronico.setRAM(request.getParameter("txtRAM"));
 		eletronico.setResolucaoCamera(request.getParameter("txtResolucaoCamera"));
@@ -52,12 +66,14 @@ public class VHEletronico implements IViewHelper{
 		
 		if(operacao.equals("SALVAR")){
 			if(resultado.getErro()){
-				request.setAttribute("aluno", (Eletronico) resultado.getListaResultado().get(0));
+				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+				request.setAttribute("categoria", (Categoria) resultado.getResultado());
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
 				if(resultado.getResultado() != null){
-					request.setAttribute("aluno", (Eletronico) resultado.getResultado());
+					request.setAttribute("eletronico", (Eletronico) resultado.getResultado());
+					request.setAttribute("categoria", (Categoria) resultado.getResultado());
 				}else{
 					request.setAttribute("resultado", resultado.getListaResultado());
 				}
@@ -70,13 +86,13 @@ public class VHEletronico implements IViewHelper{
 			}
 			else if(operacao.equals("CONSULTAR")){
 				if(resultado.getResultado() != null){					
-					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
 				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("TesteConsulta.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
 				}
 			}

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-
+import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
@@ -16,12 +16,12 @@ public class DAOEletronico extends AbstractDAO{
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-Eletronico eletronico = (Eletronico) entidade;
+		Eletronico eletronico = (Eletronico) entidade;
 		
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO eletronico (nome, alimentacao, caminhofoto, categoria, codigobarras, conteudoembalagem, cor, datafabricaco, descricao, dimensoes, memoria, modelo, processador, ram, resolucaocamera, sistemaoperacional, display, preco) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO ELETRONICOS (ele_nome, ele_alimentacao, ele_caminhofoto, cat_id, ele_codigobarras, ele_conteudoembalagem, ele_cor, ele_datafabricaco, ele_descricao, ele_dimensoes, ele_memoria, ele_modelo, ele_processador, ele_ram, ele_resolucaocamera, ele_sistemaoperacional, ele_display, ele_preco, ele_status) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 
@@ -44,6 +44,7 @@ Eletronico eletronico = (Eletronico) entidade;
 			stmt.setString(16, eletronico.getSistemaOperacional());
 			stmt.setString(17, eletronico.getTamanhoDisplay());
 			stmt.setDouble(18, eletronico.getPreco());
+			stmt.setString(19, "Ativo");
 
 			stmt.execute();
 
@@ -76,33 +77,37 @@ Eletronico eletronico = (Eletronico) entidade;
 			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
-			stmt = this.con.prepareStatement("SELECT * FROM eletronico");
-			
+			stmt = this.con.prepareStatement(
+				"SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_ido, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id"
+			);
 			
 			ResultSet rs = stmt.executeQuery();
 						
 			while (rs.next()) {
 								
 				Eletronico a = new Eletronico();
-				
-				a.setNome(rs.getString("nome"));
-				a.setAlimentacao(rs.getString("alimentacao"));
-				a.setCaminhoFoto(rs.getString("caminhofoto"));
-				a.setCategoria(rs.getString("categoria"));
-				a.setCodigoBarras(rs.getString("codigobarras"));
-				a.setConteudoEmbalagem(rs.getString("conteudoembalagem"));
-				a.setCor(rs.getString("cor"));
-				a.setDataaFabricacao(rs.getString("datafabricaco"));
-				a.setDescricao(rs.getString("descricao"));
-				a.setDimensoes(rs.getString("dimensoes"));
-				a.setMemoria(rs.getString("memoria"));
-				a.setModelo(rs.getString("modelo"));
-				a.setPreco(rs.getDouble("preco"));
-				a.setProcessador(rs.getString("processador"));
-				a.setRAM(rs.getString("ram"));
-				a.setResolucaoCamera(rs.getString("resolucaocamera"));
-				a.setSistemaOperacional(rs.getString("sistemaoperacional"));
-				a.setTamanhoDisplay(rs.getString("display"));
+
+						
+				a.setNome(rs.getString("ele_nome"));
+				a.setAlimentacao(rs.getString("ele_alimentacao"));
+				a.setCaminhoFoto(rs.getString("ele_caminhofoto"));
+				a.setCategoria(rs.getString("cat_id"));
+				a.setCodigoBarras(rs.getString("ele_codigobarras"));
+				a.setConteudoEmbalagem(rs.getString("ele_conteudoembalagem"));
+				a.setCor(rs.getString("ele_cor"));
+				a.setDataaFabricacao(rs.getString("ele_datafabricaco"));
+				a.setDescricao(rs.getString("ele_descricao"));
+				a.setDimensoes(rs.getString("ele_dimensoes"));
+				a.setMemoria(rs.getString("ele_memoria"));
+				a.setModelo(rs.getString("ele_modelo"));
+				a.setPreco(rs.getDouble("ele_preco"));
+				a.setProcessador(rs.getString("ele_processador"));
+				a.setRAM(rs.getString("ele_ram"));
+				a.setResolucaoCamera(rs.getString("ele_resolucaocamera"));
+				a.setSistemaOperacional(rs.getString("ele_sistemaoperacional"));
+				a.setTamanhoDisplay(rs.getString("ele_display"));
+				a.setAtivo(rs.getString("ele_status"));
+				a.setId(rs.getInt("ele_id"));
 
 				
 				eletronicos.add(a);

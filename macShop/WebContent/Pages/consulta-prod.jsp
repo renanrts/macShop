@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -71,7 +74,7 @@
                                 <ul class="sub_menu">
                                     <li><a href="area-cli.jsp">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
-                                    <li><a href="#">Logout</a></li>
+                                    <li><a href="/macShop/Pages/consultaCategoria?btnOperacao=CONSULTAR">Logout</a></li>
                                 </ul>
                             </li>
 
@@ -231,9 +234,19 @@
 
                 </div>
                 <div class="col-md-3">
-                    <a href="cad-produto.jsp" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                        Cadastrar novo
-                    </a>
+                
+            	 <form action="/macShop/Pages/consultaCategoria" method="POST">
+            	 
+            	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Cadastrar novo</button>
+            	   
+            	   </form>
+            	   
+            	   	 <form action="/macShop/Pages/consultaProdutos" method="POST">
+            		
+            	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Consultar</button>
+            	   
+            	   </form>
+                
                 </div>
             </div>
             <div class="table-wrapper">
@@ -253,17 +266,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                         <c:forEach var="eletronico" items="${resultado }" >
                         <tr>
 
-                            <td>001</td>
-                            <td>iPhone X Preto 64gb</td>
-                            <td>X Preto 64gb</td>
-                            <td>iPhone</td>
-                            <td>5555735</td>
-                            <td>12
-
-                            </td>
-                            <td>Ativo</td>
+                            <td>${eletronico.id } </td>
+                            <td>${eletronico.nome }</td>
+                            <td>${eletronico.modelo }</td>
+                            <td>${eletronico.categoria }</td>
+                            <td>${eletronico.preco }</td>
+                            <td>${eletronico.descricao }</td>
+                            <td>${eletronico.ativo }</td>
                             <td>
                                 <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
                                         title="Edit">&#xE254;</i></a>
@@ -277,120 +289,9 @@
                                         style="display:inline-block">check</i></a>
 
                         </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>iPhone X Preto 64gb</td>
-                            <td>X Preto 64gb</td>
-                            <td>iPhone</td>
-                            <td>5555735</td>
-                            <td>12
-
-                            </td>
-                            <td>Ativo</td>
-                            <td>
-                                <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">add</i></a>
-                                <a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-                            </td>
-                        </tr>
-
-                        <tr>
-
-                            <td>003</td>
-                            <td>iPhone X Preto 64gb</td>
-                            <td>X Preto 64gb</td>
-                            <td>iPhone</td>
-                            <td>5555735</td>
-                            <td>12
-
-                            </td>
-                            <td>Ativo</td>
-                            <td>
-                                <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">add</i></a>
-                                <a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>004</td>
-                            <td>iPhone X Preto 64gb</td>
-                            <td>X Preto 64gb</td>
-                            <td>iPhone</td>
-                            <td>5555735</td>
-                            <td>12
-
-                            </td>
-                            <td>Ativo</td>
-                            <td>
-                                <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">add</i></a>
-                                <a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>005</td>
-                            <td>iPhone X Preto 64gb</td>
-                            <td>X Preto 64gb</td>
-                            <td>iPhone</td>
-                            <td>5555735</td>
-                            <td>12
-
-                            </td>
-                            <td>Ativo</td>
-                            <td>
-                                <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">add</i></a>
-                                <a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-                        </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Mostrando <b>5</b> de <b>25</b> produtos.</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Anterior</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Próximo</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
         <!-- Edit Modal HTML -->

@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.les.negocio.StValidarDadosObrigatorios;
+import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.negocio.IStrategy;
-import br.com.les.negocio.StTeste;
 import br.com.les.util.Resultado;
 
 
@@ -33,6 +33,7 @@ public class Fachada implements IFachada {
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		
 		mapDAO.put("ELETRONICO", new DAOEletronico());
+		mapDAO.put("CATEGORIA", new DAOCategoria());
 		
 
 	}

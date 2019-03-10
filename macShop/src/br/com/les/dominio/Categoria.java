@@ -1,12 +1,16 @@
 package br.com.les.dominio;
 
-public enum Categoria {
+public class Categoria extends EntidadeDominio {
 	
-iPhone,
-iPad,
-Macbook,
-Acessório;
-	
+	private String descricao;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
 
 }

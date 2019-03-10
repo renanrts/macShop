@@ -26,6 +26,9 @@ public class StValidarDadosObrigatorios implements IStrategy{
 			mensagem.append("Foto é um campo obrigatório\n");
 		}
 		
+		eletronico.getDataaFabricacao().isEmpty();
+		eletronico.getCategoria().isEmpty();
+	
 		if(eletronico.getCategoria() == null || eletronico.getCategoria().equals("")){
 			mensagem.append("Categoria é um campo obrigatório\n");
 		}

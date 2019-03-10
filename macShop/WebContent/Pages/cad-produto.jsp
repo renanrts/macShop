@@ -81,7 +81,7 @@
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
                                     <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
-                                    <li><a href="consulta-prod.jsp">Produtos</a></li>
+                                    <li><a href="/macShop/Pages/consultaCategoria">Produtos</a></li>
                                     <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -227,21 +227,21 @@
 
 
 
-                                            <form action="/macShop/Pages/servlet" method="POST" class="billing-form bg-light p-3 p-md-5">
-												<input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
+                                            <form action="/macShop/Pages/cadastroEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
+												
 
                                                 <h3 class="mb-4 billing-heading">Cadastrar eletrônico</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
+                                                            <input value="${eletronico.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Preço</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtPreco" name="txtPreco">
+                                                            <input value="${eletronico.preco}" type="text" class="form-control" placeholder="" id="txtPreco" name="txtPreco">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
@@ -251,11 +251,18 @@
                                                             <div class="select-wrap">
                                                                 <div class="icon"><span
                                                                         class="ion-ios-arrow-down"></span></div>
-                                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                                    <option name="txtCategoria" value="iPhone">iPhone</option>
-                                                                    <option name="txtCategoria" value="iPad">iPad</option>
-                                                                    <option name="txtCategoria" value="Macbook">Macbook</option>
-                                                                </select>
+                                                                   <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="categoria" items="${resultado }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria.id }">${categoria.id } - ${categoria.descricao } ${eletronico.categoria}</option>
+															
+																     </c:forEach>   
+                                                                    </select>
+                                      
+                                                               
+                                                                
+                                                                
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -263,108 +270,102 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Ano de Fabricação</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao">
+                                                            <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao" value="${eletronico.dataaFabricacao}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Modelo</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtModelo" name="txtModelo">
+                                                            <input type="text" class="form-control" placeholder="" id="txtModelo" name="txtModelo" value="${eletronico.modelo}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Cor</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtCor" name="txtCor">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCor" name="txtCor" value="${eletronico.cor}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Dimensões</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes">
+                                                            <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes" value="${eletronico.dimensoes}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="phone">Código de Barras</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras" value="${eletronico.codigoBarras}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="emailaddress">Foto do Produto</label>
                                                             <input type="text" class="form-control"
-                                                                placeholder="Inserir o caminho da foto" id="txtFoto" name="txtFoto">
+                                                                placeholder="Inserir o caminho da foto" id="txtFoto" name="txtFoto" value="${eletronico.caminhoFoto}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Memória</label>
-                                                            <input type="text" class="form-control" placeholder=""id="txtMemoria" name="txtMemoria" >
+                                                            <input type="text" class="form-control" placeholder=""id="txtMemoria" name="txtMemoria" value="${eletronico.memoria}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Processador</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtProcessador" name="txtProcessador" >
+                                                            <input type="text" class="form-control" placeholder="" id="txtProcessador" name="txtProcessador" value="${eletronico.processador}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Tamanho Display</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtTamanhoDisplay" name="txtTamanhoDisplay">
+                                                            <input type="text" class="form-control" placeholder="" id="txtTamanhoDisplay" name="txtTamanhoDisplay" value="${eletronico.tamanhoDisplay}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Resolução Camera</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtResolucaoCamera" name="txtResolucaoCamera">
+                                                            <input type="text" class="form-control" placeholder="" id="txtResolucaoCamera" name="txtResolucaoCamera" value="${eletronico.resolucaoCamera}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Conteúdo da embalagem</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtConteudoEmbalagem" name="txtConteudoEmbalagem">
+                                                            <input type="text" class="form-control" placeholder="" id="txtConteudoEmbalagem" name="txtConteudoEmbalagem" value="${eletronico.conteudoEmbalagem}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Alimentação</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtAlimentacao" name="txtAlimentacao">
+                                                            <input type="text" class="form-control" placeholder="" id="txtAlimentacao" name="txtAlimentacao" value="${eletronico.alimentacao}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">RAM</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtRAM" name="txtRAM">
+                                                            <input type="text" class="form-control" placeholder="" id="txtRAM" name="txtRAM" value="${eletronico.RAM}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Sistema Operacional</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtSO" name="txtSO">
+                                                            <input type="text" class="form-control" placeholder="" id="txtSO" name="txtSO" value="${eletronico.sistemaOperacional}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao"></textarea>
+                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="postcodezip">Quantidade</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtQtde" name="txtQtde">
-                                                        </div>
-                                                    </div>
-
+                                          
 
                                                 </div>
                                                 <div class="w-100"></div>
@@ -381,7 +382,8 @@
                                                     </div>
                                                 </div>
                                         </div>
-                                        </form><!-- END -->
+                                        </form>
+                                        <!-- END -->
                                     </div> <!-- .col-md-8 -->
                                 </div>
                             </div>
