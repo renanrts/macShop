@@ -92,41 +92,21 @@ public class VHProduto implements IViewHelper{
 			RequestDispatcher rd = request.getRequestDispatcher("cad-produto.jsp");
 			rd.forward(request, response);
 			}
-			else if(operacao.equals("CONSULTAR")){
-				if(resultado.getResultado() != null){					
+			else if(operacao.equals("CONSULTAR")){			
 					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
-				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
-				}
 			}
 			else if(operacao.equals("VISUALIZAR")){
-				if(resultado.getResultado() != null){					
+
 					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
 					rd.forward(request, response);
-				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
-					rd.forward(request, response);
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
-					rd.forward(request, response);
-				}
+
 			}
 			else if(operacao.equals("INATIVAR")){
-				if(resultado.getResultado() != null){					
+								
 					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
-				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
-				}
+
 			}
 			
 		} catch (Exception e) {
