@@ -10,7 +10,7 @@ import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 
-public class VHEletronico implements IViewHelper{
+public class VHProduto implements IViewHelper{
 
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
@@ -30,7 +30,7 @@ public class VHEletronico implements IViewHelper{
 		eletronico.setDescricao(String.valueOf(request.getParameter("txtDescricao")));
 		eletronico.setMemoria(request.getParameter("txtMemoria"));
 		eletronico.setModelo(request.getParameter("txtModelo"));
-		
+		eletronico.setId(Integer.parseInt(request.getParameter("txtID")));
 		
 		
 		if(request.getParameter("txtPreco") != null)
@@ -80,14 +80,11 @@ public class VHEletronico implements IViewHelper{
 			}
 		}
 		else if(operacao.equals("VISUALIZAR")){
-			if(!resultado.getErro()){
-				if(resultado.getResultado() != null){
-					request.setAttribute("eletronico", (Eletronico) resultado.getResultado());
-		
-				}else{
+
 					request.setAttribute("resultado", resultado.getListaResultado());
-				}
-			}
+					request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+
+
 		}
 		
 		try {
@@ -97,7 +94,7 @@ public class VHEletronico implements IViewHelper{
 			}
 			else if(operacao.equals("CONSULTAR")){
 				if(resultado.getResultado() != null){					
-					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
 					rd.forward(request, response);
 				} else if(resultado.getListaResultado() != null){
 					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
@@ -119,6 +116,19 @@ public class VHEletronico implements IViewHelper{
 					rd.forward(request, response);
 				}
 			}
+			else if(operacao.equals("INATIVAR")){
+				if(resultado.getResultado() != null){					
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+					rd.forward(request, response);
+				} else if(resultado.getListaResultado() != null){
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+					rd.forward(request, response);
+				} else {
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+					rd.forward(request, response);
+				}
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

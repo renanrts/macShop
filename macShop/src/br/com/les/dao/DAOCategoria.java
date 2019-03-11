@@ -86,4 +86,10 @@ public class DAOCategoria extends AbstractDAO{
 		return null;
 	}
 
+	@Override
+	public Resultado visualizar(EntidadeDominio e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

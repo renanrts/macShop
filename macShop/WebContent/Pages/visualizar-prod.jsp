@@ -230,7 +230,7 @@
                                             <form action="/macShop/Pages/cadastroEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
 												
 
-                                                <h3 class="mb-4 billing-heading">Cadastrar eletrônico</h3>
+                                                <h3 class="mb-4 billing-heading">Visualizar eletrônico</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -252,12 +252,11 @@
                                                                 <div class="icon"><span
                                                                         class="ion-ios-arrow-down"></span></div>
                                                                    <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                                     <c:forEach var="categoria" items="${resultado }" >
+                                                                     
                                                             
-                                                                      <option name="txtCategoria" value="${categoria.id }">${categoria.id } - ${categoria.descricao } ${eletronico.categoria}</option>
+                                                                      <option name="txtCategoria" value="${categoria.id }">${eletronico.categoria } </option>
 															
-																     </c:forEach>   
-																	   <option name="txtCategoria" value="${categoria.id }">${eletronico.categoria } </option>
+													
                                                                     </select>
                                       
                                                                
@@ -363,7 +362,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}"></textarea>
+                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}">${eletronico.descricao}</textarea>
                                                         </div>
                                                     </div>
                                           
@@ -373,12 +372,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-4">
                                                         <center>
-                                                            <div class="header-cart-wrapbtn">
-                                                                <!-- Button -->
-                                                                
-                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
-                                                             
-                                                            </div>
+                                                            
                                                         </center>
                                                     </div>
                                                 </div>
@@ -409,7 +403,7 @@
 
 
 
-                                                <h3 class="mb-4 billing-heading">Cadastrar acessório</h3>
+                                                <h3 class="mb-4 billing-heading">Visualizar acessório</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -519,13 +513,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-4">
                                                         <center>
-                                                            <div class="header-cart-wrapbtn">
-                                                                <!-- Button -->
-                                                                <a href="#"
-                                                                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                    Salvar
-                                                                </a>
-                                                            </div>
+                                                           
                                                         </center>
                                                     </div>
                                                 </div>

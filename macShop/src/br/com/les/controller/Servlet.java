@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.les.command.CmdConsultar;
+import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
+import br.com.les.command.CmdVisualizar;
 import br.com.les.command.ICommand;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
@@ -17,11 +19,12 @@ import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHEletronico;
+import br.com.les.viewhelper.VHProduto;
 
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" })
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -36,16 +39,21 @@ public class Servlet extends HttpServlet{
 	
 			mapCommand.put("SALVAR", new CmdSalvar());
 			mapCommand.put("CONSULTAR", new CmdConsultar());
+			mapCommand.put("VISUALIZAR", new CmdVisualizar());
+			mapCommand.put("INATIVAR", new CmdInativar());
 			
 			mapViewHelper.put("/macShop/Pages/cadastroEletronico", new VHEletronico());
 			mapViewHelper.put("/macShop/Pages/consultaProdutos", new VHEletronico());
 			mapViewHelper.put("/macShop/Pages/cadastroAcessorio", new VHAcessorio());
 			mapViewHelper.put("/macShop/Pages/consultaCategoria", new VHCategoria());
+			mapViewHelper.put("/macShop/Pages/visualizarProduto", new VHProduto());
+			mapViewHelper.put("/macShop/Pages/inativarProduto", new VHProduto());
 
 		}
 		
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) {
+		
 		
 			String uri = request.getRequestURI();
 			String operacao = request.getParameter("btnOperacao");

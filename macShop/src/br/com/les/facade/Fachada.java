@@ -34,6 +34,7 @@ public class Fachada implements IFachada {
 		
 		mapDAO.put("ELETRONICO", new DAOEletronico());
 		mapDAO.put("CATEGORIA", new DAOCategoria());
+		mapDAO.put("PRODUTO", new DAOEletronico());
 		
 
 	}
@@ -86,6 +87,19 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 	public Resultado consultar(EntidadeDominio entidade) {
 		IDAO dao = mapDAO.get(entidade.getClass().getSimpleName().toUpperCase());
 		return dao.consultar(entidade);
+	}
+
+	@Override
+	public Resultado visualizar(EntidadeDominio e) {
+		
+		IDAO dao = mapDAO.get(e.getClass().getSimpleName().toUpperCase());
+		return dao.visualizar(e);
+	}
+
+	@Override
+	public Resultado excluir(EntidadeDominio e) {
+		IDAO dao = mapDAO.get(e.getClass().getSimpleName().toUpperCase());
+		return dao.excluir(e);
 	}
 
 

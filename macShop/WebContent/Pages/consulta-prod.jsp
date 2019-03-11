@@ -280,14 +280,22 @@
                                 <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
                                         title="Edit">&#xE254;</i></a>
                                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add">&#xE872;</i></a>
+                                        class="material-icons" data-toggle="tooltip" title="Add" onclick="setaDadosModal('${eletronico.id }')">&#xE872;</i></a>
                                 <a href="#addEstoque" class="confirm" data-toggle="modal"
                                     style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
                                         title="Add" style="display:inline-block">add</i></a>
-                                <a href="#inativar" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
+                                        
+                                    <form action="/macShop/Pages/visualizarProduto" method="POST">
+            	 
+            					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
+            					   </form>    
+                                        
+                       
+                            
+                          
+                           
+                              
                         </tr>
                         </c:forEach>
                     </tbody>
@@ -372,8 +380,10 @@
                             <h4 class="modal-title">Inativar produto</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
+                        
+                        
                         <div class="modal-body">
-                            <p>Tem certeza que deseja inativar o produto?</p>
+                            <p>Tem certeza que deseja inativar o produto? ${eletronico.id }</p>
 
                         </div>
                         <div class="modal-body">
@@ -381,9 +391,21 @@
                             <label for="towncity">Motivo</label>
                             <textarea class="form-control" name="message" placeholder=""></textarea>
                         </div>
+                        
+            
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-danger" value="Inativar">
+                       
+            	 
+            	  			 
+            	   
+            	  
+                        	<form id="deleteEmployeeModal" method="post" action="/macShop/Pages/inativarProduto">
+                        	<input type="hidden" name="txtID" id="txtID" value="txtID">
+                        	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">Inativar</button>
+                       			 
+                   			 </form>
+                          
+                     
                         </div>
                     </form>
                 </div>
@@ -580,6 +602,12 @@
             minimumResultsForSearch: 20,
             dropdownParent: $('#dropDownSelect2')
         });
+    </script>
+    
+    <script>
+    function setaDadosModal(valor) {
+        document.getElementById('txtID').value = valor ;
+    }
     </script>
     <!--===============================================================================================-->
     <script src="../https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>

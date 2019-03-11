@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
@@ -65,7 +66,7 @@ public class DAOEletronico extends AbstractDAO{
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
 		
-	
+		Eletronico eletronico = (Eletronico) entidade;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
 		
@@ -77,9 +78,17 @@ public class DAOEletronico extends AbstractDAO{
 			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
-			stmt = this.con.prepareStatement(
+			if (eletronico.getId() != 0)
+			{
+				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE id = ?");
+				stmt.setInt(1, eletronico.getId());
+			}
+			else
+			{
+				stmt = this.con.prepareStatement(
 				"SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_ido, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id"
 			);
+			}
 			
 			ResultSet rs = stmt.executeQuery();
 						
@@ -91,7 +100,7 @@ public class DAOEletronico extends AbstractDAO{
 				a.setNome(rs.getString("ele_nome"));
 				a.setAlimentacao(rs.getString("ele_alimentacao"));
 				a.setCaminhoFoto(rs.getString("ele_caminhofoto"));
-				a.setCategoria(rs.getString("cat_id"));
+				a.setCategoria(rs.getString("cat_descricao"));
 				a.setCodigoBarras(rs.getString("ele_codigobarras"));
 				a.setConteudoEmbalagem(rs.getString("ele_conteudoembalagem"));
 				a.setCor(rs.getString("ele_cor"));
@@ -149,8 +158,112 @@ public class DAOEletronico extends AbstractDAO{
 
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+Eletronico eletronico = (Eletronico) entidade;
+		
+		Resultado resultado = new Resultado();
+		
+		String sql = "UPDATE ELETRONICOS SET ele_status = ? WHERE ele_id = ?";
+
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, "Inativo");
+			stmt.setInt(2, eletronico.getId());
+
+			stmt.execute();
+
+			stmt.close();
+
+			resultado.sucesso("Salvo com sucesso!");
+			return resultado;
+
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			resultado.erro("Erro salvar, por favor, refaça a operação.");
+			return resultado;
+		}
 	}
+	
+	public Resultado visualizar(EntidadeDominio entidade)
+	{
+		Eletronico eletronico = (Eletronico) entidade;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+		
+
+
+		try {
+			
+			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
+			PreparedStatement stmt = null;
+			Boolean visualizar = false;
+			
+
+			stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_ido, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE ele_id = ?");
+			stmt.setInt(1, eletronico.getId());
+
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+								
+				Eletronico a = new Eletronico();
+
+						
+				a.setNome(rs.getString("ele_nome"));
+				a.setAlimentacao(rs.getString("ele_alimentacao"));
+				a.setCaminhoFoto(rs.getString("ele_caminhofoto"));
+				a.setCategoria(rs.getString("cat_descricao"));
+				a.setCodigoBarras(rs.getString("ele_codigobarras"));
+				a.setConteudoEmbalagem(rs.getString("ele_conteudoembalagem"));
+				a.setCor(rs.getString("ele_cor"));
+				a.setDataaFabricacao(rs.getString("ele_datafabricaco"));
+				a.setDescricao(rs.getString("ele_descricao"));
+				a.setDimensoes(rs.getString("ele_dimensoes"));
+				a.setMemoria(rs.getString("ele_memoria"));
+				a.setModelo(rs.getString("ele_modelo"));
+				a.setPreco(rs.getDouble("ele_preco"));
+				a.setProcessador(rs.getString("ele_processador"));
+				a.setRAM(rs.getString("ele_ram"));
+				a.setResolucaoCamera(rs.getString("ele_resolucaocamera"));
+				a.setSistemaOperacional(rs.getString("ele_sistemaoperacional"));
+				a.setTamanhoDisplay(rs.getString("ele_display"));
+				a.setAtivo(rs.getString("ele_status"));
+				a.setId(rs.getInt("ele_id"));
+
+				
+				eletronicos.add(a);
+				contagem++;
+			}
+			
+			if(visualizar){
+				resultado.setResultado(eletronicos.get(0));
+			} else{
+				resultado.setListaResultado(eletronicos);
+			}
+			
+			
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+	}
+	
 
 }
