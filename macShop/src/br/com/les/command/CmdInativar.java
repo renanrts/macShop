@@ -7,8 +7,7 @@ public class CmdInativar extends AbstractCommand {
 
 	@Override
 	public Resultado executar(EntidadeDominio e) {
-		// TODO Auto-generated method stub
-		return null;
+		return fachada.excluir(e);
 	}
 
 }

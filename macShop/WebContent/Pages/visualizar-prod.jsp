@@ -228,6 +228,7 @@
 
 
                                             <form action="/macShop/Pages/cadastroEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
+											 <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
 												
 
                                                 <h3 class="mb-4 billing-heading">Visualizar eletrônico</h3>

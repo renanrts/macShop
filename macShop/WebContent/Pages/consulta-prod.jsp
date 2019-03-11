@@ -236,12 +236,16 @@
                 <div class="col-md-3">
                 
             	 <form action="/macShop/Pages/consultaCategoria" method="POST">
+            	    <input type="hidden" id="FormName" name="FormName" value="VHCATEGORIA" />
+            	 
             	 
             	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Cadastrar novo</button>
             	   
             	   </form>
             	   
             	   	 <form action="/macShop/Pages/consultaProdutos" method="POST">
+            	   	    <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
+            	   	 
             		
             	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Consultar</button>
             	   
@@ -286,6 +290,7 @@
                                         title="Add" style="display:inline-block">add</i></a>
                                         
                                     <form action="/macShop/Pages/visualizarProduto" method="POST">
+            						    <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
             	 
             					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
@@ -401,6 +406,7 @@
             	  
                         	<form id="deleteEmployeeModal" method="post" action="/macShop/Pages/inativarProduto">
                         	<input type="hidden" name="txtID" id="txtID" value="txtID">
+                        	<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
                         	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">Inativar</button>
                        			 
                    			 </form>

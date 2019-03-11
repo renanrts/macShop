@@ -42,25 +42,20 @@ public class Servlet extends HttpServlet{
 			mapCommand.put("VISUALIZAR", new CmdVisualizar());
 			mapCommand.put("INATIVAR", new CmdInativar());
 			
-			mapViewHelper.put("/macShop/Pages/cadastroEletronico", new VHEletronico());
-			mapViewHelper.put("/macShop/Pages/consultaProdutos", new VHEletronico());
-			mapViewHelper.put("/macShop/Pages/cadastroAcessorio", new VHAcessorio());
-			mapViewHelper.put("/macShop/Pages/consultaCategoria", new VHCategoria());
-			mapViewHelper.put("/macShop/Pages/visualizarProduto", new VHProduto());
-			mapViewHelper.put("/macShop/Pages/inativarProduto", new VHProduto());
+			mapViewHelper.put("VHELETRONICO", new VHEletronico());
+			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
+			mapViewHelper.put("VHPRODUTO", new VHProduto());
 
 		}
 		
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) {
 		
-		
-			String uri = request.getRequestURI();
 			String operacao = request.getParameter("btnOperacao");
-
 			ICommand command = mapCommand.get(operacao);
 			
-	 		IViewHelper viewHelper = mapViewHelper.get(uri);
+			String formName = request.getParameter("FormName");
+	 		IViewHelper viewHelper = mapViewHelper.get(formName);
 	 			 		
 			EntidadeDominio entidade = viewHelper.getEntidade(request);
 
