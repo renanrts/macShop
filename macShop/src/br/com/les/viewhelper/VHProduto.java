@@ -96,14 +96,14 @@ public class VHProduto implements IViewHelper{
 
 			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-
+			
 
 		}
 		else if(operacao.equals("ALTERAR")){
 
 			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-
+			request.setAttribute("sucesso", "Alterado com sucesso!");
 
 
 }
