@@ -11,6 +11,7 @@ public class Resultado {
 	private boolean erro;
 	private String mensagem;
 	private int contagem = 0;
+	private List<EntidadeDominio> categoria;
 	
 	
 	public List<EntidadeDominio> getListaResultado() {
@@ -51,6 +52,14 @@ public class Resultado {
 		this.contagem = contagem;
 	}
 	
+	public void setCategoria (List<EntidadeDominio> categorias)
+	{
+		this.categoria = categorias;
+	}
 	
+	public List<EntidadeDominio> getCategoria ()
+	{
+		return categoria;
+	}
 
 }

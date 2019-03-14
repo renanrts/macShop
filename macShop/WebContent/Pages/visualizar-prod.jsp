@@ -197,7 +197,12 @@
         </h2>
     </section>
 
-
+<c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
 
     <section class="bgwhite p-t-45 p-b-58">
         <div class="container">
@@ -227,12 +232,20 @@
 
 
 
-                                            <form action="/macShop/Pages/cadastroEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
-											 <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
+                                            <form action="/macShop/Pages/alterarEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
+											 <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
 												
 
                                                 <h3 class="mb-4 billing-heading">Visualizar eletrônico</h3>
                                                 <div class="row align-items-end">
+                                                
+                                                     <div class="w-100"></div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="towncity">ID</label>
+                                                            <input type="text" class="form-control" placeholder="" id="txtID" name="txtID" value="${eletronico.id}" READONLY>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
@@ -254,8 +267,8 @@
                                                                         class="ion-ios-arrow-down"></span></div>
                                                                    <select name="txtCategoria" id="txtCategoria" class="form-control">
                                                                      
-                                                            
-                                                                      <option name="txtCategoria" value="${categoria.id }">${eletronico.categoria } </option>
+                                               
+                                                                      <option name="txtCategoria" value="${eletronico.categoria.id }">${eletronico.categoria.descricao } </option>
 															
 													
                                                                     </select>
@@ -373,7 +386,13 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-4">
                                                         <center>
-                                                            
+                                                             <div class="header-cart-wrapbtn">
+                                                                <!-- Button -->
+                                                      			<input type="hidden" id="FormName" name="txtStatus" value="${eletronico.ativo }" />	
+                                                      			
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">Alterar</button>
+                                                             	 <input type="hidden" id="FormName" name="txtCategoria" value="${eletronico.categoria.id }" />
+                                                            </div>
                                                         </center>
                                                     </div>
                                                 </div>
@@ -514,7 +533,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-4">
                                                         <center>
-                                                           
+                                                                         <div class="header-cart-wrapbtn">
+                                                                <!-- Button -->
+                                                     
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">Alterar</button>
+                                                             
+                                                            </div>
                                                         </center>
                                                     </div>
                                                 </div>

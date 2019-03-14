@@ -13,4 +13,6 @@ public interface IFachada {
 	
 	public Resultado excluir(EntidadeDominio e);
 
+	public Resultado alterar(EntidadeDominio e);
+
 }

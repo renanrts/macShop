@@ -16,11 +16,24 @@ public class VHProduto implements IViewHelper{
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		
 		Eletronico eletronico = new Eletronico();
-
+		Categoria categoria = new Categoria();
+		
+		
+		if(request.getParameter("txtCategoria") != null)
+		{
+			try {
+				categoria.setId(Integer.parseInt(request.getParameter("txtCategoria")));
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 		eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
 		eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
-		eletronico.setCategoria(request.getParameter("txtCategoria"));
+		eletronico.setCategoria(categoria);
 		eletronico.setCodigoBarras(request.getParameter("txtCodBarras"));
 		eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
 		eletronico.setCor(request.getParameter("txtCor"));
@@ -31,7 +44,7 @@ public class VHProduto implements IViewHelper{
 		eletronico.setMemoria(request.getParameter("txtMemoria"));
 		eletronico.setModelo(request.getParameter("txtModelo"));
 		eletronico.setId(Integer.parseInt(request.getParameter("txtID")));
-		
+		eletronico.setAtivo(request.getParameter("txtStatus"));
 		
 		if(request.getParameter("txtPreco") != null)
 		{
@@ -81,11 +94,19 @@ public class VHProduto implements IViewHelper{
 		}
 		else if(operacao.equals("VISUALIZAR")){
 
-					request.setAttribute("resultado", resultado.getListaResultado());
-					request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			request.setAttribute("categoria", (Categoria) resultado.getResultado());
 
 
 		}
+		else if(operacao.equals("ALTERAR")){
+
+			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			request.setAttribute("categoria", (Categoria) resultado.getResultado());
+
+
+
+}
 		
 		try {
 			if(operacao.equals("SALVAR")){
@@ -108,6 +129,12 @@ public class VHProduto implements IViewHelper{
 					rd.forward(request, response);
 
 			}
+			else if(operacao.equals("ALTERAR")){
+				
+				RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
+				rd.forward(request, response);
+
+		}
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -7,7 +7,7 @@ public class Produto extends EntidadeDominio{
 
 	protected String nome;
 	protected double preco;
-	protected String categoria;
+	protected Categoria categoria;
 	protected String dataaFabricacao;
 	protected String cor;
 	protected String dimensoes;
@@ -34,10 +34,10 @@ public class Produto extends EntidadeDominio{
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	public String getDataaFabricacao() {

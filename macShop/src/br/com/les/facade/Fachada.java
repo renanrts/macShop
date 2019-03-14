@@ -11,6 +11,7 @@ import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.util.Resultado;
 
 
@@ -27,7 +28,9 @@ public class Fachada implements IFachada {
 
 		listStrategySalvar = new ArrayList<IStrategy>();
 
+		listStrategySalvar.add(new StComplementarCategoria());
 		listStrategySalvar.add(new StValidarDadosObrigatorios());
+		
 	
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
@@ -57,8 +60,11 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 		}
 		
 		if(mensagens == ""){
+			
+		
 			resultado.sucesso("SUCESSO");
 		}else{
+			
 			List<EntidadeDominio> l = new ArrayList<>();
 			l.add(entidade);
 			resultado.setListaResultado(l);
@@ -80,6 +86,7 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 			resultado = dao.salvar(entidade);
 		}
 		
+		
 		return resultado;
 	}
 
@@ -100,6 +107,12 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 	public Resultado excluir(EntidadeDominio e) {
 		IDAO dao = mapDAO.get(e.getClass().getSimpleName().toUpperCase());
 		return dao.excluir(e);
+	}
+
+	@Override
+	public Resultado alterar(EntidadeDominio e) {
+		IDAO dao = mapDAO.get(e.getClass().getSimpleName().toUpperCase());
+		return dao.alterar(e);
 	}
 
 

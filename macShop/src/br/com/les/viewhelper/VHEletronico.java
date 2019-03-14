@@ -16,11 +16,24 @@ public class VHEletronico implements IViewHelper{
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		
 		Eletronico eletronico = new Eletronico();
-
+		Categoria categoria = new Categoria();
+		
+		if(request.getParameter("txtCategoria") != null)
+		{
+			try {
+				categoria.setId(Integer.parseInt(request.getParameter("txtCategoria")));
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 		eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
 		eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
-		eletronico.setCategoria(request.getParameter("txtCategoria"));
+		eletronico.setCategoria(categoria);
 		eletronico.setCodigoBarras(request.getParameter("txtCodBarras"));
 		eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
 		eletronico.setCor(request.getParameter("txtCor"));
@@ -67,7 +80,10 @@ public class VHEletronico implements IViewHelper{
 		if(operacao.equals("SALVAR")){
 			if(resultado.getErro()){
 				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
-				request.setAttribute("categoria", (Categoria) resultado.getResultado());
+			}
+			else
+			{
+				request.setAttribute("resultado", resultado.getCategoria());
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){

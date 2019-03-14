@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.les.dominio.Categoria;
+import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 
@@ -51,6 +52,7 @@ public class DAOCategoria extends AbstractDAO{
 				resultado.setResultado(categorias.get(0));
 			} else{
 				resultado.setListaResultado(categorias);
+				resultado.setCategoria(categorias);
 			}
 			
 			
@@ -90,6 +92,44 @@ public class DAOCategoria extends AbstractDAO{
 	public Resultado visualizar(EntidadeDominio e) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Resultado consultarCategoria(EntidadeDominio e)
+	{
+		Eletronico eletronico = (Eletronico) e;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+		int idCategoria = eletronico.getCategoria().getId();
+		
+		
+		try {
+			
+			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
+			PreparedStatement stmt = null;
+			Boolean visualizar = false;
+			
+			stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
+			stmt.setInt(1, idCategoria);
+
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+								
+				eletronico.getCategoria().setDescricao(rs.getString("cat_descricao"));
+				
+			}
+			
+			
+			rs.close();
+			stmt.close();
+			return null;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
 	}
 
 }

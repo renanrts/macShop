@@ -26,10 +26,8 @@ public class StValidarDadosObrigatorios implements IStrategy{
 			mensagem.append("Foto é um campo obrigatório\n");
 		}
 		
-		eletronico.getDataaFabricacao().isEmpty();
-		eletronico.getCategoria().isEmpty();
-	
-		if(eletronico.getCategoria() == null || eletronico.getCategoria().equals("")){
+
+		if(eletronico.getCategoria().getDescricao() == null || eletronico.getCategoria().getDescricao().equals("")){
 			mensagem.append("Categoria é um campo obrigatório\n");
 		}
 		
@@ -87,7 +85,7 @@ public class StValidarDadosObrigatorios implements IStrategy{
 		}
 		
 		if(eletronico.getTamanhoDisplay() == null || eletronico.getTamanhoDisplay().equals("")){
-			mensagem.append("Sistema Operacional é um campo obrigatório\n");
+			mensagem.append("Tamanho do Display é um campo obrigatório\n");
 		}
 		
 		

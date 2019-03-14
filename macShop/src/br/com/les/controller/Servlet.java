@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.les.command.CmdAlterar;
 import br.com.les.command.CmdConsultar;
 import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
@@ -24,7 +25,7 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -41,6 +42,7 @@ public class Servlet extends HttpServlet{
 			mapCommand.put("CONSULTAR", new CmdConsultar());
 			mapCommand.put("VISUALIZAR", new CmdVisualizar());
 			mapCommand.put("INATIVAR", new CmdInativar());
+			mapCommand.put("ALTERAR", new CmdAlterar());
 			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());

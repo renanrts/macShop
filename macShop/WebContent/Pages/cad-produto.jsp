@@ -253,10 +253,10 @@
                                                                    <select name="txtCategoria" id="txtCategoria" class="form-control">
                                                                      <c:forEach var="categoria" items="${resultado }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria.id }">${categoria.id } - ${categoria.descricao } ${eletronico.categoria}</option>
+                                                                      <option name="txtCategoria" value="${categoria.id }">${categoria.id } - ${categoria.descricao } ${eletronico.categoria.descricao}</option>
 															
 																     </c:forEach>   
-																	   <option name="txtCategoria" value="${categoria.id }">${eletronico.categoria } </option>
+																	   <option name="txtCategoria" value="${eletronico.categoria.id }">${eletronico.categoria.descricao } </option>
                                                                     </select>
                                       
                                                                
@@ -375,6 +375,7 @@
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
                                                                 <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
+                                                                <input type="hidden" id="FormName" name="txtCat" value="${eletronico.categoria.id }" />
                                                                 <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
                                                              
                                                             </div>

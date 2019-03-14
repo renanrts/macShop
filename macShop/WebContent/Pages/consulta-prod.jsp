@@ -276,7 +276,7 @@
                             <td>${eletronico.id } </td>
                             <td>${eletronico.nome }</td>
                             <td>${eletronico.modelo }</td>
-                            <td>${eletronico.categoria }</td>
+                            <td>${eletronico.categoria.descricao }</td>
                             <td>${eletronico.preco }</td>
                             <td>${eletronico.descricao }</td>
                             <td>${eletronico.ativo }</td>
@@ -291,7 +291,7 @@
                                         
                                     <form action="/macShop/Pages/visualizarProduto" method="POST">
             						    <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
-            	 
+            	 					<input type="hidden" id="FormName" name="txtStatus" value="${eletronico.ativo }" />	
             					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
             					   </form>    
@@ -406,6 +406,7 @@
             	  
                         	<form id="deleteEmployeeModal" method="post" action="/macShop/Pages/inativarProduto">
                         	<input type="hidden" name="txtID" id="txtID" value="txtID">
+                        	
                         	<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
                         	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">Inativar</button>
                        			 
