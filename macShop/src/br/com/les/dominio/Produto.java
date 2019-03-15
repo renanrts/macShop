@@ -15,7 +15,7 @@ public class Produto extends EntidadeDominio{
 	protected String caminhoFoto;
 	protected String descricao;
 	protected String ativo;
-
+	
 	public String getAtivo() {
 		return ativo;
 	}

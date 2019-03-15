@@ -63,7 +63,7 @@ public class VHEletronico implements IViewHelper{
 		eletronico.setSistemaOperacional(request.getParameter("txtSO"));
 		eletronico.setTamanhoDisplay(request.getParameter("txtTamanhoDisplay"));
 		eletronico.setNome(request.getParameter("txtNome"));
-
+		eletronico.setTipo(request.getParameter("FormName"));
 		return eletronico;
 	}
 

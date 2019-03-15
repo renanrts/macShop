@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.les.negocio.StValidarDadosObrigatorios;
+import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
@@ -38,6 +39,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("ELETRONICO", new DAOEletronico());
 		mapDAO.put("CATEGORIA", new DAOCategoria());
 		mapDAO.put("PRODUTO", new DAOEletronico());
+		mapDAO.put("ACESSORIO", new DAOAcessorio());
 		
 
 	}

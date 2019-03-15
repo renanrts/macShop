@@ -374,7 +374,8 @@
                                                         <center>
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
-                                                                <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
+                                                                <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
+                                                                <input type="hidden" id="Tipo" name="Tipo" value="VHELETRONICO" />
                                                                 <input type="hidden" id="FormName" name="txtCat" value="${eletronico.categoria.id }" />
                                                                 <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
                                                              
@@ -405,7 +406,7 @@
 
 
 
-                                            <form action="#" class="billing-form bg-light p-3 p-md-5">
+                                            <form action="/macShop/Pages/cadastroAcessorio" class="billing-form bg-light p-3 p-md-5">
 
 
 
@@ -414,13 +415,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input value="${acessorio.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Preço</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input value="${acessorio.preco}" type="text" class="form-control" id="txtPreco" name="txtPreco" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
@@ -428,87 +429,73 @@
                                                         <div class="form-group">
                                                             <label for="country">Categoria</label>
                                                             <div class="select-wrap">
-                                                                <div class="icon"><span
-                                                                        class="ion-ios-arrow-down"></span></div>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="">Acessórios</option>
+                                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                                     <option name="txtCategoria" value="4">Acessórios</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="w-100"></div>
+                                                  <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Ano de Fabricação</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                               <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao" value="${acessorio.dataaFabricacao}">
+
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="streetaddress">Modelo</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <label for="towncity">Modelos Compatíveis</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="" id="txtModeloCompativel" name="txtModeloCompativel" value="${acessorio.modeloCompativel}">
                                                         </div>
                                                     </div>
+           
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Cor</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCor" name="txtCor" value="${acessorio.cor}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Dimensões</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                              <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes" value="${acessorio.dimensoes}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="phone">Código de Barras</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                         		<input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras" value="${acessorio.codigoBarras}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="emailaddress">Foto do Produto</label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Inserir o caminho da foto">
+                                                           <input type="text" class="form-control"
+                                                                placeholder="Inserir o caminho da foto" id="txtFoto" name="txtFoto" value="${acessorio.caminhoFoto}">
                                                         </div>
                                                     </div>
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="towncity">Modelos Compatíveis</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="postcodezip">Dimensões</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
+                                                    
+                                                   
+                                                 
 
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea class="form-control" name="message"
-                                                                placeholder=""></textarea>
+                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${acessorio.descricao}"></textarea>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="postcodezip">Quantidade</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
+                                                   
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <div class="checkbox">
-                                                                <label><input type="checkbox" value="" class="mr-2"> O
+                                                                <label><input type="checkbox" class="mr-2" name="txtMFI" value="Ativo"> O
                                                                     acessório possui selo MFI.</label>
                                                             </div>
                                                         </div>
@@ -521,10 +508,10 @@
                                                         <center>
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
-                                                                <a href="#"
-                                                                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                    Salvar
-                                                                </a>
+																<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
+                                                                <input type="hidden" id="FormName" name="txtCat" value="4" />
+                                                                <input type="hidden" id="Tipo" name="Tipo" value="VHACESSORIO" />
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
                                                             </div>
                                                         </center>
                                                     </div>

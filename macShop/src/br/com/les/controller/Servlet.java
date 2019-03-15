@@ -25,7 +25,7 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -47,6 +47,7 @@ public class Servlet extends HttpServlet{
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
 			mapViewHelper.put("VHPRODUTO", new VHProduto());
+			mapViewHelper.put("VHACESSORIO", new VHAcessorio());
 
 		}
 		
@@ -55,7 +56,8 @@ public class Servlet extends HttpServlet{
 		
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);
-			
+			String alla = request.getParameter("Tipo");
+			System.out.println(alla);
 			String formName = request.getParameter("FormName");
 	 		IViewHelper viewHelper = mapViewHelper.get(formName);
 	 			 		

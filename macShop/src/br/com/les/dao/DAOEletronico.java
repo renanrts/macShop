@@ -124,6 +124,7 @@ public class DAOEletronico extends AbstractDAO{
 				a.setTamanhoDisplay(rs.getString("ele_display"));
 				a.setAtivo(rs.getString("ele_status"));
 				a.setId(rs.getInt("ele_id"));
+				a.setTipo("VHELETRONICO");
 
 				
 				eletronicos.add(a);
@@ -345,7 +346,7 @@ Eletronico eletronico = (Eletronico) entidade;
 				a.setAtivo(rs.getString("ele_status"));
 				a.setId(rs.getInt("ele_id"));
 				categoria.setId(rs.getInt("cat_id"));
-				
+				a.setTipo("VHELETRONICO");
 				eletronicos.add(a);
 				eletronicos.add(categoria);
 				contagem++;

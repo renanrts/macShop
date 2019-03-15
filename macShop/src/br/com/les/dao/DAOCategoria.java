@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
@@ -96,40 +97,80 @@ public class DAOCategoria extends AbstractDAO{
 	
 	public Resultado consultarCategoria(EntidadeDominio e)
 	{
-		Eletronico eletronico = (Eletronico) e;
+		
+		
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		int idCategoria = eletronico.getCategoria().getId();
 		
 		
-		try {
-			
-			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
-			Boolean visualizar = false;
-			
-			stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
-			stmt.setInt(1, idCategoria);
-
-			ResultSet rs = stmt.executeQuery();
-						
-			while (rs.next()) {
-								
-				eletronico.getCategoria().setDescricao(rs.getString("cat_descricao"));
+		if (e.getTipo().equals("VHELETRONICO"))
+		{
+			Eletronico eletronico = (Eletronico) e;
+			int idCategoria = eletronico.getCategoria().getId();
+			try {
 				
+				
+				PreparedStatement stmt = null;
+					
+				stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
+				stmt.setInt(1, idCategoria);
+	
+				ResultSet rs = stmt.executeQuery();
+							
+				while (rs.next()) {
+									
+					eletronico.getCategoria().setDescricao(rs.getString("cat_descricao"));
+					
+				}
+				
+				
+				rs.close();
+				stmt.close();
+				return null;
+				
+			} catch (SQLException e1) {
+				
+							e1.printStackTrace();
+							resultado.erro("Erro de consulta.");
+							return resultado;
 			}
-			
-			
-			rs.close();
-			stmt.close();
-			return null;
-			
-		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+		
 		}
+		
+		else
+		{
+			Acessorio acessorio = (Acessorio) e;
+			int idCategoria = acessorio.getCategoria().getId();
+			try {
+				
+			
+				PreparedStatement stmt = null;
+			
+				
+				stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
+				stmt.setInt(1, idCategoria);
+	
+				ResultSet rs = stmt.executeQuery();
+							
+				while (rs.next()) {
+									
+					acessorio.getCategoria().setDescricao(rs.getString("cat_descricao"));
+					
+				}
+				
+				
+				rs.close();
+				stmt.close();
+				return null;
+				
+			} catch (SQLException e1) {
+				
+							e1.printStackTrace();
+							resultado.erro("Erro de consulta.");
+							return resultado;
+			}
+		}
+		
 	}
 
 }

@@ -5,6 +5,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
@@ -15,56 +16,128 @@ public class VHProduto implements IViewHelper{
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		
-		Eletronico eletronico = new Eletronico();
-		Categoria categoria = new Categoria();
-		
-		
-		if(request.getParameter("txtCategoria") != null)
+		if (request.getParameter("Tipo").equals("VHELETRONICO"))
 		{
-			try {
-				categoria.setId(Integer.parseInt(request.getParameter("txtCategoria")));
+				Eletronico eletronico = new Eletronico();
+				Categoria categoria = new Categoria();
 				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				
+				if(request.getParameter("txtCategoria") != null)
+				{
+					try {
+						categoria.setId(Integer.parseInt(request.getParameter("txtCategoria")));
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				
+				eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
+				eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
+				eletronico.setCategoria(categoria);
+				eletronico.setCodigoBarras(request.getParameter("txtCodBarras"));
+				eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
+				eletronico.setCor(request.getParameter("txtCor"));
+				eletronico.setDimensoes(request.getParameter("txtDimensoes"));		
+				eletronico.setDataaFabricacao(request.getParameter("txtAnoFabricacao"));	
+				eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
+				eletronico.setDescricao(String.valueOf(request.getParameter("txtDescricao")));
+				eletronico.setMemoria(request.getParameter("txtMemoria"));
+				eletronico.setModelo(request.getParameter("txtModelo"));
+				
+				if(request.getParameter("txtID") != null)
+				{
+					eletronico.setId(Integer.parseInt(request.getParameter("txtID")));
+				}
+				
+				if(request.getParameter("txtStatus") != null)
+				{
+				
+					eletronico.setAtivo(request.getParameter("txtStatus"));
+				}
+				
+				if(request.getParameter("txtPreco") != null)
+				{
+					try {
+						eletronico.setPreco(Double.parseDouble(request.getParameter("txtPreco")));
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+						
+				eletronico.setProcessador(request.getParameter("txtProcessador"));
+				eletronico.setRAM(request.getParameter("txtRAM"));
+				eletronico.setResolucaoCamera(request.getParameter("txtResolucaoCamera"));
+				eletronico.setSistemaOperacional(request.getParameter("txtSO"));
+				eletronico.setTamanhoDisplay(request.getParameter("txtTamanhoDisplay"));
+				eletronico.setNome(request.getParameter("txtNome"));
+				eletronico.setTipo("VHELETRONICO");
+				
+				return eletronico;
 		}
-		
-		
-		eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
-		eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
-		eletronico.setCategoria(categoria);
-		eletronico.setCodigoBarras(request.getParameter("txtCodBarras"));
-		eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
-		eletronico.setCor(request.getParameter("txtCor"));
-		eletronico.setDimensoes(request.getParameter("txtDimensoes"));		
-		eletronico.setDataaFabricacao(request.getParameter("txtAnoFabricacao"));	
-		eletronico.setConteudoEmbalagem(request.getParameter("txtConteudoEmbalagem"));
-		eletronico.setDescricao(String.valueOf(request.getParameter("txtDescricao")));
-		eletronico.setMemoria(request.getParameter("txtMemoria"));
-		eletronico.setModelo(request.getParameter("txtModelo"));
-		eletronico.setId(Integer.parseInt(request.getParameter("txtID")));
-		eletronico.setAtivo(request.getParameter("txtStatus"));
-		
-		if(request.getParameter("txtPreco") != null)
+		else
 		{
-			try {
-				eletronico.setPreco(Double.parseDouble(request.getParameter("txtPreco")));
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			Acessorio acessorio = new Acessorio();
+			Categoria categoria = new Categoria();
+			
+			if(request.getParameter("txtCategoria") != null)
+			{
+				try {
+					categoria.setId(Integer.parseInt(request.getParameter("txtCategoria")));
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		}
-				
-		eletronico.setProcessador(request.getParameter("txtProcessador"));
-		eletronico.setRAM(request.getParameter("txtRAM"));
-		eletronico.setResolucaoCamera(request.getParameter("txtResolucaoCamera"));
-		eletronico.setSistemaOperacional(request.getParameter("txtSO"));
-		eletronico.setTamanhoDisplay(request.getParameter("txtTamanhoDisplay"));
-		eletronico.setNome(request.getParameter("txtNome"));
 
-		return eletronico;
+			acessorio.setCaminhoFoto(request.getParameter("txtFoto"));
+			acessorio.setCategoria(categoria);
+			acessorio.setCodigoBarras(request.getParameter("txtCodBarras"));
+			acessorio.setCor(request.getParameter("txtCor"));
+			acessorio.setDimensoes(request.getParameter("txtDimensoes"));		
+			acessorio.setDataaFabricacao(request.getParameter("txtAnoFabricacao"));	
+			acessorio.setModeloCompativel(request.getParameter("txtModeloCompativel"));
+			acessorio.setDescricao(String.valueOf(request.getParameter("txtDescricao")));
+			
+			if(request.getParameter("txtMFI") != null)
+			{
+				if (request.getParameter("txtMFI").equals("Ativo"))
+				{
+					acessorio.setSeloMfi(true);
+				}
+			}
+			
+			if(request.getParameter("txtPreco") != null)
+			{
+				try {
+					acessorio.setPreco(Double.parseDouble(request.getParameter("txtPreco")));
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if(request.getParameter("txtID") != null)
+			{
+				acessorio.setId(Integer.parseInt(request.getParameter("txtID")));
+			}
+			
+			if(request.getParameter("txtStatus") != null)
+			{
+			
+				acessorio.setAtivo(request.getParameter("txtStatus"));
+			}
+					
+			acessorio.setNome(request.getParameter("txtNome"));
+			acessorio.setTipo("VHACESSORIO");
+			return acessorio;
+		}
 	}
 
 	@Override
@@ -79,8 +152,21 @@ public class VHProduto implements IViewHelper{
 		
 		if(operacao.equals("SALVAR")){
 			if(resultado.getErro()){
-				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+				
+				if (request.getParameter("Tipo").equals("VHELETRONICO"))
+				{
+					request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+				}
+				else
+				{
+					request.setAttribute("acessorio", (Acessorio) resultado.getListaResultado().get(0));
+				}
+				
 				request.setAttribute("categoria", (Categoria) resultado.getResultado());
+			}
+			else
+			{
+				request.setAttribute("resultado", resultado.getCategoria());
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
@@ -94,7 +180,15 @@ public class VHProduto implements IViewHelper{
 		}
 		else if(operacao.equals("VISUALIZAR")){
 
-			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			if (request.getParameter("Tipo").equals("VHELETRONICO"))
+			{
+				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			}
+			else
+			{
+				request.setAttribute("acessorio", (Acessorio) resultado.getListaResultado().get(0));
+			}
+			
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
 			
 

@@ -260,8 +260,8 @@
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="streetaddress">Código do Produto</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtID" name="txtID" value="">
+                                                            <label for="streetaddress">Ano de Fabricação</label>
+                                                            <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao" value="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -362,8 +362,8 @@
                             <td>${eletronico.id } </td>
                             <td>${eletronico.nome }</td>
                             <td>${eletronico.categoria.descricao }</td>
-                            <td>${eletronico.codigoBarras }</td>
                             <td>${eletronico.preco }</td>
+                            <td>${eletronico.descricao }</td>
                             <td>${eletronico.ativo }</td>
                             <td>
                                 <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
@@ -378,7 +378,6 @@
             						    <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
             	 					<input type="hidden" id="FormName" name="txtStatus" value="${eletronico.ativo }" />	
             					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
-            					     <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo }" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
             					   </form>    
                                         
