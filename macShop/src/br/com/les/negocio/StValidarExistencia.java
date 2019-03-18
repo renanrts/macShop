@@ -22,7 +22,7 @@ public class StValidarExistencia implements IStrategy{
 			
 			IDAO dao = new DAOEletronico(); 
 			
-			resultado = dao.consultar(eletronico);
+			resultado = dao.consultarExistencia(eletronico);
 		}
 		else
 		{
@@ -30,13 +30,13 @@ public class StValidarExistencia implements IStrategy{
 			
 			IDAO dao = new DAOAcessorio(); 
 			
-			resultado = dao.consultar(acessorio);
+			resultado = dao.consultarExistencia(acessorio);
 		}
 		
 		if(resultado.getContagem() == 0){
 			return null;
 		}else{
-			return "O produto informado já está cadastrado na base de dados!";
+			return "O produto informado já está cadastrado na base de dados!\n";
 		}
 	}
 	

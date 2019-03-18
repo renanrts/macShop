@@ -173,4 +173,10 @@ public class DAOCategoria extends AbstractDAO{
 		
 	}
 
+	@Override
+	public Resultado consultarExistencia(EntidadeDominio e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

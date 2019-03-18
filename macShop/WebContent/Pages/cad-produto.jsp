@@ -362,7 +362,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}"></textarea>
+                                                            <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}">${eletronico.descricao}</textarea>
                                                         </div>
                                                     </div>
                                           
@@ -487,7 +487,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${acessorio.descricao}"></textarea>
+                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
                                                         </div>
                                                     </div>
 

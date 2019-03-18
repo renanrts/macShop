@@ -11,5 +11,6 @@ public interface IDAO {
 	public Resultado alterar (EntidadeDominio entidade);
 	public Resultado excluir (EntidadeDominio entidade);
 	public Resultado visualizar(EntidadeDominio e);
+	public Resultado consultarExistencia(EntidadeDominio e);
 
 }

@@ -69,4 +69,10 @@ public class DAOInativacao extends AbstractDAO{
 		return null;
 	}
 
+	@Override
+	public Resultado consultarExistencia(EntidadeDominio e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

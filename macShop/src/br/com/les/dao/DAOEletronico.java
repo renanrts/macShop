@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 import java.util.List;
 
-
+import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
@@ -369,6 +369,52 @@ Eletronico eletronico = (Eletronico) entidade;
 			}
 			
 		
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+	}
+
+	@Override
+	public Resultado consultarExistencia(EntidadeDominio e) {
+		Eletronico eletronico = (Eletronico) e;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+		
+
+
+		try {
+			
+			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
+			PreparedStatement stmt = null;
+			Boolean visualizar = false;
+			
+		
+				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
+				stmt.setString(1, eletronico.getCodigoBarras());
+	
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				contagem++;
+			}
+			
+			
 			if(contagem == 0){
 				resultado.sucesso("Nenhum produto encontrado.");
 			}

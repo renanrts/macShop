@@ -345,4 +345,51 @@ public class DAOAcessorio extends AbstractDAO{
 		}
 	}
 
+	
+	
+	
+	public Resultado consultarExistencia(EntidadeDominio entidade) {
+		Acessorio acessorio = (Acessorio) entidade;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+		
+
+
+		try {
+			
+			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
+			PreparedStatement stmt = null;
+			Boolean visualizar = false;
+			
+		
+				stmt = this.con.prepareStatement("SELECT * FROM ACESSORIOS WHERE acs_codigobarras = ?");
+				stmt.setString(1, acessorio.getCodigoBarras());
+	
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				contagem++;
+			}
+			
+			
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+	}
 }
