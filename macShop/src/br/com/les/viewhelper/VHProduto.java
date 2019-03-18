@@ -76,6 +76,7 @@ public class VHProduto implements IViewHelper{
 				eletronico.setTamanhoDisplay(request.getParameter("txtTamanhoDisplay"));
 				eletronico.setNome(request.getParameter("txtNome"));
 				eletronico.setTipo("VHELETRONICO");
+				eletronico.setMotivo(request.getParameter("txtMotivo"));
 				
 				return eletronico;
 		}
@@ -136,6 +137,7 @@ public class VHProduto implements IViewHelper{
 					
 			acessorio.setNome(request.getParameter("txtNome"));
 			acessorio.setTipo("VHACESSORIO");
+			acessorio.setMotivo(request.getParameter("txtMotivo"));
 			return acessorio;
 		}
 	}
@@ -195,9 +197,16 @@ public class VHProduto implements IViewHelper{
 		}
 		else if(operacao.equals("ALTERAR")){
 
-			request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			if (request.getParameter("Tipo").equals("VHELETRONICO"))
+			{
+				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
+			}
+			else
+			{
+				request.setAttribute("acessorio", (Acessorio) resultado.getListaResultado().get(0));
+			}
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-			request.setAttribute("sucesso", "Alterado com sucesso!");
+			
 
 
 }

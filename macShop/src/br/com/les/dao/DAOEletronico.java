@@ -1,9 +1,13 @@
 package br.com.les.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import java.util.List;
 
@@ -21,8 +25,8 @@ public class DAOEletronico extends AbstractDAO{
 		
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO ELETRONICOS (ele_nome, ele_alimentacao, ele_caminhofoto, cat_id, ele_codigobarras, ele_conteudoembalagem, ele_cor, ele_datafabricaco, ele_descricao, ele_dimensoes, ele_memoria, ele_modelo, ele_processador, ele_ram, ele_resolucaocamera, ele_sistemaoperacional, ele_display, ele_preco, ele_status) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO ELETRONICOS (ele_nome, ele_alimentacao, ele_caminhofoto, cat_id, ele_codigobarras, ele_conteudoembalagem, ele_cor, ele_datafabricaco, ele_descricao, ele_dimensoes, ele_memoria, ele_modelo, ele_processador, ele_ram, ele_resolucaocamera, ele_sistemaoperacional, ele_display, ele_preco, ele_status, ele_dtCadastro) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 
@@ -46,7 +50,9 @@ public class DAOEletronico extends AbstractDAO{
 			stmt.setString(17, eletronico.getTamanhoDisplay());
 			stmt.setDouble(18, eletronico.getPreco());
 			stmt.setString(19, "Ativo");
+			stmt.setDate(20, new Date(eletronico.getDataCadastro().getTimeInMillis()));
 
+	
 			stmt.execute();
 
 			stmt.close();
@@ -81,10 +87,11 @@ public class DAOEletronico extends AbstractDAO{
 			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
-			if (eletronico.getId() != 0)
+			if (!eletronico.getCodigoBarras().isEmpty())
 			{
-				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE id = ?");
-				stmt.setInt(1, eletronico.getId());
+				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
+				stmt.setString(1, eletronico.getCodigoBarras());
+				visualizar = true;
 			}
 			else
 			{
@@ -245,7 +252,7 @@ public class DAOEletronico extends AbstractDAO{
 				resultado.sucesso("Nenhum produto encontrado.");
 			}
 			else{
-				resultado.sucesso("");
+				resultado.sucesso("Alterado com sucesso!");
 			}
 			
 			resultado.setContagem(contagem);
@@ -284,7 +291,7 @@ Eletronico eletronico = (Eletronico) entidade;
 
 			stmt.close();
 
-			resultado.sucesso("Salvo com sucesso!");
+			resultado.sucesso("Inativado com sucesso!");
 			return resultado;
 
 		} catch (SQLException e1) {
@@ -293,6 +300,9 @@ Eletronico eletronico = (Eletronico) entidade;
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
 		}
+		
+	
+		
 	}
 	
 	public Resultado visualizar(EntidadeDominio entidade)

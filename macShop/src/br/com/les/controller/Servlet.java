@@ -56,8 +56,12 @@ public class Servlet extends HttpServlet{
 		
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);
-			String alla = request.getParameter("Tipo");
+			String alla = request.getParameter("txtID");
 			System.out.println(alla);
+			
+			String alle = request.getParameter("Tipo");
+			System.out.println(alle);
+			
 			String formName = request.getParameter("FormName");
 	 		IViewHelper viewHelper = mapViewHelper.get(formName);
 	 			 		

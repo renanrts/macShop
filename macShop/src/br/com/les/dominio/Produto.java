@@ -1,6 +1,6 @@
 package br.com.les.dominio;
 
-
+import java.util.Calendar;
 
 public class Produto extends EntidadeDominio{
 	
@@ -15,7 +15,21 @@ public class Produto extends EntidadeDominio{
 	protected String caminhoFoto;
 	protected String descricao;
 	protected String ativo;
+	protected Calendar dataCadastro;
+	protected String motivo;
 	
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	public Calendar getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Calendar dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 	public String getAtivo() {
 		return ativo;
 	}

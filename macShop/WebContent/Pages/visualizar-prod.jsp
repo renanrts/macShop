@@ -417,11 +417,19 @@
                                     <div class="row justify-content-center">
                                         <div class="col-xl-8 ftco-animate">
 											 <form action="/macShop/Pages/alterarEletronico" class="billing-form bg-light p-3 p-md-5">
+												<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
 
 
-
-                                                <h3 class="mb-4 billing-heading">Cadastrar acessório</h3>
+                                                <h3 class="mb-4 billing-heading">Visualizar acessório</h3>
                                                 <div class="row align-items-end">
+                                                
+                                                 <div class="w-100"></div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="towncity">ID</label>
+                                                            <input type="text" class="form-control" placeholder="" id="txtID" name="txtID" value="${acessorio.id}" READONLY>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>

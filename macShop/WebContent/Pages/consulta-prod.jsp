@@ -219,6 +219,13 @@
      </div>
      
             </section>
+            
+            <c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
      <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
                         <section class="ftco-section">
                             <div class="container bgwhite p-t-35 p-b-80">
@@ -369,7 +376,7 @@
                                 <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
                                         title="Edit">&#xE254;</i></a>
                                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add" onclick="setaDadosModal('${eletronico.id }')">&#xE872;</i></a>
+                                        class="material-icons" data-toggle="tooltip" title="Add" onclick="setaDadosModal('${eletronico.id }', '${eletronico.tipo }', '${eletronico.ativo }')">&#xE872;</i></a>
                                 <a href="#addEstoque" class="confirm" data-toggle="modal"
                                     style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
                                         title="Add" style="display:inline-block">add</i></a>
@@ -466,7 +473,7 @@
         <div id="deleteEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    
                         <div class="modal-header">
                             <h4 class="modal-title">Inativar produto</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -478,21 +485,18 @@
 
                         </div>
                         <div class="modal-body">
-
+						<form id="deleteEmployeeModal" method="post" action="/macShop/Pages/inativarProduto">
                             <label for="towncity">Motivo</label>
-                            <textarea class="form-control" name="message" placeholder=""></textarea>
+                            <textarea type="text" class="form-control"  id="txtMotivo"  placeholder="" name="txtMotivo" value=""></textarea>
                         </div>
                         
             
                         <div class="modal-footer">
                        
-            	 
-            	  			 
-            	   
-            	  
-                        	<form id="deleteEmployeeModal" method="post" action="/macShop/Pages/inativarProduto">
-                        	<input type="hidden" name="txtID" id="txtID" value="txtID">
                         	
+                        	<input type="hidden" name="txtID" id="txtIdentificacao" value="txtID">
+                        	<input type="hidden" name="Tipo" id="txtTipo" value="txtTipo">
+                        	<input type="hidden" name="txtStatus" id="txtAtivo" value="txtAtivo">
                         	<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
                         	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">Inativar</button>
                        			 
@@ -697,9 +701,11 @@
         });
     </script>
     
-    <script>
-    function setaDadosModal(valor) {
-        document.getElementById('txtID').value = valor ;
+    <script type="text/javascript">
+    function setaDadosModal(valor, tipo, ativo) {
+        document.getElementById("txtIdentificacao").value = valor ;
+        document.getElementById("txtTipo").value = tipo ;
+        document.getElementById("txtAtivo").value = ativo ;
     }
     </script>
     <!--===============================================================================================-->
