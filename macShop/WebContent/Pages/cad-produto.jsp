@@ -415,13 +415,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input value="${acessorio.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
+                                                            <input value="${acessorio.nome}" type="text" class="form-control" id="txtNomeProd" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Preço</label>
-                                                            <input value="${acessorio.preco}" type="text" class="form-control" id="txtPreco" name="txtPreco" placeholder="">
+                                                            <input value="${acessorio.preco}" type="text" class="form-control" id="txtPrecoProd" name="txtPreco" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
@@ -440,7 +440,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Ano de Fabricação</label>
-                                                               <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao" value="${acessorio.dataaFabricacao}">
+                                                               <input type="text" class="form-control" placeholder="" id="txtAnoFabricacaoProd" name="txtAnoFabricacao" value="${acessorio.dataaFabricacao}">
 
                                                         </div>
                                                     </div>
@@ -456,27 +456,27 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="towncity">Cor</label>
-                                                            <input type="text" class="form-control" placeholder="" id="txtCor" name="txtCor" value="${acessorio.cor}">
+                                                            <input type="text" class="form-control" placeholder="" id="txtCorProd" name="txtCor" value="${acessorio.cor}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">Dimensões</label>
-                                                              <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes" value="${acessorio.dimensoes}">
+                                                              <input type="text" class="form-control" placeholder="" id="txtDimensoesProd" name="txtDimensoes" value="${acessorio.dimensoes}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="phone">Código de Barras</label>
-                                                         		<input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras" value="${acessorio.codigoBarras}">
+                                                         		<input type="text" class="form-control" placeholder="" id="txtCodBarrasProd" name="txtCodBarras" value="${acessorio.codigoBarras}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="emailaddress">Foto do Produto</label>
                                                            <input type="text" class="form-control"
-                                                                placeholder="Inserir o caminho da foto" id="txtFoto" name="txtFoto" value="${acessorio.caminhoFoto}">
+                                                                placeholder="Inserir o caminho da foto" id="txtFotoProd" name="txtFoto" value="${acessorio.caminhoFoto}">
                                                         </div>
                                                     </div>
                                                     
@@ -487,7 +487,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
+                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricaoProd" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
                                                         </div>
                                                     </div>
 
@@ -511,7 +511,7 @@
 																<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
                                                                 <input type="hidden" id="FormName" name="txtCat" value="4" />
                                                                 <input type="hidden" id="Tipo" name="Tipo" value="VHACESSORIO" />
-                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Salvar</button>
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvarProd" name="btnOperacao" value="SALVAR">Salvar</button>
                                                             </div>
                                                         </center>
                                                     </div>
@@ -686,9 +686,7 @@
                 <img class="h-size2" src="../images/icons/mastercard.png" alt="IMG-MASTERCARD">
             </a>
 
-            <a href="#">
-                <img class="h-size2" src="images/icons/express.png" alt="IMG-EXPRESS">
-            </a>
+           
 
             <a href="#">
                 <img class="h-size2" src="../images/icons/discover.png" alt="IMG-DISCOVER">
@@ -725,44 +723,13 @@
     <script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../vendor/select2/select2.min.js"></script>
-    <script type="text/javascript">
-        $(".selection-1").select2({
-            minimumResultsForSearch: 20,
-            dropdownParent: $('#dropDownSelect1')
-        });
 
-        $(".selection-2").select2({
-            minimumResultsForSearch: 20,
-            dropdownParent: $('#dropDownSelect2')
-        });
-    </script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../vendor/slick/slick.min.js"></script>
     <script type="text/javascript" src="../js/slick-custom.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../vendor/sweetalert/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        $('.block2-btn-addcart').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').jsp();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
-
-        $('.block2-btn-addwishlist').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').jsp();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-            });
-        });
-
-        $('.btn-addcart-product-detail').each(function () {
-            var nameProduct = $('.product-detail-name').jsp();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-            });
-        });
-    </script>
+   
 
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>

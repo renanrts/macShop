@@ -223,17 +223,18 @@
                             Entrar
                         </button>
                     </div>
-
+</form>
                     <div class="flex-col-c p-t-170 p-b-40">
                         <span class="s-text8">
                             Não tem uma conta?
                         </span>
-
-                        <a href="cad-cliente.jsp" class="s-text8">
-                            Cadastre agora!
-                        </a>
+  <form action="/macShop/Pages/baseCadastro" method="POST" class="billing-form  p-3 p-md-5">
+   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Cadastre agora!</button>
+                    
+                  </form>         
+                        
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>

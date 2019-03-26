@@ -12,7 +12,6 @@ import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.EntidadeDominio;
-import br.com.les.dominio.Inativacao;
 import br.com.les.negocio.IStrategy;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarDTCadastro;

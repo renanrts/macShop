@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -218,10 +220,24 @@
                                                 <input type="text" class="form-control" placeholder="">
                                             </div>
                                         </div>
+                                        
+                                        
+                                     
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="lastname">Gênero</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                
+                                                 <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="categoria" items="${baseCadastro.listaGenero }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+															
+																     </c:forEach>   
+																
+                                                      </select>
+                                                
+                                                
                                             </div>
                                         </div>
 
@@ -239,18 +255,37 @@
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="towncity">Telefone</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                               <label for="towncity">Tipo Telefone</label>
+                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
+	                                               <c:forEach var="categoria" items="${baseCadastro.listaTipoTelefone }" >
+	                                                    <option name="txtCategoria" value="${categoria }">${categoria }</option>
+												   </c:forEach>  
+												   </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                           		 <label for="towncity">DDD</label>
+                                                <input type="text" class="form-control" placeholder="DDD">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            <div class="form-group">
+												<label for="towncity">Número</label>
+                                                <input type="text" class="form-control" placeholder="Número">
+                                            </div>
+                                        </div>
+                                        <div class="w-100"></div>
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="postcodezip">E-mail</label>
                                                 <input type="text" class="form-control" placeholder="">
                                             </div>
                                         </div>
+                                      
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -264,24 +299,7 @@
                                                 <input type="text" class="form-control" placeholder="">
                                             </div>
                                         </div>
-                                        <div class="w-100"></div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="towncity">Telefone</label>
-                                                <input type="text" class="form-control" placeholder="Tipo">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="DDD">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-
-                                                <input type="text" class="form-control" placeholder="Número">
-                                            </div>
-                                        </div>
+                                      
 
 
 
@@ -292,21 +310,32 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de residência</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Casa, apartamento...">
+                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="categoria" items="${baseCadastro.listaTipoEndereco }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+															
+																     </c:forEach>  
+																     </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de logradouro</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                  <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="categoria" items="${baseCadastro.tiposLogradouro }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+															
+																     </c:forEach>  
+																     </select>
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input type="text" class="form-control" placeholder="Logradouro">
+                                                <input type="text" class="form-control" placeholder="Logradouro" name="endereco">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -322,7 +351,7 @@
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="" id="" class="form-control">
                                                         <option value="">Brasil</option>
-                                                        <option value="">Canadá</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -332,10 +361,13 @@
                                                 <label for="country">Estado</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">São Paulo</option>
-                                                        <option value="">Rio de Janeiro</option>
-                                                    </select>
+                                                    <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="categoria" items="${baseCadastro.listaEstados }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria.nome }">${categoria.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -346,10 +378,13 @@
                                                 <label for="country">Cidade</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">São Paulo</option>
-                                                        <option value="">Mogi das Cruzes</option>
-                                                    </select>
+                                                        <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="categoria" items="${baseCadastro.listaCidades }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria.nome }">${categoria.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -442,7 +477,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input type="text" class="form-control" placeholder="" name="cep">                                                
                                             </div>
                                         </div>
 
@@ -466,10 +501,14 @@
                                                 <label for="country">Bandeira</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">Visa</option>
-                                                        <option value="">Master</option>
-                                                    </select>
+                                                      <select name="txtCategoria" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="categoria" items="${baseCadastro.listaBandeira }" >
+                                                            
+                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+															
+																     </c:forEach>   
+																
+                                                      </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -763,6 +802,34 @@
             });
         });
     </script>
+    <script>
+
+
+
+function buscaCep() {
+    let inputCep = document.querySelector('input[name=cep]');
+    let cep = inputCep.value.replace('-', '');
+    let url = 'http://viacep.com.br/ws/' + cep + '/json';
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if (xhr.status = 200)
+                preencheCampos(JSON.parse(xhr.responseText));
+        }
+    }
+    xhr.send();
+}
+
+function preencheCampos(json) {
+    document.querySelector('input[name=endereco]').value = json.logradouro;
+    document.querySelector('input[name=bairro]').value = json.bairro;
+    document.querySelector('input[name=complemento]').value = json.complemento;
+    document.querySelector('input[name=cidade]').value = json.localidade;
+    document.querySelector('input[name=estado]').value = json.uf;
+}
+
+</script>
 
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>

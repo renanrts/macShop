@@ -18,6 +18,7 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
+import br.com.les.viewhelper.VHBaseCadastro;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHEletronico;
 import br.com.les.viewhelper.VHProduto;
@@ -48,6 +49,7 @@ public class Servlet extends HttpServlet{
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
 			mapViewHelper.put("VHPRODUTO", new VHProduto());
 			mapViewHelper.put("VHACESSORIO", new VHAcessorio());
+			
 
 		}
 		
@@ -56,11 +58,6 @@ public class Servlet extends HttpServlet{
 		
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);
-			String alla = request.getParameter("txtID");
-			System.out.println(alla);
-			
-			String alle = request.getParameter("Tipo");
-			System.out.println(alle);
 			
 			String formName = request.getParameter("FormName");
 	 		IViewHelper viewHelper = mapViewHelper.get(formName);

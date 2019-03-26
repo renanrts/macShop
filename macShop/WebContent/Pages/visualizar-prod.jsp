@@ -433,13 +433,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input value="${acessorio.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
+                                                            <input value="${acessorio.nome}" type="text" class="form-control" id="txtNomeProd" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Preço</label>
-                                                            <input value="${acessorio.preco}" type="text" class="form-control" id="txtPreco" name="txtPreco" placeholder="">
+                                                            <input value="${acessorio.preco}" type="text" class="form-control" id="txtPrecoProd" name="txtPreco" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
@@ -505,7 +505,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="towncity">Descrição</label>
-                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
+                                                          <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricaoProd" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
                                                         </div>
                                                     </div>
 
@@ -528,7 +528,7 @@
                                                                 <!-- Button -->
 																<input type="hidden" id="FormName" name="txtStatus" value="${acessorio.ativo }" />	
                                                       			<input type="hidden" id="Tipo" name="Tipo" value="${acessorio.tipo }" />
-                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">Alterar</button>
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvarProd" name="btnOperacao" value="ALTERAR">Alterar</button>
                                                              	 <input type="hidden" id="FormName" name="txtCategoria" value="${acessorio.categoria.id }" />
                                                             </div>
                                                         </center>
