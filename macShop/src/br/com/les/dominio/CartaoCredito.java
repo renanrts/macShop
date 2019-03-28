@@ -9,7 +9,7 @@ public class CartaoCredito extends EntidadeDominio{
 	private String codSeguranca;
 	private boolean preferencial;
 	private Calendar dtVenciamento;
-	private Bandeira bandeira;
+	private String bandeira;
 	
 	public String getNumero() {
 		return numero;
@@ -41,10 +41,10 @@ public class CartaoCredito extends EntidadeDominio{
 	public void setDtVenciamento(Calendar dtVenciamento) {
 		this.dtVenciamento = dtVenciamento;
 	}
-	public Bandeira getBandeira() {
+	public String getBandeira() {
 		return bandeira;
 	}
-	public void setBandeira(Bandeira bandeira) {
+	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
 	}
 	

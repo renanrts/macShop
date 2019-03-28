@@ -209,7 +209,7 @@
 
 
 
-                                <form action="#" class="billing-form bg-light p-3 p-md-5">
+                                <form action="/macShop/Pages/cadastroCliente" method="POST" class="billing-form bg-light p-3 p-md-5">
 
 
                                     <h3 class="mb-4 billing-heading">Dados pessoais</h3>
@@ -217,21 +217,18 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="firstname">Nome</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="${cliente.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
                                             </div>
                                         </div>
-                                        
-                                        
-                                     
-                                        
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="lastname">Gênero</label>
                                                 
-                                                 <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                                     <c:forEach var="categoria" items="${baseCadastro.listaGenero }" >
+                                                 <select name="txtGenero" id="txtGenero" class="form-control">
+                                                                     <c:forEach var="genero" items="${baseCadastro.listaGenero }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+                                                                      <option name="txtGenero" value="${genero }">${genero }</option>
 															
 																     </c:forEach>   
 																
@@ -245,13 +242,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Data de Nascimento</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="${cliente.dataNascimento}" type="date" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder=""  maxlength="10" autocomplete="off">
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">CPF</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                  <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder="" onkeypress="mascara(this, '###.###.###-##')" maxlength="11" >
+
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
@@ -259,9 +258,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                <label for="towncity">Tipo Telefone</label>
-                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
-	                                               <c:forEach var="categoria" items="${baseCadastro.listaTipoTelefone }" >
-	                                                    <option name="txtCategoria" value="${categoria }">${categoria }</option>
+                                                <select name="txtTipoTelefone" id="txtCategoria" class="form-control">
+	                                               <c:forEach var="tipoTelefone" items="${baseCadastro.listaTipoTelefone }" >
+	                                                    <option name="txtTipoTelefone" value="${tipoTelefone }">${tipoTelefone }</option>
 												   </c:forEach>  
 												   </select>
                                             </div>
@@ -269,20 +268,21 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                            		 <label for="towncity">DDD</label>
-                                                <input type="text" class="form-control" placeholder="DDD">
+                                                <input value="${cliente.telefone.ddd}" type="text" class="form-control" id="txtDDD" name="txtDDD" placeholder=""  maxlength="2" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
 												<label for="towncity">Número</label>
-                                                <input type="text" class="form-control" placeholder="Número">
+                                                <input value="${cliente.telefone.numero}" type="text" class="form-control" id="txtDDD" name="txtDDD" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="postcodezip">E-mail</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                 <input value="${cliente.email}" type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="" >
+
                                             </div>
                                         </div>
                                       
@@ -290,18 +290,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="phone">Senha</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="" type="text" class="form-control" id="txtSenha1" name="txtSenha1" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="emailaddress">Repetir senha</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="" type="text" class="form-control" id="txtSenha2" name="txtSenha2" placeholder="" >
                                             </div>
                                         </div>
-                                      
-
-
 
                                         <div class="w-100"></div>
                                         <hr>
@@ -310,10 +307,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de residência</label>
-                                                <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                  <c:forEach var="categoria" items="${baseCadastro.listaTipoEndereco }" >
+                                                <select name="txtTipoEndereco" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+                                                                      <option name="txtTipoEndereco" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
 																     </select>
@@ -322,10 +319,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de logradouro</label>
-                                                  <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                  <c:forEach var="categoria" items="${baseCadastro.tiposLogradouro }" >
+                                                  <select name="txtTiposLogradouro" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+                                                                      <option name="txtTiposLogradouro" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
 																     </select>
@@ -335,12 +332,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input type="text" class="form-control" placeholder="Logradouro" name="endereco">
+                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Número">
+                                            <label for="streetaddress">Número</label>
+                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
                                             </div>
                                         </div>
 
@@ -350,7 +348,7 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="" id="" class="form-control">
-                                                        <option value="">Brasil</option>
+                                                        <option value="Brasil"  name="txtPais">Brasil</option>
                                                         
                                                     </select>
                                                 </div>
@@ -361,10 +359,10 @@
                                                 <label for="country">Estado</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                  <c:forEach var="categoria" items="${baseCadastro.listaEstados }" >
+                                                    <select name="txtEstado" id="txtEstado" class="form-control">
+                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria.nome }">${categoria.nome }</option>
+                                                                      <option name="txtEstado" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
 															
 																     </c:forEach>  
 																     </select>
@@ -378,10 +376,10 @@
                                                 <label for="country">Cidade</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                        <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                  <c:forEach var="categoria" items="${baseCadastro.listaCidades }" >
+                                                        <select name="txtCidade" id="txtCidade" class="form-control">
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria.nome }">${categoria.nome }</option>
+                                                                      <option name="txtCidade" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
 															
 																     </c:forEach>  
 																     </select>
@@ -391,7 +389,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
                                             </div>
                                         </div>
 
@@ -399,40 +397,52 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                                    <textarea class="form-control" name="message"
-                                                        placeholder=""></textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                           
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="w-100"></div>
+
+<div class="w-100"></div>
                                         <hr>
                                         <h3 class="mb-4 billing-heading">Endereço de Entrega</h3>
-
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de residência</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Casa, apartamento...">
+                                                <select name="txtTipoEnderecoEntrega" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+                                                            
+                                                                      <option name="txtTipoEnderecoEntrega" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+															
+																     </c:forEach>  
+																     </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de logradouro</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                  <select name="txtTiposLogradouroEntrega" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
+                                                            
+                                                                      <option name="txtTiposLogradouroEntrega" value="${tiposLogradouro }">${tiposLogradouro }</option>
+															
+																     </c:forEach>  
+																     </select>
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input type="text" class="form-control" placeholder="Logradouro">
+                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Número">
+                                            <label for="streetaddress">Número</label>
+                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroEntrega" placeholder="" >
                                             </div>
                                         </div>
 
@@ -442,8 +452,8 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="" id="" class="form-control">
-                                                        <option value="">Brasil</option>
-                                                        <option value="">Canadá</option>
+                                                        <option value="Brasil"  name="txtPaisEntrega">Brasil</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -453,10 +463,13 @@
                                                 <label for="country">Estado</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">São Paulo</option>
-                                                        <option value="">Rio de Janeiro</option>
-                                                    </select>
+                                                    <select name="txtEstadoEntrega" id="txtEstado" class="form-control">
+                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
+                                                            
+                                                                      <option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -467,17 +480,20 @@
                                                 <label for="country">Cidade</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">São Paulo</option>
-                                                        <option value="">Mogi das Cruzes</option>
-                                                    </select>
+                                                        <select name="txtCidadeEntrega" id="txtCidade" class="form-control">
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
+                                                            
+                                                                      <option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input type="text" class="form-control" placeholder="" name="cep">                                                
+                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPEntrega" placeholder="" >
                                             </div>
                                         </div>
 
@@ -485,12 +501,120 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                                    <textarea class="form-control" name="message"
-                                                        placeholder=""></textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoEntrega" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                           
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
+<div class="w-100"></div>
+                                        <hr>
+                                        <h3 class="mb-4 billing-heading">Endereço Residencial</h3>
                                         <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de residência</label>
+                                                <select name="txtTipoEnderecoResidencial" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+                                                            
+                                                                      <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+															
+																     </c:forEach>  
+																     </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de logradouro</label>
+                                                  <select name="txtTiposLogradouroResidencial" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
+                                                            
+                                                                      <option name="txtTiposLogradouroResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
+															
+																     </c:forEach>  
+																     </select>
+                                            </div>
+                                        </div>
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Logradouro</label>
+                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="streetaddress">Número</label>
+                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">País</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                    <select name="" id="" class="form-control">
+                                                        <option value="Brasil"  name="txtPaisResidencial">Brasil</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Estado</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                    <select name="txtEstadoResidencial" id="txtEstado" class="form-control">
+                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
+                                                            
+                                                                      <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Cidade</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                        <select name="txtCidadeResidencial" id="txtCidade" class="form-control">
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
+                                                            
+                                                                      <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
+															
+																     </c:forEach>  
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="postcodezip">CEP</label>
+                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-13">
+                                                <div class="form-group">
+                                                    <label for="towncity">Observações</label>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                           
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-100"></div>
+                                                                                <div class="w-100"></div>
                                         <hr>
                                         <h3 class="mb-4 billing-heading">Pagamento</h3>
 
@@ -501,10 +625,10 @@
                                                 <label for="country">Bandeira</label>
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                      <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                                     <c:forEach var="categoria" items="${baseCadastro.listaBandeira }" >
+                                                      <select name="txtBandeira" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="listaBandeira" items="${baseCadastro.listaBandeira }" >
                                                             
-                                                                      <option name="txtCategoria" value="${categoria }">${categoria }</option>
+                                                                      <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
 															
 																     </c:forEach>   
 																
@@ -515,7 +639,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="postcodezip">Número</label>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input value="" type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
                                             </div>
                                         </div>
 
@@ -525,15 +649,16 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="postcodezip">Nome</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Nome impresso no cartão">
+                                             <input value="" type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
+
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="postcodezip">Código de Segurança</label>
-                                                <input type="text" class="form-control" placeholder="">
+                               <input value="${cliente.CartaoCredito.codSeguranca}" type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
+
                                             </div>
                                         </div>
 
@@ -545,10 +670,10 @@
                                             <center>
                                                 <div class="header-cart-wrapbtn">
                                                     <!-- Button -->
-                                                    <a href="#"
-                                                        class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                        Cadastrar
-                                                    </a>
+                                                    <input type="hidden" id="FormName" name="FormName" value="VHCLIENTE" />
+                                                                <input type="hidden" id="Tipo" name="Tipo" value="VHCLIENTE" />
+                                                                
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVARCLIENTE">Cadastrar</button>
                                                 </div>
                                             </center>
                                         </div>
@@ -805,31 +930,32 @@
     <script>
 
 
+    function mascara(t, mask){
+    	 var i = t.value.length;
+    	 var saida = mask.substring(1,0);
+    	 var texto = mask.substring(i)
+    	 if (texto.substring(0,1) != saida){
+    	 t.value += texto.substring(0,1);
+    	 }
+  	}
 
-function buscaCep() {
-    let inputCep = document.querySelector('input[name=cep]');
-    let cep = inputCep.value.replace('-', '');
-    let url = 'http://viacep.com.br/ws/' + cep + '/json';
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status = 200)
-                preencheCampos(JSON.parse(xhr.responseText));
-        }
-    }
-    xhr.send();
-}
-
-function preencheCampos(json) {
-    document.querySelector('input[name=endereco]').value = json.logradouro;
-    document.querySelector('input[name=bairro]').value = json.bairro;
-    document.querySelector('input[name=complemento]').value = json.complemento;
-    document.querySelector('input[name=cidade]').value = json.localidade;
-    document.querySelector('input[name=estado]').value = json.uf;
-}
 
 </script>
+
+ <script>
+ 
+ function onlynumber(evt) {
+ var theEvent = evt || window.event;
+ var key = theEvent.keyCode || theEvent.which;
+ key = String.fromCharCode( key );
+ //var regex = /^[0-9.,]+$/;
+ var regex = /^[0-9.]+$/;
+ if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+ }
+ }
+ </script>
 
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>

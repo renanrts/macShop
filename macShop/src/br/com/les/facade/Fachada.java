@@ -9,9 +9,12 @@ import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.negocio.StValidarExistencia;
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOCategoria;
+import br.com.les.dao.DAOCliente;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
+import br.com.les.dominio.Cliente;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarDTCadastro;
@@ -27,36 +30,106 @@ public class Fachada implements IFachada {
 	private List<IStrategy> listStrategySalvar;
 	private List<IStrategy> listStrategyAlterar;
 	private List<IStrategy> listStrategyInativar;
+	
+	private Map<String, Map<String, List<IStrategy>>> rns;
 
 
 	public Fachada() {
 
-		mapStrategy = new HashMap<String, List<IStrategy>>();
+
 		mapDAO = new HashMap<String, IDAO>();
-
-		listStrategySalvar = new ArrayList<IStrategy>();
-		listStrategySalvar.add(new StComplementarCategoria());
-		listStrategySalvar.add(new StComplementarDTCadastro());
-		listStrategySalvar.add(new StValidarExistencia());
-		listStrategySalvar.add(new StValidarDadosObrigatorios());
-		
-		
-		listStrategyAlterar = new ArrayList<IStrategy>();
-		listStrategyAlterar.add(new StComplementarCategoria());
-		listStrategyAlterar.add(new StValidarDadosObrigatorios());
-		
-		listStrategyInativar = new ArrayList<IStrategy>();
-		listStrategyInativar.add(new StValidarAtivacaoInativacao());
-		listStrategyInativar.add(new StComplementarInativacao());
-
-		mapStrategy.put("SALVAR", listStrategySalvar);
-		mapStrategy.put("ALTERAR", listStrategyAlterar);
-		mapStrategy.put("INATIVAR", listStrategyInativar);
-		
 		mapDAO.put("ELETRONICO", new DAOEletronico());
 		mapDAO.put("CATEGORIA", new DAOCategoria());
 		mapDAO.put("PRODUTO", new DAOEletronico());
 		mapDAO.put("ACESSORIO", new DAOAcessorio());
+		mapDAO.put("CLIENTE", new DAOCliente());
+		
+		rns = new HashMap<String, Map<String, List<IStrategy>>>();
+		
+		StComplementarCategoria StComplementarCategoria = new StComplementarCategoria();
+		StComplementarDTCadastro StComplementarDTCadastro = new StComplementarDTCadastro();
+		StValidarExistencia	StValidarExistencia = new StValidarExistencia();
+		StValidarDadosObrigatorios StValidarDadosObrigatorios = new StValidarDadosObrigatorios();
+		StValidarAtivacaoInativacao StValidarAtivacaoInativacao = new StValidarAtivacaoInativacao();
+		StComplementarInativacao StComplementarInativacao = new StComplementarInativacao();
+		
+		/* Criando uma lista para conter as regras de negócio de fornencedor
+		 * quando a operação for salvar
+		 */
+		List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
+		/* Adicionando as regras a serem utilizadas na operação salvar do fornecedor*/
+		rnsSalvarProduto.add(StComplementarCategoria);
+		rnsSalvarProduto.add(StComplementarDTCadastro);
+		rnsSalvarProduto.add(StValidarExistencia);
+		rnsSalvarProduto.add(StValidarDadosObrigatorios);
+		
+		/* Criando uma lista para conter as regras de negócio de produto
+		 * quando a operação for inativar
+		 */
+		List<IStrategy> rnsInativarProduto = new ArrayList<IStrategy>();
+		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
+		rnsInativarProduto.add(StValidarAtivacaoInativacao);
+		rnsInativarProduto.add(StComplementarInativacao);
+		
+		
+		/* Criando uma lista para conter as regras de negócio de produto
+		 * quando a operação for alterar
+		 */
+		List<IStrategy> rnsAlterarProduto = new ArrayList<IStrategy>();
+		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
+		rnsAlterarProduto.add(StComplementarCategoria);
+		rnsAlterarProduto.add(StValidarDadosObrigatorios);
+		
+		
+		
+		
+		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
+		 * por operação do produto
+		 */
+		Map<String, List<IStrategy>> rnsProduto = new HashMap<String, List<IStrategy>>();
+		/*
+		 * Adiciona a listra de regras na operação salvar no mapa do produto (lista criada na linha 114)
+		 */
+		rnsProduto.put("SALVAR", rnsSalvarProduto);
+		/*
+		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
+		 */
+		rnsProduto.put("ALTERAR", rnsAlterarProduto);
+		/*
+		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
+		 */
+		rnsProduto.put("INATIVAR", rnsInativarProduto);
+		
+		
+		/* Adiciona o mapa(criado na linha 129) com as regras indexadas pelas operações no mapa geral indexado 
+		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
+		 */
+		rns.put(Produto.class.getSimpleName().toUpperCase(), rnsProduto);
+		
+		
+		/* Criando uma lista para conter as regras de negócio de cliente
+		 * quando a operação for salvar
+		 */
+		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
+		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
+		//rnsSalvarCliente.add(cDtCadastro);		
+		//rnsSalvarCliente.add(vCpf);
+		
+		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
+		 * por operação do cliente
+		 */
+		Map<String, List<IStrategy>> rnsCliente = new HashMap<String, List<IStrategy>>();
+		/*
+		 * Adiciona a listra de regras na operação salvar no mapa do cliente (lista criada na linha 93)
+		 */
+		rnsCliente.put("SALVAR", rnsSalvarCliente);		
+		/* Adiciona o mapa(criado na linha 101) com as regras indexadas pelas operações no mapa geral indexado 
+		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
+		 */
+		rns.put(Cliente.class.getName(), rnsCliente);
+		
+		
+		
 		
 
 	}
@@ -66,9 +139,13 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 		Resultado resultado = new Resultado();
 		String mensagem = "";
 		String mensagens = "";
-		
-		List<IStrategy> listStrategy;
-		listStrategy = mapStrategy.get(operacao);
+		String nmClasse = entidade.getClass().getSimpleName().toUpperCase();
+		if (nmClasse.equals("ELETRONICO") || nmClasse.equals("ACESSORIO"))
+		{
+			nmClasse = "PRODUTO";
+		}
+		Map<String, List<IStrategy>> regrasOperacao = rns.get(nmClasse);
+		List<IStrategy> listStrategy = regrasOperacao.get(operacao);
 		
 		for (IStrategy iStrategy : listStrategy) {
 			
@@ -91,6 +168,7 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 		}
 		
 		return resultado;
+		
 	}
 
 

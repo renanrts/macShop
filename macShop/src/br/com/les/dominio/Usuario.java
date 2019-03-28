@@ -6,7 +6,7 @@ public class Usuario extends EntidadeDominio{
 	
 	private String email;
 	private List<String> senhas;
-	private boolean ativo;
+	private String ativo;
 	public String getEmail() {
 		return email;
 	}
@@ -19,11 +19,11 @@ public class Usuario extends EntidadeDominio{
 	public void setSenhas(List<String> senhas) {
 		this.senhas = senhas;
 	}
-	public boolean isAtivo() {
+	public String getAtivo() {
 		return ativo;
 	}
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setAtivo(String string) {
+		this.ativo = string;
 	}
 	
 	

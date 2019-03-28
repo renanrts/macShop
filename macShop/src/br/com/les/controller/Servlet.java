@@ -20,13 +20,14 @@ import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
 import br.com.les.viewhelper.VHBaseCadastro;
 import br.com.les.viewhelper.VHCategoria;
+import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHEletronico;
 import br.com.les.viewhelper.VHProduto;
 
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -49,13 +50,15 @@ public class Servlet extends HttpServlet{
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
 			mapViewHelper.put("VHPRODUTO", new VHProduto());
 			mapViewHelper.put("VHACESSORIO", new VHAcessorio());
+			mapViewHelper.put("VHCLIENTE", new VHCliente());
 			
 
 		}
 		
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) {
-		
+			
+			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);
 			
@@ -63,6 +66,9 @@ public class Servlet extends HttpServlet{
 	 		IViewHelper viewHelper = mapViewHelper.get(formName);
 	 			 		
 			EntidadeDominio entidade = viewHelper.getEntidade(request);
+			
+			String nmClasse = entidade.getClass().getSimpleName().toUpperCase();
+			System.out.println(nmClasse);
 
 			Resultado resultado = command.executar(entidade);
 			

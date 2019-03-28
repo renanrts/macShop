@@ -7,9 +7,11 @@ public class Endereco extends EntidadeDominio{
 	private String bairro;
 	private String cep;
 	private String observacao;
-	private TipoEndereco tipoEndereco;
+	private String tipoEndereco;
 	private boolean preferencial;
 	private Cidade cidade;
+	private String tipoLogradouro;
+	
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -40,10 +42,10 @@ public class Endereco extends EntidadeDominio{
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public TipoEndereco getTipoEndereco() {
+	public String getTipoEndereco() {
 		return tipoEndereco;
 	}
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+	public void setTipoEndereco(String tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
 	public boolean isPreferencial() {
@@ -57,6 +59,12 @@ public class Endereco extends EntidadeDominio{
 	}
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+	public String getTipoLogradouro() {
+		return tipoLogradouro;
+	}
+	public void setTipoLogradouro(String tipoLogradouro) {
+		this.tipoLogradouro = tipoLogradouro;
 	}
 
 }
