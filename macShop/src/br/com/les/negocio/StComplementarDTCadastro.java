@@ -5,7 +5,6 @@ import java.util.Calendar;
 import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
-import br.com.les.dominio.Inativacao;
 
 public class StComplementarDTCadastro implements IStrategy{
 
@@ -19,8 +18,7 @@ public class StComplementarDTCadastro implements IStrategy{
 		
 			Calendar dataCadastro = Calendar.getInstance();
 			eletronico.setDataCadastro(dataCadastro);
-			
-			
+	
 		}
 		
 		else if (entidade.getTipo().equals("VHACESSORIO"))

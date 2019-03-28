@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.les.negocio.StValidarDadosObrigatorios;
-import br.com.les.negocio.StValidarExistencia;
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
@@ -18,18 +16,24 @@ import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarDTCadastro;
+import br.com.les.negocio.StComplementarDTCadastroCliente;
+import br.com.les.negocio.StComplementarEnderecoCliente;
 import br.com.les.negocio.StComplementarInativacao;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
+import br.com.les.negocio.StValidarCPF;
+import br.com.les.negocio.StValidarDadosObrigatorios;
+import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
+import br.com.les.negocio.StValidarExistencia;
+import br.com.les.negocio.StValidarExistenciaCliente;
+import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.util.Resultado;
 
 
 public class Fachada implements IFachada {
 	
-	private Map<String, List<IStrategy>> mapStrategy;
+
 	private Map<String, IDAO> mapDAO;
-	private List<IStrategy> listStrategySalvar;
-	private List<IStrategy> listStrategyAlterar;
-	private List<IStrategy> listStrategyInativar;
+
 	
 	private Map<String, Map<String, List<IStrategy>>> rns;
 
@@ -52,6 +56,12 @@ public class Fachada implements IFachada {
 		StValidarDadosObrigatorios StValidarDadosObrigatorios = new StValidarDadosObrigatorios();
 		StValidarAtivacaoInativacao StValidarAtivacaoInativacao = new StValidarAtivacaoInativacao();
 		StComplementarInativacao StComplementarInativacao = new StComplementarInativacao();
+		StValidarCPF StValidarCPF = new StValidarCPF();
+		StComplementarDTCadastroCliente StComplementarDTCadastroCliente = new StComplementarDTCadastroCliente();
+		StValidarDadosObrigatoriosCliente StValidarDadosObrigatoriosCliente = new StValidarDadosObrigatoriosCliente();
+		StValidarExistenciaCliente	StValidarExistenciaCliente = new StValidarExistenciaCliente();
+		StComplementarEnderecoCliente StComplementarEnderecoCliente = new StComplementarEnderecoCliente();
+		StValidarSenhasCliente StValidarSenhasCliente = new StValidarSenhasCliente();
 		
 		/* Criando uma lista para conter as regras de negócio de fornencedor
 		 * quando a operação for salvar
@@ -112,8 +122,12 @@ public class Fachada implements IFachada {
 		 */
 		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
 		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
-		//rnsSalvarCliente.add(cDtCadastro);		
-		//rnsSalvarCliente.add(vCpf);
+		rnsSalvarCliente.add(StValidarCPF);		
+		rnsSalvarCliente.add(StComplementarDTCadastroCliente);
+		rnsSalvarCliente.add(StComplementarEnderecoCliente);
+		rnsSalvarCliente.add(StValidarExistenciaCliente);
+		rnsSalvarCliente.add(StValidarDadosObrigatoriosCliente);
+		rnsSalvarCliente.add(StValidarSenhasCliente);
 		
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação do cliente
@@ -126,7 +140,7 @@ public class Fachada implements IFachada {
 		/* Adiciona o mapa(criado na linha 101) com as regras indexadas pelas operações no mapa geral indexado 
 		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
 		 */
-		rns.put(Cliente.class.getName(), rnsCliente);
+		rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);
 		
 		
 		

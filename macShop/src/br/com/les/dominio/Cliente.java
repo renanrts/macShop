@@ -1,5 +1,6 @@
 package br.com.les.dominio;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class Cliente extends Pessoa{
@@ -7,7 +8,14 @@ public class Cliente extends Pessoa{
 	private List<CartaoCredito> listCartoes;
 	private List<Endereco> listEnderecos;
 	private Telefone telefone;
+	protected Calendar dataCadastro;
 	
+	public Calendar getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Calendar dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 	public List<CartaoCredito> getListCartoes() {
 		return listCartoes;
 	}

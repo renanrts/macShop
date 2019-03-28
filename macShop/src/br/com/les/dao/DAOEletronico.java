@@ -399,9 +399,8 @@ Eletronico eletronico = (Eletronico) entidade;
 
 		try {
 			
-			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
+		
 			PreparedStatement stmt = null;
-			Boolean visualizar = false;
 			
 		
 				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
