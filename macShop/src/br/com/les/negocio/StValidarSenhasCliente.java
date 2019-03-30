@@ -10,7 +10,8 @@ public class StValidarSenhasCliente implements IStrategy {
 		StringBuilder mensagem = new StringBuilder();
 		Cliente cliente = (Cliente) entidade;
 		
-		if(cliente.getSenhas().get(0) != cliente.getSenhas().get(1)){
+		
+		if(!cliente.getSenhas().get(0).equals(cliente.getSenhas().get(1))){
 			mensagem.append("As senhas não batem\n");
 		}
 		

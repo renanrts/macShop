@@ -18,7 +18,6 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
-import br.com.les.viewhelper.VHBaseCadastro;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHEletronico;
@@ -57,7 +56,6 @@ public class Servlet extends HttpServlet{
 		
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) {
-			
 			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);

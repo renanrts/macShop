@@ -7,6 +7,14 @@ public class Pessoa extends Usuario{
 	private String nome;
 	private String cpf;
 	private Calendar dataNascimento;
+	private String genero;
+	
+	public String getGenero() {
+		return genero;
+	}
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 	public String getNome() {
 		return nome;
 	}

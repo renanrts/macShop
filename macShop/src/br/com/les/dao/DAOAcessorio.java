@@ -9,7 +9,6 @@ import java.util.List;
 
 import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
-import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 

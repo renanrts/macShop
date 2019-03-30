@@ -3,17 +3,15 @@ package br.com.les.viewhelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.les.dominio.Bandeira;
 import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Cidade;
 import br.com.les.dominio.Cliente;
@@ -56,10 +54,7 @@ public class VHCliente implements IViewHelper{
 		senhas.add(request.getParameter("txtSenha2"));
 		
  		cliente.setSenhas(senhas);
- 		
- 		
- 	
- 		
+
 		Telefone telefone = new Telefone();
 		telefone.setDdd(request.getParameter("txtDDD"));
 		telefone.setNumero(request.getParameter("txtNumero"));
@@ -84,10 +79,12 @@ public class VHCliente implements IViewHelper{
 		endereco.setTipoLogradouro(request.getParameter("txtTipoLogradouro"));
 		endereco.setNumero(request.getParameter("txtNumero"));
 		endereco.setObservacao(request.getParameter("txtObservacao"));
+		endereco.setBairro(request.getParameter("txtBairro"));
 		
 		Endereco enderecoEntrega = new Endereco();
 		Cidade cidadeEntrega  = new Cidade();
 		Estado estadoEntrega  = new Estado();
+		
 		
 		estadoEntrega.setId(Integer.parseInt(request.getParameter("txtEstadoEntrega")));
 	
@@ -102,6 +99,7 @@ public class VHCliente implements IViewHelper{
 		enderecoEntrega.setTipoLogradouro(request.getParameter("txtTipoLogradouroEntrega"));
 		enderecoEntrega.setNumero(request.getParameter("txtNumeroEntrega"));
 		enderecoEntrega.setObservacao(request.getParameter("txtObservacaoEntrega"));
+		enderecoEntrega.setBairro(request.getParameter("txtBairroEntrega"));
 		
 		Endereco enderecoResidencial = new Endereco();
 		Cidade cidadeEntregaResidencial = new Cidade();
@@ -120,6 +118,7 @@ public class VHCliente implements IViewHelper{
 		enderecoResidencial.setTipoLogradouro(request.getParameter("txtTipoLogradouroResidencial"));
 		enderecoResidencial.setNumero(request.getParameter("txtNumeroResidencial"));
 		enderecoResidencial.setObservacao(request.getParameter("txtObservacaoResidencial"));
+		enderecoResidencial.setBairro(request.getParameter("txtBairroResidencial"));
 		
 		enderecos.add(enderecoResidencial);
 		enderecos.add(enderecoEntrega);
@@ -132,7 +131,6 @@ public class VHCliente implements IViewHelper{
 		
 		cartao.setBandeira(request.getParameter("txtBandeira"));
 		cartao.setCodSeguranca(request.getParameter("txtCodSeguranca"));
-		//cartao.setDtVenciamento(request.getParameter("txtDataVencimento"));
 		
 		if (request.getParameter("txtCartaoID") != null){
 			cartao.setId(Integer.parseInt(request.getParameter("txtCartaoID")));
@@ -140,18 +138,136 @@ public class VHCliente implements IViewHelper{
 		cartao.setNome(request.getParameter("txtNomeCartao"));
 		cartao.setNumero(request.getParameter("txtNumeroCartao"));
 		cartao.setPreferencial(true);
+		String stDataVencimento = request.getParameter("txtDataVencimento");
+ 		
+		stDataVencimento = (stDataVencimento == "") ? null : stDataVencimento;
+		
+		Calendar DataVencimento = null;
+		
+		if(stDataVencimento != null)
+		{
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date data = format.parse(stDataVencimento);
+				DataVencimento = Calendar.getInstance();
+				DataVencimento.setTime(data);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+ 		
+		cartao.setDtVenciamento(DataVencimento);
 		
 		cartoes.add(cartao);
 		
 		cliente.setListCartoes(cartoes);
 		
 		
+		String stDataNascimento = request.getParameter("txtDataNascimento");
+ 		
+ 		stDataNascimento = (stDataNascimento == "") ? null : stDataNascimento;
+		
+		Calendar dataNascimento = null;
+		
+		if(stDataNascimento != null)
+		{
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date data = format.parse(stDataNascimento);
+				dataNascimento = Calendar.getInstance();
+				dataNascimento.setTime(data);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+ 		
+		cliente.setDataNascimento(dataNascimento);
+		cliente.setGenero(request.getParameter("txtGenero"));
+		
 		return cliente;
 	}
 
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		String operacao = request.getParameter("btnOperacao");
+		String mensagem[] = resultado.getMensagem().split("\n");		
+		
+		if(resultado.getErro())
+			request.setAttribute("erro", mensagem);
+		else
+			request.setAttribute("sucesso", mensagem);
+		
+		if(operacao.equals("SALVAR")){
+			if(resultado.getErro()){
+
+					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+			}
+			else
+			{
+				request.setAttribute("resultado", resultado.getCategoria());
+			}
+		} else if(operacao.equals("CONSULTAR")){
+			if(!resultado.getErro()){
+				if(resultado.getResultado() != null){
+					request.setAttribute("cliente", (Cliente) resultado.getResultado());
+				
+				}else{
+					request.setAttribute("resultado", resultado.getListaResultado());
+				}
+			}
+		}
+		else if(operacao.equals("VISUALIZAR")){
+
+		
+				request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+		
+			
+
+		}
+		else if(operacao.equals("ALTERAR")){
+
+		
+				request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+
+			
+
+
+}
+		
+		try {
+			if(operacao.equals("SALVAR")){
+			RequestDispatcher rd = request.getRequestDispatcher("cad-cliente.jsp");
+			rd.forward(request, response);
+			}
+			else if(operacao.equals("CONSULTAR")){			
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
+					rd.forward(request, response);
+			}
+			else if(operacao.equals("VISUALIZAR")){
+
+					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
+					rd.forward(request, response);
+
+			}
+			else if(operacao.equals("INATIVAR")){
+								
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
+					rd.forward(request, response);
+
+			}
+			else if(operacao.equals("ALTERAR")){
+				
+				RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
+				rd.forward(request, response);
+
+		}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -249,7 +249,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">CPF</label>
-                                                  <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder="" onkeypress="mascara(this, '###.###.###-##')" maxlength="11" >
+                                                  <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder="" onread="mascara(this, '###.###.###-##')" maxlength="11" >
 
                                             </div>
                                         </div>
@@ -344,14 +344,8 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="country">País</label>
-                                                <div class="select-wrap">
-                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="Brasil"  name="txtPais">Brasil</option>
-                                                        
-                                                    </select>
-                                                </div>
+                                            <label for="streetaddress">Bairro</label>
+                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -446,16 +440,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                      <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="country">País</label>
-                                                <div class="select-wrap">
-                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="Brasil"  name="txtPaisEntrega">Brasil</option>
-                                                        
-                                                    </select>
-                                                </div>
+                                            <label for="streetaddress">Bairro</label>
+                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairroEntrega" name="txtBairroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -554,14 +542,8 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="country">País</label>
-                                                <div class="select-wrap">
-                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="Brasil"  name="txtPaisResidencial">Brasil</option>
-                                                        
-                                                    </select>
-                                                </div>
+                                            <label for="streetaddress">Bairro</label>
+                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -654,10 +636,17 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="postcodezip">Código de Segurança</label>
                                <input value="${cliente.CartaoCredito.codSeguranca}" type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Data de Vencimento</label>
+                                                <input value="${cliente.CartaoCredito.dataVencimento}" type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
 
                                             </div>
                                         </div>
@@ -673,7 +662,7 @@
                                                     <input type="hidden" id="FormName" name="FormName" value="VHCLIENTE" />
                                                                 <input type="hidden" id="Tipo" name="Tipo" value="VHCLIENTE" />
                                                                 
-                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVARCLIENTE">Cadastrar</button>
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Cadastrar</button>
                                                 </div>
                                             </center>
                                         </div>

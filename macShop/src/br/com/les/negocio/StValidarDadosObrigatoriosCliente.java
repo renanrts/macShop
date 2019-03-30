@@ -1,5 +1,6 @@
 package br.com.les.negocio;
 
+import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
@@ -62,6 +63,30 @@ public class StValidarDadosObrigatoriosCliente implements IStrategy{
 			
 			if(cliente.getTelefone() == null || cliente.getTelefone().equals("")){
 				mensagem.append("Telefone é um campo obrigatório\n");
+			}
+			
+			for (CartaoCredito cartoes : cliente.getListCartoes())
+			{
+				if(cartoes.getBandeira() == null || cartoes.getBandeira().equals("")){
+					mensagem.append("Bandeira é um campo obrigatório\n");
+				}
+				
+				if(cartoes.getCodSeguranca() == null || cartoes.getCodSeguranca().equals("")){
+					mensagem.append("Código de Segurança é um campo obrigatório\n");
+				}
+				
+				if(cartoes.getDtVenciamento() == null || cartoes.getDtVenciamento().equals("")){
+					mensagem.append("Data de Vencimento é um campo obrigatório\n");
+				}
+				
+				if(cartoes.getNome() == null || cartoes.getNome().equals("")){
+					mensagem.append("Nome (Cartão de Crédito) é um campo obrigatório\n");
+				}
+				
+				if(cartoes.getNumero() == null || cartoes.getNumero().equals("")){
+					mensagem.append("Número (Cartão de Crédito) é um campo obrigatório\n");
+				}
+				
 			}
 			
 			if(mensagem.length() == 0){
