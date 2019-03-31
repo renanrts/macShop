@@ -1,6 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -197,7 +197,12 @@
         </h2>
     </section>
 
-
+<c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
 
     <section class="bgwhite p-t-45 p-b-58">
         <div class="container">
@@ -274,7 +279,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
 												<label for="towncity">Número</label>
-                                                <input value="${cliente.telefone.numero}" type="text" class="form-control" id="txtDDD" name="txtDDD" placeholder="" >
+                                                <input value="${cliente.telefone.numero}" type="text" class="form-control" id="txtNumeroTel" name="txtNumeroTel" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="w-100"></div>
@@ -299,7 +304,7 @@
                                                 <input value="" type="text" class="form-control" id="txtSenha2" name="txtSenha2" placeholder="" >
                                             </div>
                                         </div>
-
+										
                                         <div class="w-100"></div>
                                         <hr>
                                         <h3 class="mb-4 billing-heading">Endereço de Cobrança</h3>
@@ -332,20 +337,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
+                                                <input value="${cliente.listEnderecos[0].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
+                                                <input value="${cliente.listEnderecos[0].numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
+                                                <input value="${cliente.listEnderecos[0].bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -383,7 +388,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
+                                                <input value="${cliente.listEnderecos[0].cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
                                             </div>
                                         </div>
 
@@ -391,7 +396,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.listEnderecos[0].observacao}">${cliente.listEnderecos[0].observacao}</textarea>
                                            
                                                 </div>
                                             </div>
@@ -430,20 +435,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecos[1].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecos[1].numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroEntrega" placeholder="" >
                                             </div>
                                         </div>
 
                                       <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairroEntrega" name="txtBairroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecos[1].bairro}" type="text" class="form-control" id="txtBairroEntrega" name="txtBairroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -481,7 +486,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecos[1].cep}" type="text" class="form-control" id="txtCEP" name="txtCEPEntrega" placeholder="" >
                                             </div>
                                         </div>
 
@@ -489,7 +494,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoEntrega" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoEntrega" value="${cliente.listEnderecos[1].observacao}">${cliente.listEnderecos[1].observacao}</textarea>
                                            
                                                 </div>
                                             </div>
@@ -530,20 +535,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.endereco.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
+                                                <input value="${cliente.listEnderecos[2].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.endereco.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
+                                                <input value="${cliente.listEnderecos[2].numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
                                             </div>
                                         </div>
+                                        
+                                        
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.endereco.bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
+                                                <input value="${cliente.listEnderecos[2].bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -581,7 +588,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.endereco.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
+                                                <input value="${cliente.listEnderecos[2].cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
                                             </div>
                                         </div>
 
@@ -589,7 +596,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.endereco.observacao}">${cliente.endereco.observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.listEnderecos[2].observacao}">${cliente.listEnderecos[2].observacao}</textarea>
                                            
                                                 </div>
                                             </div>
@@ -621,7 +628,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="postcodezip">Número</label>
-                                                <input value="" type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
+                                                <input value="${cliente.listCartoes[0].numero}" type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
                                             </div>
                                         </div>
 
@@ -631,7 +638,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="postcodezip">Nome</label>
-                                             <input value="" type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
+                                             <input value="${cliente.listCartoes[0].nome}" type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
 
                                             </div>
                                         </div>
@@ -639,14 +646,14 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="postcodezip">Código de Segurança</label>
-                               <input value="${cliente.CartaoCredito.codSeguranca}" type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
+                               <input value="${cliente.listCartoes[0].codSeguranca}" type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
 
                                             </div>
                                         </div>
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="streetaddress">Data de Vencimento</label>
-                                                <input value="${cliente.CartaoCredito.dataVencimento}" type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
+                                                <input value="${cliente.listCartoes[0].dtVenciamento}" type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
 
                                             </div>
                                         </div>

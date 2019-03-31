@@ -10,6 +10,7 @@ public class CartaoCredito extends EntidadeDominio{
 	private boolean preferencial;
 	private Calendar dtVenciamento;
 	private String bandeira;
+	private int cliId;
 	
 	public String getNumero() {
 		return numero;
@@ -46,6 +47,12 @@ public class CartaoCredito extends EntidadeDominio{
 	}
 	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
+	}
+	public int getCliId() {
+		return cliId;
+	}
+	public void setCliId(int cliId) {
+		this.cliId = cliId;
 	}
 	
 	

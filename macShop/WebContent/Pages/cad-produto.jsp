@@ -1,4 +1,5 @@
-
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -58,7 +59,7 @@
                             </li>
 
                             <li>
-                                <a href="product.jsp">Cat·logo de Produtos</a>
+                                <a href="product.jsp">Cat√°logo de Produtos</a>
                             </li>
 
                             <li>
@@ -68,7 +69,7 @@
 
 
                             <li>
-                                <a href="index.jsp">¡rea Cliente</a>
+                                <a href="index.jsp">√Årea Cliente</a>
                                 <ul class="sub_menu">
                                     <li><a href="area-cli.jsp">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
@@ -77,13 +78,13 @@
                             </li>
 
                             <li>
-                                <a href="index.jsp">¡rea Admin</a>
+                                <a href="index.jsp">√Årea Admin</a>
                                 <ul class="sub_menu">
                                     <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
                                     <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
-                                    <li><a href="relatorio.jsp">RelatÛrios</a></li>
+                                    <li><a href="relatorio.jsp">Relat√≥rios</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -153,7 +154,7 @@
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href="product.jsp">Cat·logo de Produtos</a>
+                        <a href="product.jsp">Cat√°logo de Produtos</a>
                     </li>
 
                     <li class="item-menu-mobile">
@@ -161,7 +162,7 @@
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href="index.jsp">¡rea Cliente</a>
+                        <a href="index.jsp">√Årea Cliente</a>
                         <ul class="sub-menu">
                             <li><a href="area-cli.jsp"">Meus Dados</a></li>
 									<li><a href=" pedidos-cli.jsp">Pedidos</a></li>
@@ -171,13 +172,13 @@
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href="index.jsp">¡rea Admin</a>
+                        <a href="index.jsp">√Årea Admin</a>
                         <ul class="sub-menu">
                             <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
                             <li><a href="consulta-prod.jsp">Produtos</a></li>
                             <li><a href="troca.jsp">Consultar Trocas</a></li>
                             <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
-                            <li><a href="relatorio.jsp">RelatÛrios</a></li>
+                            <li><a href="relatorio.jsp">Relat√≥rios</a></li>
                         </ul>
                         <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
                     </li>
@@ -206,10 +207,10 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#best-seller" role="tab">EletrÙnico</a>
+                        <a class="nav-link active" data-toggle="tab" href="#best-seller" role="tab">Eletr√¥nico</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#featured" role="tab">AcessÛrio</a>
+                        <a class="nav-link" data-toggle="tab" href="#featured" role="tab">Acess√≥rio</a>
                     </li>
 
                 </ul>
@@ -229,7 +230,7 @@
                                             <form action="/macShop/Pages/cadastroEletronico" method="POST" class="billing-form bg-light p-3 p-md-5">
 												
 
-                                                <h3 class="mb-4 billing-heading">Cadastrar eletrÙnico</h3>
+                                                <h3 class="mb-4 billing-heading">Cadastrar eletr√¥nico</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -239,7 +240,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="lastname">PreÁo</label>
+                                                            <label for="lastname">Pre√ßo</label>
                                                             <input value="${eletronico.preco}" type="text" class="form-control" placeholder="" id="txtPreco" name="txtPreco">
                                                         </div>
                                                     </div>
@@ -269,7 +270,7 @@
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="streetaddress">Ano de FabricaÁ„o</label>
+                                                            <label for="streetaddress">Ano de Fabrica√ß√£o</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtAnoFabricacao" name="txtAnoFabricacao" value="${eletronico.dataaFabricacao}">
                                                         </div>
                                                     </div>
@@ -288,14 +289,14 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="postcodezip">Dimensıes</label>
+                                                            <label for="postcodezip">Dimens√µes</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtDimensoes" name="txtDimensoes" value="${eletronico.dimensoes}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="phone">CÛdigo de Barras</label>
+                                                            <label for="phone">C√≥digo de Barras</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtCodBarras" name="txtCodBarras" value="${eletronico.codigoBarras}">
                                                         </div>
                                                     </div>
@@ -309,7 +310,7 @@
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="towncity">MemÛria</label>
+                                                            <label for="towncity">Mem√≥ria</label>
                                                             <input type="text" class="form-control" placeholder=""id="txtMemoria" name="txtMemoria" value="${eletronico.memoria}">
                                                         </div>
                                                     </div>
@@ -328,20 +329,20 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="postcodezip">ResoluÁ„o Camera</label>
+                                                            <label for="postcodezip">Resolu√ß√£o Camera</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtResolucaoCamera" name="txtResolucaoCamera" value="${eletronico.resolucaoCamera}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="towncity">Conte˙do da embalagem</label>
+                                                            <label for="towncity">Conte√∫do da embalagem</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtConteudoEmbalagem" name="txtConteudoEmbalagem" value="${eletronico.conteudoEmbalagem}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="postcodezip">AlimentaÁ„o</label>
+                                                            <label for="postcodezip">Alimenta√ß√£o</label>
                                                             <input type="text" class="form-control" placeholder="" id="txtAlimentacao" name="txtAlimentacao" value="${eletronico.alimentacao}">
                                                         </div>
                                                     </div>
@@ -361,7 +362,7 @@
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="towncity">DescriÁ„o</label>
+                                                            <label for="towncity">Descri√ß√£o</label>
                                                             <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricao" name="txtDescricao" value="${eletronico.descricao}">${eletronico.descricao}</textarea>
                                                         </div>
                                                     </div>
@@ -410,7 +411,7 @@
 
 
 
-                                                <h3 class="mb-4 billing-heading">Cadastrar acessÛrio</h3>
+                                                <h3 class="mb-4 billing-heading">Cadastrar acess√≥rio</h3>
                                                 <div class="row align-items-end">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -420,7 +421,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="lastname">PreÁo</label>
+                                                            <label for="lastname">Pre√ßo</label>
                                                             <input value="${acessorio.preco}" type="text" class="form-control" id="txtPrecoProd" name="txtPreco" placeholder="">
                                                         </div>
                                                     </div>
@@ -431,7 +432,7 @@
                                                             <div class="select-wrap">
                                                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                                 <select name="txtCategoria" id="txtCategoria" class="form-control">
-                                                                     <option name="txtCategoria" value="4">AcessÛrios</option>
+                                                                     <option name="txtCategoria" value="4">Acess√≥rios</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -439,14 +440,14 @@
                                                   <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="streetaddress">Ano de FabricaÁ„o</label>
+                                                            <label for="streetaddress">Ano de Fabrica√ß√£o</label>
                                                                <input type="text" class="form-control" placeholder="" id="txtAnoFabricacaoProd" name="txtAnoFabricacao" value="${acessorio.dataaFabricacao}">
 
                                                         </div>
                                                     </div>
                                                      <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="towncity">Modelos CompatÌveis</label>
+                                                            <label for="towncity">Modelos Compat√≠veis</label>
                                                             <input type="text" class="form-control"
                                                                 placeholder="" id="txtModeloCompativel" name="txtModeloCompativel" value="${acessorio.modeloCompativel}">
                                                         </div>
@@ -461,14 +462,14 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="postcodezip">Dimensıes</label>
+                                                            <label for="postcodezip">Dimens√µes</label>
                                                               <input type="text" class="form-control" placeholder="" id="txtDimensoesProd" name="txtDimensoes" value="${acessorio.dimensoes}">
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="phone">CÛdigo de Barras</label>
+                                                            <label for="phone">C√≥digo de Barras</label>
                                                          		<input type="text" class="form-control" placeholder="" id="txtCodBarrasProd" name="txtCodBarras" value="${acessorio.codigoBarras}">
                                                         </div>
                                                     </div>
@@ -486,7 +487,7 @@
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="towncity">DescriÁ„o</label>
+                                                            <label for="towncity">Descri√ß√£o</label>
                                                           <textarea type="text" class="form-control" value="" placeholder="" id="txtDescricaoProd" name="txtDescricao" value="${acessorio.descricao}">${acessorio.descricao}</textarea>
                                                         </div>
                                                     </div>
@@ -496,7 +497,7 @@
                                                         <div class="col-md-12">
                                                             <div class="checkbox">
                                                                 <label><input type="checkbox" class="mr-2" name="txtMFI" value="Ativo"> O
-                                                                    acessÛrio possui selo MFI.</label>
+                                                                    acess√≥rio possui selo MFI.</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -557,7 +558,7 @@
 
                 <div>
                     <p class="s-text7 w-size27">
-                        Entre em contato atravÈs do e-mail macshop@fatec.com ou se preferir, pelo telefone (11)
+                        Entre em contato atrav√©s do e-mail macshop@fatec.com ou se preferir, pelo telefone (11)
                         2312-2312
                     </p>
 
@@ -597,7 +598,7 @@
 
                     <li class="p-b-9">
                         <a href="#" class="s-text7">
-                            AcessÛrios
+                            Acess√≥rios
                         </a>
                     </li>
                 </ul>
@@ -617,7 +618,7 @@
 
                     <li class="p-b-9">
                         <a href="#" class="s-text7">
-                            Cat·logo de Produtos
+                            Cat√°logo de Produtos
                         </a>
                     </li>
 
@@ -693,7 +694,7 @@
             </a>
 
             <div class="t-center s-text8 p-t-20">
-                Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o"
+                Copyright ¬© 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o"
                     aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
             </div>
         </div>

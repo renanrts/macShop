@@ -1,5 +1,6 @@
 package br.com.les.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +56,11 @@ public class Servlet extends HttpServlet{
 		}
 		
 		@Override
-		public void service(HttpServletRequest request, HttpServletResponse response) {
+		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+			
+			request.setCharacterEncoding("UTF-8");
+			
+			String tipo = request.getParameter("txtTipoTelefone");
 			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);

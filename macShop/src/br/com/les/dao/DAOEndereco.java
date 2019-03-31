@@ -4,22 +4,56 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Cidade;
+import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Estado;
-import br.com.les.dominio.Genero;
 import br.com.les.util.Resultado;
 
 public class DAOEndereco extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Endereco endereco = (Endereco) entidade;
+		
+		Resultado resultado = new Resultado();
+		
+		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, end_cli_id, end_status) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, endereco.getCidade().getId());
+			stmt.setString(2, endereco.getTipoEndereco());
+			stmt.setString(3, endereco.getCep());
+			stmt.setString(4, endereco.getLogradouro());
+			stmt.setString(5, endereco.getNumero());
+			stmt.setString(6, endereco.getTipoLogradouro());
+			stmt.setString(7, endereco.getBairro());
+			stmt.setString(8, endereco.getObservacao());
+			stmt.setInt(9, endereco.getCliId());
+			stmt.setBoolean(10, true);
+			
+	
+			stmt.execute();
+
+			stmt.close();
+
+			resultado.sucesso("Salvo com sucesso!");
+			
+			return resultado;
+
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			resultado.erro("Erro salvar, por favor, refaça a operação.");
+			return resultado;
+		}
+		
 	}
 
 	@Override
@@ -121,5 +155,7 @@ public class DAOEndereco extends AbstractDAO {
 
 		return listaEstado;
 	}
+	
+
 
 }

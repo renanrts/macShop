@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
+import br.com.les.viewhelper.VHBaseCadastro;
 
 public class DAOCliente extends AbstractDAO {
 
@@ -26,13 +28,13 @@ public class DAOCliente extends AbstractDAO {
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, cliente.getNome());
 			stmt.setString(2, cliente.getCpf());
 			stmt.setString(3, "ATIVO");
 			stmt.setString(4, cliente.getEmail());
 			stmt.setString(5, cliente.getSenhas().get(0));
-			stmt.setString(6, cliente.getTelefone().getTipo());
+			stmt.setString(6, cliente.getTelefone().getTipoTelefone());
 			stmt.setString(7, cliente.getTelefone().getDdd());
 			stmt.setString(8, cliente.getTelefone().getNumero());
 			stmt.setString(9, cliente.getGenero());
@@ -42,21 +44,23 @@ public class DAOCliente extends AbstractDAO {
 
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next())
-				cliente.setId(rs.getInt(1));
-
+				cliente.setId(rs.getInt("cli_id"));
+			
+			stmt.close();
+			
 			for(Endereco endereco : cliente.getListEnderecos())
 			{
 				IDAO dao = new DAOEndereco();
+				endereco.setCliId(rs.getInt("cli_id"));
 				dao.salvar(endereco);
 			}
 			
 			for(CartaoCredito cartao : cliente.getListCartoes())
 			{
-				IDAO dao = new DAOEndereco();
+				IDAO dao = new DAOCartao();
+				cartao.setCliId(rs.getInt("cli_id"));
 				dao.salvar(cartao);
 			}
-			
-			stmt.close();
 			
 			con.close();
 

@@ -11,6 +11,7 @@ public class Endereco extends EntidadeDominio{
 	private boolean preferencial;
 	private Cidade cidade;
 	private String tipoLogradouro;
+	private int cliId;
 	
 	public String getLogradouro() {
 		return logradouro;
@@ -65,6 +66,12 @@ public class Endereco extends EntidadeDominio{
 	}
 	public void setTipoLogradouro(String tipoLogradouro) {
 		this.tipoLogradouro = tipoLogradouro;
+	}
+	public int getCliId() {
+		return cliId;
+	}
+	public void setCliId(int cliId) {
+		this.cliId = cliId;
 	}
 
 }

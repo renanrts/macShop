@@ -57,7 +57,7 @@ public class VHCliente implements IViewHelper{
 
 		Telefone telefone = new Telefone();
 		telefone.setDdd(request.getParameter("txtDDD"));
-		telefone.setNumero(request.getParameter("txtNumero"));
+		telefone.setNumero(request.getParameter("txtNumeroTel"));
 		telefone.setTipoTelefone(request.getParameter("txtTipoTelefone"));
 		cliente.setTelefone(telefone);
 		
@@ -76,7 +76,7 @@ public class VHCliente implements IViewHelper{
 		endereco.setTipo("ENDERECO");
 		endereco.setCep(request.getParameter("txtCEP"));
 		endereco.setLogradouro(request.getParameter("txtLogradouro"));
-		endereco.setTipoLogradouro(request.getParameter("txtTipoLogradouro"));
+		endereco.setTipoLogradouro(request.getParameter("txtTiposLogradouro"));
 		endereco.setNumero(request.getParameter("txtNumero"));
 		endereco.setObservacao(request.getParameter("txtObservacao"));
 		endereco.setBairro(request.getParameter("txtBairro"));
@@ -96,11 +96,11 @@ public class VHCliente implements IViewHelper{
 		enderecoEntrega.setTipo("ENDERECOENTREGA");
 		enderecoEntrega.setCep(request.getParameter("txtCEPEntrega"));
 		enderecoEntrega.setLogradouro(request.getParameter("txtLogradouroEntrega"));
-		enderecoEntrega.setTipoLogradouro(request.getParameter("txtTipoLogradouroEntrega"));
+		enderecoEntrega.setTipoLogradouro(request.getParameter("txtTiposLogradouroEntrega"));
 		enderecoEntrega.setNumero(request.getParameter("txtNumeroEntrega"));
 		enderecoEntrega.setObservacao(request.getParameter("txtObservacaoEntrega"));
 		enderecoEntrega.setBairro(request.getParameter("txtBairroEntrega"));
-		
+
 		Endereco enderecoResidencial = new Endereco();
 		Cidade cidadeEntregaResidencial = new Cidade();
 		Estado estadoEntregaResidencial  = new Estado();
@@ -115,7 +115,7 @@ public class VHCliente implements IViewHelper{
 		enderecoResidencial.setTipo("ENDERECORESIDENCIAL");
 		enderecoResidencial.setCep(request.getParameter("txtCEPResidencial"));
 		enderecoResidencial.setLogradouro(request.getParameter("txtLogradouroResidencial"));
-		enderecoResidencial.setTipoLogradouro(request.getParameter("txtTipoLogradouroResidencial"));
+		enderecoResidencial.setTipoLogradouro(request.getParameter("txtTiposLogradouroResidencial"));
 		enderecoResidencial.setNumero(request.getParameter("txtNumeroResidencial"));
 		enderecoResidencial.setObservacao(request.getParameter("txtObservacaoResidencial"));
 		enderecoResidencial.setBairro(request.getParameter("txtBairroResidencial"));
@@ -238,8 +238,15 @@ public class VHCliente implements IViewHelper{
 		
 		try {
 			if(operacao.equals("SALVAR")){
-			RequestDispatcher rd = request.getRequestDispatcher("cad-cliente.jsp");
-			rd.forward(request, response);
+				if(resultado.getErro()) {
+					RequestDispatcher rd = request.getRequestDispatcher("cad-cliente.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+					rd.forward(request, response);
+				}
+			
 			}
 			else if(operacao.equals("CONSULTAR")){			
 					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");

@@ -14,8 +14,8 @@ import br.com.les.viewhelper.VHBaseCadastro;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/baseCadastro"})
-public class ShoutServlet extends HttpServlet{
+@WebServlet(urlPatterns={"/Pages/contact.jsp"})
+public class ShoutServlet2 extends HttpServlet{
 		
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
