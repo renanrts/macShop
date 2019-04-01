@@ -159,7 +159,7 @@ public class DAOCliente extends AbstractDAO {
 				end.setPreferencial(rs.getBoolean("end_preferencial"));
 				end.setTipo(rs.getString("end_tipo"));
 				end.setTipoEndereco(rs.getString("end_tipo_residencia"));
-				end.setTipoLogradouro(rs.getString("end_logradouro"));
+				end.setTipoLogradouro(rs.getString("end_tipo_logradouro"));
 				
 				enderecos.add(end);
 				

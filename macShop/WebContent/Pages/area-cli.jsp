@@ -406,7 +406,7 @@
                                                                     <a href="#alterarEndereco" class="edit"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
-                                                                            title="Edit" onclick="setaDadosModal('${eletronico.tipoEndereco }', '${eletronico.tipoLogradouro  }', '${eletronico.logradouro }')">&#xE254;</i></a>
+                                                                            title="Edit" onclick="setaDadosModal('${eletronico.tipoEndereco }', '${eletronico.tipoLogradouro  }', '${eletronico.logradouro }' , '${eletronico.numero }' , '${eletronico.cidade.estado.nome }', '${eletronico.cidade.nome }' , '${eletronico.cep }', '${eletronico.observacao }')">&#xE254;</i></a>
                                                                     <a href="#inativar" class="delete"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
@@ -802,7 +802,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Logradouro</label>
-                                                    <input type="text" class="form-control" placeholder="Logradouro" id="txtLogradouro" name="txtLogradouro" value="${eletronico.logradouro}">
+                                                    <input type="text" class="form-control" placeholder="" id="txtLogradouro" name="txtLogradouro" value="${eletronico.logradouro}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -818,7 +818,7 @@
                                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                         <select name="" id="" class="form-control">
                                                             <option value="">Brasil</option>
-                                                            <option value="">Canadá</option>
+                                                           
                                                         </select>
                                                     </div>
                                                 </div>
@@ -826,13 +826,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="country">Estado</label>
-                                                    <div class="select-wrap">
-                                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                        <select name="" id="" class="form-control">
-                                                            <option value="">São Paulo</option>
-                                                            <option value="">Rio de Janeiro</option>
-                                                        </select>
-                                                    </div>
+                                                    <input type="text" class="form-control" id="txtEstado" name="txtEstado"  placeholder="" value="${eletronico.cidade.estado.nome}">
                                                 </div>
                                             </div>
 
@@ -840,19 +834,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="country">Cidade</label>
-                                                    <div class="select-wrap">
-                                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                        <select name="" id="" class="form-control">
-                                                            <option value="">São Paulo</option>
-                                                            <option value="">Mogi das Cruzes</option>
-                                                        </select>
-                                                    </div>
+                                                <input type="text" class="form-control" id="txtCidade" name="txtCidade"  placeholder="" value="${eletronico.cidade.nome}">
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="postcodezip">CEP</label>
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" id="txtCep" name="txtCep"  placeholder="" value="${eletronico.cep}">
                                                 </div>
                                             </div>
 
@@ -860,8 +849,7 @@
                                                 <div class="col-md-13">
                                                     <div class="form-group">
                                                         <label for="towncity">Observações</label>
-                                                        <textarea class="form-control" name="message"
-                                                            placeholder=""></textarea>
+                                                        <input type="text" class="form-control" id="txtObs" name="txtObs"  placeholder="" value="${eletronico.observacao}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1245,10 +1233,16 @@
     </script>
 
 <script type="text/javascript">
-    function setaDadosModal(valor, tipo, ativo) {
+    function setaDadosModal(valor, tipo, ativo, numero, estado, cidade, cep, obs) {
         document.getElementById("txtTipoEndereco").value = valor ;
         document.getElementById("txtTipoLogradouro").value = tipo ;
         document.getElementById("txtLogradouro").value = ativo ;
+        document.getElementById("txtNumero").value = numero ;
+        document.getElementById("txtEstado").value = estado ;
+        document.getElementById("txtCidade").value = cidade ;
+        document.getElementById("txtCep").value = cep ;
+        document.getElementById("txtObs").value = obs ;
+        
     }
     </script>
     <!--===============================================================================================-->
