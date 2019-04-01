@@ -19,7 +19,7 @@ public class StComplementarEnderecoCliente implements IStrategy {
 		
 		for(Endereco en : cliente.getListEnderecos())
 		{
-			//en = dao.complementarEndereco(cliente);
+			en = dao.complementarEndereco(en);
 			enderecos.add(en);
 		}
 		cliente.setListEnderecos(enderecos);

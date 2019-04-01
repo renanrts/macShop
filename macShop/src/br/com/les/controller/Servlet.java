@@ -27,7 +27,7 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -46,6 +46,7 @@ public class Servlet extends HttpServlet{
 			mapCommand.put("INATIVAR", new CmdInativar());
 			mapCommand.put("ALTERAR", new CmdAlterar());
 			
+			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
 			mapViewHelper.put("VHPRODUTO", new VHProduto());
@@ -60,7 +61,6 @@ public class Servlet extends HttpServlet{
 			
 			request.setCharacterEncoding("UTF-8");
 			
-			String tipo = request.getParameter("txtTipoTelefone");
 			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);
@@ -70,8 +70,6 @@ public class Servlet extends HttpServlet{
 	 			 		
 			EntidadeDominio entidade = viewHelper.getEntidade(request);
 			
-			String nmClasse = entidade.getClass().getSimpleName().toUpperCase();
-			System.out.println(nmClasse);
 
 			Resultado resultado = command.executar(entidade);
 			

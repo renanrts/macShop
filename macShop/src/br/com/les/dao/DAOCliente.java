@@ -5,13 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import br.com.les.dominio.CartaoCredito;
+import br.com.les.dominio.Cidade;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Estado;
+import br.com.les.dominio.Telefone;
 import br.com.les.util.Resultado;
-import br.com.les.viewhelper.VHBaseCadastro;
 
 public class DAOCliente extends AbstractDAO {
 
@@ -77,8 +82,120 @@ public class DAOCliente extends AbstractDAO {
 
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Cliente cliente = (Cliente) entidade;
+		Resultado resultado = new Resultado();
+	
+		int contagem = 0;
+		
+
+
+		try {
+			
+			List<EntidadeDominio> clientes = new ArrayList<EntidadeDominio>();
+			List<Endereco> enderecos = new ArrayList<Endereco>();
+			List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
+			PreparedStatement stmt = null;
+			Boolean visualizar = false;
+			
+
+			stmt = this.con.prepareStatement(
+					"SELECT * from ENDERECOS AS C INNER JOIN CLIENTES AS F ON C.end_cli_Id = F.cli_id INNER JOIN CARTOES AS D ON F.cli_id = D.cart_cli_id INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id"
+					);
+						
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				if(contagem == 0)		
+				{
+					cliente.setCpf(rs.getString("cli_cpf"));
+					cliente.setEmail(rs.getString("cli_email"));
+					cliente.setGenero(rs.getString("cli_genero"));
+					cliente.setNome(rs.getString("cli_nome"));
+					Calendar data = Calendar.getInstance();
+					data.setTime(rs.getDate("cli_dt_nascimento"));
+					cliente.setDataNascimento(data);
+					
+					Telefone telefone = new Telefone();
+					telefone.setDdd(rs.getString("cli_tel_ddd"));
+					telefone.setNumero(rs.getString("cli_tel_numero"));
+					telefone.setTipoTelefone(rs.getString("cli_tel_tipo"));
+					
+					cliente.setTelefone(telefone);
+					
+					CartaoCredito cart = new CartaoCredito();
+					cart.setBandeira(rs.getString("cart_bandeira"));
+					cart.setCodSeguranca(rs.getString("cart_cod"));
+					cart.setNome(rs.getString("cart_nome"));
+					cart.setNumero(rs.getString("cart_numero"));
+					cart.setPreferencial(rs.getBoolean("cart_preferencial"));
+					Calendar dtVencimento = Calendar.getInstance();
+					dtVencimento.setTime(rs.getDate("cart_vencimento"));
+					cart.setDtVenciamento(dtVencimento);
+					
+					cartoes.add(cart);
+					
+				}
+				
+				Endereco end = new Endereco();
+					
+				Estado est = new Estado();
+				est.setId(rs.getInt("est_id"));
+				est.setNome(rs.getString("est_nome"));
+				
+				Cidade cid = new Cidade();
+				
+				cid.setEstado(est);
+				cid.setId(rs.getInt("cid_id"));
+				cid.setNome(rs.getString("cid_nome"));
+				
+				end.setBairro(rs.getString("end_bairro"));
+				end.setCep(rs.getString("end_cep"));
+				end.setCidade(cid);
+				end.setId(rs.getInt("end_id"));
+				end.setLogradouro(rs.getString("end_logradouro"));
+				end.setNumero(rs.getString("end_numero"));
+				end.setObservacao(rs.getString("end_obs"));
+				end.setPreferencial(rs.getBoolean("end_preferencial"));
+				end.setTipo(rs.getString("end_tipo"));
+				end.setTipoEndereco(rs.getString("end_tipo_residencia"));
+				end.setTipoLogradouro(rs.getString("end_logradouro"));
+				
+				enderecos.add(end);
+				
+			
+				
+
+				contagem++;
+			}
+			
+			cliente.setListCartoes(cartoes);
+			cliente.setListEnderecos(enderecos);
+			clientes.add(cliente);
+			resultado.setListaResultado(clientes);
+
+		
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+		
+		
+		
 	}
 
 	@Override

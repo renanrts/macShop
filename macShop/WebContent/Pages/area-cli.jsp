@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -246,13 +248,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input value="${cliente.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Gênero</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <input name="txtGenero" value="${cliente.genero }" READONLY>
                                                         </div>
                                                     </div>
 
@@ -260,26 +262,42 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Data de Nascimento</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                          <input value="${cliente.dataNascimento}" type="text" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder=""  READONLY>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">CPF</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                           <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder="" onread="mascara(this, '###.###.###-##')" maxlength="11" READONLY>
+
                                                         </div>
                                                     </div>
                                                     <div class="w-100"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="towncity">Telefone</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
+<div class="col-md-3">
+                                            <div class="form-group">
+                                               <label for="towncity">Tipo Telefone</label>
+                                              
+												   <input name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }" >
+												
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                           		 <label for="towncity">DDD</label>
+                                                <input value="${cliente.telefone.ddd}" type="text" class="form-control" id="txtDDD" name="txtDDD" placeholder=""  maxlength="2" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+												<label for="towncity">Número</label>
+                                                <input value="${cliente.telefone.numero}" type="text" class="form-control" id="txtNumeroTel" name="txtNumeroTel" placeholder="" >
+                                            </div>
+                                        </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="postcodezip">E-mail</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                             <input value="${cliente.email}" type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="" READONLY>
                                                         </div>
                                                     </div>
 
@@ -379,16 +397,16 @@
                                                 <div class="row align-items-end">
 
                                                     <div class="billing-form bg-light p-md-4">
-
+														<c:forEach var="eletronico" items="${entrega }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 1 </label>
+                                                                            class="mr-2" >${eletronico.tipoEndereco } - ${eletronico.tipoLogradouro  } - ${eletronico.logradouro } </label>
                                                                     <a href="#alterarEndereco" class="edit"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
-                                                                            title="Edit">&#xE254;</i></a>
+                                                                            title="Edit" onclick="setaDadosModal('${eletronico.tipoEndereco }', '${eletronico.tipoLogradouro  }', '${eletronico.logradouro }')">&#xE254;</i></a>
                                                                     <a href="#inativar" class="delete"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
@@ -396,38 +414,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 2</label>
-                                                                    <a href="#alterarEndereco" class="edit" data-toggle="modal"><i
-                                                                            class="material-icons" data-toggle="tooltip"
-                                                                            title="Edit"
-                                                                            style="display: align-right">&#xE254;</i></a>
-                                                                    <a href="#inativar" class="delete"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Add">&#xE872;</i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 3 </label>
-                                                                    <a href="#alterarEndereco" class="edit" data-toggle="modal"><i
-                                                                            class="material-icons" data-toggle="tooltip"
-                                                                            title="Edit"
-                                                                            style="display: align-right">&#xE254;</i></a>
-                                                                    <a href="#inativar" class="delete"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Add">&#xE872;</i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        </c:forEach>
+                                                       
 
                                                     </div>
 
@@ -453,8 +441,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Logradouro</label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Logradouro">
+                                                             <input value="${cliente.listEnderecos[0].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -801,21 +788,21 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Tipo de residência</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Casa, apartamento...">
+                                                 <input type="text" class="form-control" id="txtTipoEndereco" name="txtTipoEndereco"  placeholder="" value="${eletronico.tipoEndereco}">
                                                 </div>
+                     		
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Tipo de logradouro</label>
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" id="txtTipoLogradouro" name="txtTipoLogradouro"  placeholder="" value="${eletronico.tipoLogradouro}">
                                                 </div>
                                             </div>
                                             <div class="w-100"></div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Logradouro</label>
-                                                    <input type="text" class="form-control" placeholder="Logradouro">
+                                                    <input type="text" class="form-control" placeholder="Logradouro" id="txtLogradouro" name="txtLogradouro" value="${eletronico.logradouro}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -1257,8 +1244,15 @@
         });
     </script>
 
+<script type="text/javascript">
+    function setaDadosModal(valor, tipo, ativo) {
+        document.getElementById("txtTipoEndereco").value = valor ;
+        document.getElementById("txtTipoLogradouro").value = tipo ;
+        document.getElementById("txtLogradouro").value = ativo ;
+    }
+    </script>
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>
-
+	
 </body>
 </html>

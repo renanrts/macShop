@@ -66,14 +66,20 @@ public class VHCliente implements IViewHelper{
 		Cidade cidade = new Cidade();
 		Estado estado = new Estado();
 		
-		estado.setId(Integer.parseInt(request.getParameter("txtEstado")));
+		if(request.getParameter("txtEstado") != null)
+		{
+			estado.setId(Integer.parseInt(request.getParameter("txtEstado")));
+		}
 	
-		cidade.setId(Integer.parseInt(request.getParameter("txtCidade")));
+		if(request.getParameter("txtCidade") != null)
+		{
+			cidade.setId(Integer.parseInt(request.getParameter("txtCidade")));
+		}
 		cidade.setEstado(estado);
 		
 		endereco.setCidade(cidade);
 		endereco.setTipoEndereco(request.getParameter("txtTipoEndereco"));
-		endereco.setTipo("ENDERECO");
+		endereco.setTipo("ENDERECO COBRANÇA");
 		endereco.setCep(request.getParameter("txtCEP"));
 		endereco.setLogradouro(request.getParameter("txtLogradouro"));
 		endereco.setTipoLogradouro(request.getParameter("txtTiposLogradouro"));
@@ -85,15 +91,19 @@ public class VHCliente implements IViewHelper{
 		Cidade cidadeEntrega  = new Cidade();
 		Estado estadoEntrega  = new Estado();
 		
-		
-		estadoEntrega.setId(Integer.parseInt(request.getParameter("txtEstadoEntrega")));
-	
-		cidadeEntrega.setId(Integer.parseInt(request.getParameter("txtCidadeEntrega")));
+		if(request.getParameter("txtEstadoEntrega") != null)
+		{
+			estadoEntrega.setId(Integer.parseInt(request.getParameter("txtEstadoEntrega")));
+		}
+		if(request.getParameter("txtCidadeEntrega") != null)
+		{
+			cidadeEntrega.setId(Integer.parseInt(request.getParameter("txtCidadeEntrega")));
+		}
 		cidadeEntrega.setEstado(estadoEntrega);
 		
 		enderecoEntrega.setCidade(cidadeEntrega);
 		enderecoEntrega.setTipoEndereco(request.getParameter("txtTipoEnderecoEntrega"));
-		enderecoEntrega.setTipo("ENDERECOENTREGA");
+		enderecoEntrega.setTipo("ENDERECO ENTREGA");
 		enderecoEntrega.setCep(request.getParameter("txtCEPEntrega"));
 		enderecoEntrega.setLogradouro(request.getParameter("txtLogradouroEntrega"));
 		enderecoEntrega.setTipoLogradouro(request.getParameter("txtTiposLogradouroEntrega"));
@@ -105,14 +115,20 @@ public class VHCliente implements IViewHelper{
 		Cidade cidadeEntregaResidencial = new Cidade();
 		Estado estadoEntregaResidencial  = new Estado();
 		
-		estadoEntregaResidencial.setId(Integer.parseInt(request.getParameter("txtEstadoResidencial")));
-	
-		cidadeEntregaResidencial.setId(Integer.parseInt(request.getParameter("txtCidadeResidencial")));
+		if(request.getParameter("txtEstadoResidencial") != null)
+		{
+			estadoEntregaResidencial.setId(Integer.parseInt(request.getParameter("txtEstadoResidencial")));
+		}
+		if(request.getParameter("txtCidadeResidencial") != null)
+		{
+				cidadeEntregaResidencial.setId(Integer.parseInt(request.getParameter("txtCidadeResidencial")));
+		}
+		
 		cidadeEntregaResidencial.setEstado(estadoEntregaResidencial);
 		
 		enderecoResidencial.setCidade(cidadeEntregaResidencial);
 		enderecoResidencial.setTipoEndereco(request.getParameter("txtTipoEnderecoResidencial"));
-		enderecoResidencial.setTipo("ENDERECORESIDENCIAL");
+		enderecoResidencial.setTipo("ENDERECO RESIDENCIAL");
 		enderecoResidencial.setCep(request.getParameter("txtCEPResidencial"));
 		enderecoResidencial.setLogradouro(request.getParameter("txtLogradouroResidencial"));
 		enderecoResidencial.setTipoLogradouro(request.getParameter("txtTiposLogradouroResidencial"));
@@ -203,6 +219,8 @@ public class VHCliente implements IViewHelper{
 			if(resultado.getErro()){
 
 					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+					
+					
 			}
 			else
 			{
@@ -210,12 +228,22 @@ public class VHCliente implements IViewHelper{
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
-				if(resultado.getResultado() != null){
-					request.setAttribute("cliente", (Cliente) resultado.getResultado());
 				
-				}else{
-					request.setAttribute("resultado", resultado.getListaResultado());
-				}
+					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+				
+					Cliente cli = (Cliente) resultado.getListaResultado().get(0);
+					List<Endereco> enderecos = new ArrayList<Endereco>();
+					
+					for (Endereco endereco: cli.getListEnderecos())
+					{
+						if (endereco.getTipo().equals("ENDERECO ENTREGA"))
+						{
+							enderecos.add(endereco);
+						}
+					}
+					
+					request.setAttribute("entrega", enderecos);
+				
 			}
 		}
 		else if(operacao.equals("VISUALIZAR")){
@@ -249,12 +277,12 @@ public class VHCliente implements IViewHelper{
 			
 			}
 			else if(operacao.equals("CONSULTAR")){			
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
 					rd.forward(request, response);
 			}
 			else if(operacao.equals("VISUALIZAR")){
 
-					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
 					rd.forward(request, response);
 
 			}

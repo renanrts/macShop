@@ -21,8 +21,8 @@ public class DAOEndereco extends AbstractDAO {
 		
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, end_cli_id, end_status) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, end_cli_id, end_status, end_preferencial, end_tipo) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)";
 
 		try {
 
@@ -37,6 +37,15 @@ public class DAOEndereco extends AbstractDAO {
 			stmt.setString(8, endereco.getObservacao());
 			stmt.setInt(9, endereco.getCliId());
 			stmt.setBoolean(10, true);
+			if(endereco.getTipo().equals("ENDERECO ENTREGA"))
+			{
+				stmt.setBoolean(11, true);
+			}
+			else
+			{
+				stmt.setBoolean(11, false);
+			}
+			stmt.setString(12, endereco.getTipo());
 			
 	
 			stmt.execute();
@@ -156,6 +165,61 @@ public class DAOEndereco extends AbstractDAO {
 		return listaEstado;
 	}
 	
+	public Endereco complementarEndereco(EntidadeDominio e)
+	{
+		Endereco end = (Endereco) e;
+		
+		try {
+			
+			
+			PreparedStatement stmt = null;
+			
+			stmt = this.con.prepareStatement("SELECT * FROM cidade WHERE cid_id = ?");
+			stmt.setInt(1, end.getCidade().getId());
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+		
+				end.getCidade().setNome(rs.getString("cid_nome"));
+
+			} 
+			rs.close();
+			stmt.close();
+			
+		}catch (SQLException e1) {
+				
+				e1.printStackTrace();
+				
+			return null;
+		}
+		
+		try {
+	
+			PreparedStatement stmt = null;
+			
+			stmt = this.con.prepareStatement("SELECT * FROM estado WHERE est_id = ?");
+			stmt.setInt(1, end.getCidade().getEstado().getId());
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				end.getCidade().getEstado().setNome(rs.getString("est_nome"));				
+
+			} 
+			rs.close();
+			stmt.close();
+			
+		}catch (SQLException e1) {
+				
+				e1.printStackTrace();
+				
+			return null;
+		}
+
+		return end;
+		
+	}
 
 
 }

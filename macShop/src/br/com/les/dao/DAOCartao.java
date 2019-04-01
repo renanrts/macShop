@@ -16,8 +16,8 @@ public class DAOCartao extends AbstractDAO {
 		
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO CARTOES (cart_bandeira, cart_nome, cart_numero, cart_cod, cart_vencimento, cart_preferencial, cart_cli_id) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO CARTOES (cart_bandeira, cart_nome, cart_numero, cart_cod, cart_vencimento, cart_preferencial, cart_cli_id, cart_status) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 
@@ -29,6 +29,7 @@ public class DAOCartao extends AbstractDAO {
 			stmt.setDate(5, new Date (cartao.getDtVenciamento().getTimeInMillis()));
 			stmt.setBoolean(6, true);
 			stmt.setInt(7, cartao.getCliId());
+			stmt.setBoolean(8, true);
 	
 			stmt.execute();
 

@@ -63,7 +63,7 @@
                             </li>
 
                             <li>
-                                <a href="contact.jsp">Contato</a>
+                                <a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=9">Contato</a>
                             </li>
 
 
@@ -236,7 +236,7 @@
                                                                       <option name="txtGenero" value="${genero }">${genero }</option>
 															
 																     </c:forEach>   
-																
+																 <option name="txtGenero" value="${cliente.genero }">${cliente.genero }</option>
                                                       </select>
                                                 
                                                 
@@ -267,6 +267,7 @@
 	                                               <c:forEach var="tipoTelefone" items="${baseCadastro.listaTipoTelefone }" >
 	                                                    <option name="txtTipoTelefone" value="${tipoTelefone }">${tipoTelefone }</option>
 												   </c:forEach>  
+												   <option name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }">${cliente.telefone.tipoTelefone }</option>
 												   </select>
                                             </div>
                                         </div>
@@ -318,6 +319,7 @@
                                                                       <option name="txtTipoEndereco" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTipoEndereco" value="${cliente.listEnderecos[0].tipoEndereco }">${cliente.listEnderecos[0].tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -330,9 +332,12 @@
                                                                       <option name="txtTiposLogradouro" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTiposLogradouro" value="${cliente.listEnderecos[0].tipoLogradouro }">${cliente.listEnderecos[0].tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
+                                      
+                                        
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -361,9 +366,11 @@
                                                     <select name="txtEstado" id="txtEstado" class="form-control">
                                                   <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
                                                             
-                                                                      <option name="txtEstado" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
+                                                                      <option name="txtEstado" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
+																     <option name="txtEstado" value="${cliente.listEnderecos[0].cidade.estado.id }">${cliente.listEnderecos[0].cidade.estado.nome}</option>
+																     
 																     </select>
                                                 </div>
                                             </div>
@@ -378,9 +385,10 @@
                                                         <select name="txtCidade" id="txtCidade" class="form-control">
                                                   <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
                                                             
-                                                                      <option name="txtCidade" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
+                                                                      <option name="txtCidade" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
-																     </c:forEach>  
+																     </c:forEach>
+																     <option name="txtCidade" value="${cliente.listEnderecos[0].cidade.id }">${cliente.listEnderecos[0].cidade.nome}</option>
 																     </select>
                                                 </div>
                                             </div>
@@ -416,6 +424,7 @@
                                                                       <option name="txtTipoEnderecoEntrega" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTipoEnderecoEntrega" value="${cliente.listEnderecos[1].tipoEndereco }">${cliente.listEnderecos[1].tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -428,6 +437,7 @@
                                                                       <option name="txtTiposLogradouroEntrega" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTiposLogradouroEntrega" value="${cliente.listEnderecos[1].tipoLogradouro }">${cliente.listEnderecos[1].tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -459,9 +469,10 @@
                                                     <select name="txtEstadoEntrega" id="txtEstado" class="form-control">
                                                   <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
                                                             
-                                                                      <option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
+                                                                      <option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
+																      <option name="txtEstadoEntrega" value="${cliente.listEnderecos[1].cidade.estado.id }">${cliente.listEnderecos[1].cidade.estado.nome}</option>
 																     </select>
                                                 </div>
                                             </div>
@@ -476,9 +487,10 @@
                                                         <select name="txtCidadeEntrega" id="txtCidade" class="form-control">
                                                   <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
                                                             
-                                                                      <option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
+                                                                      <option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
-																     </c:forEach>  
+																     </c:forEach> 
+																         <option name="txtCidadeEntrega" value="${cliente.listEnderecos[1].cidade.id }">${cliente.listEnderecos[1].cidade.nome}</option> 
 																     </select>
                                                 </div>
                                             </div>
@@ -516,6 +528,7 @@
                                                                       <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTipoEnderecoResidencial" value="${cliente.listEnderecos[2].tipoEndereco }">${cliente.listEnderecos[2].tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -528,9 +541,12 @@
                                                                       <option name="txtTiposLogradouroResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
+																     <option name="txtTiposLogradouroResidencial" value="${cliente.listEnderecos[2].tipoLogradouro }">${cliente.listEnderecos[2].tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
+                                   
+                                        
                                         <div class="w-100"></div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -561,9 +577,10 @@
                                                     <select name="txtEstadoResidencial" id="txtEstado" class="form-control">
                                                   <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
                                                             
-                                                                      <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.id } - ${listaEstados.nome }</option>
+                                                                      <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
+																     <option name="txtEstadoResidencial" value="${cliente.listEnderecos[2].cidade.estado.id }">${cliente.listEnderecos[2].cidade.estado.nome} </option>
 																     </select>
                                                 </div>
                                             </div>
@@ -578,9 +595,10 @@
                                                         <select name="txtCidadeResidencial" id="txtCidade" class="form-control">
                                                   <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
                                                             
-                                                                      <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.id } - ${listaCidades.nome }</option>
+                                                                      <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
 																     </c:forEach>  
+																     <option name="txtCidadeResidencial" value="${cliente.listEnderecos[2].cidade.id }">${cliente.listEnderecos[2].cidade.nome}</option> 
 																     </select>
                                                 </div>
                                             </div>
@@ -620,7 +638,7 @@
                                                                       <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
 															
 																     </c:forEach>   
-																
+																<option name="txtBandeira" value="${cliente.listCartoes[0].bandeira }">${cliente.listCartoes[0].bandeira }</option>
                                                       </select>
                                                 </div>
                                             </div>

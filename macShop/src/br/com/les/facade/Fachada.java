@@ -60,7 +60,7 @@ public class Fachada implements IFachada {
 		StComplementarDTCadastroCliente StComplementarDTCadastroCliente = new StComplementarDTCadastroCliente();
 		StValidarDadosObrigatoriosCliente StValidarDadosObrigatoriosCliente = new StValidarDadosObrigatoriosCliente();
 		StValidarExistenciaCliente	StValidarExistenciaCliente = new StValidarExistenciaCliente();
-		//StComplementarEnderecoCliente StComplementarEnderecoCliente = new StComplementarEnderecoCliente();
+		StComplementarEnderecoCliente StComplementarEnderecoCliente = new StComplementarEnderecoCliente();
 		StValidarSenhasCliente StValidarSenhasCliente = new StValidarSenhasCliente();
 		
 		/* Criando uma lista para conter as regras de negócio de fornencedor
@@ -124,7 +124,7 @@ public class Fachada implements IFachada {
 		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
 		rnsSalvarCliente.add(StValidarCPF);		
 		rnsSalvarCliente.add(StComplementarDTCadastroCliente);
-		//rnsSalvarCliente.add(StComplementarEnderecoCliente);
+		rnsSalvarCliente.add(StComplementarEnderecoCliente);
 		rnsSalvarCliente.add(StValidarExistenciaCliente);
 		rnsSalvarCliente.add(StValidarDadosObrigatoriosCliente);
 		rnsSalvarCliente.add(StValidarSenhasCliente);
