@@ -15,14 +15,24 @@ public class StComplementarEnderecoCliente implements IStrategy {
 		
 		Cliente cliente = (Cliente) entidade;
 		DAOEndereco dao = new DAOEndereco();
-		List<Endereco> enderecos = new ArrayList<Endereco>();
 		
-		for(Endereco en : cliente.getListEnderecos())
+		
+		if(cliente.getEnderecoCobranca() == null || cliente.getEnderecoResidencial() == null || cliente.getListEnderecosEntrega() == null)
+		{
+			return null;
+		}
+		
+		cliente.setEnderecoCobranca(dao.complementarEndereco(cliente.getEnderecoCobranca()));
+		cliente.setEnderecoResidencial(dao.complementarEndereco(cliente.getEnderecoResidencial()));
+				
+		List<Endereco> enderecosEntrega = new ArrayList<Endereco>();
+		
+		for(Endereco en : cliente.getListEnderecosEntrega())
 		{
 			en = dao.complementarEndereco(en);
-			enderecos.add(en);
+			enderecosEntrega.add(en);
 		}
-		cliente.setListEnderecos(enderecos);
+		cliente.setListEnderecosEntrega(enderecosEntrega);
 		
 		return null;
 	}

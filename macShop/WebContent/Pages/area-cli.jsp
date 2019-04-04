@@ -254,7 +254,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="lastname">Gênero</label>
-                                                            <input name="txtGenero" value="${cliente.genero }" READONLY>
+                                                            <input class="form-control" name="txtGenero" value="${cliente.genero }" READONLY>
                                                         </div>
                                                     </div>
 
@@ -262,14 +262,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Data de Nascimento</label>
-                                                          <input value="${cliente.dataNascimento}" type="text" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder=""  READONLY>
-
+                                                          <input value="<fmt:formatDate value= "${cliente.dataNascimento.time }"/>" type="text" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder=""  READONLY>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">CPF</label>
-                                           <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder="" onread="mascara(this, '###.###.###-##')" maxlength="11" READONLY>
+                                         						  <input value="${cliente.cpf}" type="text" class="form-control" id="txtCPF" name="txtCPF" placeholder=""  READONLY>
 
                                                         </div>
                                                     </div>
@@ -278,7 +277,7 @@
                                             <div class="form-group">
                                                <label for="towncity">Tipo Telefone</label>
                                               
-												   <input name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }" >
+												   <input class="form-control" name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }" >
 												
                                             </div>
                                         </div>
@@ -300,7 +299,216 @@
                                                              <input value="${cliente.email}" type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="" READONLY>
                                                         </div>
                                                     </div>
+<div class="w-100"></div>
+                                        <hr>
+                                        <h3 class="mb-4 billing-heading">Endereço Residencial</h3>
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de residência</label>
+                                                <select name="txtTipoEnderecoResidencial" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+                                                            
+                                                                      <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+															
+																     </c:forEach>  
+																     <option name="txtTipoEnderecoResidencial" value="${cliente.enderecoResidencial.tipoEndereco }">${cliente.enderecoResidencial.tipoEndereco }</option>
+																     </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de logradouro</label>
+                                                  <select name="txtTiposLogradouroResidencial" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
+                                                            
+                                                                      <option name="txtTiposLogradouroResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
+															
+																     </c:forEach>  
+																     <option name="txtTiposLogradouroResidencial" value="${cliente.enderecoResidencial.tipoLogradouro }">${cliente.enderecoResidencial.tipoLogradouro }</option>
+																     </select>
+                                            </div>
+                                        </div>
+                                   
+                                        
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Logradouro</label>
+                                                <input value="${cliente.enderecoResidencial.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="streetaddress">Número</label>
+                                                <input value="${cliente.enderecoResidencial.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+                                        
+                                        
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="streetaddress">Bairro</label>
+                                                <input value="${cliente.enderecoResidencial.bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Estado</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                    <select name="txtEstadoResidencial" id="txtEstado" class="form-control">
+                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
+                                                            
+                                                                      <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.nome }</option>
+															
+																     </c:forEach>  
+																     <option name="txtEstadoResidencial" value="${cliente.enderecoResidencial.cidade.estado.id }">${cliente.enderecoResidencial.cidade.estado.nome} </option>
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Cidade</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                        <select name="txtCidadeResidencial" id="txtCidade" class="form-control">
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
+                                                            
+                                                                      <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.nome }</option>
+															
+																     </c:forEach>  
+																     <option name="txtCidadeResidencial" value="${cliente.enderecoResidencial.cidade.id }">${cliente.enderecoResidencial.cidade.nome}</option> 
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="postcodezip">CEP</label>
+                                                <input value="${cliente.enderecoResidencial.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-13">
+                                                <div class="form-group">
+                                                    <label for="towncity">Observações</label>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.enderecoResidencial.observacao}">${cliente.enderecoResidencial.observacao}</textarea>
+                                           
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="w-100"></div>
+                                        <hr>
+                                        <h3 class="mb-4 billing-heading">Endereço de Cobrança</h3>
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de residência</label>
+                                                <select name="txtTipoEndereco" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+                                                            
+                                                                      <option name="txtTipoEndereco" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+															
+																     </c:forEach>  
+																     <option name="txtTipoEndereco" value="${cliente.enderecoCobranca.tipoEndereco }">${cliente.enderecoCobranca.tipoEndereco}</option>
+																     </select>
+																     
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Tipo de logradouro</label>
+                                                  <select name="txtTiposLogradouro" id="txtCategoria" class="form-control">
+                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
+                                                            
+                                                                      <option name="txtTiposLogradouro" value="${tiposLogradouro }">${tiposLogradouro }</option>
+															
+																     </c:forEach>  
+																     <option name="txtTiposLogradouro" value="${cliente.enderecoCobranca.tipoLogradouro }">${cliente.enderecoCobranca.tipoLogradouro}</option>
+																     </select>
+                                            </div>
+                                        </div>
+                                      
+                                        
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Logradouro</label>
+                                                <input value="${cliente.enderecoCobranca.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="streetaddress">Número</label>
+                                                <input value="${cliente.enderecoCobranca.numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="streetaddress">Bairro</label>
+                                                <input value="${cliente.enderecoCobranca.bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Estado</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                    <select name="txtEstado" id="txtEstado" class="form-control">
+                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
+                                                            
+                                                                      <option name="txtEstado" value="${listaEstados.id }">${listaEstados.nome }</option>
+															
+																     </c:forEach>  
+																     <option name="txtEstado" value="${cliente.enderecoCobranca.cidade.estado.id }">${cliente.enderecoCobranca.cidade.estado.nome}</option>
+																     
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-100"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="country">Cidade</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                        <select name="txtCidade" id="txtCidade" class="form-control">
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
+                                                            
+                                                                      <option name="txtCidade" value="${listaCidades.id }">${listaCidades.nome }</option>
+															
+																     </c:forEach>
+																     <option name="txtCidade" value="${cliente.enderecoCobranca.cidade.id }">${cliente.enderecoCobranca.cidade.nome}</option>
+																     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="postcodezip">CEP</label>
+                                                <input value="${cliente.enderecoCobranca.cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-13">
+                                                <div class="form-group">
+                                                    <label for="towncity">Observações</label>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.enderecoCobranca.observacao}">${cliente.enderecoCobranca.observacao}</textarea>
+                                           
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
                                                         <div class="form-group mt-4">
@@ -397,16 +605,16 @@
                                                 <div class="row align-items-end">
 
                                                     <div class="billing-form bg-light p-md-4">
-														<c:forEach var="eletronico" items="${entrega }" >
+														<c:forEach var="enderecoEntrega" items="${cliente.listEnderecosEntrega }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="optradio"
-                                                                            class="mr-2" >${eletronico.tipoEndereco } - ${eletronico.tipoLogradouro  } - ${eletronico.logradouro } </label>
+                                                                            class="mr-2" >${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro } </label>
                                                                     <a href="#alterarEndereco" class="edit"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
-                                                                            title="Edit" onclick="setaDadosModal('${eletronico.tipoEndereco }', '${eletronico.tipoLogradouro  }', '${eletronico.logradouro }' , '${eletronico.numero }' , '${eletronico.cidade.estado.nome }', '${eletronico.cidade.nome }' , '${eletronico.cep }', '${eletronico.observacao }')">&#xE254;</i></a>
+                                                                            title="Edit" onclick="setaDadosModal('${enderecoEntrega.tipoEndereco }', '${enderecoEntrega.tipoLogradouro  }', '${enderecoEntrega.logradouro }' , '${enderecoEntrega.numero }' , '${enderecoEntrega.cidade.estado.nome }', '${enderecoEntrega.cidade.nome }' , '${enderecoEntrega.cep }', '${enderecoEntrega.observacao }')">&#xE254;</i></a>
                                                                     <a href="#inativar" class="delete"
                                                                         data-toggle="modal"><i class="material-icons"
                                                                             data-toggle="tooltip"
@@ -441,7 +649,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="streetaddress">Logradouro</label>
-                                                             <input value="${cliente.listEnderecos[0].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
+                                                             <input value="" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -548,55 +756,26 @@
                                                 <div class="row align-items-end">
 
                                                     <div class="billing-form bg-light p-md-4">
+														<c:forEach var="cartao" items="${cliente.listCartoes }" >
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="optradio"
+                                                                            class="mr-2">${cartao.bandeira}</label>
+                                                                                                                                       
+                                                                            <a href="#alterarCartao" class="edit"
+                                                                        data-toggle="modal"><i class="material-icons"
+                                                                            data-toggle="tooltip"
+                                                                            title="Edit" onclick="setaDadosModalCartao('${cartao.numero }', '${cartao.nome  }', '${cartao.codSeguranca }' , '${cartao.dtVenciamento }', '${cartao.bandeira}')">&#xE254;</i></a>
+                                                                    <a href="#inativarCartao" class="delete"
+                                                                        data-toggle="modal"><i class="material-icons"
+                                                                            data-toggle="tooltip"
+                                                                            title="Add">&#xE872;</i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </c:forEach>
 
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Cartão 1</label>
-                                                                    <a href="#alterarCartao" class="edit"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip" title="Edit"
-                                                                            style="display: align-right">&#xE254;</i></a>
-                                                                    <a href="#inativarCartao" class="delete"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Add">&#xE872;</i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Cartão 2</label>
-                                                                    <a href="#alterarCartao" class="edit"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip" title="Edit"
-                                                                            style="display: align-right">&#xE254;</i></a>
-                                                                    <a href="#inativarCartao" class="delete"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Add">&#xE872;</i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Cartão 3</label>
-                                                                    <a href="#alterarCartao" class="edit"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip" title="Edit"
-                                                                            style="display: align-right">&#xE254;</i></a>
-                                                                    <a href="#inativarCartao" class="delete"
-                                                                        data-toggle="modal"><i class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Add">&#xE872;</i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
                                                     </div>
 
@@ -788,26 +967,26 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Tipo de residência</label>
-                                                 <input type="text" class="form-control" id="txtTipoEndereco" name="txtTipoEndereco"  placeholder="" value="${eletronico.tipoEndereco}">
+                                                 <input type="text" class="form-control" id="txtTipoEndereco" name="txtTipoEndereco"  placeholder="" value="${cliente.listEnderecosEntrega[0].tipoEndereco}">
                                                 </div>
                      		
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Tipo de logradouro</label>
-                                                    <input type="text" class="form-control" id="txtTipoLogradouro" name="txtTipoLogradouro"  placeholder="" value="${eletronico.tipoLogradouro}">
+                                                    <input type="text" class="form-control" id="txtTipoLogradouro" name="txtTipoLogradouro"  placeholder="" value="${cliente.listEnderecosEntrega[0].tipoLogradouro}">
                                                 </div>
                                             </div>
                                             <div class="w-100"></div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="streetaddress">Logradouro</label>
-                                                    <input type="text" class="form-control" placeholder="" id="txtLogradouro" name="txtLogradouro" value="${eletronico.logradouro}">
+                                                    <input type="text" class="form-control" placeholder="" id="txtLogradouro" name="txtLogradouro" value="${cliente.listEnderecosEntrega[0].logradouro}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Número">
+                                                    <input type="text" class="form-control" placeholder="Número" value="${cliente.listEnderecosEntrega[0].numero}">
                                                 </div>
                                             </div>
 
@@ -826,7 +1005,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="country">Estado</label>
-                                                    <input type="text" class="form-control" id="txtEstado" name="txtEstado"  placeholder="" value="${eletronico.cidade.estado.nome}">
+                                                    <input type="text" class="form-control" id="txtEstado" name="txtEstado"  placeholder="" value="${cliente.listEnderecosEntrega[0].cidade.estado.nome}">
                                                 </div>
                                             </div>
 
@@ -834,14 +1013,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="country">Cidade</label>
-                                                <input type="text" class="form-control" id="txtCidade" name="txtCidade"  placeholder="" value="${eletronico.cidade.nome}">
+                                                <input type="text" class="form-control" id="txtCidade" name="txtCidade"  placeholder="" value="${cliente.listEnderecosEntrega[0].cidade.nome}">
 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="postcodezip">CEP</label>
-                                                    <input type="text" class="form-control" id="txtCep" name="txtCep"  placeholder="" value="${eletronico.cep}">
+                                                    <input type="text" class="form-control" id="txtCep" name="txtCep"  placeholder="" value="${cliente.listEnderecosEntrega[0].cep}">
                                                 </div>
                                             </div>
 
@@ -849,7 +1028,7 @@
                                                 <div class="col-md-13">
                                                     <div class="form-group">
                                                         <label for="towncity">Observações</label>
-                                                        <input type="text" class="form-control" id="txtObs" name="txtObs"  placeholder="" value="${eletronico.observacao}">
+                                                        <input type="text" class="form-control" id="txtObs" name="txtObs"  placeholder="" value="${cliente.listEnderecosEntrega[0].observacao}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -942,24 +1121,22 @@
                                             aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body" style="background: #ecf0f1;">
+                                 
+                                    
 
                                         <div class="row align-items-end">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="country">Bandeira</label>
                                                     <div class="select-wrap">
-                                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                        <select name="" id="" class="form-control">
-                                                            <option value="">Visa</option>
-                                                            <option value="">Master</option>
-                                                        </select>
+                                                        <input type="text" class="form-control" id="txtBandeira" name="txtBandeira"  placeholder="" value="${cliente.listCartoes[0].bandeira}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label for="postcodezip">Número</label>
-                                                    <input type="text" class="form-control" placeholder="">
+                                                   <input type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao"  placeholder="" value="${cliente.listCartoes[0].numero}">
                                                 </div>
                                             </div>
 
@@ -969,17 +1146,23 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="postcodezip">Nome</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Nome impresso no cartão">
+                                                   <input type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao"  placeholder="" value="${cliente.listCartoes[0].nome}">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="postcodezip">Código de Segurança</label>
-                                                    <input type="text" class="form-control" placeholder="">
+                                                     <input type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca"  placeholder="" value="${cliente.listCartoes[0].codSeguranca}">
                                                 </div>
                                             </div>
+                                            
+                                           <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Data de Vencimento</label>
+                                                <input value="<fmt:formatDate value= "${cliente.listCartoes[0].dtVenciamento.time }"/>" type="text" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder="">
+                                            </div>
+                                        </div>
 
 
 
@@ -1236,12 +1419,25 @@
     function setaDadosModal(valor, tipo, ativo, numero, estado, cidade, cep, obs) {
         document.getElementById("txtTipoEndereco").value = valor ;
         document.getElementById("txtTipoLogradouro").value = tipo ;
-        document.getElementById("txtLogradouro").value = ativo ;
+        $("#txtLogradouro").val(ativo) ;
         document.getElementById("txtNumero").value = numero ;
         document.getElementById("txtEstado").value = estado ;
         document.getElementById("txtCidade").value = cidade ;
         document.getElementById("txtCep").value = cep ;
         document.getElementById("txtObs").value = obs ;
+        
+    }
+    </script>
+    
+    <script type="text/javascript">
+
+    function setaDadosModalCartao(numero, nome, codSeguranca, dtVenciamento, bandeira) {
+        document.getElementById("txtNumeroCartao").value = numero ;
+        document.getElementById("txtNomeCartao").value = nome ;
+        document.getElementById("txtCodSeguranca").value = codSeguranca ;
+        document.getElementById("txtDataVencimento").value = dtVenciamento ;
+        document.getElementById("txtBandeira").value = bandeira ;
+
         
     }
     </script>

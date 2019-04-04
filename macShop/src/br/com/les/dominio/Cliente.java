@@ -6,8 +6,11 @@ import java.util.List;
 public class Cliente extends Pessoa{
 	
 	private List<CartaoCredito> listCartoes;
-	private List<Endereco> listEnderecos;
+	private List<Endereco> listEnderecosEntrega;
 	private Telefone telefone;
+	private Endereco enderecoResidencial;
+	private Endereco enderecoCobranca;
+	
 	protected Calendar dataCadastro;
 	
 	public Calendar getDataCadastro() {
@@ -22,18 +25,32 @@ public class Cliente extends Pessoa{
 	public void setListCartoes(List<CartaoCredito> listCartoes) {
 		this.listCartoes = listCartoes;
 	}
-	public List<Endereco> getListEnderecos() {
-		return listEnderecos;
-	}
-	public void setListEnderecos(List<Endereco> listEnderecos) {
-		this.listEnderecos = listEnderecos;
-	}
+
 	public Telefone getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(Telefone telefone) {
 		this.telefone = telefone;
 	}
+	public Endereco getEnderecoResidencial() {
+		return enderecoResidencial;
+	}
+	public void setEnderecoResidencial(Endereco enderecoResidencial) {
+		this.enderecoResidencial = enderecoResidencial;
+	}
+	public Endereco getEnderecoCobranca() {
+		return enderecoCobranca;
+	}
+	public void setEnderecoCobranca(Endereco enderecoCobranca) {
+		this.enderecoCobranca = enderecoCobranca;
+	}
+	public List<Endereco> getListEnderecosEntrega() {
+		return listEnderecosEntrega;
+	}
+	public void setListEnderecosEntrega(List<Endereco> listEnderecosEntrega) {
+		this.listEnderecosEntrega = listEnderecosEntrega;
+	}
+
 	
 	
 	

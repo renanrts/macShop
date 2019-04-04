@@ -53,12 +53,18 @@ public class DAOCliente extends AbstractDAO {
 			
 			stmt.close();
 			
-			for(Endereco endereco : cliente.getListEnderecos())
+			for(Endereco endereco : cliente.getListEnderecosEntrega())
 			{
 				IDAO dao = new DAOEndereco();
 				endereco.setCliId(rs.getInt("cli_id"));
 				dao.salvar(endereco);
 			}
+			
+			IDAO daoEnd = new DAOEndereco();
+			cliente.getEnderecoCobranca().setCliId(rs.getInt("cli_id"));
+			cliente.getEnderecoResidencial().setCliId(rs.getInt("cli_id"));
+			daoEnd.salvar(cliente.getEnderecoCobranca());
+			daoEnd.salvar(cliente.getEnderecoCobranca());
 			
 			for(CartaoCredito cartao : cliente.getListCartoes())
 			{
@@ -161,16 +167,25 @@ public class DAOCliente extends AbstractDAO {
 				end.setTipoEndereco(rs.getString("end_tipo_residencia"));
 				end.setTipoLogradouro(rs.getString("end_tipo_logradouro"));
 				
-				enderecos.add(end);
-				
-			
-				
+				if (end.getTipo().equals("ENDERECO COBRANCA"))
+				{
+					cliente.setEnderecoCobranca(end);
+				}
+				else if (end.getTipo().equals("ENDERECO ENTREGA"))
+				{
+					enderecos.add(end);
+				}
+				else if (end.getTipo().equals("ENDERECO RESIDENCIAL"))
+				{
+					cliente.setEnderecoResidencial(end);
+				}
 
 				contagem++;
 			}
 			
+			
 			cliente.setListCartoes(cartoes);
-			cliente.setListEnderecos(enderecos);
+			cliente.setListEnderecosEntrega(enderecos);
 			clientes.add(cliente);
 			resultado.setListaResultado(clientes);
 

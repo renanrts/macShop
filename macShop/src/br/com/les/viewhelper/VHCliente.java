@@ -23,6 +23,7 @@ import br.com.les.util.Resultado;
 
 public class VHCliente implements IViewHelper{
 
+	
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		// TODO Auto-generated method stub
@@ -61,8 +62,10 @@ public class VHCliente implements IViewHelper{
 		telefone.setTipoTelefone(request.getParameter("txtTipoTelefone"));
 		cliente.setTelefone(telefone);
 		
-		List<Endereco> enderecos = new ArrayList<Endereco>();
-		Endereco endereco = new Endereco();
+		
+		List<Endereco> enderecosEntrega = new ArrayList<Endereco>();
+		
+		Endereco enderecoCobranca = new Endereco();
 		Cidade cidade = new Cidade();
 		Estado estado = new Estado();
 		
@@ -77,15 +80,18 @@ public class VHCliente implements IViewHelper{
 		}
 		cidade.setEstado(estado);
 		
-		endereco.setCidade(cidade);
-		endereco.setTipoEndereco(request.getParameter("txtTipoEndereco"));
-		endereco.setTipo("ENDERECO COBRANÇA");
-		endereco.setCep(request.getParameter("txtCEP"));
-		endereco.setLogradouro(request.getParameter("txtLogradouro"));
-		endereco.setTipoLogradouro(request.getParameter("txtTiposLogradouro"));
-		endereco.setNumero(request.getParameter("txtNumero"));
-		endereco.setObservacao(request.getParameter("txtObservacao"));
-		endereco.setBairro(request.getParameter("txtBairro"));
+		enderecoCobranca.setCidade(cidade);
+		enderecoCobranca.setTipoEndereco(request.getParameter("txtTipoEndereco"));
+		enderecoCobranca.setTipo("ENDERECO COBRANÇA");
+		enderecoCobranca.setCep(request.getParameter("txtCEP"));
+		enderecoCobranca.setLogradouro(request.getParameter("txtLogradouro"));
+		enderecoCobranca.setTipoLogradouro(request.getParameter("txtTiposLogradouro"));
+		enderecoCobranca.setNumero(request.getParameter("txtNumero"));
+		enderecoCobranca.setObservacao(request.getParameter("txtObservacao"));
+		enderecoCobranca.setBairro(request.getParameter("txtBairro"));
+		
+		cliente.setEnderecoCobranca(enderecoCobranca);
+		
 		
 		Endereco enderecoEntrega = new Endereco();
 		Cidade cidadeEntrega  = new Cidade();
@@ -110,6 +116,9 @@ public class VHCliente implements IViewHelper{
 		enderecoEntrega.setNumero(request.getParameter("txtNumeroEntrega"));
 		enderecoEntrega.setObservacao(request.getParameter("txtObservacaoEntrega"));
 		enderecoEntrega.setBairro(request.getParameter("txtBairroEntrega"));
+		
+		enderecosEntrega.add(enderecoEntrega);
+		cliente.setListEnderecosEntrega(enderecosEntrega);
 
 		Endereco enderecoResidencial = new Endereco();
 		Cidade cidadeEntregaResidencial = new Cidade();
@@ -136,11 +145,7 @@ public class VHCliente implements IViewHelper{
 		enderecoResidencial.setObservacao(request.getParameter("txtObservacaoResidencial"));
 		enderecoResidencial.setBairro(request.getParameter("txtBairroResidencial"));
 		
-		enderecos.add(enderecoResidencial);
-		enderecos.add(enderecoEntrega);
-		enderecos.add(endereco);
-		
-		cliente.setListEnderecos(enderecos);
+		cliente.setEnderecoResidencial(enderecoResidencial);
 		
 		List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
 		CartaoCredito cartao = new CartaoCredito();
@@ -230,20 +235,8 @@ public class VHCliente implements IViewHelper{
 			if(!resultado.getErro()){
 				
 					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-				
-					Cliente cli = (Cliente) resultado.getListaResultado().get(0);
-					List<Endereco> enderecos = new ArrayList<Endereco>();
-					
-					for (Endereco endereco: cli.getListEnderecos())
-					{
-						if (endereco.getTipo().equals("ENDERECO ENTREGA"))
-						{
-							enderecos.add(endereco);
-						}
-					}
-					
-					request.setAttribute("entrega", enderecos);
-				
+	
+		
 			}
 		}
 		else if(operacao.equals("VISUALIZAR")){

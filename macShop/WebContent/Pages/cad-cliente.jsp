@@ -319,7 +319,7 @@
                                                                       <option name="txtTipoEndereco" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTipoEndereco" value="${cliente.listEnderecos[0].tipoEndereco }">${cliente.listEnderecos[0].tipoEndereco}</option>
+																     <option name="txtTipoEndereco" value="${cliente.enderecoResidencial.tipoEndereco }">${cliente.enderecoResidencial.tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -332,7 +332,7 @@
                                                                       <option name="txtTiposLogradouro" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTiposLogradouro" value="${cliente.listEnderecos[0].tipoLogradouro }">${cliente.listEnderecos[0].tipoLogradouro}</option>
+																     <option name="txtTiposLogradouro" value="${cliente.enderecoResidencial.tipoLogradouro }">${cliente.enderecoResidencial.tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -342,20 +342,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.listEnderecos[0].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.listEnderecos[0].numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.numero}" type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="" >
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.listEnderecos[0].bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.bairro}" type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -369,7 +369,7 @@
                                                                       <option name="txtEstado" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
-																     <option name="txtEstado" value="${cliente.listEnderecos[0].cidade.estado.id }">${cliente.listEnderecos[0].cidade.estado.nome}</option>
+																     <option name="txtEstado" value="${cliente.enderecoResidencial.cidade.estado.id }">${cliente.enderecoResidencial.cidade.estado.nome}</option>
 																     
 																     </select>
                                                 </div>
@@ -388,7 +388,7 @@
                                                                       <option name="txtCidade" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
 																     </c:forEach>
-																     <option name="txtCidade" value="${cliente.listEnderecos[0].cidade.id }">${cliente.listEnderecos[0].cidade.nome}</option>
+																     <option name="txtCidade" value="${cliente.enderecoResidencial.cidade.id }">${cliente.enderecoResidencial.cidade.nome}</option>
 																     </select>
                                                 </div>
                                             </div>
@@ -396,7 +396,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.listEnderecos[0].cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.cep}" type="text" class="form-control" id="txtCEP" name="txtCEP" placeholder="" >
                                             </div>
                                         </div>
 
@@ -404,7 +404,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.listEnderecos[0].observacao}">${cliente.listEnderecos[0].observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacao" value="${cliente.enderecoResidencial.observacao}">${cliente.enderecoResidencial.observacao}</textarea>
                                            
                                                 </div>
                                             </div>
@@ -424,7 +424,7 @@
                                                                       <option name="txtTipoEnderecoEntrega" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTipoEnderecoEntrega" value="${cliente.listEnderecos[1].tipoEndereco }">${cliente.listEnderecos[1].tipoEndereco}</option>
+																     <option name="txtTipoEnderecoEntrega" value="${cliente.listEnderecosEntrega[0].tipoEndereco }">${cliente.listEnderecosEntrega[0].tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -437,7 +437,7 @@
                                                                       <option name="txtTiposLogradouroEntrega" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTiposLogradouroEntrega" value="${cliente.listEnderecos[1].tipoLogradouro }">${cliente.listEnderecos[1].tipoLogradouro}</option>
+																     <option name="txtTiposLogradouroEntrega" value="${cliente.listEnderecosEntrega[0].tipoLogradouro }">${cliente.listEnderecosEntrega[0].tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -445,20 +445,20 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.listEnderecos[1].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecosEntrega[0].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.listEnderecos[1].numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecosEntrega[0].numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroEntrega" placeholder="" >
                                             </div>
                                         </div>
 
                                       <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.listEnderecos[1].bairro}" type="text" class="form-control" id="txtBairroEntrega" name="txtBairroEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecosEntrega[0].bairro}" type="text" class="form-control" id="txtBairroEntrega" name="txtBairroEntrega" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -472,7 +472,7 @@
                                                                       <option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
-																      <option name="txtEstadoEntrega" value="${cliente.listEnderecos[1].cidade.estado.id }">${cliente.listEnderecos[1].cidade.estado.nome}</option>
+																      <option name="txtEstadoEntrega" value="${cliente.listEnderecosEntrega[0].cidade.estado.id }">${cliente.listEnderecosEntrega[0].cidade.estado.nome}</option>
 																     </select>
                                                 </div>
                                             </div>
@@ -490,7 +490,7 @@
                                                                       <option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
 																     </c:forEach> 
-																         <option name="txtCidadeEntrega" value="${cliente.listEnderecos[1].cidade.id }">${cliente.listEnderecos[1].cidade.nome}</option> 
+																         <option name="txtCidadeEntrega" value="${cliente.listEnderecosEntrega[0].cidade.id }">${cliente.listEnderecosEntrega[0].cidade.nome}</option> 
 																     </select>
                                                 </div>
                                             </div>
@@ -498,7 +498,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.listEnderecos[1].cep}" type="text" class="form-control" id="txtCEP" name="txtCEPEntrega" placeholder="" >
+                                                <input value="${cliente.listEnderecosEntrega[0].cep}" type="text" class="form-control" id="txtCEP" name="txtCEPEntrega" placeholder="" >
                                             </div>
                                         </div>
 
@@ -506,7 +506,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoEntrega" value="${cliente.listEnderecos[1].observacao}">${cliente.listEnderecos[1].observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoEntrega" value="${cliente.listEnderecosEntrega[0].observacao}">${cliente.listEnderecosEntrega[0].observacao}</textarea>
                                            
                                                 </div>
                                             </div>
@@ -528,7 +528,7 @@
                                                                       <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTipoEnderecoResidencial" value="${cliente.listEnderecos[2].tipoEndereco }">${cliente.listEnderecos[2].tipoEndereco}</option>
+																     <option name="txtTipoEnderecoResidencial" value="${cliente.enderecoResidencial.tipoEndereco }">${cliente.enderecoResidencial.tipoEndereco}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -541,7 +541,7 @@
                                                                       <option name="txtTiposLogradouroResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
 															
 																     </c:forEach>  
-																     <option name="txtTiposLogradouroResidencial" value="${cliente.listEnderecos[2].tipoLogradouro }">${cliente.listEnderecos[2].tipoLogradouro}</option>
+																     <option name="txtTiposLogradouroResidencial" value="${cliente.enderecoResidencial.tipoLogradouro }">${cliente.enderecoResidencial.tipoLogradouro}</option>
 																     </select>
                                             </div>
                                         </div>
@@ -551,13 +551,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Logradouro</label>
-                                                <input value="${cliente.listEnderecos[2].logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.logradouro}" type="text" class="form-control" id="txtLogradouro" name="txtLogradouroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Número</label>
-                                                <input value="${cliente.listEnderecos[2].numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.numero}" type="text" class="form-control" id="txtNumero" name="txtNumeroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         
@@ -566,7 +566,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="streetaddress">Bairro</label>
-                                                <input value="${cliente.listEnderecos[2].bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.bairro}" type="text" class="form-control" id="txtBairroResidencial" name="txtBairroResidencial" placeholder="" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -580,7 +580,7 @@
                                                                       <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.nome }</option>
 															
 																     </c:forEach>  
-																     <option name="txtEstadoResidencial" value="${cliente.listEnderecos[2].cidade.estado.id }">${cliente.listEnderecos[2].cidade.estado.nome} </option>
+																     <option name="txtEstadoResidencial" value="${cliente.enderecoResidencial.cidade.estado.id }">${cliente.enderecoResidencial.cidade.estado.nome} </option>
 																     </select>
                                                 </div>
                                             </div>
@@ -598,7 +598,7 @@
                                                                       <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.nome }</option>
 															
 																     </c:forEach>  
-																     <option name="txtCidadeResidencial" value="${cliente.listEnderecos[2].cidade.id }">${cliente.listEnderecos[2].cidade.nome}</option> 
+																     <option name="txtCidadeResidencial" value="${cliente.enderecoResidencial.cidade.id }">${cliente.enderecoResidencial.cidade.nome}</option> 
 																     </select>
                                                 </div>
                                             </div>
@@ -606,7 +606,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="postcodezip">CEP</label>
-                                                <input value="${cliente.listEnderecos[2].cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
+                                                <input value="${cliente.enderecoResidencial.cep}" type="text" class="form-control" id="txtCEP" name="txtCEPResidencial" placeholder="" >
                                             </div>
                                         </div>
 
@@ -614,7 +614,7 @@
                                             <div class="col-md-13">
                                                 <div class="form-group">
                                                     <label for="towncity">Observações</label>
-                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.listEnderecos[2].observacao}">${cliente.listEnderecos[2].observacao}</textarea>
+                                              <textarea type="text" class="form-control" placeholder="" id="txtObservacao" name="txtObservacaoResidencial" value="${cliente.enderecoResidencial.observacao}">${cliente.enderecoResidencial.observacao}</textarea>
                                            
                                                 </div>
                                             </div>
