@@ -1,5 +1,6 @@
 package br.com.les.dominio;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class CartaoCredito extends EntidadeDominio{
@@ -8,7 +9,7 @@ public class CartaoCredito extends EntidadeDominio{
 	private String nome;
 	private String codSeguranca;
 	private boolean preferencial;
-	private Calendar dtVenciamento;
+	private LocalDate dtVenciamento;
 	private String bandeira;
 	private int cliId;
 	
@@ -36,12 +37,7 @@ public class CartaoCredito extends EntidadeDominio{
 	public void setPreferencial(boolean preferencial) {
 		this.preferencial = preferencial;
 	}
-	public Calendar getDtVenciamento() {
-		return dtVenciamento;
-	}
-	public void setDtVenciamento(Calendar dtVenciamento) {
-		this.dtVenciamento = dtVenciamento;
-	}
+	
 	public String getBandeira() {
 		return bandeira;
 	}
@@ -53,6 +49,12 @@ public class CartaoCredito extends EntidadeDominio{
 	}
 	public void setCliId(int cliId) {
 		this.cliId = cliId;
+	}
+	public LocalDate getDtVenciamento() {
+		return dtVenciamento;
+	}
+	public void setDtVenciamento(LocalDate dtVenciamento) {
+		this.dtVenciamento = dtVenciamento;
 	}
 	
 	

@@ -3,6 +3,8 @@ package br.com.les.viewhelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,7 +84,7 @@ public class VHCliente implements IViewHelper{
 		
 		enderecoCobranca.setCidade(cidade);
 		enderecoCobranca.setTipoEndereco(request.getParameter("txtTipoEndereco"));
-		enderecoCobranca.setTipo("ENDERECO COBRANÇA");
+		enderecoCobranca.setTipo("ENDERECO COBRANCA");
 		enderecoCobranca.setCep(request.getParameter("txtCEP"));
 		enderecoCobranca.setLogradouro(request.getParameter("txtLogradouro"));
 		enderecoCobranca.setTipoLogradouro(request.getParameter("txtTiposLogradouro"));
@@ -159,27 +161,19 @@ public class VHCliente implements IViewHelper{
 		cartao.setNome(request.getParameter("txtNomeCartao"));
 		cartao.setNumero(request.getParameter("txtNumeroCartao"));
 		cartao.setPreferencial(true);
-		String stDataVencimento = request.getParameter("txtDataVencimento");
- 		
-		stDataVencimento = (stDataVencimento == "") ? null : stDataVencimento;
+
 		
-		Calendar DataVencimento = null;
+		   String strDataVencimento = null != request.getParameter("txtDataVencimento") && 
+			        !"".equals(request.getParameter("txtDataVencimento")) 
+			        ? request.getParameter("txtDataVencimento") : "1800-01-01";
+
+	
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate dataVencimento = LocalDate.parse(strDataVencimento,formatter);
+			cartao.setDtVenciamento(dataVencimento);
+	
 		
-		if(stDataVencimento != null)
-		{
-			try {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				Date data = format.parse(stDataVencimento);
-				DataVencimento = Calendar.getInstance();
-				DataVencimento.setTime(data);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
- 		
-		cartao.setDtVenciamento(DataVencimento);
-		
+
 		cartoes.add(cartao);
 		
 		cliente.setListCartoes(cartoes);

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -106,9 +108,10 @@ public class DAOCliente extends AbstractDAO {
 			
 
 			stmt = this.con.prepareStatement(
-					"SELECT * from ENDERECOS AS C INNER JOIN CLIENTES AS F ON C.end_cli_Id = F.cli_id INNER JOIN CARTOES AS D ON F.cli_id = D.cart_cli_id INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id"
+					"SELECT * from ENDERECOS AS C INNER JOIN CLIENTES AS F ON C.end_cli_Id = F.cli_id INNER JOIN CARTOES AS D ON F.cli_id = D.cart_cli_id INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id AND c.end_status = 1 AND d.cart_status = 1 AND f.cli_id = ?"	
 					);
-						
+			stmt.setInt(1, cliente.getId());
+			
 			ResultSet rs = stmt.executeQuery();
 						
 			while (rs.next()) {
@@ -135,12 +138,9 @@ public class DAOCliente extends AbstractDAO {
 					cart.setNome(rs.getString("cart_nome"));
 					cart.setNumero(rs.getString("cart_numero"));
 					cart.setPreferencial(rs.getBoolean("cart_preferencial"));
-					Calendar dtVencimento = Calendar.getInstance();
-					dtVencimento.setTime(rs.getDate("cart_vencimento"));
-					cart.setDtVenciamento(dtVencimento);
-					
+					cart.setDtVenciamento(LocalDate.parse(rs.getDate("cart_vencimento").toString()));
 					cartoes.add(cart);
-					
+			
 				}
 				
 				Endereco end = new Endereco();
