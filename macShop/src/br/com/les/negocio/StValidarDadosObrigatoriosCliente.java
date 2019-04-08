@@ -124,7 +124,7 @@ public class StValidarDadosObrigatoriosCliente implements IStrategy{
 					mensagem.append("Código de Segurança é um campo obrigatório\n");
 				}
 				
-				if(cartoes.getDtVenciamento() == null || cartoes.getDtVenciamento().equals("")){
+				if(cartoes.getDtVenciamento() == null || cartoes.getDtVenciamento().equals("") || cartoes.getDtVenciamento().equals("1800-01-01")  ){
 					mensagem.append("Data de Vencimento é um campo obrigatório\n");
 				}
 				

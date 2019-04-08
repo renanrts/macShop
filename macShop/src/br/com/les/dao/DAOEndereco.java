@@ -103,7 +103,7 @@ public class DAOEndereco extends AbstractDAO {
 			
 			PreparedStatement stmt = null;
 			
-			stmt = this.con.prepareStatement("SELECT * FROM cidade");
+			stmt = this.con.prepareStatement("SELECT * FROM cidade ORDER BY `cidade`.`cid_nome` ASC");
 			
 			ResultSet rs = stmt.executeQuery();
 						

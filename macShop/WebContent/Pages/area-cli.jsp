@@ -240,7 +240,7 @@
 
 
 
-                                            <form action="#" class="billing-form bg-light p-3 p-md-5">
+                                            <form action="/macShop/Pages/alteracaoCliente" method="POST" class="billing-form bg-light p-3 p-md-5">
 
 
                                                 <h3 class="mb-4 billing-heading">Dados pessoais</h3>
@@ -248,7 +248,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="firstname">Nome</label>
-                                                            <input value="${cliente.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="">
+                                                            <input value="${cliente.nome}" type="text" class="form-control" id="txtNome" name="txtNome" placeholder="" READONLY>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -276,8 +276,20 @@
 <div class="col-md-3">
                                             <div class="form-group">
                                                <label for="towncity">Tipo Telefone</label>
-                                              
-												   <input class="form-control" name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }" >
+                                          <select name="txtTipoTelefone" id="txtCategoria" class="form-control">
+	                                               <c:forEach var="tipoTelefone" items="${baseCadastro.listaTipoTelefone }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.telefone.tipoTelefone == tipoTelefone}">
+																    <option name="txtTipoTelefone" value="${cliente.telefone.tipoTelefone }" selected="selected">${cliente.telefone.tipoTelefone }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtTipoTelefone" value="${tipoTelefone }">${tipoTelefone }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach>  
+												
+									       </select>
 												
                                             </div>
                                         </div>
@@ -307,25 +319,39 @@
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de residência</label>
                                                 <select name="txtTipoEnderecoResidencial" id="txtTipoEnderecoResidencial" class="form-control">
-                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
-                                                            
-                                                                      <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
-															
-																     </c:forEach>  
-																     <option name="txtTipoEnderecoResidencial" value="${cliente.enderecoResidencial.tipoEndereco }">${cliente.enderecoResidencial.tipoEndereco }</option>
-																     </select>
+                                                
+                                                <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoResidencial.tipoEndereco == listaTipoEndereco}">
+																    <option name="txtTipoEnderecoResidencial" value="${cliente.enderecoResidencial.tipoEndereco }" selected="selected">${cliente.enderecoResidencial.tipoEndereco }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtTipoEnderecoResidencial" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+                                                
+                                   </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de logradouro</label>
                                                   <select name="txtTiposLogradouroResidencial" id="txtTipoLogradouroResidencial" class="form-control">
+                                                  
                                                   <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
-                                                            
-                                                                      <option name="txtTiposLogradouroResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
-															
-																     </c:forEach>  
-																     <option name="txtTiposLogradouroResidencial" value="${cliente.enderecoResidencial.tipoLogradouro }">${cliente.enderecoResidencial.tipoLogradouro }</option>
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoResidencial.tipoLogradouro  == tiposLogradouro}">
+																    <option name="txtTipoEnderecoResidencial" value="${cliente.enderecoResidencial.tipoLogradouro }" selected="selected">${cliente.enderecoResidencial.tipoLogradouro  }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtTipoEnderecoResidencial" value="${tiposLogradouro }">${tiposLogradouro }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+                                     
 																     </select>
                                             </div>
                                         </div>
@@ -359,13 +385,19 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="txtEstadoResidencial" id="txtEstadoResidencial" class="form-control">
-                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
-                                                            
-                                                                      <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.nome }</option>
-															
-																     </c:forEach>  
-																     <option name="txtEstadoResidencial" value="${cliente.enderecoResidencial.cidade.estado.id }">${cliente.enderecoResidencial.cidade.estado.nome} </option>
-																     </select>
+                                                    
+                                                   <c:forEach var="listaEstados" items="${baseCadastro.listaEstados  }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoResidencial.cidade.estado.id   == listaEstados.id}">
+																    <option name="txtEstadoResidencial" value="${cliente.enderecoResidencial.cidade.estado.id }" selected="selected">${cliente.enderecoResidencial.cidade.estado.nome  }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtEstadoResidencial" value="${listaEstados.id }">${listaEstados.nome }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+							 </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -377,12 +409,20 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                         <select name="txtCidadeResidencial" id="txtCidadeResidencial" class="form-control">
-                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades }" >
-                                                            
-                                                                      <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.nome }</option>
-															
-																     </c:forEach>  
-																     <option name="txtCidadeResidencial" value="${cliente.enderecoResidencial.cidade.id }">${cliente.enderecoResidencial.cidade.nome}</option> 
+                                                        
+                                                  <c:forEach var="listaCidades" items="${baseCadastro.listaCidades  }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoResidencial.cidade.estado.id   == listaEstados.id}">
+																    <option name="txtCidadeResidencial" value="${cliente.enderecoResidencial.cidade.id }" selected="selected">${cliente.enderecoResidencial.cidade.nome  }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtCidadeResidencial" value="${listaCidades.id }">${listaCidades.nome  }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+                                                        
+                                                      
 																     </select>
                                                 </div>
                                             </div>
@@ -411,13 +451,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de residência</label>
-                                                <select name="txtTipoEndereco" id="txtTipoEnderecoCobranca" class="form-control">
-                                                  <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
-                                                            
-                                                                      <option name="txtTipoEndereco" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
-															
-																     </c:forEach>  
-																     <option name="txtTipoEndereco" value="${cliente.enderecoCobranca.tipoEndereco }">${cliente.enderecoCobranca.tipoEndereco}</option>
+                                                <select name="txtTipoEnderecoCobranca" id="txtTipoEnderecoCobranca" class="form-control">
+                                                
+                                                
+                                                
+                                                <c:forEach var="listaTipoEndereco" items="${baseCadastro.listaTipoEndereco }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoCobranca.tipoEndereco == listaTipoEndereco}">
+																    <option name="txtTipoEnderecoCobranca" value="${cliente.enderecoCobranca.tipoEndereco }" selected="selected">${cliente.enderecoCobranca.tipoEndereco }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtTipoEnderecoCobranca" value="${listaTipoEndereco }">${listaTipoEndereco }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+												
 																     </select>
 																     
                                             </div>
@@ -426,12 +475,20 @@
                                             <div class="form-group">
                                                 <label for="streetaddress">Tipo de logradouro</label>
                                                   <select name="txtTiposLogradouro" id="txtTipoLogradouroCobranca" class="form-control">
-                                                  <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
-                                                            
-                                                                      <option name="txtTiposLogradouro" value="${tiposLogradouro }">${tiposLogradouro }</option>
-															
-																     </c:forEach>  
-																     <option name="txtTiposLogradouro" value="${cliente.enderecoCobranca.tipoLogradouro }">${cliente.enderecoCobranca.tipoLogradouro}</option>
+                                                  
+                                                    <c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoCobranca.tipoLogradouro  == tiposLogradouro}">
+																    <option name="txtTipoLogradouroCobranca" value="${cliente.enderecoCobranca.tipoLogradouro }" selected="selected">${cliente.enderecoCobranca.tipoLogradouro  }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtTipoLogradouroCobranca" value="${tiposLogradouro }">${tiposLogradouro }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+                                                  
+
 																     </select>
                                             </div>
                                         </div>
@@ -463,12 +520,21 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="txtEstado" id="txtEstadoCobranca" class="form-control">
-                                                  <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
-                                                            
-                                                                      <option name="txtEstado" value="${listaEstados.id }">${listaEstados.nome }</option>
-															
-																     </c:forEach>  
-																     <option name="txtEstado" value="${cliente.enderecoCobranca.cidade.estado.id }">${cliente.enderecoCobranca.cidade.estado.nome}</option>
+                                                    
+                                                    
+                                                    
+                                                <c:forEach var="listaEstados" items="${baseCadastro.listaEstados }" >
+	                                               <c:choose>
+																 
+																  <c:when test="${cliente.enderecoCobranca.cidade.estado.id == listaEstados.id}">
+																    <option name="txtEstadooCobranca" value="${cliente.enderecoCobranca.cidade.estado.id }" selected="selected">${cliente.enderecoCobranca.cidade.estado.nome }</option>
+																  </c:when>
+																  <c:otherwise>
+																     <option name="txtEstadoCobranca" value="${listaEstados.id }">${listaEstados.nome }</option>
+																  </c:otherwise>
+																</c:choose>
+												   </c:forEach> 
+				
 																     
 																     </select>
                                                 </div>
@@ -514,11 +580,12 @@
                                                         <div class="form-group mt-4">
                                                             <center>
                                                                 <div class="header-cart-wrapbtn">
+                                                                
+                                                                <input type="hidden" id="FormName" name="FormName" value="VHCLIENTE" />
+                                                                <input type="hidden" id="Tipo" name="Tipo" value="VHCLIENTE" />
+                                                                <input type="hidden" id="txtID" name="txtID" value="${cliente.id}" />
                                                                     <!-- Button -->
-                                                                    <a href="#"
-                                                                        class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                        Salvar
-                                                                    </a>
+                                                                    <button class="btn mosh-btn mt-50" id= "btnOperacao" name="btnOperacao" value="ALTERAR">Atualizar</button>
                                                                 </div>
                                                             </center>
                                                         </div>

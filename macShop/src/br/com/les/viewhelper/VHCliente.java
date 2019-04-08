@@ -229,7 +229,11 @@ public class VHCliente implements IViewHelper{
 			if(!resultado.getErro()){
 				
 					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-	
+					VHBaseCadastro viewHelper = new VHBaseCadastro();
+					
+					EntidadeDominio baseCadastro = viewHelper.getEntidade(request);
+			
+					request.setAttribute("baseCadastro", baseCadastro);
 		
 			}
 		}

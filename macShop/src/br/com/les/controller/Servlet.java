@@ -27,7 +27,7 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente"})
 public class Servlet extends HttpServlet{
 	
 	 
