@@ -308,7 +308,7 @@
                                                             <div class="header-cart-wrapbtn">
                                                               <form action="/macShop/Pages/consultaProdutos" method="POST">
             	   	    <input type="hidden" id="FormName" name="FormName" value="VHELETRONICO" />
-            	   	 
+            	   	 <input type="hidden" id="FormName" name="direcionamento" value="CONSULTA" />
             		
             	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Consultar todos eletronicos</button>
             	   
@@ -386,6 +386,7 @@
             	 					<input type="hidden" id="FormName" name="txtStatus" value="${eletronico.ativo }" />	
             					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
             					     <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo }" />
+            					     <input type="hidden" id="direcionamento" name="direcionamento" value="visualizar" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
             					   </form>    
                                         

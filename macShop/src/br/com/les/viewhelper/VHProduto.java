@@ -221,9 +221,18 @@ public class VHProduto implements IViewHelper{
 					rd.forward(request, response);
 			}
 			else if(operacao.equals("VISUALIZAR")){
+				if (request.getParameter("direcionamento").equals("CATALOGO"))
+				{
+					
+						RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+						rd.forward(request, response);
 
+				}
+				else {
 					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
 					rd.forward(request, response);
+				}
+				
 
 			}
 			else if(operacao.equals("INATIVAR")){

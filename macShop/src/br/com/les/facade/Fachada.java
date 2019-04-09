@@ -129,6 +129,14 @@ public class Fachada implements IFachada {
 		rnsSalvarCliente.add(StValidarDadosObrigatoriosCliente);
 		rnsSalvarCliente.add(StValidarSenhasCliente);
 		
+		
+		/* Criando uma lista para conter as regras de negócio de cliente
+		 * quando a operação for salvar
+		 */
+		List<IStrategy> rnsAlterarCliente = new ArrayList<IStrategy>();
+		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
+		rnsAlterarCliente.add(StComplementarEnderecoCliente);
+		rnsAlterarCliente.add(StValidarDadosObrigatoriosCliente);
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação do cliente
 		 */
@@ -136,7 +144,8 @@ public class Fachada implements IFachada {
 		/*
 		 * Adiciona a listra de regras na operação salvar no mapa do cliente (lista criada na linha 93)
 		 */
-		rnsCliente.put("SALVAR", rnsSalvarCliente);		
+		rnsCliente.put("SALVAR", rnsSalvarCliente);	
+		rnsCliente.put("ALTERAR", rnsAlterarCliente);	
 		/* Adiciona o mapa(criado na linha 101) com as regras indexadas pelas operações no mapa geral indexado 
 		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
 		 */

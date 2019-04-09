@@ -87,7 +87,8 @@ public class DAOEletronico extends AbstractDAO{
 			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
-			if (!eletronico.getCodigoBarras().isEmpty())
+			
+			if (eletronico.getCodigoBarras()!= null && !eletronico.getCodigoBarras().isEmpty())
 			{
 				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
 				stmt.setString(1, eletronico.getCodigoBarras());

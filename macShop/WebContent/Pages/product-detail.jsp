@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -221,11 +223,11 @@
 
             <div class="w-size14 p-t-30 respon5">
                 <h4 class="product-detail-name m-text16 p-b-13">
-                    < Nome Produto>
+                    ${eletronico.nome}
                 </h4>
 
                 <span class="m-text17">
-                    $22
+                    $${eletronico.preco}
                 </span>
 
 
@@ -261,7 +263,7 @@
 
                 <div class="p-b-45">
 
-                    <span class="s-text8"><b>Categorias: </b>Mug, Design</span>
+                    <span class="s-text8"><b>Categorias: </b>${eletronico.categoria.descricao }</span>
                 </div>
 
                 <!--  -->
@@ -274,8 +276,7 @@
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
-                            Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel
-                            sed velit. Proin gravida arcu nisl, a dignissim mauris placerat
+                            ${eletronico.descricao}
                         </p>
                     </div>
                 </div>
@@ -289,13 +290,13 @@
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
-                            Modelo:
+                            Modelo: ${eletronico.modelo}
                         </p>
                         <p class="s-text8">
-                            Ano de Fabricação:
+                            Ano de Fabricação: ${eletronico.dataaFabricacao}
                         </p>
                         <p class="s-text8">
-                            Cor:
+                            Cor: ${eletronico.cor}
                         </p>
                     </div>
                 </div>
@@ -309,28 +310,28 @@
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
-                            Dimensões:
+                            Dimensões: ${eletronico.dimensoes}
                         </p>
                         <p class="s-text8">
-                            Memória:
+                            Memória: ${eletronico.memoria}
                         </p>
                         <p class="s-text8">
-                            Processador:
+                            Processador: ${eletronico.processador}
                         </p>
                         <p class="s-text8">
-                            Tamanho do display:
+                            Tamanho do display: ${eletronico.tamanhoDisplay}
                         </p>
                         <p class="s-text8">
-                            Resolução camera:
+                            Resolução camera: ${eletronico.resolucaoCamera}
                         </p>
                         <p class="s-text8">
-                            Alimentação:
+                            Alimentação: ${eletronico.alimentacao}
                         </p>
                         <p class="s-text8">
-                            RAM:
+                            RAM: ${eletronico.RAM}
                         </p>
                         <p class="s-text8">
-                            S.O:
+                            S.O: ${eletronico.sistemaOperacional}
                         </p>
                     </div>
                 </div>
@@ -344,8 +345,7 @@
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
-                            Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel
-                            sed velit. Proin gravida arcu nisl, a dignissim mauris placerat
+                           ${eletronico.conteudoEmbalagem}
                         </p>
                     </div>
                 </div>
