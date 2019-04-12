@@ -44,7 +44,11 @@ public class VHEletronico implements IViewHelper{
 		eletronico.setMemoria(request.getParameter("txtMemoria"));
 		eletronico.setModelo(request.getParameter("txtModelo"));
 		
+		if(request.getParameter("txtStatus") != null)
+		{
 		
+			eletronico.setAtivo(request.getParameter("txtStatus"));
+		}
 		
 		if(request.getParameter("txtPreco") != null)
 		{

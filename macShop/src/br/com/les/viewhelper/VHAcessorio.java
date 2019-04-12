@@ -29,7 +29,11 @@ public class VHAcessorio implements IViewHelper {
 			}
 		}
 		
-
+		if(request.getParameter("txtStatus") != null)
+		{
+		
+			acessorio.setAtivo(request.getParameter("txtStatus"));
+		}
 		
 	
 		acessorio.setCaminhoFoto(request.getParameter("txtFoto"));
@@ -110,16 +114,33 @@ public class VHAcessorio implements IViewHelper {
 			rd.forward(request, response);
 			}
 			else if(operacao.equals("CONSULTAR")){
-				if(resultado.getResultado() != null){					
-					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
-					rd.forward(request, response);
-				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
-					rd.forward(request, response);
+				
+				if (request.getParameter("direcionamento").equals("CATALOGO"))
+				{
+					if(resultado.getResultado() != null){					
+						RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
+						rd.forward(request, response);
+					} else if(resultado.getListaResultado() != null){
+						RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
+						rd.forward(request, response);
+					} else {
+						RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
+						rd.forward(request, response);
+					}
 				}
+				else {
+					if(resultado.getResultado() != null){					
+						RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
+						rd.forward(request, response);
+					} else if(resultado.getListaResultado() != null){
+						RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+						rd.forward(request, response);
+					} else {
+						RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+						rd.forward(request, response);
+					}
+				}
+			
 			}
 			else if(operacao.equals("VISUALIZAR")){
 				if(resultado.getResultado() != null){					

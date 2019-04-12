@@ -73,17 +73,27 @@ public class DAOAcessorio extends AbstractDAO{
 			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
-			if (acessorio.getId() != 0)
+			
+			if (acessorio.getAtivo()!= null && !acessorio.getAtivo().isEmpty())
 			{
-				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE id = ?");
-				stmt.setInt(1, acessorio.getId());
+				stmt = this.con.prepareStatement(
+						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where acs_status = ? order by acs_id"
+				);
+				stmt.setString(1, acessorio.getAtivo());
 			}
+			
 			else
 			{
 				stmt = this.con.prepareStatement(
 						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by acs_id"
 				);
 			}
+			
+//			else if (acessorio.getId() != 0)
+//			{
+//				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE id = ?");
+//				stmt.setInt(1, acessorio.getId());
+//			}
 			
 			ResultSet rs = stmt.executeQuery();
 						

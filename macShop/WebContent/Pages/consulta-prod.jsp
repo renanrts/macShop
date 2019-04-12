@@ -318,7 +318,7 @@
             	   <div class="header-cart-wrapbtn">
             	   <form action="/macShop/Pages/consultaProdutos" method="POST">
             	   	    <input type="hidden" id="FormName" name="FormName" value="VHACESSORIO" />
-            	   	 
+            	   	 <input type="hidden" id="FormName" name="direcionamento" value="CONSULTA" />
             		
             	   <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Consultar todos acessórios</button>
             	   

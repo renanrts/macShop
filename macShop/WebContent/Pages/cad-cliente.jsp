@@ -59,7 +59,7 @@
                             </li>
 
                             <li>
-                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO">Catálogo de Produtos</a>
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo">Catálogo de Produtos</a>
                             </li>
 
                             <li>

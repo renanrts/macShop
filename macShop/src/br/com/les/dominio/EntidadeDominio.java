@@ -2,7 +2,7 @@ package br.com.les.dominio;
 
 public abstract class EntidadeDominio {
 	
-	protected int id;
+	protected Integer id;
 	protected String tipo;
 
 	public String getTipo() {
@@ -13,11 +13,11 @@ public abstract class EntidadeDominio {
 		this.tipo = tipo;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

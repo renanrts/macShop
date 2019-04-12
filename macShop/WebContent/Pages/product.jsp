@@ -218,26 +218,26 @@
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo&txtCategoria=1" class="s-text13">
 									iPhone
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo&txtCategoria=2" class="s-text13">
 									iPad
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo&txtCategoria=3" class="s-text13">
 									Macbook
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
-									Accesórios
+								<a href="product?btnOperacao=CONSULTAR&FormName=VHACESSORIO&direcionamento=CATALOGO&txtStatus=Ativo" class="s-text13">
+									Acessórios
 								</a>
 							</li>
 						</ul>
