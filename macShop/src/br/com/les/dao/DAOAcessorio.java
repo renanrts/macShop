@@ -20,8 +20,8 @@ public class DAOAcessorio extends AbstractDAO{
 		
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO ACESSORIOS (acs_nome, acs_preco, cat_id, acs_datafabricacao, acs_cor, acs_dimensoes, acs_codigobarras, acs_caminhofoto, acs_descricao, acs_status, acs_modelocompativel, acs_mfi, acs_dtCadastro) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO ACESSORIOS (acs_nome, acs_preco, cat_id, acs_datafabricacao, acs_cor, acs_dimensoes, acs_codigobarras, acs_caminhofoto, acs_descricao, acs_status, acs_modelocompativel, acs_mfi, acs_dtCadastro, acs_estoque) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 
@@ -39,6 +39,7 @@ public class DAOAcessorio extends AbstractDAO{
 			stmt.setString(11, acessorio.getModeloCompativel());;
 			stmt.setBoolean(12, acessorio.isSeloMfi());		
 			stmt.setDate(13, new Date(acessorio.getDataCadastro().getTimeInMillis()));
+			stmt.setInt(14, 0);
 			
 			stmt.execute();
 
@@ -77,7 +78,7 @@ public class DAOAcessorio extends AbstractDAO{
 			if (acessorio.getAtivo()!= null && !acessorio.getAtivo().isEmpty())
 			{
 				stmt = this.con.prepareStatement(
-						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where acs_status = ? order by acs_id"
+						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS asc_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where acs_status = ? order by acs_id"
 				);
 				stmt.setString(1, acessorio.getAtivo());
 			}
@@ -85,7 +86,7 @@ public class DAOAcessorio extends AbstractDAO{
 			else
 			{
 				stmt = this.con.prepareStatement(
-						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by acs_id"
+						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS asc_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by acs_id"
 				);
 			}
 			
@@ -120,7 +121,7 @@ public class DAOAcessorio extends AbstractDAO{
 				a.setId(rs.getInt("acs_id"));
 				a.setSeloMfi(rs.getBoolean("acs_mfi"));
 				a.setTipo("VHACESSORIO");
-				
+				a.setEstoque(rs.getInt("acs_estoque"));
 
 				
 				acessorios.add(a);
@@ -168,8 +169,14 @@ public class DAOAcessorio extends AbstractDAO{
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
 			PreparedStatement stmt = null;
 			
-			
-		
+			if(acessorio.getEstoque() != 0)
+			{
+				stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_estoque = acs_estoque + ? WHERE acs_id = ?");	
+				stmt.setInt(1, acessorio.getEstoque());
+				stmt.setInt(2, acessorio.getId());
+			}
+			else
+			{
 				stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_nome = ?, acs_preco = ?, cat_id = ?, acs_datafabricacao = ?, acs_cor = ?, acs_dimensoes = ?, acs_codigobarras = ?, acs_caminhofoto = ?, acs_descricao = ?, acs_status = ?, acs_modelocompativel = ?, acs_mfi = ? WHERE acs_id = ?");	
 				
 				stmt.setString(1, acessorio.getNome());
@@ -185,13 +192,16 @@ public class DAOAcessorio extends AbstractDAO{
 				stmt.setString(11, acessorio.getModeloCompativel());;
 				stmt.setBoolean(12, acessorio.isSeloMfi());	
 				stmt.setInt(13, acessorio.getId());
+			}
+		
+				
 				
 				
 			
 			
 			ResultSet rs = stmt.executeQuery();
 						
-			stmt = this.con.prepareStatement("SELECT C.acs_nome AS acs_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
+			stmt = this.con.prepareStatement("SELECT C.acs_nome AS acs_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
 
 			stmt.setInt(1, acessorio.getId());
 			ResultSet rt = stmt.executeQuery();
@@ -216,7 +226,7 @@ public class DAOAcessorio extends AbstractDAO{
 				a.setId(rt.getInt("acs_id"));
 				a.setSeloMfi(rt.getBoolean("acs_mfi"));
 				a.setTipo("VHACESSORIO");
-				
+				a.setEstoque(rt.getInt("acs_estoque"));
 				
 				acessorios.add(a);
 				
@@ -293,7 +303,7 @@ public class DAOAcessorio extends AbstractDAO{
 			Boolean visualizar = false;
 			
 
-			stmt = this.con.prepareStatement("SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
+			stmt = this.con.prepareStatement("SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
 			stmt.setInt(1, acessorio.getId());
 
 			
@@ -320,6 +330,7 @@ public class DAOAcessorio extends AbstractDAO{
 				a.setId(rs.getInt("acs_id"));
 				a.setSeloMfi(rs.getBoolean("acs_mfi"));
 				a.setTipo("VHACESSORIO");
+				a.setEstoque(rs.getInt("acs_estoque"));
 				
 				
 				acessorios.add(a);

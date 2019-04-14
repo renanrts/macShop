@@ -392,6 +392,7 @@
                                                       			<input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo }" />
                                                                 <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">Alterar</button>
                                                              	 <input type="hidden" id="FormName" name="txtCategoria" value="${eletronico.categoria.id }" />
+                                                             	 <input type="hidden" id="direcionamento" name="direcionamento" value="Alterar" />
                                                             </div>
                                                         </center>
                                                     </div>
@@ -530,6 +531,7 @@
                                                       			<input type="hidden" id="Tipo" name="Tipo" value="${acessorio.tipo }" />
                                                                 <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvarProd" name="btnOperacao" value="ALTERAR">Alterar</button>
                                                              	 <input type="hidden" id="FormName" name="txtCategoria" value="${acessorio.categoria.id }" />
+                                                             	 <input type="hidden" id="direcionamento" name="direcionamento" value="Alterar" />
                                                             </div>
                                                         </center>
                                                     </div>

@@ -370,7 +370,7 @@
                             <td>${eletronico.nome }</td>
                             <td>${eletronico.categoria.descricao }</td>
                             <td>${eletronico.codigoBarras }</td>
-                            <td>${eletronico.preco }</td>
+                            <td>${eletronico.estoque }</td>
                             <td>${eletronico.ativo }</td>
                             <td>
                                 <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
@@ -379,7 +379,7 @@
                                         class="material-icons" data-toggle="tooltip" title="Add" onclick="setaDadosModal('${eletronico.id }', '${eletronico.tipo }', '${eletronico.ativo }')">&#xE872;</i></a>
                                 <a href="#addEstoque" class="confirm" data-toggle="modal"
                                     style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">add</i></a>
+                                        title="Add" style="display:inline-block" onclick="setaEstoque('${eletronico.id }', '${eletronico.tipo }', '${eletronico.ativo }', '${eletronico.categoria.id }')">add</i></a>
                                         
                                     <form action="/macShop/Pages/visualizarProduto" method="POST">
             						    <input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
@@ -412,6 +412,8 @@
                             <h4 class="modal-title">Adicionar Estoque</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
+                        
+                        <form action="/macShop/Pages/alterarEletronico" method="post" billing-form bg-light p-3 p-md-5">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="firstname">Quantidade</label>
@@ -420,7 +422,7 @@
                                         <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                     </button>
 
-                                    <input class="size8 m-text18 t-center num-product" type="number" name="num-product1"
+                                    <input class="size8 m-text18 t-center num-product" type="number" name="txtEstoque"
                                         value="1">
 
                                     <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
@@ -432,7 +434,14 @@
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-info" value="Salvar">
+                            <input type="hidden" name="txtID" id="txtIdentificacaoEstoque" value="txtID">
+                        	<input type="hidden" name="Tipo" id="txtTipoEstoque" value="txtTipo">
+                        	<input type="hidden" name="txtStatus" id="txtAtivoEstoque" value="txtAtivo">
+                        	<input type="hidden" name="txtCategoria" id="txtCategoriaEstoque" value="txtCategoria">
+                        	<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
+                        	<input type="hidden" id="direcionamento" name="direcionamento" value="Estoque" />
+                        	
+                        	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -499,6 +508,7 @@
                         	<input type="hidden" name="Tipo" id="txtTipo" value="txtTipo">
                         	<input type="hidden" name="txtStatus" id="txtAtivo" value="txtAtivo">
                         	<input type="hidden" id="FormName" name="FormName" value="VHPRODUTO" />
+                        	<input type="hidden" id="FormName" name="txtCategoria" value="txtCategoria" />
                         	<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">Inativar</button>
                        			 
                    			 </form>
@@ -707,6 +717,15 @@
         document.getElementById("txtIdentificacao").value = valor ;
         document.getElementById("txtTipo").value = tipo ;
         document.getElementById("txtAtivo").value = ativo ;
+    }
+    </script>
+    
+    <script type="text/javascript">
+    function setaEstoque(valor, tipo, ativo, categoria) {
+        document.getElementById("txtIdentificacaoEstoque").value = valor ;
+        document.getElementById("txtTipoEstoque").value = tipo ;
+        document.getElementById("txtAtivoEstoque").value = ativo ;
+        document.getElementById("txtCategoriaEstoque").value = categoria;
     }
     </script>
     <!--===============================================================================================-->

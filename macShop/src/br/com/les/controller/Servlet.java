@@ -60,7 +60,8 @@ public class Servlet extends HttpServlet{
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
-			
+			String ala = request.getParameter("direcionamento");
+			System.out.println(ala);
 			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);

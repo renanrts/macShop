@@ -33,6 +33,10 @@ public class VHProduto implements IViewHelper{
 					}
 				}
 				
+				if(request.getParameter("txtEstoque") != null)
+				{
+					eletronico.setEstoque(Integer.parseInt(request.getParameter("txtEstoque")));
+				}
 				
 				eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
 				eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
@@ -94,6 +98,11 @@ public class VHProduto implements IViewHelper{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			
+			if(request.getParameter("txtEstoque") != null)
+			{
+				acessorio.setEstoque(Integer.parseInt(request.getParameter("txtEstoque")));
 			}
 
 			acessorio.setCaminhoFoto(request.getParameter("txtFoto"));
@@ -243,8 +252,19 @@ public class VHProduto implements IViewHelper{
 			}
 			else if(operacao.equals("ALTERAR")){
 				
-				RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
-				rd.forward(request, response);
+				
+				if (request.getParameter("direcionamento").equals("Estoque"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("consulta-prod.jsp");
+					rd.forward(request, response);
+				}
+				
+				else {
+					RequestDispatcher rd = request.getRequestDispatcher("visualizar-prod.jsp");
+					rd.forward(request, response);
+				}
+				
+				
 
 		}
 			

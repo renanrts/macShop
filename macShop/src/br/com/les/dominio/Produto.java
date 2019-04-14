@@ -17,9 +17,16 @@ public class Produto extends EntidadeDominio{
 	protected String ativo;
 	protected Calendar dataCadastro;
 	protected String motivo;
+	protected Integer estoque;
 	
 	public String getMotivo() {
 		return motivo;
+	}
+	public Integer getEstoque() {
+		return estoque;
+	}
+	public void setEstoque(Integer estoque) {
+		this.estoque = estoque;
 	}
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
