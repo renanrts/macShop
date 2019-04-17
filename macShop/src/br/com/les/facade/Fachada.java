@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.les.dao.DAOAcessorio;
+import br.com.les.dao.DAOBloqueio;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.IDAO;
+import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Produto;
@@ -20,6 +22,7 @@ import br.com.les.negocio.StComplementarDTCadastroCliente;
 import br.com.les.negocio.StComplementarEnderecoCliente;
 import br.com.les.negocio.StComplementarInativacao;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
+import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
 import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
@@ -47,6 +50,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("PRODUTO", new DAOEletronico());
 		mapDAO.put("ACESSORIO", new DAOAcessorio());
 		mapDAO.put("CLIENTE", new DAOCliente());
+		mapDAO.put("BLOQUEIO", new DAOBloqueio());
 		
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		
@@ -62,7 +66,7 @@ public class Fachada implements IFachada {
 		StValidarExistenciaCliente	StValidarExistenciaCliente = new StValidarExistenciaCliente();
 		StComplementarEnderecoCliente StComplementarEnderecoCliente = new StComplementarEnderecoCliente();
 		StValidarSenhasCliente StValidarSenhasCliente = new StValidarSenhasCliente();
-		
+		StValidarBloqueio StValidarBloqueio = new StValidarBloqueio();
 		/* Criando uma lista para conter as regras de negócio de fornencedor
 		 * quando a operação for salvar
 		 */
@@ -152,9 +156,13 @@ public class Fachada implements IFachada {
 		rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);
 		
 		
+		List<IStrategy> rnsConsultarBloqueio = new ArrayList<IStrategy>();
+		rnsConsultarBloqueio.add(StValidarBloqueio);
 		
+		Map<String, List<IStrategy>> rnsBloqueio = new HashMap<String, List<IStrategy>>();
+		rnsBloqueio.put("ALTERAR", rnsConsultarBloqueio);	
+		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 		
-
 	}
 
 public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
@@ -177,6 +185,7 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 				mensagens += mensagem;
 			}
 		}
+		
 		
 		if(mensagens == ""){
 			
@@ -248,6 +257,5 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 		
 		return resultado;
 	}
-
-
+	
 }

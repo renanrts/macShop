@@ -54,45 +54,45 @@
 	
 					<!-- Menu -->
 					<div class="wrap_menu">
-							<nav class="menu">
-								<ul class="main_menu">
-									<li>
-										<a href="index.jsp">Home</a>
-										
-									</li>
-		
-									<li>
-										<a href="product.jsp">Catálogo de Produtos</a>
-									</li>
-		
-									<li>
-										<a href="contact.jsp">Contato</a>
-									</li>
-		
-									
-		
-										<li>
-												<a href="index.jsp">Área Cliente</a>
-												<ul class="sub_menu">
-													<li><a href="area-cli.jsp">Meus Dados</a></li>
-													<li><a href="pedidos-cli.jsp">Pedidos</a></li>
-													<li><a href="#">Logout</a></li>
-												</ul>
-											</li>
-		
-											<li>
-													<a href="index.jsp">Área Admin</a>
-													<ul class="sub_menu">
-														<li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
-														<li><a href="consulta-prod.jsp">Produtos</a></li>
-														<li><a href="troca.jsp">Consultar Trocas</a></li>
-														<li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
-														<li><a href="relatorio.jsp">Relatórios</a></li>
-													</ul>
-												</li>
-								</ul>
-							</nav>
-						</div>
+                    <nav class="menu">
+                        <ul class="main_menu">
+                            <li>
+                                <a href="index.jsp">Home</a>
+
+                            </li>
+
+                            <li>
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo">Catálogo de Produtos</a>
+                            </li>
+
+                            <li>
+                                <a href="contact.jsp">Contato</a>
+                            </li>
+
+
+
+                            <li>
+                                <a href="index.jsp">Área Cliente</a>
+                                <ul class="sub_menu">
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
+                                    <li><a href="pedidos-cli.jsp">Pedidos</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="index.jsp">Área Admin</a>
+                                <ul class="sub_menu">
+                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="consulta-prod.jsp">Produtos</a></li>
+                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
+                                    <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
+                                    <li><a href="relatorio.jsp">Relatórios</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 		
 						<!-- Header Icon -->
 						<div class="header-icons">

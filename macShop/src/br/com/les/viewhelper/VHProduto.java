@@ -197,7 +197,15 @@ public class VHProduto implements IViewHelper{
 			}
 			else
 			{
-				request.setAttribute("acessorio", (Acessorio) resultado.getListaResultado().get(0));
+				if (request.getParameter("direcionamento").equals("CATALOGO"))
+				{
+					request.setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
+				}
+				else
+					{
+					request.setAttribute("acessorio", (Acessorio) resultado.getListaResultado().get(0));
+					}
+				
 			}
 			
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());

@@ -60,7 +60,7 @@
                             </li>
 
                             <li>
-                                <a href="product.jsp">Catálogo de Produtos</a>
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo">Catálogo de Produtos</a>
                             </li>
 
                             <li>
@@ -72,7 +72,7 @@
                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="area-cli.jsp">Meus Dados</a></li>
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>

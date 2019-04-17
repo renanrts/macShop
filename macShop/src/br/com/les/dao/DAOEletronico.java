@@ -348,7 +348,7 @@ Eletronico eletronico = (Eletronico) entidade;
 			Boolean visualizar = false;
 			
 
-			stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_status AS ele_status, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE ele_id = ?");
+			stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_status AS ele_status, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE ele_id = ?");
 			stmt.setInt(1, eletronico.getId());
 
 			
@@ -384,7 +384,7 @@ Eletronico eletronico = (Eletronico) entidade;
 				a.setId(rs.getInt("ele_id"));
 				categoria.setId(rs.getInt("cat_id"));
 				a.setTipo("VHELETRONICO");
-				a.setEstoque(rs.getInt("ele_status"));
+				a.setEstoque(rs.getInt("ele_estoque"));
 				eletronicos.add(a);
 				eletronicos.add(categoria);
 				contagem++;
@@ -462,5 +462,48 @@ Eletronico eletronico = (Eletronico) entidade;
 		}
 	}
 	
+	public Resultado alterarEstoque (EntidadeDominio e) {
+		System.out.println(e.getClass().getSimpleName());
+		Eletronico eletronico = (Eletronico) e;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+
+		try {
+			
+		
+			PreparedStatement stmt = null;
+			
+		
+			stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_estoque = ele_estoque - ? WHERE ele_id = ?");	
+			stmt.setInt(1, eletronico.getEstoque());
+			stmt.setInt(2, eletronico.getId());
+	
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				contagem++;
+			}
+			
+			
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+	}
 
 }

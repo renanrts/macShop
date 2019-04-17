@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,7 +61,7 @@
                             </li>
 
                             <li>
-                                <a href="product.jsp">Catálogo de Produtos</a>
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo">Catálogo de Produtos</a>
                             </li>
 
                             <li>
@@ -72,7 +73,7 @@
                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="area-cli.jsp">Meus Dados</a></li>
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
@@ -104,7 +105,7 @@
                         <a href="cart.jsp" class="header-wrapicon1 dis-block">
                             <img src="../images/icons/icon-header-02.png" class="header-icon1" alt="ICON">
                         </a>
-
+								(${fn:length(sessionScope.carrinho.itensCarrinho)})
 
                     </div>
                 </div>
@@ -234,7 +235,7 @@
 
                 <!--  -->
                 <div class="p-t-33 p-b-60">
-
+ 					<form action="/macShop/Pages/carrinho" method="POST">
 
                     <div class="flex-r-m flex-w p-t-10">
                         <div class="w-size16 flex-m flex-w">
@@ -243,20 +244,34 @@
                                     <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                 </button>
 
-                                <input class="size8 m-text18 t-center num-product" type="number" name="num-product"
+                                <input class="size8 m-text18 t-center num-product" type="number" name="qtdeComprada"
                                     value="1">
 
                                 <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                     <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
                                 </button>
                             </div>
-
+							
                             <div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
                                 <!-- Button -->
-                                <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                                    Comprar
-                                </button>
+                                <c:if test="${eletronico.estoque == 0}">
+                               		 Produto sem estoque
+                               	</c:if>
+                               	<c:if test="${eletronico.estoque > 0}">
+                              
+                        				  <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo}" />
+                        				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="hidden" id="FormName" name="txtID" value="${eletronico.id}" />
+                        				  <input type="text" id="FormName" name="lalal" value="${eletronico.estoque}" />
+                               		 <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">
+                               		     Comprar
+                               		 </button>
+                               		      	
+                               	</form>
+                               	</c:if>
+                                
                             </div>
+                           	
                         </div>
                     </div>
                 </div>
@@ -290,7 +305,12 @@
 
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
-                            Modelo: ${eletronico.modelo}
+                       		 <c:if test="${eletronico.tipo == 'VHELETRONICO'}">
+                            		Modelo: ${eletronico.modelo}
+                            </c:if>
+                             <c:if test="${eletronico.tipo == 'VHACESSORIO'}">
+                            		Modelo: ${eletronico.modeloCompativel}
+                            </c:if>
                         </p>
                         <p class="s-text8">
                             Ano de Fabricação: ${eletronico.dataaFabricacao}
@@ -312,12 +332,16 @@
                         <p class="s-text8">
                             Dimensões: ${eletronico.dimensoes}
                         </p>
+                        
+                      	<c:if test="${eletronico.tipo == 'VHELETRONICO'}">
                         <p class="s-text8">
                             Memória: ${eletronico.memoria}
                         </p>
+                        
                         <p class="s-text8">
                             Processador: ${eletronico.processador}
                         </p>
+                      
                         <p class="s-text8">
                             Tamanho do display: ${eletronico.tamanhoDisplay}
                         </p>
@@ -333,9 +357,10 @@
                         <p class="s-text8">
                             S.O: ${eletronico.sistemaOperacional}
                         </p>
+                        </c:if>
                     </div>
                 </div>
-
+<c:if test="${eletronico.tipo == 'VHELETRONICO'}">
                 <div class="wrap-dropdown-content bo6 p-t-15 p-b-14">
                     <h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
                         Conteúdo da Embalagem
@@ -349,8 +374,13 @@
                         </p>
                     </div>
                 </div>
-
-
+</c:if>
+<c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
 
 
             </div>

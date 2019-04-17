@@ -15,10 +15,12 @@ import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
 import br.com.les.command.CmdVisualizar;
 import br.com.les.command.ICommand;
+import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
+import br.com.les.viewhelper.VHBloqueio;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHEletronico;
@@ -27,13 +29,14 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho"})
 public class Servlet extends HttpServlet{
 	
 	 
 		private Map<String, ICommand> mapCommand;
 		private Map<String, IViewHelper> mapViewHelper;
 		
+
 		
 		public Servlet(){
 			
@@ -52,7 +55,8 @@ public class Servlet extends HttpServlet{
 			mapViewHelper.put("VHPRODUTO", new VHProduto());
 			mapViewHelper.put("VHACESSORIO", new VHAcessorio());
 			mapViewHelper.put("VHCLIENTE", new VHCliente());
-			
+			mapViewHelper.put("VHBLOQUEIO", new VHBloqueio());
+
 
 		}
 		
@@ -60,8 +64,16 @@ public class Servlet extends HttpServlet{
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
-			String ala = request.getParameter("direcionamento");
-			System.out.println(ala);
+			
+			String lala = request.getParameter("Tipo");
+			
+			System.out.println(lala);
+			
+			if(getServletContext().getAttribute("bloqueio") == null)
+			{
+				HashMap<String, Carrinho> mapProdutosBloqueados = new HashMap<>();
+				getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
+			}
 			
 			String operacao = request.getParameter("btnOperacao");
 			ICommand command = mapCommand.get(operacao);

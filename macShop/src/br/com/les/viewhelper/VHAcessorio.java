@@ -1,5 +1,9 @@
 package br.com.les.viewhelper;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -100,11 +104,19 @@ public class VHAcessorio implements IViewHelper {
 		else if(operacao.equals("VISUALIZAR")){
 			if(!resultado.getErro()){
 				if(resultado.getResultado() != null){
-					request.setAttribute("acessorio", (Acessorio) resultado.getResultado());
+					if (request.getParameter("direcionamento").equals("CATALOGO"))
+					{
+						request.setAttribute("eletronico", (Acessorio) resultado.getResultado());
+					}
+					else
+						{
+							request.setAttribute("acessorio", (Acessorio) resultado.getResultado());
+						}
 		
 				}else{
 					request.setAttribute("resultado", resultado.getListaResultado());
 				}
+				
 			}
 		}
 		
@@ -160,5 +172,7 @@ public class VHAcessorio implements IViewHelper {
 		}
 		
 	}
+	
+
 
 }
