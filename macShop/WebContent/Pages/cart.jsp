@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -195,6 +197,10 @@
         </h2>
     </section>
 
+
+
+
+
     <!-- Cart -->
     <section class="cart bgwhite p-t-70 p-b-100">
         <div class="container">
@@ -211,14 +217,22 @@
                             <th class="column-6">Ação</th>
                         </tr>
 
+
+						<c:forEach var="eletronico" items="${sessionScope.carrinho.itensCarrinho }" >
                         <tr class="table-row">
                             <td class="column-1">
                                 <div class="cart-img-product b-rad-4 o-f-hidden">
                                     <img src="../images/item-10.jpg" alt="IMG-PRODUCT">
                                 </div>
                             </td>
-                            <td class="column-2">Men Tshirt</td>
-                            <td class="column-5">$36.00</td>
+                            <td class="column-2">
+                             <input class="size8 m-text18 t-center num-product" type="text" id = "txtNome" name="txtNome"
+                                        value=" ${eletronico.produto.nome }">
+                            </td>
+                            <td class="column-5">
+                             <input class="size8 m-text18 t-center num-product" type="text" id= "txtPreco" name="txtPreco"
+                                        value=" ${eletronico.produto.preco }">   
+                            </td>
                             <td class="column-1">
 
                                 <div class="flex-w bo5 of-hidden w-size17">
@@ -226,8 +240,8 @@
                                         <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                     </button>
 
-                                    <input class="size8 m-text18 t-center num-product" type="number" name="num-product1"
-                                        value="1">
+                                    <input class="size8 m-text18 t-center num-product" type="number" id = "qtdeComprada" name="qtdeComprada"
+                                        value="${eletronico.quantidade }">
 
                                     <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                         <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -235,75 +249,28 @@
                                 </div>
 
                             </td>
-                            <td class="column-3">$36.00</td>
+                            <td class="column-3"> ${eletronico.quantidade * eletronico.produto.preco}</td>
                             <td>
 
                                 <a href="#deleteEmployeeModal" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">&#xE872;</i></a>
+                                    style="display:inline-block">
+                                    <i class="material-icons" data-toggle="tooltip"
+                                        title="Add" style="display:inline-block" onclick="setaDadosModal('${eletronico.produto.nome }', '${eletronico.produto.tipo }' , '${eletronico.produto.id }')"> &#xE872;</i></a>
 
                             </td>
                         </tr>
-
-                        <tr class="table-row">
-                            <td class="column-1">
-                                <div class="cart-img-product b-rad-4 o-f-hidden">
-                                    <img src="../images/item-10.jpg" alt="IMG-PRODUCT">
-                                </div>
-                            </td>
-                            <td class="column-2">Men Tshirt</td>
-                            <td class="column-5">$36.00</td>
-                            <td class="column-1">
-
-                                <div class="flex-w bo5 of-hidden w-size17">
-                                    <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-                                        <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-
-                                    <input class="size8 m-text18 t-center num-product" type="number" name="num-product1"
-                                        value="1">
-
-                                    <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-                                        <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-
-                            </td>
-                            <td class="column-3">$36.00</td>
-                            <td>
-
-                                <a href="#deleteEmployeeModal" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">&#xE872;</i></a>
-
-                            </td>
-                        </tr>
+					</c:forEach>
+                        
                     </table>
+                    
                 </div>
             </div>
-
-            <div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
-                <div class="flex-w flex-m w-full-sm">
-                    <div class="size11 bo4 m-r-10">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code"
-                            placeholder="Código">
-                    </div>
-
-                    <div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
-                        <!-- Button -->
-                        <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                            Inserir cupom
-                        </button>
-                    </div>
-                </div>
-
-                <div class="size10 trans-0-4 m-t-10 m-b-10">
-                    <!-- Button -->
-                    <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                        Atualizar
-                    </button>
-                </div>
-            </div>
+ <div class="size14 trans-0-4 m-b-10">
+                            <!-- Button -->
+                            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+                                Atualizar
+                            </button>
+                        </div>
 
             <!-- Total -->
             <div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
@@ -318,49 +285,37 @@
                     </span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-                        $39.00
+                       <input class="size8 m-text18 t-center num-product" type="text" id = "subtotal" name="subtotal" value = 1>
                     </span>
+                    
+                    
                 </div>
-
-                <!--  -->
-                <div class="flex-w flex-sb bo10 p-t-15 p-b-20">
+                
+                    <div class="flex-w flex-sb bo10 p-t-15 p-b-20">
                     <span class="s-text18 w-size19 w-full-sm">
-                        Frete:
+                     CEP:
                     </span>
 
-                    <div class="w-size20 w-full-sm">
-
-
-
-
-                        <div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
-                            <select class="selection-2" name="country">
-                                <option>Selecionar estado...</option>
-                                <option>São Paulo</option>
-                                <option>Rio de Janeiro</option>
-                            </select>
-                        </div>
-
-                        <div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
-                            <select class="selection-2" name="country">
-                                <option>Selecionar cidade...</option>
-                                <option>São Paulo</option>
-                                <option>Mogi das Cruzes</option>
-                            </select>
-                        </div>
-
-                        <div class="size13 bo4 m-b-22">
-                            <input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="CEP">
-                        </div>
-
-                        <div class="size14 trans-0-4 m-b-10">
-                            <!-- Button -->
-                            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                                Atualizar
-                            </button>
-                        </div>
-                    </div>
+                    <span class="m-text21 w-size20 w-full-sm">
+                        <input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="CEP" onBlur=CalcFrete()>
+                    </span>
+                    
+                    
                 </div>
+                
+                
+                  <div class="flex-w flex-sb bo10 p-t-15 p-b-30">
+                    <span class="s-text18 w-size19 w-full-sm">
+                           Frete:
+                    </span>
+
+                    <span class="m-text21 w-size20 w-full-sm">
+                         <input class="size8 m-text18 t-center num-product" type="text" id = "frete" name="txtFrete" onchange="CalcTotalProduto('this.value')">
+                    </span>
+                    
+                    
+                </div>
+
 
                 <!--  -->
                 <div class="flex-w flex-sb-m p-t-26 p-b-30">
@@ -369,7 +324,7 @@
                     </span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-                        $39.00
+                       <input class="size8 m-text18 t-center num-product" type="text" id = "valorTotal" name="valorTotal">
                     </span>
                 </div>
 
@@ -384,7 +339,7 @@
         <div id="deleteEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form action="/macShop/Pages/carrinho" method="POST">
                         <div class="modal-header">
                             <h4 class="modal-title">Excluir do carrinho</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -393,9 +348,13 @@
                             <p>Tem certeza que deseja o produto do carrinho?</p>
 
                         </div>
+                         <input type="text" id="TipoExclusao" name="Tipo" value="${eletronico.tipo}" />
+                        				  <input type="text" id="FormNameExclusao" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="text" id="txtNomeExclusao" name="txtNome" value="${eletronico.produto.nome}" />
+                        			 <input type="text" id="txtIDExclusao" name="txtNome" value="${eletronico.produto.id}" />
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-danger" value="Excluir">
+                            <input type="submit" class="btn btn-danger" id= "btnOperacaoSalvar" name="btnOperacao" value="EXCLUIR">
                         </div>
                     </form>
                 </div>
@@ -594,9 +553,47 @@
             dropdownParent: $('#dropDownSelect2')
         });
     </script>
+    
+    <script type="text/javascript">
+	function Calc(){
+
+	// Variavel que recebe o valor didtado no campo, em negrito(ID do campo de texto)
+	ValorUm = parseFloat(document.getElementById('txtPreco').value);
+
+	// Variavel que recebe o valor didtado no campo, em negrito(ID do campo de texto)
+	ValorDois = parseFloat(document.getElementById('qtdeComprada').value);
+
+    // Em negrito(nome do campo que vai receber os valores), esse *1 é para o Javascript entender que você está fazendo uma operação com números.
+    document.getElementById('resultado').value = (ValorUm*ValorDois).toFixed(2);
+}
+</script>
+
+    <script type="text/javascript">
+	function CalcFrete(){
+
+    // Em negrito(nome do campo que vai receber os valores), esse *1 é para o Javascript entender que você está fazendo uma operação com números.
+    document.getElementById('frete').value = Math.floor(Math.random() * 20);
+}
+</script>
+
+    <script type="text/javascript">
+	function CalcTotalProduto(frete){
+
+    // Em negrito(nome do campo que vai receber os valores), esse *1 é para o Javascript entender que você está fazendo uma operação com números.
+    document.getElementById('valorTotal').value = frete + document.getElementById('subtotal').value;
+}
+</script>
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>
 
 </body>
 
+ <script type="text/javascript">
+    function setaDadosModal(nome, tipo, id) {
+        document.getElementById("txtNomeExclusao").value = nome ;
+        document.getElementById("TipoExclusao").value = tipo ;
+        document.getElementById("txtIDExclusao").value = id ;
+    }
+    </script>
+    
 </html>
