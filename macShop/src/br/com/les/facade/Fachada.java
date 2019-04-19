@@ -160,9 +160,13 @@ public class Fachada implements IFachada {
 		rnsConsultarBloqueio.add(StValidarBloqueio);
 		
 		Map<String, List<IStrategy>> rnsBloqueio = new HashMap<String, List<IStrategy>>();
-		rnsBloqueio.put("ALTERAR", rnsConsultarBloqueio);	
+		rnsBloqueio.put("SALVAR", rnsConsultarBloqueio);	
 		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 		
+		List<IStrategy> rnsInativarBloqueio = new ArrayList<IStrategy>();
+
+		rnsBloqueio.put("INATIVAR", rnsInativarBloqueio);	
+		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 	}
 
 public Resultado validarStrategys(EntidadeDominio entidade, String operacao){

@@ -226,7 +226,7 @@
                                 </div>
                             </td>
                             <td class="column-2">
-                             <input class="size8 m-text18 t-center num-product" type="text" id = "txtNome" name="txtNome"
+                             <input class="m-text18 t-center num-product" type="text" id = "txtNome" name="txtNome"
                                         value=" ${eletronico.produto.nome }">
                             </td>
                             <td class="column-5">
@@ -241,7 +241,7 @@
                                     </button>
 
                                     <input class="size8 m-text18 t-center num-product" type="number" id = "qtdeComprada" name="qtdeComprada"
-                                        value="${eletronico.quantidade }">
+                                        value="${eletronico.quantidade }" readonly>
 
                                     <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                         <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -348,13 +348,13 @@
                             <p>Tem certeza que deseja o produto do carrinho?</p>
 
                         </div>
-                         <input type="text" id="TipoExclusao" name="Tipo" value="${eletronico.tipo}" />
-                        				  <input type="text" id="FormNameExclusao" name="FormName" value="VHBLOQUEIO" />
-                        				  <input type="text" id="txtNomeExclusao" name="txtNome" value="${eletronico.produto.nome}" />
-                        			 <input type="text" id="txtIDExclusao" name="txtNome" value="${eletronico.produto.id}" />
+                         <input type="hidden" id="TipoExclusao" name="Tipo" value="${eletronico.tipo}" />
+                        				  <input type="hidden" id="FormNameExclusao" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="hidden" id="txtNomeExclusao" name="txtNome" value="${eletronico.produto.nome}" />
+                        			 <input type="hidden" id="txtIDExclusao" name="txtID" value="${eletronico.produto.id}" />
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-danger" id= "btnOperacaoSalvar" name="btnOperacao" value="EXCLUIR">
+                            <input type="submit" class="btn btn-danger" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">
                         </div>
                     </form>
                 </div>
@@ -590,9 +590,9 @@
 
  <script type="text/javascript">
     function setaDadosModal(nome, tipo, id) {
-        document.getElementById("txtNomeExclusao").value = nome ;
-        document.getElementById("TipoExclusao").value = tipo ;
-        document.getElementById("txtIDExclusao").value = id ;
+        document.getElementById("txtNomeExclusao").value = nome;
+        document.getElementById("TipoExclusao").value = tipo;
+        document.getElementById("txtIDExclusao").value = id;
     }
     </script>
     

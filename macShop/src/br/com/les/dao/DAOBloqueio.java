@@ -11,6 +11,7 @@ import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Produto;
 import br.com.les.util.Resultado;
 
@@ -18,18 +19,6 @@ public class DAOBloqueio extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	@Override
-	public Resultado consultar(EntidadeDominio entidade) {
-		return null;
-	}
-
-	@Override
-	public Resultado alterar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
 		Bloqueio bloq = (Bloqueio) entidade;
 		
@@ -78,10 +67,70 @@ public class DAOBloqueio extends AbstractDAO {
 		return resultado;
 	}
 
+	
+	@Override
+	public Resultado consultar(EntidadeDominio entidade) {
+		return null;
+	}
+
+	@Override
+	public Resultado alterar(EntidadeDominio entidade) {
+		return null;
+	}
+
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Resultado resultado = new Resultado();
+		Bloqueio bloq = (Bloqueio) entidade;
+		Integer qtdeItensdevolucao = 0;
+		Produto produto = bloq.getCarrinho().getItensCarrinho().get(bloq.getCarrinho().getItensCarrinho().size()-1).getProduto();
+		ArrayList<ItemCarrinho> itensCarrinho = bloq.getCarrinho().getItensCarrinho();
+		
+		
+		bloq.getCarrinho().getItensCarrinho().remove(bloq.getCarrinho().getItensCarrinho().get(bloq.getCarrinho().getItensCarrinho().size()-1));
+		for (int i = 0; i < itensCarrinho.size(); i++)
+		{
+			ItemCarrinho item = itensCarrinho.get(i);
+			if (item.getProduto().getId().equals(produto.getId()))
+			{
+				qtdeItensdevolucao+= item.getProduto().getEstoque();
+				itensCarrinho.remove(i);
+			}
+				
+		}
+		
+		produto.setEstoque(qtdeItensdevolucao);
+
+		if (bloq.getTipo().equals("VHELETRONICO"))
+		{
+			DAOEletronico dao = new DAOEletronico();
+			dao.voltarEstoque(produto);
+		}
+		else
+		{
+			DAOAcessorio dao = new DAOAcessorio();
+			dao.voltarEstoque(produto);
+		}
+		
+		bloq.getSessao().setAttribute("carrinho", bloq.getCarrinho());
+		
+		
+		
+		HashMap<String, Carrinho> mapProdutosBloqueados;
+		mapProdutosBloqueados = (HashMap<String,Carrinho>) bloq.getSessao().getServletContext().getAttribute("bloqueio");
+		
+		if(mapProdutosBloqueados.containsValue(bloq.getSessao().getId()))
+		{
+			mapProdutosBloqueados.get(bloq.getSessao().getId()).addItem(bloq.getCarrinho().getItensCarrinho().get(bloq.getCarrinho().getItensCarrinho().size()-1));
+		}
+		else {
+			mapProdutosBloqueados.put(bloq.getSessao().getId(), bloq.getCarrinho());
+		}
+		
+		resultado.sucesso("Removido com sucesso!");
+		
+		return resultado;
 	}
 
 	@Override

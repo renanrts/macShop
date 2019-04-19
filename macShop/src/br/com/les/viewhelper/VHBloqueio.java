@@ -60,7 +60,13 @@ public class VHBloqueio implements IViewHelper {
 		}
 		
 		itemCarrinho.setProduto(produto);
-		itemCarrinho.setQuantidade(Integer.parseInt(request.getParameter("qtdeComprada")));
+		
+		if (request.getParameter("qtdeComprada") != null)
+			{
+			itemCarrinho.setQuantidade(Integer.parseInt(request.getParameter("qtdeComprada")));
+			}
+		
+		
 		this.carrinho.getItensCarrinho().add(itemCarrinho);
 
 		
@@ -83,23 +89,18 @@ public class VHBloqueio implements IViewHelper {
 			request.setAttribute("sucesso", mensagem);
 		
 		if(operacao.equals("SALVAR")){
-			if(resultado.getErro()){
-				
-				if (request.getParameter("Tipo").equals("VHELETRONICO"))
-				{
-					request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
-				}
-				else
-				{
-					request.setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
-				}
-				
-				request.setAttribute("categoria", (Categoria) resultado.getResultado());
+			carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+			
+			if (request.getParameter("Tipo").equals("VHELETRONICO"))
+			{
+		
+				request.setAttribute("eletronico", (Eletronico) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
 			}
 			else
 			{
-				request.setAttribute("resultado", resultado.getCategoria());
+				request.setAttribute("eletronico", (Acessorio) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
 			}
+			request.setAttribute("categoria", (Categoria) resultado.getResultado());
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
 				if(resultado.getResultado() != null){
@@ -170,7 +171,7 @@ public class VHBloqueio implements IViewHelper {
 			}
 			else if(operacao.equals("INATIVAR")){
 								
-					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
 					rd.forward(request, response);
 
 			}

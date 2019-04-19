@@ -505,5 +505,49 @@ Eletronico eletronico = (Eletronico) entidade;
 						return resultado;
 		}
 	}
+	
+	public Resultado voltarEstoque (EntidadeDominio e) {
+		
+		Eletronico eletronico = (Eletronico) e;
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+
+		try {
+			
+		
+			PreparedStatement stmt = null;
+			
+		
+			stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?");	
+			stmt.setInt(1, eletronico.getEstoque());
+			stmt.setInt(2, eletronico.getId());
+	
+			
+			ResultSet rs = stmt.executeQuery();
+						
+			while (rs.next()) {
+				contagem++;
+			}
+			
+			
+			if(contagem == 0){
+				resultado.sucesso("Nenhum produto encontrado.");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
+	}
 
 }
