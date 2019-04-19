@@ -236,16 +236,29 @@
                             <td class="column-1">
 
                                 <div class="flex-w bo5 of-hidden w-size17">
-                                    <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+                                <form action="/macShop/Pages/carrinho" method="POST">
+                                    <button type="submit" class= "color1 flex-c-m size7 bg8 eff2" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">
                                         <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                     </button>
-
+                                     <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.produto.tipo}" />
+                        				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="hidden" id="txtNome" name="txtNome" value="${eletronico.produto.nome}" />
+                        			 <input type="hidden" id="txtID" name="txtID" value="${eletronico.produto.id}" />
+                        			 <input type="hidden" id="operation" name="operation" value="minus" />
+                        			 
+								</form>
                                     <input class="size8 m-text18 t-center num-product" type="number" id = "qtdeComprada" name="qtdeComprada"
                                         value="${eletronico.quantidade }" readonly>
-
-                                    <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+								<form action="/macShop/Pages/carrinho" method="POST">
+                                    <button  type="submit" class="color1 flex-c-m size7 bg8 eff2" id= "btnOperacaoSalvar" name="btnOperacao" value="ALTERAR">
                                         <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
                                     </button>
+                                     <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.produto.tipo}" />
+                        				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="hidden" id="txtNome" name="txtNome" value="${eletronico.produto.nome}" />
+                        			 <input type="hidden" id="txtID" name="txtID" value="${eletronico.produto.id}" />
+                        			 <input type="hidden" id="operation" name="operation" value="add" />
+                                 </form>
                                 </div>
 
                             </td>
@@ -265,12 +278,7 @@
                     
                 </div>
             </div>
- <div class="size14 trans-0-4 m-b-10">
-                            <!-- Button -->
-                            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                                Atualizar
-                            </button>
-                        </div>
+
 
             <!-- Total -->
             <div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
@@ -348,10 +356,10 @@
                             <p>Tem certeza que deseja o produto do carrinho?</p>
 
                         </div>
-                         <input type="hidden" id="TipoExclusao" name="Tipo" value="${eletronico.tipo}" />
-                        				  <input type="hidden" id="FormNameExclusao" name="FormName" value="VHBLOQUEIO" />
-                        				  <input type="hidden" id="txtNomeExclusao" name="txtNome" value="${eletronico.produto.nome}" />
-                        			 <input type="hidden" id="txtIDExclusao" name="txtID" value="${eletronico.produto.id}" />
+                         <input type="text" id="TipoExclusao" name="Tipo" value="${eletronico.produto.tipo}" />
+                        				  <input type="text" id="FormNameExclusao" name="FormName" value="VHBLOQUEIO" />
+                        				  <input type="text" id="txtNomeExclusao" name="txtNome" value="${eletronico.produto.nome}" />
+                        			 <input type="text" id="txtIDExclusao" name="txtID" value="${eletronico.produto.id}" />
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
                             <input type="submit" class="btn btn-danger" id= "btnOperacaoSalvar" name="btnOperacao" value="INATIVAR">

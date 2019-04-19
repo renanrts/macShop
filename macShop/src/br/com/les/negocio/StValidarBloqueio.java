@@ -17,6 +17,8 @@ public class StValidarBloqueio implements IStrategy {
 		StringBuilder mensagem = new StringBuilder();
 		Bloqueio bloq = (Bloqueio) entidade;
 		
+		if (bloq.getOperation().equals("add"))
+		{
 		Produto produto = bloq.getCarrinho().getItensCarrinho().get(bloq.getCarrinho().getItensCarrinho().size()-1).getProduto();
 		produto.setId(bloq.getCarrinho().getItensCarrinho().get(bloq.getCarrinho().getItensCarrinho().size()-1).getProduto().getId());
 		
@@ -66,4 +68,9 @@ public class StValidarBloqueio implements IStrategy {
 		return null;
 	}
 
+	else {
+		return null;
+	}
+		
+	}
 }

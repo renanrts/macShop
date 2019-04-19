@@ -263,6 +263,7 @@
                         				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
                         				  <input type="text" id="txtID" name="txtID" value="${eletronico.id}" />
                         				  <input type="text" id="FormName" name="lalal" value="${eletronico.estoque}" />
+                        				  <input type="hidden" id="operation" name="operation" value="add" />
                                		 <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">
                                		     Comprar
                                		 </button>

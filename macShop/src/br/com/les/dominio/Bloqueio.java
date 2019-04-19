@@ -9,6 +9,7 @@ public class Bloqueio extends EntidadeDominio{
 	private Carrinho carrinho;
 	private LocalDate timeStamp;
 	private HttpSession sessao;
+	private String operation;
 	
 	public Carrinho getCarrinho() {
 		return carrinho;
@@ -27,6 +28,12 @@ public class Bloqueio extends EntidadeDominio{
 	}
 	public void setSessao(HttpSession sessao) {
 		this.sessao = sessao;
+	}
+	public String getOperation() {
+		return operation;
+	}
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
 	
 	

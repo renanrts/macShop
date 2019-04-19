@@ -47,7 +47,7 @@ public class VHBloqueio implements IViewHelper {
 		ItemCarrinho itemCarrinho = new ItemCarrinho();
 		bloqueio.setTipo(request.getParameter("Tipo"));
 		
-	
+		bloqueio.setOperation(request.getParameter("operation"));
 		if (request.getParameter("Tipo").equals("VHELETRONICO"))
 		{
 
@@ -62,9 +62,18 @@ public class VHBloqueio implements IViewHelper {
 		itemCarrinho.setProduto(produto);
 		
 		if (request.getParameter("qtdeComprada") != null)
+		{
+			if(request.getParameter("btnOperacao") != "ALTERAR")
 			{
-			itemCarrinho.setQuantidade(Integer.parseInt(request.getParameter("qtdeComprada")));
+				itemCarrinho.setQuantidade(Integer.parseInt(request.getParameter("qtdeComprada")));
 			}
+			
+		
+		}
+		else
+		{
+			itemCarrinho.setQuantidade(1);
+		}
 		
 		
 		this.carrinho.getItensCarrinho().add(itemCarrinho);
@@ -133,11 +142,11 @@ public class VHBloqueio implements IViewHelper {
 			if (request.getParameter("Tipo").equals("VHELETRONICO"))
 			{
 		
-				request.setAttribute("eletronico", (Eletronico) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
+				request.setAttribute("teste", (Eletronico) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
 			}
 			else
 			{
-				request.setAttribute("eletronico", (Acessorio) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
+				request.setAttribute("teste", (Acessorio) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
 			}
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
 			
@@ -177,10 +186,10 @@ public class VHBloqueio implements IViewHelper {
 			}
 			else if(operacao.equals("ALTERAR")){
 				
-				
-				RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
-				rd.forward(request, response);
-				
+
+					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
+					rd.forward(request, response);
+
 				
 
 		}

@@ -166,6 +166,12 @@ public class Fachada implements IFachada {
 		List<IStrategy> rnsInativarBloqueio = new ArrayList<IStrategy>();
 
 		rnsBloqueio.put("INATIVAR", rnsInativarBloqueio);	
+		
+		
+		List<IStrategy> rnsAlterarBloqueio = new ArrayList<IStrategy>();
+		rnsAlterarBloqueio.add(StValidarBloqueio);
+		rnsBloqueio.put("ALTERAR", rnsAlterarBloqueio);
+		
 		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 	}
 
