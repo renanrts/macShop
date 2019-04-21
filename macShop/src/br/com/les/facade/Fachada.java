@@ -10,12 +10,14 @@ import br.com.les.dao.DAOBloqueio;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
 import br.com.les.dao.DAOEletronico;
+import br.com.les.dao.DAOPedido;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StCalcularTotalPedido;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarDTCadastro;
 import br.com.les.negocio.StComplementarDTCadastroCliente;
@@ -51,6 +53,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("ACESSORIO", new DAOAcessorio());
 		mapDAO.put("CLIENTE", new DAOCliente());
 		mapDAO.put("BLOQUEIO", new DAOBloqueio());
+		mapDAO.put("PEDIDO", new DAOPedido());
 		
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		
@@ -67,6 +70,7 @@ public class Fachada implements IFachada {
 		StComplementarEnderecoCliente StComplementarEnderecoCliente = new StComplementarEnderecoCliente();
 		StValidarSenhasCliente StValidarSenhasCliente = new StValidarSenhasCliente();
 		StValidarBloqueio StValidarBloqueio = new StValidarBloqueio();
+		StCalcularTotalPedido StCalcularTotalPedido = new StCalcularTotalPedido();
 		/* Criando uma lista para conter as regras de negócio de fornencedor
 		 * quando a operação for salvar
 		 */
@@ -173,6 +177,13 @@ public class Fachada implements IFachada {
 		rnsBloqueio.put("ALTERAR", rnsAlterarBloqueio);
 		
 		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
+		
+		
+		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
+		
+		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
+		rnsPedido.put("SALVAR", rnsSalvarPedido);	
+		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsPedido);
 	}
 
 public Resultado validarStrategys(EntidadeDominio entidade, String operacao){

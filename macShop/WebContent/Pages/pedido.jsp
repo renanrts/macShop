@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,7 +71,7 @@
                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
@@ -240,31 +242,17 @@
                                                 <div class="row align-items-end">
 
                                                     <div class="billing-form bg-light p-md-4">
-
+													<c:forEach var="enderecoEntrega" items="${cliente.listEnderecosEntrega }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 1</label>
+                                                                            class="mr-2">${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 2</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">Endereço 3</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        </c:forEach>
+                                                    
 
                                                     </div>
 
@@ -398,31 +386,17 @@
                                                 <div class="row align-items-end">
 
                                                     <div class="billing-form bg-light p-md-4">
-
+													<c:forEach var="cartao" items="${cliente.listCartoes }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
                                                                     <label><input type="checkbox" name="optradio"
-                                                                            class="mr-2">Cartão 1</label>
+                                                                            class="mr-2">${cartao.bandeira}</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="checkbox" name="optradio"
-                                                                            class="mr-2">Cartão 2</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="checkbox" name="optradio"
-                                                                            class="mr-2">Cartão 3</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        </c:forEach>
+                                                      
 
                                                     </div>
 
@@ -468,14 +442,6 @@
                                                             </div>
                                                         </div>
 
-
-
-
-
-
-
-
-
                                                     </div>
                                                     <div class="w-100"></div>
                                                     <div class="col-md-12">
@@ -517,8 +483,23 @@
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <div class="radio">
-                                                                <label><input type="checkbox" name="optradio"
-                                                                        class="mr-2" checked>Cartão 1</label>
+                                                                
+                                                                ${cliente.listCartoes.get(0).id } - ${cliente.listCartoes.get(0).bandeira }
+                                                                <input type="hidden" name="cartaoPagamento1"
+                                                                        class="mr-2" placeholder="parcelas">
+                                                                         <input type="hidden" name="idcupom"
+                                                                        class="mr-2" placeholder="parcelas" value = "${cliente.listCartoes.get(0).id }">
+                                                                <label>
+                                                                Parcelas
+                                                                </label>
+                                                                <input type="number" name="parcelasCartao1"
+                                                                        class="mr-2" placeholder="parcelas">
+                                                                        
+                                                                        <label>
+                                                                Parcelas
+                                                                </label>
+                                                                        <input type="number" name="valorCartao1"
+                                                                        class="mr-2" placeholder="valor">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -532,14 +513,28 @@
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <div class="radio">
-                                                                <label><input type="checkbox" name="optradio"
-                                                                        class="mr-2" checked>Endereço 1</label>
+                                                                <label>Endereço 1</label>
                                                             </div>
                                                         </div>
                                                     </div>
 
 
                                                 </div>
+                                                  <h3 class="billing-heading mb-4">Cupom de Desconto</h3>
+                                                 <div class="billing-form bg-light p-md-4">
+													<c:forEach var="cupom" items="${cliente.cupons }" >
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="optradio"
+                                                                            class="mr-2">ID: ${cupom.id } - VALOR: R$${cupom.valor  } </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </c:forEach>
+                                                    
+
+                                                    </div>
                                                 <h3 class="billing-heading mb-4">Total do Pedido</h3>
                                                 <div class="billing-form bg-light p-md-4">
 
@@ -561,22 +556,7 @@
                                                         <span>$17.60</span>
                                                     </p>
                                                 </div>
-                                                <div class="flex-w flex-sb-m p-t-25 p-b-25 p-l-35 p-r-60 p-lr-15-sm">
-                                                    <div class="flex-w flex-m w-full-sm">
-                                                        <div class="size11 bo4 m-r-10">
-                                                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text"
-                                                                name="coupon-code" placeholder="Código">
-                                                        </div>
-
-                                                        <div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
-                                                            <!-- Button -->
-                                                            <button
-                                                                class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-                                                                Inserir cupom
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
+                                               
 
                                                 </div>
 
@@ -592,10 +572,8 @@
                                                         <center>
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
-                                                                <a href="#"
-                                                                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                    Comprar
-                                                                </a>
+                                                                <input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
+                                                                <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Comprar</button>
                                                             </div>
                                                         </center>
                                                     </div>

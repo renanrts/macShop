@@ -267,9 +267,19 @@ public class VHCliente implements IViewHelper{
 				}
 			
 			}
-			else if(operacao.equals("CONSULTAR")){			
+			else if(operacao.equals("CONSULTAR")){	
+				if(request.getParameter("Direcionamento").equals("PAGAMENTO"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("pedido.jsp");
+					rd.forward(request, response);
+				}
+				else
+					
+				{
 					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
 					rd.forward(request, response);
+				}
+				
 			}
 			else if(operacao.equals("VISUALIZAR")){
 

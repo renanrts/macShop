@@ -24,12 +24,13 @@ import br.com.les.viewhelper.VHBloqueio;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHEletronico;
+import br.com.les.viewhelper.VHPedido;
 import br.com.les.viewhelper.VHProduto;
 
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido"})
 public class Servlet extends HttpServlet{
 	
 	 
@@ -56,6 +57,7 @@ public class Servlet extends HttpServlet{
 			mapViewHelper.put("VHACESSORIO", new VHAcessorio());
 			mapViewHelper.put("VHCLIENTE", new VHCliente());
 			mapViewHelper.put("VHBLOQUEIO", new VHBloqueio());
+			mapViewHelper.put("VHPEDIDO", new VHPedido());
 
 
 		}
@@ -64,10 +66,7 @@ public class Servlet extends HttpServlet{
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
-			
-			String lala = request.getParameter("Tipo");
-			
-			System.out.println(lala);
+
 			
 			if(getServletContext().getAttribute("bloqueio") == null)
 			{

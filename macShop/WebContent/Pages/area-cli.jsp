@@ -72,7 +72,7 @@
                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
@@ -927,30 +927,24 @@
 
 
 
-                                            <form action="#" class="billing-form bg-light p-3 p-md-5">
-
-
                                                 <h3 class="mb-4 billing-heading">Meus cupons</h3>
-                                                <div class="row align-items-end">
-
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-6">
+                                                 <div class="billing-form bg-light p-md-4">
+													<c:forEach var="cupom" items="${cliente.cupons }" >
                                                         <div class="form-group">
-                                                            <label for="phone">Código</label>
-                                                            <input type="text" class="form-control" placeholder="">
+                                                            <div class="col-md-12">
+                                                                <div class="radio">
+                                                                    <label><input type="text" name="optradio"
+                                                                            class="mr-2" value="ID: ${cupom.id } - VALOR: R$${cupom.valor  }" ></label>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="phone">Valor</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
+                                                        </c:forEach>
+                                                    
 
-                                                </div>
+                                                    </div>
 
                                         </div>
-                                        </form><!-- END -->
+                                     
                                     </div> <!-- .col-md-8 -->
                                 </div>
                             </div>

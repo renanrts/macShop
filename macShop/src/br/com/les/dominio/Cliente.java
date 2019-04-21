@@ -10,6 +10,7 @@ public class Cliente extends Pessoa{
 	private Telefone telefone;
 	private Endereco enderecoResidencial;
 	private Endereco enderecoCobranca;
+	private List<Cupom> cupons;
 	
 	protected Calendar dataCadastro;
 	
@@ -49,6 +50,12 @@ public class Cliente extends Pessoa{
 	}
 	public void setListEnderecosEntrega(List<Endereco> listEnderecosEntrega) {
 		this.listEnderecosEntrega = listEnderecosEntrega;
+	}
+	public List<Cupom> getCupons() {
+		return cupons;
+	}
+	public void setCupons(List<Cupom> cupons) {
+		this.cupons = cupons;
 	}
 
 	

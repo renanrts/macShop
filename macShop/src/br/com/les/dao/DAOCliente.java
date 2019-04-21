@@ -16,6 +16,7 @@ import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Cidade;
 import br.com.les.dominio.Cliente;
+import br.com.les.dominio.Cupom;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Estado;
@@ -140,6 +141,7 @@ public class DAOCliente extends AbstractDAO {
 					cart.setNome(rs.getString("cart_nome"));
 					cart.setNumero(rs.getString("cart_numero"));
 					cart.setPreferencial(rs.getBoolean("cart_preferencial"));
+					cart.setId(rs.getInt("cart_id"));
 					cart.setDtVenciamento(LocalDate.parse(rs.getDate("cart_vencimento").toString()));
 					cartoes.add(cart);
 			
@@ -185,7 +187,30 @@ public class DAOCliente extends AbstractDAO {
 				contagem++;
 			}
 			
+			stmt = this.con.prepareStatement(
+					"SELECT * from CUPONS AS C INNER JOIN CLIENTES AS F ON C.CLI_ID = f.cli_id where f.cli_id = ?"	
+					);
+			stmt.setInt(1, cliente.getId());
 			
+			ResultSet rsT = stmt.executeQuery();
+						
+			List<Cupom> cupons = new ArrayList<Cupom>();
+			
+			while (rsT.next()) {
+				Cupom cup = new Cupom();
+				
+				cup.setId(Integer.parseInt(rsT.getString("CUP_ID")));
+				cup.setStatus(rsT.getString("CUP_STATUS"));
+				cup.setValor(Double.parseDouble(rsT.getString("CUP_VALOR")));
+				if (cup.getStatus().equals("ATIVO"))
+				{
+					cupons.add(cup);
+				}
+				
+			}
+			
+			
+			cliente.setCupons(cupons);
 			cliente.setListCartoes(cartoes);
 			cliente.setListEnderecosEntrega(enderecos);
 			clientes.add(cliente);
@@ -201,6 +226,7 @@ public class DAOCliente extends AbstractDAO {
 			
 			resultado.setContagem(contagem);
 			rs.close();
+			rsT.close();
 			stmt.close();
 			return resultado;
 			

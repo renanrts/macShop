@@ -71,7 +71,7 @@
                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10">Meus Dados</a></li>
+                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
                                     <li><a href="pedidos-cli.jsp">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
@@ -338,7 +338,7 @@
 
                 <div class="size15 trans-0-4">
                     <!-- Button -->
-                    <a href="pedido.jsp" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                    <a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=PAGAMENTO" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                         Pagamento
                     </a>
                 </div>
