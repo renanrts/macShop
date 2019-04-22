@@ -17,12 +17,15 @@ import br.com.les.dominio.Cliente;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StCalcularFrete;
 import br.com.les.negocio.StCalcularTotalPedido;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarDTCadastro;
 import br.com.les.negocio.StComplementarDTCadastroCliente;
+import br.com.les.negocio.StComplementarDataPedido;
 import br.com.les.negocio.StComplementarEnderecoCliente;
 import br.com.les.negocio.StComplementarInativacao;
+import br.com.les.negocio.StInutilizarCupom;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
 import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
@@ -71,6 +74,11 @@ public class Fachada implements IFachada {
 		StValidarSenhasCliente StValidarSenhasCliente = new StValidarSenhasCliente();
 		StValidarBloqueio StValidarBloqueio = new StValidarBloqueio();
 		StCalcularTotalPedido StCalcularTotalPedido = new StCalcularTotalPedido();
+		StInutilizarCupom StInutilizarCupom = new StInutilizarCupom();
+		StCalcularFrete StCalcularFrete = new StCalcularFrete();
+		StComplementarDataPedido StComplementarDataPedido = new StComplementarDataPedido();
+		
+		
 		/* Criando uma lista para conter as regras de negócio de fornencedor
 		 * quando a operação for salvar
 		 */
@@ -98,9 +106,7 @@ public class Fachada implements IFachada {
 		rnsAlterarProduto.add(StComplementarCategoria);
 		rnsAlterarProduto.add(StValidarDadosObrigatorios);
 		
-		
-		
-		
+
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação do produto
 		 */
@@ -180,6 +186,9 @@ public class Fachada implements IFachada {
 		
 		
 		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
+		rnsSalvarPedido.add(StCalcularFrete);
+		rnsSalvarPedido.add(StComplementarDataPedido);
+		rnsSalvarPedido.add(StCalcularTotalPedido);
 		
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
