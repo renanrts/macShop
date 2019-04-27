@@ -4,7 +4,7 @@ public class FormaPagamento extends EntidadeDominio {
 	
 	private CartaoCredito cartao;
 	private Cupom cupom;
-	private String parcela;
+	private Integer parcela;
 	private Double valor;
 	public CartaoCredito getCartao() {
 		return cartao;
@@ -18,10 +18,10 @@ public class FormaPagamento extends EntidadeDominio {
 	public void setCupom(Cupom cupom) {
 		this.cupom = cupom;
 	}
-	public String getParcela() {
+	public Integer getParcela() {
 		return parcela;
 	}
-	public void setParcela(String parcela) {
+	public void setParcela(Integer parcela) {
 		this.parcela = parcela;
 	}
 	public Double getValor() {

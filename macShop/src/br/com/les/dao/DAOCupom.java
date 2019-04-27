@@ -22,11 +22,18 @@ public class DAOCupom extends AbstractDAO {
 		
 		Cupom cupom = new Cupom();
 		
-		cupom.setValor(pedido.getValorTotal() - pedido.getFormapagto().get(0).getValor());
+		cupom.setValor(pedido.getFormapagto().get(0).getValor() - pedido.getValorTotal());
 		
 		Random gerador = new Random();
 		
-		Integer codigo = gerador.nextInt();
+		StringBuilder codigo = new StringBuilder();
+		
+		for(int i=0; i < 5; i++)
+		{
+			codigo.append(String.valueOf(gerador.nextInt()));
+		}
+		
+
 		try {
 			
 

@@ -15,8 +15,13 @@ import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
 import br.com.les.command.CmdVisualizar;
 import br.com.les.command.ICommand;
+import br.com.les.dao.DAOAcessorio;
+import br.com.les.dao.DAOEletronico;
+import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.ItemCarrinho;
+import br.com.les.dominio.Produto;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
@@ -87,5 +92,6 @@ public class Servlet extends HttpServlet{
 			
 			viewHelper.setView(resultado, request, response);
 		}
-
+		
+		
 }

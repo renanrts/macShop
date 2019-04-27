@@ -246,8 +246,9 @@
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }</label>
+                                                                    <label><input type="radio" name="end_id"
+                                                                            class="end_sel_id" value="${enderecoEntrega.id }"><input value="${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }" class="endereco"${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }></label>
+                                                                
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -485,10 +486,9 @@
                                                             <div class="radio">
                                                                 
                                                                 ${cliente.listCartoes.get(0).id } - ${cliente.listCartoes.get(0).bandeira }
-                                                                <input type="hidden" name="cartaoPagamento1"
-                                                                        class="mr-2" placeholder="parcelas">
-                                                                         <input type="hidden" name="idcupom"
-                                                                        class="mr-2" placeholder="parcelas" value = "${cliente.listCartoes.get(0).id }">
+                                                                
+                                                                         <input type="hidden" name="idcartaoPagamento1"
+                                                                        class="mr-2" value = "${cliente.listCartoes.get(0).id }">
                                                                 <label>
                                                                 Parcelas
                                                                 </label>
@@ -496,7 +496,7 @@
                                                                         class="mr-2" placeholder="parcelas">
                                                                         
                                                                         <label>
-                                                                Parcelas
+                                                                Valor
                                                                 </label>
                                                                         <input type="number" name="valorCartao1"
                                                                         class="mr-2" placeholder="valor">
@@ -513,7 +513,13 @@
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <div class="radio">
-                                                                <label>Endereço 1</label>
+                                                                <label>
+                                                                
+                                                       <input type="text" id="idendereco-selecionado" name="enderecoselecionado_id"
+                                                                            class="mr-2">
+                                                       <input type="text" id="endereco-selecionado" name="cup_id"
+                                                                            class="mr-2">
+                                                                            </label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -526,8 +532,8 @@
                                                         <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="radio">
-                                                                    <label><input type="radio" name="optradio"
-                                                                            class="mr-2">ID: ${cupom.id } - VALOR: R$${cupom.valor  } </label>
+                                                                    <label><input type="radio" name="idcupom"
+                                                                            class="mr-2" value="${cupom.id }">ID: ${cupom.id } - VALOR: R$${cupom.valor  } </label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -573,6 +579,7 @@
                                                             <div class="header-cart-wrapbtn">
                                                                 <!-- Button -->
                                                                 <input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
+                                                                <input type="hidden" name="cli_id"  class="mr-2" value = "${cliente.id }">
                                                                 <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Comprar</button>
                                                             </div>
                                                         </center>
@@ -824,7 +831,7 @@
 
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>
-
+	<script src="../js/customizacoes.js"></script>
 </body>
 
 </html>

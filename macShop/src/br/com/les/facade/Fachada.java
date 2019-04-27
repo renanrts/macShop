@@ -15,11 +15,14 @@ import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StAprovarPedido;
 import br.com.les.negocio.StCalcularFrete;
 import br.com.les.negocio.StCalcularTotalPedido;
 import br.com.les.negocio.StComplementarCategoria;
+import br.com.les.negocio.StComplementarCupom;
 import br.com.les.negocio.StComplementarDTCadastro;
 import br.com.les.negocio.StComplementarDTCadastroCliente;
 import br.com.les.negocio.StComplementarDataPedido;
@@ -31,6 +34,7 @@ import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
 import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
+import br.com.les.negocio.StValidarDadosObrigatoriosPedido;
 import br.com.les.negocio.StValidarExistencia;
 import br.com.les.negocio.StValidarExistenciaCliente;
 import br.com.les.negocio.StValidarSenhasCliente;
@@ -77,6 +81,9 @@ public class Fachada implements IFachada {
 		StInutilizarCupom StInutilizarCupom = new StInutilizarCupom();
 		StCalcularFrete StCalcularFrete = new StCalcularFrete();
 		StComplementarDataPedido StComplementarDataPedido = new StComplementarDataPedido();
+		StValidarDadosObrigatoriosPedido StValidarDadosObrigatoriosPedido = new StValidarDadosObrigatoriosPedido();
+		StAprovarPedido StAprovarPedido = new StAprovarPedido();
+		StComplementarCupom StComplementarCupom = new StComplementarCupom();
 		
 		
 		/* Criando uma lista para conter as regras de negócio de fornencedor
@@ -186,13 +193,18 @@ public class Fachada implements IFachada {
 		
 		
 		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
+		
+		rnsSalvarPedido.add(StValidarDadosObrigatoriosPedido);
 		rnsSalvarPedido.add(StCalcularFrete);
 		rnsSalvarPedido.add(StComplementarDataPedido);
+		rnsSalvarPedido.add(StComplementarCupom);
 		rnsSalvarPedido.add(StCalcularTotalPedido);
-		
+		rnsSalvarPedido.add(StAprovarPedido);
+		rnsSalvarPedido.add(StInutilizarCupom);
+
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
-		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsPedido);
+		rns.put(Pedido.class.getSimpleName().toUpperCase(), rnsPedido);
 	}
 
 public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
