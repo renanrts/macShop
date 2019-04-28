@@ -88,9 +88,9 @@ public class DAOCupom extends AbstractDAO {
 			
 			PreparedStatement stmt = null;
 				
-			stmt = this.con.prepareStatement("UPDATE CUPONS SET cup_status = ? WHERE CUP_CODIGO = ?");
+			stmt = this.con.prepareStatement("UPDATE CUPONS SET cup_status = ? WHERE CUP_ID = ?");
 			stmt.setString(1, "INATIVO");
-			stmt.setString(2, cupom.getCodigo());
+			stmt.setInt(2, cupom.getId());
 
 			ResultSet rs = stmt.executeQuery();
 				
@@ -133,8 +133,8 @@ public class DAOCupom extends AbstractDAO {
 				
 				PreparedStatement stmt = null;
 					
-				stmt = this.con.prepareStatement("SELECT * FROM CUPONS WHERE CUP_CODIGO = ?");
-				stmt.setString(1, cupom.getCodigo());
+				stmt = this.con.prepareStatement("SELECT * FROM CUPONS WHERE CUP_ID = ?");
+				stmt.setInt(1, cupom.getId());
 	
 				ResultSet rs = stmt.executeQuery();
 							

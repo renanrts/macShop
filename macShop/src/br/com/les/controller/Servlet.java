@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +38,7 @@ import br.com.les.viewhelper.VHProduto;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido"})
-public class Servlet extends HttpServlet{
+public class Servlet extends HttpServlet implements ServletContextListener{
 	
 	 
 		private Map<String, ICommand> mapCommand;
@@ -68,6 +70,11 @@ public class Servlet extends HttpServlet{
 		}
 		
 		@Override
+		public void contextDestroyed(ServletContextEvent sce) {
+		// TODO Auto-generated method stub
+	System.out.println("CONTESTO DESTRUIDO");
+		}
+		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
@@ -92,6 +99,8 @@ public class Servlet extends HttpServlet{
 			
 			viewHelper.setView(resultado, request, response);
 		}
+		
+		
 		
 		
 }

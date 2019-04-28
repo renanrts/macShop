@@ -196,7 +196,12 @@
             Checkout
         </h2>
     </section>
-
+	<c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
     <section class="bgwhite p-t-45 p-b-58">
         <div class="container">
 

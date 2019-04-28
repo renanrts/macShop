@@ -51,56 +51,16 @@ public class VHPedido implements IViewHelper {
 			request.setAttribute("erro", mensagem);
 		else
 			request.setAttribute("sucesso", mensagem);
-		
-		if(operacao.equals("SALVAR")){
-			if(resultado.getErro()){
-
-					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-					
-					
-			}
-			else
-			{
-				request.setAttribute("resultado", resultado.getCategoria());
-			}
-		} else if(operacao.equals("CONSULTAR")){
-			if(!resultado.getErro()){
-				
-					request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-					VHBaseCadastro viewHelper = new VHBaseCadastro();
-					
-					EntidadeDominio baseCadastro = viewHelper.getEntidade(request);
-			
-					request.setAttribute("baseCadastro", baseCadastro);
-		
-			}
-		}
-		else if(operacao.equals("VISUALIZAR")){
-
-		
-				request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-		
-			
-
-		}
-		else if(operacao.equals("ALTERAR")){
-
-		
-				request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
-
-			
-
-
-}
+	
 		
 		try {
 			if(operacao.equals("SALVAR")){
 				if(resultado.getErro()) {
-					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
 					rd.forward(request, response);
 				}
 				else {
-					RequestDispatcher rd = request.getRequestDispatcher("pedido.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
 					rd.forward(request, response);
 				}
 			

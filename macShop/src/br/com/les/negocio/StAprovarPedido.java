@@ -25,13 +25,14 @@ public class StAprovarPedido implements IStrategy {
 			valorTotalCartoes += pagto.getValor();
 		}
 		
-		if (pedido.getValorTotal() < valorTotalCartoes)
+		if (pedido.getValorTotal() > (valorTotalCartoes + pedido.getFormapagto().get(0).getCupom().getValor()))
 		{
-			mensagem.append("Por favor digite um valor igual ao valor total ");
+			mensagem.append("Por favor, refaça a compra: Valor insuficiente ");
 		}
 		else
 		{
 			pedido.setStatus(StatusPedido.APROVADO.getDescription());
+			
 		}
 		
 		if(mensagem.length() == 0){

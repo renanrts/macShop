@@ -2,6 +2,7 @@ package br.com.les.negocio;
 
 import br.com.les.dao.DAOCupom;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.FormaPagamento;
 import br.com.les.dominio.Pedido;
 
 public class StInutilizarCupom implements IStrategy {
@@ -13,12 +14,27 @@ public class StInutilizarCupom implements IStrategy {
 		
 		DAOCupom dao = new DAOCupom();
 		
-		if(pedido.getFormapagto().get(0).getCupom().getValor() < pedido.getValorTotal())
+		Double valorTotalCartoes = 0.0;
+
+		
+		for(FormaPagamento pagto: pedido.getFormapagto())
 		{
-			dao.salvar(pedido);
+			valorTotalCartoes += pagto.getValor();
 		}
 		
-		dao.excluir(pedido.getFormapagto().get(0).getCupom());
+		if (pedido.getValorTotal() > valorTotalCartoes)
+		{
+			return null;
+		}
+		
+		else
+		{
+			if(pedido.getFormapagto().get(0).getCupom().getValor() > pedido.getValorTotal())
+			{
+				dao.salvar(pedido);
+			}
+			dao.excluir(pedido.getFormapagto().get(0).getCupom());
+		}
 		
 		
 		return null;

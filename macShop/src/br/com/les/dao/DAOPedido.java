@@ -33,7 +33,7 @@ public class DAOPedido extends AbstractDAO {
 			stmt.setDouble(3, pedido.getValorTotal());
 			stmt.setString(4, pedido.getStatus());
 			stmt.setDouble(5, pedido.getFrete());
-			stmt.setString(6, pedido.getFormapagto().get(0).getCupom().getCodigo());
+			stmt.setInt(6, pedido.getFormapagto().get(0).getCupom().getId());
 
 			stmt.execute();
 
@@ -46,8 +46,8 @@ public class DAOPedido extends AbstractDAO {
 			
 			for(ItemCarrinho item : pedido.getCarrinho().getItensCarrinho())
 			{
-					String sql2 = "INSERT INTO ProdxPed (ped_id, prod_id, prodxped_qtde, prodxped_status) "
-							+ "VALUES (?, ?, ?, ?,)";
+					String sql2 = "INSERT INTO ProdxPed (ped_id, prod_id, prodxped_qtde, prodxped_status)"
+							+ "VALUES (?, ?, ?, ?)";
 					
 	
 					PreparedStatement stmt2 = con.prepareStatement(sql2);
@@ -70,7 +70,7 @@ public class DAOPedido extends AbstractDAO {
 				
 
 				PreparedStatement stmt3 = con.prepareStatement(sql3);
-				stmt3.setInt(1, pedido.getFormapagto().get(i).getId());
+				stmt3.setInt(1, pedido.getFormapagto().get(i).getCartao().getId());
 				stmt3.setInt(2, pedido.getFormapagto().get(i).getParcela());
 				stmt3.setDouble(3, pedido.getFormapagto().get(0).getValor());
 

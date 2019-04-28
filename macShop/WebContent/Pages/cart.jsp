@@ -202,6 +202,13 @@
 
 
     <!-- Cart -->
+    
+    <c:forEach items="${erro}" var="msg">
+<label style="color:red;">${msg}</label><br/>
+</c:forEach>
+	                    <c:forEach items="${sucesso}" var="msg">
+	                        <label style="color:green;">${msg}</label><br/>
+	                    </c:forEach>
     <section class="cart bgwhite p-t-70 p-b-100">
         <div class="container">
             <!-- Cart item -->
