@@ -127,6 +127,11 @@ public class DAOCupom extends AbstractDAO {
 
 
 			Cupom cupom = (Cupom) e;
+			
+			if (cupom.getId() == null)
+			{
+				return null;
+			}
 
 			try {
 				

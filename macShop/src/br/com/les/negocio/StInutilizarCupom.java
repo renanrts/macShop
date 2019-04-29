@@ -22,7 +22,7 @@ public class StInutilizarCupom implements IStrategy {
 			valorTotalCartoes += pagto.getValor();
 		}
 		
-		if (pedido.getValorTotal() > valorTotalCartoes)
+		if (pedido.getValorTotal() > (valorTotalCartoes + pedido.getFormapagto().get(0).getCupom().getValor()))
 		{
 			return null;
 		}

@@ -70,7 +70,7 @@
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
                                     <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
-                                    <li><a href="pedidos-cli.jsp">Pedidos</a></li>
+                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
@@ -242,6 +242,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                    
+                    
                         <tr>
 
                             <td>001</td>
@@ -257,68 +259,7 @@
                             </td>
 
                         </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>003</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>004</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>005</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-                            </td>
-
-                        </tr>
-
+                      
                     </tbody>
                 </table>
                 <div class="clearfix">

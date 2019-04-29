@@ -25,23 +25,54 @@ public class VHPedido implements IViewHelper {
 		List<FormaPagamento> listPgto = new ArrayList<FormaPagamento>();
 		CartaoCredito cart = new CartaoCredito();
 		Cupom cupom = new Cupom();
-		cart.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
+		
+		if(request.getParameter("idcartaoPagamento1") != null)
+		{
+			cart.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
+		}
+		
 		
 		formapagto.setCartao(cart);
-		formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));
-		formapagto.setValor(Double.parseDouble(request.getParameter("valorCartao1")));
-		cupom.setId(Integer.parseInt(request.getParameter("idcupom")));
+		
+		if(request.getParameter("parcelasCartao1")!=null) {
+			formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));
+		}
+		
+		if(request.getParameter("valorCartao1")!=null)
+		{
+			formapagto.setValor(Double.parseDouble(request.getParameter("valorCartao1")));
+		}
+		
+		if (request.getParameter("idcupom")!=null)
+		{
+			cupom.setId(Integer.parseInt(request.getParameter("idcupom")));
+		}
+		
 		formapagto.setCupom(cupom);
 		listPgto.add(formapagto);
-		pedido.setCarrinho((Carrinho) request.getSession().getAttribute("carrinho"));
+		
+		if(request.getSession().getAttribute("carrinho")!=null)
+		{
+			pedido.setCarrinho((Carrinho) request.getSession().getAttribute("carrinho"));
+		}
+		
 		pedido.setFormapagto(listPgto);
-		pedido.setCli_id(Integer.parseInt(request.getParameter("cli_id")));
-		pedido.setEntrega_id(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
+		
+		if(request.getParameter("cli_id")!=null)
+		{
+			pedido.setCli_id(Integer.parseInt(request.getParameter("cli_id")));
+		}
+		
+		if(request.getParameter("enderecoselecionado_id")!=null)
+		{
+			pedido.setEntrega_id(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
+		}
 		
 	
 		return pedido;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
 		String operacao = request.getParameter("btnOperacao");
@@ -52,6 +83,7 @@ public class VHPedido implements IViewHelper {
 		else
 			request.setAttribute("sucesso", mensagem);
 	
+		
 		
 		try {
 			if(operacao.equals("SALVAR")){
@@ -66,9 +98,10 @@ public class VHPedido implements IViewHelper {
 			
 			}
 			else if(operacao.equals("CONSULTAR")){	
-				if(request.getParameter("Direcionamento").equals("PAGAMENTO"))
+				request.setAttribute("pedidos", resultado.getResultado());
+				if(request.getParameter("Direcionamento").equals("CLIENTE"))
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("pedido.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
 					rd.forward(request, response);
 				}
 				else

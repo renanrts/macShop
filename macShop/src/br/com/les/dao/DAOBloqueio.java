@@ -33,6 +33,7 @@ public class DAOBloqueio extends AbstractDAO {
 			
 			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
 			Eletronico a = (Eletronico) produto;
+			a.setTipo("VHELETRONICO");
 			eletronicos.add(a);
 			resultado.setListaResultado(eletronicos);
 		}
@@ -43,6 +44,7 @@ public class DAOBloqueio extends AbstractDAO {
 			
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
 			Acessorio a = (Acessorio) produto;
+			a.setTipo("VHACESSORIO");
 			acessorios.add(a);
 			resultado.setListaResultado(acessorios);
 		}

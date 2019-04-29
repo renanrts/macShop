@@ -52,11 +52,13 @@ public class VHBloqueio implements IViewHelper {
 		{
 
 			produto = (Produto) vh.getEntidade(request);
+			produto.setTipo("VHELETRONICO");
 		}
 		
 		else if (request.getParameter("Tipo").equals("VHACESSORIO"))
 		{
 			produto = (Produto) vh.getEntidade(request);
+			produto.setTipo("VHACESSORIO");
 		}
 		
 		itemCarrinho.setProduto(produto);

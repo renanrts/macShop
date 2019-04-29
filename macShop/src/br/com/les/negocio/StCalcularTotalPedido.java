@@ -17,6 +17,8 @@ public class StCalcularTotalPedido implements IStrategy{
 			valorTotal += (produto.getProduto().getPreco() * produto.getQuantidade());
 		}
 		
+		valorTotal += pedido.getFrete();
+		
 		pedido.setValorTotal(valorTotal);
 		
 		return null;

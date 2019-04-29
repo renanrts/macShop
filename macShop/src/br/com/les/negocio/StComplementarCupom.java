@@ -15,7 +15,16 @@ public class StComplementarCupom implements IStrategy {
 		Cupom cupom = new Cupom();
 		Integer idCupom = pedido.getFormapagto().get(0).getCupom().getId();
 		cupom.setId(idCupom);
-		cupom = dao.consultarValidade(cupom);
+		if(cupom.getId() !=null)
+		{
+			cupom = dao.consultarValidade(cupom);
+		}
+		
+		else
+		{
+			cupom.setId(0);
+		}
+		
 		pedido.getFormapagto().get(0).setCupom(cupom);
 		
 		return null;
