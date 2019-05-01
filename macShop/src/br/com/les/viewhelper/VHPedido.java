@@ -98,7 +98,7 @@ public class VHPedido implements IViewHelper {
 			
 			}
 			else if(operacao.equals("CONSULTAR")){	
-				request.setAttribute("pedidos", resultado.getResultado());
+				request.setAttribute("pedidos", resultado.getListaResultado());
 				if(request.getParameter("Direcionamento").equals("CLIENTE"))
 				{
 					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");

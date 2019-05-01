@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -243,23 +246,23 @@
                     </thead>
                     <tbody>
                     
-                    
+                    <c:forEach var="pedido" items="${pedidos }" >
                         <tr>
 
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
+                            <td>${pedido.id }</td>
+                            <td>${pedido.dataPedido }</td>
+                            <td>R$${pedido.valorTotal}</td>
+                            <td>${pedido.status}</td>
 
 
                             <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
+                                <a href="javascript:void(0)" class="confirm"
                                     style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
+                                        title="Add" style="display:inline-block" onclick="setaDadosModal('${pedido.carrinho}')">search</i></a>
                             </td>
 
                         </tr>
-                      
+                      </c:forEach>
                     </tbody>
                 </table>
                 <div class="clearfix">
@@ -284,7 +287,7 @@
                 <div class="modal-content">
                     <form>
                         <div class="modal-header">
-                            <h4 class="modal-title">Consulta Pedido - xxxx</h4>
+                            <h4 class="modal-title">Consulta Pedido</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body" style="background: #ecf0f1;">
@@ -296,6 +299,7 @@
 
 
                                 <div class="row align-items-end">
+                                <c:forEach var="item" items="${pedidos }" >
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="firstname">Nome</label>
@@ -322,56 +326,7 @@
                                     </div>
 
                                     <div class="w-100"></div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                value="Trocar">
-                                        </div>
-                                    </div>
-
-                                    <div class="w-100"></div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                value="Trocar">
-                                        </div>
-                                    </div>
+                                 </c:forEach>
 
 
                                 </div>
@@ -590,6 +545,16 @@
                 dropdownParent: $('#dropDownSelect2')
             });
         </script>
+        <script type="text/javascript">
+    function setaDadosModal(carrinho) {
+    	
+     
+    	$("#carrinho").val(carrinho) ;
+     	$("#addEstoque").modal("show")   
+    }
+    </script>
+        
+        
         <!--===============================================================================================-->
         <script src="../https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
         <script src="../js/map-custom.js"></script>

@@ -23,6 +23,7 @@ public class StComplementarCupom implements IStrategy {
 		else
 		{
 			cupom.setId(0);
+			cupom.setValor(0.0);
 		}
 		
 		pedido.getFormapagto().get(0).setCupom(cupom);
