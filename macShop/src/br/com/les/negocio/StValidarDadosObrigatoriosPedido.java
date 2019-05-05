@@ -14,7 +14,7 @@ public class StValidarDadosObrigatoriosPedido implements IStrategy {
 		StringBuilder mensagem = new StringBuilder();
 
 		if(pedido.getEntrega_id() == null || pedido.getEntrega_id().equals("")){
-			mensagem.append("Endereço de entrega é um campo obrigatório\n");
+			mensagem.append("Endereço de entrega é um campo obrigatório.\n");
 		}
 
 		for (FormaPagamento pagto : pedido.getFormapagto())
@@ -23,8 +23,17 @@ public class StValidarDadosObrigatoriosPedido implements IStrategy {
 			pagto.getValor();
 		}
 		
-		pedido.getFrete();
-		pedido.getCarrinho();
+		if(pedido.getFrete() == null || pedido.getFrete().equals(""))
+		{
+			mensagem.append("O frete é um campo obrigatório, por favor digite um CEP para calculá-lo.\n");
+		}
+		
+		if(pedido.getCarrinho() == null || pedido.getCarrinho().equals(""))
+		{
+			mensagem.append("Por favor, para realizar a compra, coloque o item desejado no carrinho\n");
+		}
+		
+		
 		
 		
 		return null;

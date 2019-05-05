@@ -34,6 +34,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
     <!--===============================================================================================-->
 </head>
 
@@ -192,7 +194,7 @@
     <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(../images/iphone_banner.jpg);">
         <h2 class="l-text2 t-center">
-            Consulta de Pedidos
+           Pedido
         </h2>
     </section>
 
@@ -204,132 +206,27 @@
 
     <section class="bgwhite p-t-36 p-b-60">
 
-        <div class="container">
-
-      
-
-            <div class="table-wrapper">
-
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-
-                            <th>Código</th>
-                            <th>Data Pedido</th>
-                            <th>Valor</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <c:forEach var="pedido" items="${pedidos }" >
-                        <tr>
-
-                            <td>${pedido.id }</td>
-                            <td>${pedido.dataPedido }</td>
-                            <td>R$${pedido.valorTotal}</td>
-                            <td>${pedido.status}</td>
-
-
-                            <td>
-                               <form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
+      	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">				
+				<h4 class="modal-title">Parabéns!</h4>	
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Sua compra foi efetuada com sucesso! Verifique a área do cliente para detalhes do pedido.</p>
+			</div>
+			<div class="modal-footer">
+			<form action="/macShop/Pages/orders" method="POST">
+                        				  <input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
+                        				  <input type="hidden" id="cli_id" name="cli_id" value="10" />
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
-            					   </form>  
-                            </td>
-
-                        </tr>
-                      </c:forEach>
-                    </tbody>
-                </table>
-                <div class="clearfix">
-                    <div class="hint-text">Mostrando <b>5</b> de <b>25</b> pedidos.</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Anterior</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Próximo</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Edit Modal HTML -->
+               <center> <button class="btn btn-success btn-block" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">Meus Pedidos</button> </center>
+			</form>
+			</div>
+		</div>
+	</div>
 
 
-        <div id="addEstoque" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Consulta Pedido</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body" style="background: #ecf0f1;">
-
-
-
-
-                            <form action="#" class="billing-form bg-light p-3 p-md-5">
-
-
-                                <div class="row align-items-end">
-                                <c:forEach var="item" items="${pedidos }" >
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                value="Trocar">
-                                        </div>
-                                    </div>
-
-                                    <div class="w-100"></div>
-                                 </c:forEach>
-
-
-                                </div>
-
-
-
-
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Ok">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
+	</section>
 
 
 

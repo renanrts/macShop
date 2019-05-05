@@ -19,7 +19,6 @@ import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
 import br.com.les.negocio.StAprovarPedido;
-import br.com.les.negocio.StCalcularFrete;
 import br.com.les.negocio.StCalcularTotalPedido;
 import br.com.les.negocio.StComplementarCategoria;
 import br.com.les.negocio.StComplementarCupom;
@@ -79,7 +78,6 @@ public class Fachada implements IFachada {
 		StValidarBloqueio StValidarBloqueio = new StValidarBloqueio();
 		StCalcularTotalPedido StCalcularTotalPedido = new StCalcularTotalPedido();
 		StInutilizarCupom StInutilizarCupom = new StInutilizarCupom();
-		StCalcularFrete StCalcularFrete = new StCalcularFrete();
 		StComplementarDataPedido StComplementarDataPedido = new StComplementarDataPedido();
 		StValidarDadosObrigatoriosPedido StValidarDadosObrigatoriosPedido = new StValidarDadosObrigatoriosPedido();
 		StAprovarPedido StAprovarPedido = new StAprovarPedido();
@@ -195,7 +193,7 @@ public class Fachada implements IFachada {
 		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
 		
 		rnsSalvarPedido.add(StValidarDadosObrigatoriosPedido);
-		rnsSalvarPedido.add(StCalcularFrete);
+
 		rnsSalvarPedido.add(StComplementarDataPedido);
 		rnsSalvarPedido.add(StComplementarCupom);
 		rnsSalvarPedido.add(StCalcularTotalPedido);

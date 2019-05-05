@@ -207,17 +207,7 @@
                             </div>
                         </div>
 
-                        <div class="item-slick3" data-thumb="images/thumb-item-02.jpg">
-                            <div class="wrap-pic-w">
-                                <img src="../images/product-detail-02.jpg" alt="IMG-PRODUCT">
-                            </div>
-                        </div>
-
-                        <div class="item-slick3" data-thumb="images/thumb-item-03.jpg">
-                            <div class="wrap-pic-w">
-                                <img src="../images/product-detail-03.jpg" alt="IMG-PRODUCT">
-                            </div>
-                        </div>
+                     
                     </div>
                 </div>
             </div>
@@ -261,8 +251,8 @@
                               
                         				  <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo}" />
                         				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
-                        				  <input type="text" id="txtID" name="txtID" value="${eletronico.id}" />
-                        				  <input type="text" id="FormName" name="lalal" value="${eletronico.estoque}" />
+                        				  <input type="hidden" id="txtID" name="txtID" value="${eletronico.id}" />
+                        				  <input type="hidden" id="FormName" name="lalal" value="${eletronico.estoque}" />
                         				  <input type="hidden" id="operation" name="operation" value="add" />
                                		 <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">
                                		     Comprar
@@ -307,10 +297,10 @@
                     <div class="dropdown-content dis-none p-t-15 p-b-23">
                         <p class="s-text8">
                        		 <c:if test="${eletronico.tipo == 'VHELETRONICO'}">
-                            		Modelo: ${eletronico.modelo}
+                            		<b>Modelo:</b> ${eletronico.modelo}
                             </c:if>
                              <c:if test="${eletronico.tipo == 'VHACESSORIO'}">
-                            		Modelo: ${eletronico.modeloCompativel}
+                            		<b>Modelo:</b> ${eletronico.modeloCompativel}
                             </c:if>
                         </p>
                         <p class="s-text8">

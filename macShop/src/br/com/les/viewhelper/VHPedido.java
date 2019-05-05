@@ -31,6 +31,11 @@ public class VHPedido implements IViewHelper {
 			cart.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
 		}
 		
+		if (request.getParameter("pedID") != null)
+		{
+			pedido.setId(Integer.parseInt(request.getParameter("pedID")));
+		}
+		
 		
 		formapagto.setCartao(cart);
 		
@@ -68,7 +73,12 @@ public class VHPedido implements IViewHelper {
 			pedido.setEntrega_id(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
 		}
 		
-	
+		if(request.getSession().getAttribute("frete") != null)
+		{
+			
+			pedido.setFrete((Double) request.getSession().getAttribute("frete"));
+		}
+		
 		return pedido;
 	}
 
@@ -92,7 +102,10 @@ public class VHPedido implements IViewHelper {
 					rd.forward(request, response);
 				}
 				else {
-					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
+					request.getSession().setAttribute("carrinho", null);
+					request.getSession().setAttribute("frete", 0.0);
+					request.getSession().setAttribute("cep", "");
+					RequestDispatcher rd = request.getRequestDispatcher("sucesso.jsp");
 					rd.forward(request, response);
 				}
 			
@@ -113,8 +126,8 @@ public class VHPedido implements IViewHelper {
 				
 			}
 			else if(operacao.equals("VISUALIZAR")){
-
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
+					request.setAttribute("pedidos", resultado.getListaResultado());
+					RequestDispatcher rd = request.getRequestDispatcher("detalhes-compra.jsp");
 					rd.forward(request, response);
 
 			}

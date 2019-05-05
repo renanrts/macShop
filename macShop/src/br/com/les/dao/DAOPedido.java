@@ -311,8 +311,189 @@ public class DAOPedido extends AbstractDAO {
 
 	@Override
 	public Resultado visualizar(EntidadeDominio e) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Pedido pedido = (Pedido) e;
+		
+		Resultado resultado = new Resultado();
+		
+		int contagem = 0;
+		
+
+
+		try {
+			
+			List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
+			PreparedStatement stmt = null;
+	
+			
+
+			stmt = this.con.prepareStatement(
+					"SELECT * from PEDIDOS WHERE ped_id = ?"	
+					);
+			stmt.setInt(1, pedido.getId());
+			
+			ResultSet rs = stmt.executeQuery();
+
+						
+			while (rs.next()) {
+				
+				Pedido ped = new Pedido();
+
+					ped.setId(Integer.parseInt(rs.getString("ped_id")));
+					System.out.println(rs.getDate("ped_data"));
+					System.out.println(rs.getString("ped_data"));
+					ped.setDataPedido(rs.getDate("ped_data").toLocalDate());
+					ped.setValorTotal(rs.getDouble("ped_total"));
+					ped.setCli_id(rs.getInt("cli_id"));
+					ped.setStatus(rs.getString("ped_status"));	
+					
+					pedidos.add(ped);
+			}
+			ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<ItemCarrinho>();
+			
+			for (int i=0; i<pedidos.size(); i++)
+			{
+				Pedido prod = (Pedido) pedidos.get(i);
+				stmt = this.con.prepareStatement(
+						"SELECT * from ProdxPed WHERE ped_id = ?"	
+						);
+				stmt.setInt(1, prod.getId());
+				
+				ResultSet rsm = stmt.executeQuery();
+				
+				Carrinho carrinho = new Carrinho();
+							
+				while (rsm.next()) {
+					
+					ItemCarrinho item = new ItemCarrinho();
+					
+					Produto prods = new Produto();
+					Integer eletronico = rsm.getInt("ele_id");
+					if(eletronico.equals(0))
+					{
+						prods.setId(rsm.getInt("acs_id"));
+						prods.setTipo("VHACESSORIO");
+					}
+					else {
+						prods.setId(eletronico);
+						prods.setTipo("VHELETRONICO");
+					}
+					
+					prods.setAtivo(rsm.getString("prodxped_status"));
+					item.setProduto(prods);
+					item.setQuantidade(rsm.getInt("prodxped_qtde"));
+					itensCarrinho.add(item);
+					
+					
+				}
+				carrinho.setItensCarrinho(itensCarrinho);
+				prod.setCarrinho(carrinho);	
+				rsm.close();
+			}
+
+			for (EntidadeDominio ent : pedidos)
+			{
+				Pedido pe = (Pedido) ent;
+				
+				for(ItemCarrinho item : pe.getCarrinho().getItensCarrinho())
+				{
+					Produto prod2 = item.getProduto();
+					System.out.println(prod2.getTipo());
+					if(prod2.getTipo().equals("VHELETRONICO"))
+					{
+						
+						Eletronico a = new Eletronico();
+						stmt = this.con.prepareStatement(
+								"SELECT * from ELETRONICOS where ele_id = ?"	
+								);
+					
+						stmt.setInt(1, prod2.getId());
+
+						ResultSet rsT = stmt.executeQuery();
+						
+						while (rsT.next()) {
+							a.setNome(rsT.getString("ele_nome"));
+							a.setAlimentacao(rsT.getString("ele_alimentacao"));
+							a.setCaminhoFoto(rsT.getString("ele_caminhofoto"));
+							a.setCodigoBarras(rsT.getString("ele_codigobarras"));
+							a.setConteudoEmbalagem(rsT.getString("ele_conteudoembalagem"));
+							a.setCor(rsT.getString("ele_cor"));
+							a.setDataaFabricacao(rsT.getString("ele_datafabricaco"));
+							a.setDescricao(rsT.getString("ele_descricao"));
+							a.setDimensoes(rsT.getString("ele_dimensoes"));
+							a.setMemoria(rsT.getString("ele_memoria"));
+							a.setModelo(rsT.getString("ele_modelo"));
+							a.setPreco(rsT.getDouble("ele_preco"));
+							a.setProcessador(rsT.getString("ele_processador"));
+							a.setRAM(rsT.getString("ele_ram"));
+							a.setResolucaoCamera(rsT.getString("ele_resolucaocamera"));
+							a.setSistemaOperacional(rsT.getString("ele_sistemaoperacional"));
+							a.setTamanhoDisplay(rsT.getString("ele_display"));
+							a.setId(rsT.getInt("ele_id"));
+							a.setTipo("VHELETRONICO");
+							a.setEstoque(rsT.getInt("ele_estoque"));
+							prod2 = (Produto) a;
+							item.setProduto(a);
+						}
+						rsT.close();
+					}
+					
+					else {
+						Acessorio a = new Acessorio();
+						stmt = this.con.prepareStatement(
+								"SELECT * from ACESSORIOS where acs_id = ?"	
+								);
+					
+						stmt.setInt(1, prod2.getId());
+
+						ResultSet rsT = stmt.executeQuery();
+						
+						while (rsT.next()) {
+							a.setNome(rsT.getString("acs_nome"));
+							a.setCaminhoFoto(rsT.getString("acs_caminhofoto"));
+							a.setCodigoBarras(rsT.getString("acs_codigobarras"));
+							a.setCor(rsT.getString("acs_cor"));
+							a.setDataaFabricacao(rsT.getString("acs_datafabricacao"));
+							a.setDescricao(rsT.getString("acs_descricao"));
+							a.setDimensoes(rsT.getString("acs_dimensoes"));
+							a.setModeloCompativel(rsT.getString("acs_modelocompativel"));
+							a.setPreco(rsT.getDouble("acs_preco"));
+							a.setId(rsT.getInt("acs_id"));
+							a.setSeloMfi(rsT.getBoolean("acs_mfi"));
+							a.setTipo("VHACESSORIO");
+							a.setEstoque(rsT.getInt("acs_estoque"));
+							prod2 = (Produto) a;
+						}
+						rsT.close();
+						
+					}
+					
+				}
+				
+				
+			}
+
+			resultado.setListaResultado(pedidos);
+
+		
+			if(contagem == 0){
+				resultado.sucesso("Pedidos encontrados");
+			}
+			else{
+				resultado.sucesso("");
+			}
+			
+			resultado.setContagem(contagem);
+			rs.close();
+			stmt.close();
+			return resultado;
+			
+		} catch (SQLException e1) {
+			
+						e1.printStackTrace();
+						resultado.erro("Erro de consulta.");
+						return resultado;
+		}
 	}
 
 	@Override

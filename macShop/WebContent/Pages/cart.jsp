@@ -212,6 +212,8 @@
     <section class="cart bgwhite p-t-70 p-b-100">
         <div class="container">
             <!-- Cart item -->
+            <c:if test="${sessionScope.carrinho.itensCarrinho[0] != null}"> 
+
             <div class="container-table-cart pos-relative">
                 <div class="wrap-table-shopping-cart bgwhite">
                     <table class="table-shopping-cart">
@@ -285,7 +287,16 @@
                     
                 </div>
             </div>
-
+            
+            </c:if>
+            
+            <c:if test="${sessionScope.carrinho.itensCarrinho[0] == null}"> 
+            <h5 class="m-text20 p-b-24">
+                 Não há itens incluídos no carrinho. Por favor, consulte o catálogo de produtos.
+            </h5>
+            </c:if>
+            
+            
 
             <!-- Total -->
             <div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
@@ -312,7 +323,7 @@
                     </span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-                        <input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="CEP" onBlur=CalcFrete()>
+                        <input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="CEP" onBlur=CalcFrete(this.value) value="${sessionScope.cep }">
                     </span>
                     
                     
@@ -325,7 +336,7 @@
                     </span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-                         <input class="size8 m-text18 t-center num-product" type="text" id = "frete" name="txtFrete" onchange="CalcTotalProduto('this.value')">
+                         <input class="size8 m-text18 t-center num-product" type="text" id = "frete" name="txtFrete" onchange="CalcTotalProduto('this.value')" value="${sessionScope.frete }">
                     </span>
                     
                     
@@ -584,10 +595,13 @@
 </script>
 
     <script type="text/javascript">
-	function CalcFrete(){
-
+	async function CalcFrete(cep){
+	console.log("Passou por aqui")
+	await fetch("/macShop/Pages/calcFrete?cep=" + cep)
+	document.location.reload()
+	
+	
     // Em negrito(nome do campo que vai receber os valores), esse *1 é para o Javascript entender que você está fazendo uma operação com números.
-    document.getElementById('frete').value = Math.floor(Math.random() * 20);
 }
 </script>
 

@@ -373,8 +373,7 @@
                             <td>${eletronico.estoque }</td>
                             <td>${eletronico.ativo }</td>
                             <td>
-                                <a href="cad-produto.jsp" class="edit"><i class="material-icons" data-toggle="tooltip"
-                                        title="Edit">&#xE254;</i></a>
+                              
                                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
                                         class="material-icons" data-toggle="tooltip" title="Add" onclick="setaDadosModal('${eletronico.id }', '${eletronico.tipo }', '${eletronico.ativo }')">&#xE872;</i></a>
                                 <a href="#addEstoque" class="confirm" data-toggle="modal"
@@ -387,7 +386,7 @@
             					    <input type="hidden" id="FormName" name="txtID" value="${eletronico.id }" />
             					     <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo }" />
             					     <input type="hidden" id="direcionamento" name="direcionamento" value="visualizar" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
+            	      			  <input type="submit" class="btn mosh-btn mt-50" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
             					   </form>    
                                         
                        

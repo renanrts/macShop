@@ -34,6 +34,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
     <!--===============================================================================================-->
 </head>
 
@@ -192,7 +194,7 @@
     <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(../images/iphone_banner.jpg);">
         <h2 class="l-text2 t-center">
-            Consulta de Pedidos
+           Pedido
         </h2>
     </section>
 
@@ -203,19 +205,51 @@
 
 
     <section class="bgwhite p-t-36 p-b-60">
-
-        <div class="container">
-
-      
-
-            <div class="table-wrapper">
+<div class="container">
+		<div class="billing-form bg-light p-3 p-md-5">
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Informações do Pedido</h4>
+						<ul class="list">
+							<li><a href="#"><span>Número do Pedido</span> : ${pedidos[0].id}</a></li>
+							<li><a href="#"><span>Data</span> : ${pedidos[0].dataPedido}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Endereço de Entrega</h4>
+						<ul class="list">
+							<li><a href="#"><span>Rua</span> : 56/8</a></li>
+							<li><a href="#"><span>Cidade</span> : Los Angeles</a></li>
+							<li><a href="#"><span>Estado</span> : United States</a></li>
+							<li><a href="#"><span>CEP </span> : 36952</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Valores</h4>
+						<ul class="list">
+							<li><a href="#"><span>Frete</span> : ${pedidos[0].frete}</a></li>
+							<li><a href="#"><span>Total</span> : ${pedidos[0].valorTotal}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="container">
+			<div class="order_details_table">
+				<br><br>
+				
+				<div class="table-wrapper">
 
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
 
-                            <th>Código</th>
-                            <th>Data Pedido</th>
+                            <th>Produto</th>
                             <th>Valor</th>
                             <th>Status</th>
                             <th>Ações</th>
@@ -223,22 +257,16 @@
                     </thead>
                     <tbody>
                     
-                    <c:forEach var="pedido" items="${pedidos }" >
+                    <c:forEach var="item" items="${pedidos[0].carrinho.itensCarrinho }" >
                         <tr>
 
-                            <td>${pedido.id }</td>
-                            <td>${pedido.dataPedido }</td>
-                            <td>R$${pedido.valorTotal}</td>
-                            <td>${pedido.status}</td>
-
-
-                            <td>
-                               <form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
-                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
-            					   </form>  
+                            <td>${item.produto.nome }</td>
+                            <td>R$${item.produto.preco}</td>
+                            <td>${item.produto.ativo}</td>
+                             <td>
+                                <a href="javascript:void(0)" class="confirm"
+                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
+                                        title="Add" style="display:inline-block" onclick="setaDadosModal('${pedido.carrinho}')">search</i></a>
                             </td>
 
                         </tr>
@@ -258,78 +286,12 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <!-- Edit Modal HTML -->
+			</div>
+		</div>
+</div>
 
 
-        <div id="addEstoque" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Consulta Pedido</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body" style="background: #ecf0f1;">
-
-
-
-
-                            <form action="#" class="billing-form bg-light p-3 p-md-5">
-
-
-                                <div class="row align-items-end">
-                                <c:forEach var="item" items="${pedidos }" >
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                value="Trocar">
-                                        </div>
-                                    </div>
-
-                                    <div class="w-100"></div>
-                                 </c:forEach>
-
-
-                                </div>
-
-
-
-
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Ok">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
+	</section>
 
 
 

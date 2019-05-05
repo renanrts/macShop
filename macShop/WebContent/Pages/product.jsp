@@ -49,7 +49,7 @@
 				<div class="wrap_header">
 					<!-- Logo -->
 					<a href="index.jsp" class="logo">
-						<img src="images/icons/logo.png" alt="IMG-LOGO">
+						<img src="../images/icons/logo.png" alt="IMG-LOGO">
 					</a>
 	
 					<!-- Menu -->
