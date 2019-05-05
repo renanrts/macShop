@@ -11,6 +11,7 @@ import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Cupom;
+import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.FormaPagamento;
 import br.com.les.dominio.Pedido;
@@ -70,7 +71,9 @@ public class VHPedido implements IViewHelper {
 		
 		if(request.getParameter("enderecoselecionado_id")!=null)
 		{
-			pedido.setEntrega_id(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
+			Endereco end = new Endereco();	
+			end.setId(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
+			pedido.setEndEntrega(end);
 		}
 		
 		if(request.getSession().getAttribute("frete") != null)

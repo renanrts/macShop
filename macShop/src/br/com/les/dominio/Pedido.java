@@ -6,7 +6,6 @@ import java.util.List;
 public class Pedido extends EntidadeDominio {
 
 	private Integer cli_id;
-	private Integer entrega_id;
 	private Double valorTotal;
 	private String status;
 	private Double frete;
@@ -14,18 +13,13 @@ public class Pedido extends EntidadeDominio {
 	private Carrinho carrinho;
 	private List<FormaPagamento> formapagto;
 	private LocalDate dataPedido;
+	private Endereco endEntrega;
 	
 	public Integer getCli_id() {
 		return cli_id;
 	}
 	public void setCli_id(Integer cli_id) {
 		this.cli_id = cli_id;
-	}
-	public Integer getEntrega_id() {
-		return entrega_id;
-	}
-	public void setEntrega_id(Integer entrega_id) {
-		this.entrega_id = entrega_id;
 	}
 	public Double getValorTotal() {
 		return valorTotal;
@@ -68,6 +62,12 @@ public class Pedido extends EntidadeDominio {
 	}
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
+	}
+	public Endereco getEndEntrega() {
+		return endEntrega;
+	}
+	public void setEndEntrega(Endereco endEntrega) {
+		this.endEntrega = endEntrega;
 	}
 
 	

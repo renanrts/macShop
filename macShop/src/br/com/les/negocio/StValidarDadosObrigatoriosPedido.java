@@ -13,7 +13,7 @@ public class StValidarDadosObrigatoriosPedido implements IStrategy {
 		
 		StringBuilder mensagem = new StringBuilder();
 
-		if(pedido.getEntrega_id() == null || pedido.getEntrega_id().equals("")){
+		if(pedido.getEndEntrega().getId() == null || pedido.getEndEntrega().getId().equals("")){
 			mensagem.append("Endereço de entrega é um campo obrigatório.\n");
 		}
 

@@ -9,8 +9,11 @@ import java.util.List;
 
 import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Carrinho;
+import br.com.les.dominio.Cidade;
 import br.com.les.dominio.Eletronico;
+import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Estado;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
@@ -35,7 +38,7 @@ public class DAOPedido extends AbstractDAO {
 
 			PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, pedido.getCli_id());
-			stmt.setInt(2, pedido.getEntrega_id());
+			stmt.setInt(2, pedido.getEndEntrega().getId());
 			stmt.setDouble(3, pedido.getValorTotal());
 			stmt.setString(4, pedido.getStatus());
 			stmt.setDouble(5, pedido.getFrete());
@@ -338,7 +341,7 @@ public class DAOPedido extends AbstractDAO {
 			while (rs.next()) {
 				
 				Pedido ped = new Pedido();
-
+				Endereco end = new Endereco();
 					ped.setId(Integer.parseInt(rs.getString("ped_id")));
 					System.out.println(rs.getDate("ped_data"));
 					System.out.println(rs.getString("ped_data"));
@@ -346,7 +349,9 @@ public class DAOPedido extends AbstractDAO {
 					ped.setValorTotal(rs.getDouble("ped_total"));
 					ped.setCli_id(rs.getInt("cli_id"));
 					ped.setStatus(rs.getString("ped_status"));	
-					
+					ped.setFrete(rs.getDouble("ped_frete"));
+					end.setId(rs.getInt("end_id"));
+					ped.setEndEntrega(end);
 					pedidos.add(ped);
 			}
 			ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<ItemCarrinho>();
@@ -472,6 +477,32 @@ public class DAOPedido extends AbstractDAO {
 				
 				
 			}
+			
+			stmt = this.con.prepareStatement(
+					"SELECT * from ENDERECOS AS C INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE C.end_id = ?"	
+					);
+		
+			Pedido peds = (Pedido) pedidos.get(0);
+			stmt.setInt(1, peds.getEndEntrega().getId());
+
+			ResultSet rsT = stmt.executeQuery();
+			
+			while (rsT.next()) {
+				Cidade cid = new Cidade();
+				Estado est = new Estado();
+				
+				cid.setNome(rsT.getString("cid_nome"));
+				est.setNome(rsT.getString("est_nome"));
+				cid.setEstado(est);
+				peds.getEndEntrega().setBairro(rsT.getString("end_bairro"));
+				peds.getEndEntrega().setCep(rsT.getString("end_cep"));
+				peds.getEndEntrega().setLogradouro(rsT.getString("end_logradouro"));
+				peds.getEndEntrega().setNumero(rsT.getString("end_numero"));
+				peds.getEndEntrega().setCidade(cid);
+			}
+			rsT.close();
+			
+			
 
 			resultado.setListaResultado(pedidos);
 
