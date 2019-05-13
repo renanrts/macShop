@@ -6,6 +6,7 @@ public class Carrinho extends EntidadeDominio {
 	
 	private ArrayList<ItemCarrinho> itensCarrinho;
 	private Integer quantidadeProdutos;
+	private boolean status;
 
 	public void setItensCarrinho(ArrayList<ItemCarrinho> itensCarrinho) {
 		this.itensCarrinho = itensCarrinho;
@@ -37,6 +38,14 @@ public class Carrinho extends EntidadeDominio {
 	 public void setQuantidadeProdutos(Integer quantidadeProdutos) {
 		    this.quantidadeProdutos = quantidadeProdutos;
 		  }
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	
 
 }

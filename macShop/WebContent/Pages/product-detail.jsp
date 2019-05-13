@@ -248,7 +248,8 @@
                                		 Produto sem estoque
                                	</c:if>
                                	<c:if test="${eletronico.estoque > 0}">
-                              
+                          
+                              <input type="hidden" id="preco" name="preco" value="${eletronico.preco}" />
                         				  <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo}" />
                         				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
                         				  <input type="hidden" id="txtID" name="txtID" value="${eletronico.id}" />

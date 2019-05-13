@@ -90,8 +90,15 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
-
 			
+			
+			if (request.getParameter("qtdeComprada") != null)
+			{
+				int quantidade = Integer.parseInt(request.getParameter("qtdeComprada"));
+				System.out.println(quantidade);
+			}
+		    
+		   
 			if(getServletContext().getAttribute("bloqueio") == null)
 			{
 				HashMap<String, Carrinho> mapProdutosBloqueados = new HashMap<>();

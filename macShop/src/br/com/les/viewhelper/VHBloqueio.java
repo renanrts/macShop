@@ -47,9 +47,9 @@ public class VHBloqueio implements IViewHelper {
 			produto.setTipo("VHACESSORIO");
 		}
 		
-	    int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+	    int quantidade = Integer.parseInt(request.getParameter("qtdeComprada"));
 	    
-	    double preco = Integer.parseInt(request.getParameter("preco"));
+	    double preco = Double.parseDouble(request.getParameter("preco"));
 	    
 	    produto.setPreco(preco);    
 
@@ -143,6 +143,25 @@ public class VHBloqueio implements IViewHelper {
 			if(operacao.equals("SALVAR")){
 			RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
 			rd.forward(request, response);
+			}
+			else if(operacao.equals("CARRINHOADICIONAR")){
+				
+				
+				request.getSession().setAttribute("sucessos", mensagem);
+		        
+				
+				if (request.getParameter("Tipo").equals("VHELETRONICO"))
+				{
+			
+					request.getSession().setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
+				}
+				else
+				{
+					request.getSession().setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
+				}
+				
+				RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+				rd.forward(request, response);
 			}
 			else if(operacao.equals("CONSULTAR")){			
 					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");

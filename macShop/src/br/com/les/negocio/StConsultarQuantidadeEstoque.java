@@ -34,10 +34,10 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	    
 	    Integer quantidadeAInserir = itemCarrinho.getQuantidade();  
 	    
-	    if (produtoBloqueado.getTipo().equals("VHELETRONICO"))
+	    if (produtoBloqueado.getCarrinho().getItensCarrinho().get(0).getProduto().getTipo().equals("VHELETRONICO"))
 		{
 		    DAOEletronico daoEletronico = new DAOEletronico();
-		    resultado = daoEletronico.consultar(produto);
+		    resultado = daoEletronico.visualizar(produto);
 		    
 		}
 	    
@@ -68,7 +68,7 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	    }
 	 
 	    Eletronico estoque = (Eletronico) resultado.getListaResultado().get(0);
-	    Integer quantidadeEmEstoque = produto.getEstoque(); 
+	    Integer quantidadeEmEstoque = estoque.getEstoque(); 
 	    Integer quantidadeDisponivel = quantidadeEmEstoque - quantidadeDeItensBloqueados ;
 	   
 	    if(quantidadeAInserir > quantidadeDisponivel) {
@@ -76,11 +76,13 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	      mensagem = "Não há itens suficiente em estoque."
 	          + "Você solicitou " +  quantidadeAInserir +
 	          ", mas nós só temos " + quantidadeDisponivel + " :(";
-	      carrinho.removeItem(idProduto);        
+	      carrinho.removeItem(idProduto); 
+	      resultado.erro(mensagem); 
+	      return mensagem;
 	    }
 	    
-	    resultado.erro(mensagem);   
-	    return mensagem;
+	   return null;
+	    
 	}
 
 }
