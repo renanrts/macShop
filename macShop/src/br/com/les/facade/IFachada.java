@@ -15,4 +15,6 @@ public interface IFachada {
 
 	public Resultado alterar(EntidadeDominio e);
 
+	public Resultado adicionarAoCarrinho(EntidadeDominio e);
+
 }

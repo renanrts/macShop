@@ -27,6 +27,7 @@ import br.com.les.negocio.StComplementarDTCadastroCliente;
 import br.com.les.negocio.StComplementarDataPedido;
 import br.com.les.negocio.StComplementarEnderecoCliente;
 import br.com.les.negocio.StComplementarInativacao;
+import br.com.les.negocio.StConsultarQuantidadeEstoque;
 import br.com.les.negocio.StInutilizarCupom;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
 import br.com.les.negocio.StValidarBloqueio;
@@ -38,6 +39,7 @@ import br.com.les.negocio.StValidarExistencia;
 import br.com.les.negocio.StValidarExistenciaCliente;
 import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.util.Resultado;
+import service.CarrinhoServico;
 
 
 public class Fachada implements IFachada {
@@ -203,6 +205,11 @@ public class Fachada implements IFachada {
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
 		rns.put(Pedido.class.getSimpleName().toUpperCase(), rnsPedido);
+		
+		List<IStrategy> rnsSalvarBloqueioProduto = new ArrayList<IStrategy>();
+		rnsSalvarBloqueioProduto.add(new StConsultarQuantidadeEstoque());
+		listStrategySalvarBloqueioProduto.add(new StValidarExistenciaCarrinhoSessao());
+		
 	}
 
 public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
@@ -296,6 +303,23 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 		}
 		
 		return resultado;
+	}
+
+	@Override
+	public Resultado adicionarAoCarrinho(EntidadeDominio e) {
+		
+	    Resultado resultado = new Resultado();
+	    resultado = validarStrategys(e, "SALVAR");
+	    
+	    if (!resultado.getErro()) {
+	      
+	       CarrinhoServico servico = new CarrinhoServico();
+	       resultado = servico.adicionar(e);
+	    }
+	    
+	    return resultado;    
+	    
+	    
 	}
 	
 }

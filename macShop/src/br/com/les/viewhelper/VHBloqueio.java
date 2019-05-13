@@ -1,11 +1,12 @@
 package br.com.les.viewhelper;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Bloqueio;
@@ -25,29 +26,14 @@ public class VHBloqueio implements IViewHelper {
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		
 			  
-			  if (null == carrinho ) {
-			    
-			    Carrinho carrinho = new Carrinho();
-			    ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<>();
-			    carrinho.setItensCarrinho(itensCarrinho);
-			    this.carrinho = carrinho;
-			  }
-			  
-			  if(request.getAttribute("carrinho") !=  null)
-			  {
-				  carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
-			  } else {
-				  request.getSession().setAttribute("carrinho", carrinho);
-			  }
-
-		Bloqueio bloqueio = new Bloqueio();
-		LocalDate horario = LocalDate.now();
-		VHProduto vh = new VHProduto();
-		Produto produto = new Produto();
-		ItemCarrinho itemCarrinho = new ItemCarrinho();
-		bloqueio.setTipo(request.getParameter("Tipo"));
-		
-		bloqueio.setOperation(request.getParameter("operation"));
+	    Bloqueio bloqueio = new Bloqueio();
+	    
+	    LocalDateTime horarioBloqueio = LocalDateTime.now();
+	    
+	    Produto produto = new Produto();
+	    
+	    VHProduto vh = new VHProduto();
+	    
 		if (request.getParameter("Tipo").equals("VHELETRONICO"))
 		{
 
@@ -61,29 +47,26 @@ public class VHBloqueio implements IViewHelper {
 			produto.setTipo("VHACESSORIO");
 		}
 		
-		itemCarrinho.setProduto(produto);
-		
-		if (request.getParameter("qtdeComprada") != null)
-		{
-			if(request.getParameter("btnOperacao") != "ALTERAR")
-			{
-				itemCarrinho.setQuantidade(Integer.parseInt(request.getParameter("qtdeComprada")));
-			}
-			
-		
-		}
-		else
-		{
-			itemCarrinho.setQuantidade(1);
-		}
-		
-		
-		this.carrinho.getItensCarrinho().add(itemCarrinho);
+	    int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+	    
+	    double preco = Integer.parseInt(request.getParameter("preco"));
+	    
+	    produto.setPreco(preco);    
 
-		
-		bloqueio.setTimeStamp(horario);
-		bloqueio.setCarrinho(carrinho);
-		bloqueio.setSessao(request.getSession());
+	    Carrinho carrinho = new Carrinho();
+	    ItemCarrinho item = new ItemCarrinho();
+	    ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<>();
+	    
+	    item.setProduto(produto);
+	    item.setQuantidade(quantidade);
+	    carrinho.setItensCarrinho(itensCarrinho);
+	    carrinho.addItem(item);
+	    
+	    HttpSession sessaoUsuario = request.getSession();
+	    bloqueio.setCarrinho(carrinho);
+	    bloqueio.setTimeStamp(horarioBloqueio);
+	    bloqueio.setSessao(sessaoUsuario);
+
 		
 		return bloqueio;
 	}

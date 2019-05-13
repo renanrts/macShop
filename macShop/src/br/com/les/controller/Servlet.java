@@ -11,11 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SchedulerFactory;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+
 import br.com.les.command.CmdAlterar;
 import br.com.les.command.CmdConsultar;
 import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
 import br.com.les.command.CmdVisualizar;
+import br.com.les.command.CommandCarrinhoAdicionar;
 import br.com.les.command.ICommand;
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOEletronico;
@@ -24,6 +36,8 @@ import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Produto;
+import br.com.les.negocio.StAprovarOuReprovarCompra;
+import br.com.les.negocio.StValidarItensCarrinhoComTempoExpirado;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
 import br.com.les.viewhelper.VHAcessorio;
@@ -56,6 +70,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapCommand.put("VISUALIZAR", new CmdVisualizar());
 			mapCommand.put("INATIVAR", new CmdInativar());
 			mapCommand.put("ALTERAR", new CmdAlterar());
+			mapCommand.put("CARRINHOADICIONAR", new CommandCarrinhoAdicionar());
 			
 			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
@@ -65,15 +80,12 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapViewHelper.put("VHCLIENTE", new VHCliente());
 			mapViewHelper.put("VHBLOQUEIO", new VHBloqueio());
 			mapViewHelper.put("VHPEDIDO", new VHPedido());
+			
 
 
 		}
 		
-		@Override
-		public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
-	System.out.println("CONTESTO DESTRUIDO");
-		}
+
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
@@ -100,7 +112,45 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			viewHelper.setView(resultado, request, response);
 		}
 		
-		
+		@Override
+		  public void init() {
+		    System.out.println("contextInitialized");
+
+		    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
+		    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
+
+
+		    HashMap<String, Carrinho> mapProdutosDesbloqueados = new HashMap<>();     
+		    getServletContext().setAttribute("desbloqueio", mapProdutosDesbloqueados);
+
+		    SchedulerFactory shedFact = new StdSchedulerFactory();
+		    try {
+		           Scheduler scheduler = shedFact.getScheduler();
+		           scheduler.start();
+		         JobDataMap jobDataMap = new JobDataMap();
+		         jobDataMap.put("servletContext", getServletContext());
+		           JobDetail job = JobBuilder.newJob(StValidarItensCarrinhoComTempoExpirado.class)
+		                         .withIdentity("validadorJOB", "grupo01")
+		                         .usingJobData(jobDataMap)
+		                         .build();
+		           
+		          JobDetail jobAprovarOuReprovarCompra = JobBuilder.newJob(StAprovarOuReprovarCompra.class)
+		                                                .withIdentity("validadorOperadora", "grupo01")
+		                                                .usingJobData(jobDataMap)
+		                                                .build();
+		           Trigger trigger = TriggerBuilder.newTrigger()
+		                         .withIdentity("validadorTRIGGER","grupo01")
+		                         .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
+		                         .build();
+		           scheduler.scheduleJob(job, trigger);
+		           
+		  } catch (SchedulerException e) {
+		      e.printStackTrace();
+		  }
+		      
+		      
+		    
+		  }
 		
 		
 }

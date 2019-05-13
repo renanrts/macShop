@@ -212,8 +212,8 @@
 					<div class="details_item">
 						<h4>Informações do Pedido</h4>
 						<ul class="list">
-							<li><a href="#"><span>Número do Pedido</span> : ${pedidos[0].id}</a></li>
-							<li><a href="#"><span>Data</span> : ${pedidos[0].dataPedido}</a></li>
+							<li><a><span>Número do Pedido</span> : ${pedidos[0].id}</a></li>
+							<li><a><span>Data</span> : ${pedidos[0].dataPedido}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -221,10 +221,10 @@
 					<div class="details_item">
 						<h4>Endereço de Entrega</h4>
 						<ul class="list">
-							<li><a href="#"><span>Rua</span> : ${pedidos[0].endEntrega.logradouro}</a></li>
-							<li><a href="#"><span>Cidade</span> : ${pedidos[0].endEntrega.cidade.nome}</a></li>
-							<li><a href="#"><span>Estado</span> : ${pedidos[0].endEntrega.cidade.estado.nome}</a></li>
-							<li><a href="#"><span>CEP </span> : ${pedidos[0].endEntrega.cep}</a></li>
+							<li><a><span>Rua</span> : ${pedidos[0].endEntrega.logradouro}</a></li>
+							<li><a><span>Cidade</span> : ${pedidos[0].endEntrega.cidade.nome}</a></li>
+							<li><a><span>Estado</span> : ${pedidos[0].endEntrega.cidade.estado.nome}</a></li>
+							<li><a><span>CEP </span> : ${pedidos[0].endEntrega.cep}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -232,8 +232,10 @@
 					<div class="details_item">
 						<h4>Valores</h4>
 						<ul class="list">
-							<li><a href="#"><span>Frete</span> : R$${pedidos[0].frete}</a></li>
-							<li><a href="#"><span>Total</span> : R$${pedidos[0].valorTotal}</a></li>
+							<li><a><span>Frete</span> : R$ <fmt:formatNumber type = "number" 
+         maxIntegerDigits = "2" value = "${pedidos[0].frete}" />  </a></li>
+							<li><a><span>Total</span> : R$  <fmt:formatNumber type = "number" 
+         maxIntegerDigits = "2" value = "${pedidos[0].valorTotal}" /> </a></li>
 						</ul>
 					</div>
 				</div>

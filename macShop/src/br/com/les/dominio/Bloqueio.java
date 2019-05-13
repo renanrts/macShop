@@ -1,13 +1,14 @@
 package br.com.les.dominio;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
 
 public class Bloqueio extends EntidadeDominio{
 	
 	private Carrinho carrinho;
-	private LocalDate timeStamp;
+	private LocalDateTime timeStamp;
 	private HttpSession sessao;
 	private String operation;
 	
@@ -17,12 +18,7 @@ public class Bloqueio extends EntidadeDominio{
 	public void setCarrinho(Carrinho carrinho) {
 		this.carrinho = carrinho;
 	}
-	public LocalDate getTimeStamp() {
-		return timeStamp;
-	}
-	public void setTimeStamp(LocalDate timeStamp) {
-		this.timeStamp = timeStamp;
-	}
+
 	public HttpSession getSessao() {
 		return sessao;
 	}
@@ -34,6 +30,12 @@ public class Bloqueio extends EntidadeDominio{
 	}
 	public void setOperation(String operation) {
 		this.operation = operation;
+	}
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 	
 	

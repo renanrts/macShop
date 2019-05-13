@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Carrinho extends EntidadeDominio {
 	
 	private ArrayList<ItemCarrinho> itensCarrinho;
+	private Integer quantidadeProdutos;
 
 	public void setItensCarrinho(ArrayList<ItemCarrinho> itensCarrinho) {
 		this.itensCarrinho = itensCarrinho;
@@ -32,6 +33,10 @@ public class Carrinho extends EntidadeDominio {
 			
 		}
 	}
+	
+	 public void setQuantidadeProdutos(Integer quantidadeProdutos) {
+		    this.quantidadeProdutos = quantidadeProdutos;
+		  }
 	
 
 }
