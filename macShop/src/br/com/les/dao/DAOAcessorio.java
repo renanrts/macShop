@@ -10,6 +10,7 @@ import java.util.List;
 import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOAcessorio extends AbstractDAO{
@@ -17,15 +18,16 @@ public class DAOAcessorio extends AbstractDAO{
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
 		Acessorio acessorio = (Acessorio) entidade;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
 		String sql = "INSERT INTO ACESSORIOS (acs_nome, acs_preco, cat_id, acs_datafabricacao, acs_cor, acs_dimensoes, acs_codigobarras, acs_caminhofoto, acs_descricao, acs_status, acs_modelocompativel, acs_mfi, acs_dtCadastro, acs_estoque) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+		
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, acessorio.getNome());
 			stmt.setDouble(2, acessorio.getPreco());
 			stmt.setString(3, String.valueOf(acessorio.getCategoria().getId()));
@@ -43,7 +45,7 @@ public class DAOAcessorio extends AbstractDAO{
 			
 			stmt.execute();
 
-			stmt.close();
+			
 			
 			DAOCategoria dao = new DAOCategoria();
 			resultado = dao.consultar(entidade);
@@ -56,6 +58,8 @@ public class DAOAcessorio extends AbstractDAO{
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
 	}
@@ -65,36 +69,32 @@ public class DAOAcessorio extends AbstractDAO{
 		Acessorio acessorio = (Acessorio) entidade;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 
 		try {
 			
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
+			
 			Boolean visualizar = false;
 			
 			
 			if (acessorio.getAtivo()!= null && !acessorio.getAtivo().isEmpty())
 			{
-				stmt = this.con.prepareStatement(
-						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS asc_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where acs_status = ? order by acs_id"
-				);
+				String sql = " SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS asc_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where acs_status = ? order by acs_id";
+				stmt = con.prepareStatement(sql);
 				stmt.setString(1, acessorio.getAtivo());
 			}
 			
 			else
 			{
-				stmt = this.con.prepareStatement(
+				String sql = 
 						" SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS asc_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by acs_id"
-				);
+				;
+				stmt = con.prepareStatement(sql);
 			}
 			
-//			else if (acessorio.getId() != 0)
-//			{
-//				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE id = ?");
-//				stmt.setInt(1, acessorio.getId());
-//			}
 			
 			ResultSet rs = stmt.executeQuery();
 						
@@ -152,6 +152,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -161,24 +163,26 @@ public class DAOAcessorio extends AbstractDAO{
 		Resultado resultado = new Resultado();
 		Categoria cat = new Categoria();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 
 		try {
 			
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
+			
 			
 			if(acessorio.getEstoque() != 0)
 			{
-				stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_estoque = acs_estoque + ? WHERE acs_id = ?");	
+				String sql = "UPDATE ACESSORIOS SET acs_estoque = acs_estoque + ? WHERE acs_id = ?";
+				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, acessorio.getEstoque());
 				stmt.setInt(2, acessorio.getId());
 			}
 			else
 			{
-				stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_nome = ?, acs_preco = ?, cat_id = ?, acs_datafabricacao = ?, acs_cor = ?, acs_dimensoes = ?, acs_codigobarras = ?, acs_caminhofoto = ?, acs_descricao = ?, acs_status = ?, acs_modelocompativel = ?, acs_mfi = ? WHERE acs_id = ?");	
-				
+				String sql = "UPDATE ACESSORIOS SET acs_nome = ?, acs_preco = ?, cat_id = ?, acs_datafabricacao = ?, acs_cor = ?, acs_dimensoes = ?, acs_codigobarras = ?, acs_caminhofoto = ?, acs_descricao = ?, acs_status = ?, acs_modelocompativel = ?, acs_mfi = ? WHERE acs_id = ?";	
+				stmt = con.prepareStatement(sql);
 				stmt.setString(1, acessorio.getNome());
 				stmt.setDouble(2, acessorio.getPreco());
 				stmt.setString(3, String.valueOf(acessorio.getCategoria().getId()));
@@ -201,8 +205,8 @@ public class DAOAcessorio extends AbstractDAO{
 			
 			ResultSet rs = stmt.executeQuery();
 						
-			stmt = this.con.prepareStatement("SELECT C.acs_nome AS acs_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
-
+			String sql = "SELECT C.acs_nome AS acs_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, acessorio.getId());
 			ResultSet rt = stmt.executeQuery();
 			
@@ -254,6 +258,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -262,13 +268,16 @@ public class DAOAcessorio extends AbstractDAO{
 		Acessorio acessorio = (Acessorio) entidade;
 		
 		Resultado resultado = new Resultado();
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		
 		String sql = "UPDATE ACESSORIOS SET acs_status = ? WHERE acs_id = ?";
 
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
+
 			stmt.setString(1, "Inativo");
 			stmt.setInt(2, acessorio.getId());
 
@@ -284,6 +293,8 @@ public class DAOAcessorio extends AbstractDAO{
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -293,17 +304,18 @@ public class DAOAcessorio extends AbstractDAO{
 		Resultado resultado = new Resultado();
 		Categoria categoria = new Categoria();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 
 		try {
 			
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
 
-			stmt = this.con.prepareStatement("SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?");
+			String sql = "SELECT C.acs_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.acs_estoque AS acs_estoque, C.acs_caminhofoto AS acs_caminhofoto, C.acs_codigobarras AS acs_codigobarras, C.acs_cor AS acs_cor, C.acs_datafabricacao AS acs_datafabricacao, C.acs_descricao AS acs_descricao, C.acs_dimensoes AS acs_dimensoes, C.acs_modelocompativel AS acs_modelocompativel, C.acs_preco AS acs_preco, C.acs_mfi AS acs_mfi, C.acs_status AS acs_ativo, C.acs_id AS acs_id FROM ACESSORIOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE acs_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, acessorio.getId());
 
 			
@@ -362,6 +374,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -372,17 +386,18 @@ public class DAOAcessorio extends AbstractDAO{
 		Acessorio acessorio = (Acessorio) entidade;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 
 		try {
 			
 			List<EntidadeDominio> acessorios = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
 			Boolean visualizar = false;
 			
 		
-				stmt = this.con.prepareStatement("SELECT * FROM ACESSORIOS WHERE acs_codigobarras = ?");
+			String sql = "SELECT * FROM ACESSORIOS WHERE acs_codigobarras = ?";
+			stmt = con.prepareStatement(sql);
 				stmt.setString(1, acessorio.getCodigoBarras());
 	
 			
@@ -410,6 +425,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 	
@@ -417,14 +434,14 @@ public class DAOAcessorio extends AbstractDAO{
 		Acessorio acessorio = (Acessorio) e;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
+
 		
-			PreparedStatement stmt = null;
-			
-		
-			stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_estoque = acs_estoque - ? WHERE acs_id = ?");	
+			String sql = "UPDATE ACESSORIOS SET acs_estoque = acs_estoque - ? WHERE acs_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, acessorio.getEstoque());
 			stmt.setInt(2, acessorio.getId());
 	
@@ -453,6 +470,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 	
@@ -461,14 +480,14 @@ public class DAOAcessorio extends AbstractDAO{
 		Acessorio acessorio = (Acessorio) e;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
 		
-			PreparedStatement stmt = null;
-			
 		
-			stmt = this.con.prepareStatement("UPDATE ACESSORIOS SET acs_estoque = acs_estoque + ? WHERE acs_id = ?");	
+			String sql = "UPDATE ACESSORIOS SET acs_estoque = acs_estoque + ? WHERE acs_id = ?";	
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, acessorio.getEstoque());
 			stmt.setInt(2, acessorio.getId());
 	
@@ -497,6 +516,8 @@ public class DAOAcessorio extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 }

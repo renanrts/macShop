@@ -226,16 +226,6 @@ public class DAOBloqueio extends AbstractDAO {
 		
 		produto.setEstoque(qtdeItensdevolucao);
 
-		if (bloq.getTipo().equals("VHELETRONICO"))
-		{
-			DAOEletronico dao = new DAOEletronico();
-			dao.voltarEstoque(produto);
-		}
-		else
-		{
-			DAOAcessorio dao = new DAOAcessorio();
-			dao.voltarEstoque(produto);
-		}
 		
 		bloq.getSessao().setAttribute("carrinho", bloq.getCarrinho());
 		

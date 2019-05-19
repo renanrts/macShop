@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Inativacao;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOInativacao extends AbstractDAO{
@@ -15,7 +15,8 @@ public class DAOInativacao extends AbstractDAO{
 	public Resultado salvar(EntidadeDominio entidade) {
 		
 		Inativacao inativacao = (Inativacao) entidade;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
 		String sql = "INSERT INTO INATIVACOES (sts_prod_id, sts_motivo, sts_status, sts_dataAlteracao) "
@@ -23,7 +24,7 @@ public class DAOInativacao extends AbstractDAO{
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, inativacao.getProdutoId());
 			stmt.setString(2, inativacao.getMotivo());
 			stmt.setString(3, "INATIVO");
@@ -41,6 +42,8 @@ public class DAOInativacao extends AbstractDAO{
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 		
 	}

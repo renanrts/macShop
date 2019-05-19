@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOCartao extends AbstractDAO {
@@ -13,7 +14,8 @@ public class DAOCartao extends AbstractDAO {
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
 		CartaoCredito cartao = (CartaoCredito) entidade;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
 		String sql = "INSERT INTO CARTOES (cart_bandeira, cart_nome, cart_numero, cart_cod, cart_vencimento, cart_preferencial, cart_cli_id, cart_status) "
@@ -21,7 +23,7 @@ public class DAOCartao extends AbstractDAO {
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, cartao.getBandeira());
 			stmt.setString(2, cartao.getNome());
 			stmt.setString(3, cartao.getNumero());
@@ -46,6 +48,8 @@ public class DAOCartao extends AbstractDAO {
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 

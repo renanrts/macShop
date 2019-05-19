@@ -21,189 +21,175 @@ import br.com.les.util.Resultado;
 public class VHBloqueio implements IViewHelper {
 
 	private Carrinho carrinho;
-	
+
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
-		
-			  
-	    Bloqueio bloqueio = new Bloqueio();
-	    
-	    LocalDateTime horarioBloqueio = LocalDateTime.now();
-	    
-	    Produto produto = new Produto();
-	    
-	    VHProduto vh = new VHProduto();
-	    
-		if (request.getParameter("Tipo").equals("VHELETRONICO"))
-		{
+
+		Bloqueio bloqueio = new Bloqueio();
+
+		Carrinho carrinho = new Carrinho();
+		ItemCarrinho item = new ItemCarrinho();
+		ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<>();
+
+		LocalDateTime horarioBloqueio = LocalDateTime.now();
+
+		Produto produto = new Produto();
+
+		VHProduto vh = new VHProduto();
+
+		if (request.getParameter("Tipo").equals("VHELETRONICO")) {
 
 			produto = (Produto) vh.getEntidade(request);
 			produto.setTipo("VHELETRONICO");
 		}
-		
-		else if (request.getParameter("Tipo").equals("VHACESSORIO"))
-		{
+
+		else if (request.getParameter("Tipo").equals("VHACESSORIO")) {
 			produto = (Produto) vh.getEntidade(request);
 			produto.setTipo("VHACESSORIO");
 		}
-		
-	    int quantidade = Integer.parseInt(request.getParameter("qtdeComprada"));
-	    
-	    double preco = Double.parseDouble(request.getParameter("preco"));
-	    
-	    produto.setPreco(preco);    
 
-	    Carrinho carrinho = new Carrinho();
-	    ItemCarrinho item = new ItemCarrinho();
-	    ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<>();
-	    
-	    item.setProduto(produto);
-	    item.setQuantidade(quantidade);
-	    carrinho.setItensCarrinho(itensCarrinho);
-	    carrinho.addItem(item);
-	    
-	    HttpSession sessaoUsuario = request.getSession();
-	    bloqueio.setCarrinho(carrinho);
-	    bloqueio.setTimeStamp(horarioBloqueio);
-	    bloqueio.setSessao(sessaoUsuario);
-
+		if (request.getParameter("qtdeComprada") != null) {
+			int quantidade = Integer.parseInt(request.getParameter("qtdeComprada"));
+			item.setQuantidade(quantidade);
+		}
 		
+		if (request.getParameter("preco") != null)
+		{
+			double preco = Double.parseDouble(request.getParameter("preco"));
+			produto.setPreco(preco);
+		}
+		
+
+		item.setProduto(produto);
+		
+		carrinho.setItensCarrinho(itensCarrinho);
+		carrinho.addItem(item);
+
+		HttpSession sessaoUsuario = request.getSession();
+		bloqueio.setCarrinho(carrinho);
+		bloqueio.setTimeStamp(horarioBloqueio);
+		bloqueio.setSessao(sessaoUsuario);
+
 		return bloqueio;
 	}
 
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String operacao = request.getParameter("btnOperacao");
-		String mensagem[] = resultado.getMensagem().split("\n");		
-		
-		if(resultado.getErro())
+		String mensagem[] = resultado.getMensagem().split("\n");
+
+		if (resultado.getErro())
 			request.setAttribute("erro", mensagem);
 		else
 			request.setAttribute("sucesso", mensagem);
-		
-		if(operacao.equals("SALVAR")){
+
+		if (operacao.equals("SALVAR")) {
 			carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
-			
-			if (request.getParameter("Tipo").equals("VHELETRONICO"))
-			{
-		
-				request.setAttribute("eletronico", (Eletronico) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
-			}
-			else
-			{
-				request.setAttribute("eletronico", (Acessorio) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
+
+			if (request.getParameter("Tipo").equals("VHELETRONICO")) {
+
+				request.setAttribute("eletronico", (Eletronico) carrinho.getItensCarrinho()
+						.get(carrinho.getItensCarrinho().size() - 1).getProduto());
+			} else {
+				request.setAttribute("eletronico", (Acessorio) carrinho.getItensCarrinho()
+						.get(carrinho.getItensCarrinho().size() - 1).getProduto());
 			}
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-		} else if(operacao.equals("CONSULTAR")){
-			if(!resultado.getErro()){
-				if(resultado.getResultado() != null){
+		} else if (operacao.equals("CONSULTAR")) {
+			if (!resultado.getErro()) {
+				if (resultado.getResultado() != null) {
 					request.setAttribute("eletronico", (Eletronico) resultado.getResultado());
 					request.setAttribute("categoria", (Categoria) resultado.getResultado());
-				}else{
+				} else {
 					request.setAttribute("resultado", resultado.getListaResultado());
 				}
 			}
-		}
-		else if(operacao.equals("VISUALIZAR")){
+		} else if (operacao.equals("VISUALIZAR")) {
 
-			if (request.getParameter("Tipo").equals("VHELETRONICO"))
-			{
+			if (request.getParameter("Tipo").equals("VHELETRONICO")) {
 				request.setAttribute("eletronico", (Eletronico) resultado.getListaResultado().get(0));
-			}
-			else
-			{
+			} else {
 				request.setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
 			}
-			
+
 			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-			
+
+		} else if (operacao.equals("ALTERAR")) {
+
+			carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+
+			if (request.getParameter("Tipo").equals("VHELETRONICO")) {
+
+				request.setAttribute("teste", (Eletronico) carrinho.getItensCarrinho()
+						.get(carrinho.getItensCarrinho().size() - 1).getProduto());
+			} else {
+				request.setAttribute("teste", (Acessorio) carrinho.getItensCarrinho()
+						.get(carrinho.getItensCarrinho().size() - 1).getProduto());
+			}
+			request.setAttribute("categoria", (Categoria) resultado.getResultado());
 
 		}
-		else if(operacao.equals("ALTERAR")){
-			
-			carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
-			
-			if (request.getParameter("Tipo").equals("VHELETRONICO"))
-			{
-		
-				request.setAttribute("teste", (Eletronico) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
-			}
-			else
-			{
-				request.setAttribute("teste", (Acessorio) carrinho.getItensCarrinho().get(carrinho.getItensCarrinho().size()-1).getProduto());
-			}
-			request.setAttribute("categoria", (Categoria) resultado.getResultado());
-			
 
-
-}
-		
 		try {
-			if(operacao.equals("SALVAR")){
-			RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
-			rd.forward(request, response);
-			}
-			else if(operacao.equals("CARRINHOADICIONAR")){
-				
-				
-				request.getSession().setAttribute("sucessos", mensagem);
-		        
-				
-				if (request.getParameter("Tipo").equals("VHELETRONICO"))
-				{
-			
-					request.getSession().setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
-				}
-				else
-				{
-					request.getSession().setAttribute("eletronico", (Acessorio) resultado.getListaResultado().get(0));
-				}
-				
+			if (operacao.equals("SALVAR")) {
 				RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
 				rd.forward(request, response);
-			}
-			else if(operacao.equals("CONSULTAR")){			
-					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
-					rd.forward(request, response);
-			}
-			else if(operacao.equals("VISUALIZAR")){
-				if (request.getParameter("direcionamento").equals("CATALOGO"))
-				{
-					
-						RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
-						rd.forward(request, response);
+			} else if (operacao.equals("CARRINHOADICIONAR")) {
 
-				}
-				else {
-					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
-					rd.forward(request, response);
-				}
-				
+				request.getSession().setAttribute("sucessos", mensagem);
 
-			}
-			else if(operacao.equals("INATIVAR")){
-								
-					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
-					rd.forward(request, response);
+				response.sendRedirect("cart.jsp");
 
-			}
-			else if(operacao.equals("ALTERAR")){
-				
+			} 
+			else if (operacao.equals("CARRINHOEXCLUIR")) {
 
-					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
-					rd.forward(request, response);
+				request.getSession().setAttribute("sucessos", mensagem);
 
-				
+				response.sendRedirect("cart.jsp");
 
-		}
+			} 
 			
+			else if (operacao.equals("CARRINHOALTERAR")) {
+
+				request.getSession().setAttribute("sucessos", mensagem);
+
+				response.sendRedirect("cart.jsp");
+
+			} 
+			
+			
+			
+			else if (operacao.equals("CONSULTAR")) {
+				RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+				rd.forward(request, response);
+			} else if (operacao.equals("VISUALIZAR")) {
+				if (request.getParameter("direcionamento").equals("CATALOGO")) {
+
+					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+					rd.forward(request, response);
+
+				} else {
+					RequestDispatcher rd = request.getRequestDispatcher("product-detail.jsp");
+					rd.forward(request, response);
+				}
+
+			} else if (operacao.equals("INATIVAR")) {
+
+				RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
+				rd.forward(request, response);
+
+			} else if (operacao.equals("ALTERAR")) {
+
+				RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
+				rd.forward(request, response);
+
+			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
 
 	}
 

@@ -4,33 +4,30 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import java.util.List;
 
-import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
-public class DAOEletronico extends AbstractDAO{
+public class DAOEletronico extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
 		Eletronico eletronico = (Eletronico) entidade;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
-		
+
 		String sql = "INSERT INTO ELETRONICOS (ele_nome, ele_alimentacao, ele_caminhofoto, cat_id, ele_codigobarras, ele_conteudoembalagem, ele_cor, ele_datafabricaco, ele_descricao, ele_dimensoes, ele_memoria, ele_modelo, ele_processador, ele_ram, ele_resolucaocamera, ele_sistemaoperacional, ele_display, ele_preco, ele_status, ele_dtCadastro, ele_estoque) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, eletronico.getNome());
 			stmt.setString(2, eletronico.getAlimentacao());
 			stmt.setString(3, eletronico.getCaminhoFoto());
@@ -52,11 +49,9 @@ public class DAOEletronico extends AbstractDAO{
 			stmt.setString(19, "Ativo");
 			stmt.setDate(20, new Date(eletronico.getDataCadastro().getTimeInMillis()));
 			stmt.setInt(21, 0);
-	
+
 			stmt.execute();
 
-			stmt.close();
-			
 			DAOCategoria dao = new DAOCategoria();
 			resultado = dao.consultar(entidade);
 
@@ -68,63 +63,61 @@ public class DAOEletronico extends AbstractDAO{
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
 	}
 
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
-		
+
 		Eletronico eletronico = (Eletronico) entidade;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		
-
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
+
 			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
+
 			Boolean visualizar = false;
-			
-			
-			if (eletronico.getCodigoBarras()!= null && !eletronico.getCodigoBarras().isEmpty())
-			{
-				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
+
+			if (eletronico.getCodigoBarras() != null && !eletronico.getCodigoBarras().isEmpty()) {
+				String sql = "SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?";
+				stmt = con.prepareStatement(sql);
+
 				stmt.setString(1, eletronico.getCodigoBarras());
 				visualizar = true;
-			}
-			else if (eletronico.getAtivo()!= null && !eletronico.getAtivo().isEmpty() && eletronico.getCategoria().getId() != null)
-			{
-				stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where F.cat_id = ? and ele_status = ? order by ele_id");
+			} else if (eletronico.getAtivo() != null && !eletronico.getAtivo().isEmpty()
+					&& eletronico.getCategoria().getId() != null) {
+				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where F.cat_id = ? and ele_status = ? order by ele_id";
+				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, eletronico.getCategoria().getId());
 				stmt.setString(2, eletronico.getAtivo());
-			}
-			else if (eletronico.getAtivo()!= null && !eletronico.getAtivo().isEmpty())
-			{
-				stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_status = ? order by ele_id");
+			} else if (eletronico.getAtivo() != null && !eletronico.getAtivo().isEmpty()) {
+				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_status = ? order by ele_id";
+				stmt = con.prepareStatement(sql);
 				stmt.setString(1, eletronico.getAtivo());
-			
+
 			}
-			
-			else
-			{
-				stmt = this.con.prepareStatement(
-				"SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_estoque AS ele_estoque, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by ele_id"
-			);
+
+			else {
+				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_estoque AS ele_estoque, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by ele_id";
+				stmt = con.prepareStatement(sql);
 			}
-			
+
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
-								
+
 				Eletronico a = new Eletronico();
-				Categoria cat = new Categoria ();
-				
+				Categoria cat = new Categoria();
+
 				cat.setDescricao(rs.getString("cat_descricao"));
 				cat.setId(rs.getInt("cat_id"));
 
-						
 				a.setNome(rs.getString("ele_nome"));
 				a.setAlimentacao(rs.getString("ele_alimentacao"));
 				a.setCaminhoFoto(rs.getString("ele_caminhofoto"));
@@ -148,101 +141,97 @@ public class DAOEletronico extends AbstractDAO{
 				a.setTipo("VHELETRONICO");
 				a.setEstoque(rs.getInt("ele_estoque"));
 
-				
 				eletronicos.add(a);
 				contagem++;
 			}
-			
-			if(visualizar){
+
+			if (visualizar) {
 				resultado.setResultado(eletronicos.get(0));
-			} else{
+			} else {
 				resultado.setListaResultado(eletronicos);
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
 			stmt.close();
+			con.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		
+
 		Eletronico eletronico = (Eletronico) entidade;
 		Resultado resultado = new Resultado();
-		Categoria cat = new Categoria();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
 
+		PreparedStatement stmt = null;
 
 		try {
-			
+
 			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
-			
-				if(eletronico.getEstoque() != 0)
-				{
-					stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?");	
-					stmt.setInt(1, eletronico.getEstoque());
-					stmt.setInt(2, eletronico.getId());
-				}
-				
-				else
-				{
-					stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_nome = ?, ele_alimentacao = ?, ele_caminhofoto = ?, cat_id = ?, ele_codigobarras = ?, ele_conteudoembalagem = ?, ele_cor = ?, ele_datafabricaco = ?, ele_descricao = ?, ele_dimensoes = ?, ele_memoria = ?, ele_modelo = ?, ele_processador = ?, ele_ram = ?, ele_resolucaocamera = ?, ele_sistemaoperacional = ?, ele_display = ?, ele_preco = ?, ele_status = ?, ele_estoque = ? WHERE ele_id = ?");	
-					
-					stmt.setString(1, eletronico.getNome());
-					stmt.setString(2, eletronico.getAlimentacao());
-					stmt.setString(3, eletronico.getCaminhoFoto());
-					stmt.setString(4, String.valueOf(eletronico.getCategoria().getId()));
-					stmt.setString(5, eletronico.getCodigoBarras());
-					stmt.setString(6, eletronico.getConteudoEmbalagem());
-					stmt.setString(7, eletronico.getCor());
-					stmt.setString(8, eletronico.getDataaFabricacao());
-					stmt.setString(9, eletronico.getDescricao());
-					stmt.setString(10, eletronico.getDimensoes());
-					stmt.setString(11, eletronico.getMemoria());
-					stmt.setString(12, eletronico.getModelo());
-					stmt.setString(13, eletronico.getProcessador());
-					stmt.setString(14, eletronico.getRAM());
-					stmt.setString(15, eletronico.getResolucaoCamera());
-					stmt.setString(16, eletronico.getSistemaOperacional());
-					stmt.setString(17, eletronico.getTamanhoDisplay());
-					stmt.setDouble(18, eletronico.getPreco());
-					stmt.setString(19, eletronico.getAtivo());
-					stmt.setInt(20, eletronico.getId());
-					stmt.setInt(21, eletronico.getEstoque());
-				}
-		
-				
-			
+
+			if (eletronico.getEstoque() != 0) {
+				String sql = "UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, eletronico.getEstoque());
+				stmt.setInt(2, eletronico.getId());
+			}
+
+			else {
+				String sql = "UPDATE ELETRONICOS SET ele_nome = ?, ele_alimentacao = ?, ele_caminhofoto = ?, cat_id = ?, ele_codigobarras = ?, ele_conteudoembalagem = ?, ele_cor = ?, ele_datafabricaco = ?, ele_descricao = ?, ele_dimensoes = ?, ele_memoria = ?, ele_modelo = ?, ele_processador = ?, ele_ram = ?, ele_resolucaocamera = ?, ele_sistemaoperacional = ?, ele_display = ?, ele_preco = ?, ele_status = ?, ele_estoque = ? WHERE ele_id = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, eletronico.getNome());
+				stmt.setString(2, eletronico.getAlimentacao());
+				stmt.setString(3, eletronico.getCaminhoFoto());
+				stmt.setString(4, String.valueOf(eletronico.getCategoria().getId()));
+				stmt.setString(5, eletronico.getCodigoBarras());
+				stmt.setString(6, eletronico.getConteudoEmbalagem());
+				stmt.setString(7, eletronico.getCor());
+				stmt.setString(8, eletronico.getDataaFabricacao());
+				stmt.setString(9, eletronico.getDescricao());
+				stmt.setString(10, eletronico.getDimensoes());
+				stmt.setString(11, eletronico.getMemoria());
+				stmt.setString(12, eletronico.getModelo());
+				stmt.setString(13, eletronico.getProcessador());
+				stmt.setString(14, eletronico.getRAM());
+				stmt.setString(15, eletronico.getResolucaoCamera());
+				stmt.setString(16, eletronico.getSistemaOperacional());
+				stmt.setString(17, eletronico.getTamanhoDisplay());
+				stmt.setDouble(18, eletronico.getPreco());
+				stmt.setString(19, eletronico.getAtivo());
+				stmt.setInt(20, eletronico.getId());
+				stmt.setInt(21, eletronico.getEstoque());
+			}
+
 			ResultSet rs = stmt.executeQuery();
-						
-			stmt = this.con.prepareStatement(
-					"SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_ido, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_id = ?"
-				);
+
+			String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_ido, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, eletronico.getId());
 			ResultSet rt = stmt.executeQuery();
-			
+
 			while (rt.next()) {
 				Eletronico a = new Eletronico();
 				Categoria categoria = new Categoria();
-				
+
 				categoria.setDescricao(rt.getString("cat_descricao"));
 				categoria.setId(rt.getInt("cat_id"));
 				a.setNome(rt.getString("ele_nome"));
@@ -267,50 +256,47 @@ public class DAOEletronico extends AbstractDAO{
 				a.setId(rt.getInt("ele_id"));
 				a.setEstoque(rt.getInt("ele_estoque"));
 
-				
 				eletronicos.add(a);
 				contagem++;
-			
+
 				resultado.setListaResultado(eletronicos);
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("Alterado com sucesso!");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
-			stmt.close();
+			rt.close();
+
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
-		
-		
-		
 	}
 
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
-Eletronico eletronico = (Eletronico) entidade;
-		
+		Eletronico eletronico = (Eletronico) entidade;
+
 		Resultado resultado = new Resultado();
-		
+
 		String sql = "UPDATE ELETRONICOS SET ele_status = ? WHERE ele_id = ?";
-
-
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, "Inativo");
 			stmt.setInt(2, eletronico.getId());
 
@@ -326,42 +312,40 @@ Eletronico eletronico = (Eletronico) entidade;
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
-		
-	
-		
+
 	}
-	
-	public Resultado visualizar(EntidadeDominio entidade)
-	{
+
+	public Resultado visualizar(EntidadeDominio entidade) {
 		Eletronico eletronico = (Eletronico) entidade;
 		Resultado resultado = new Resultado();
 		Categoria categoria = new Categoria();
 		int contagem = 0;
-		
-
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
-			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
-			Boolean visualizar = false;
-			
 
-			stmt = this.con.prepareStatement("SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_status AS ele_status, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE ele_id = ?");
+			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
+
+			Boolean visualizar = false;
+
+			String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_status AS ele_status, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id WHERE ele_id = ?";
+			stmt = con.prepareStatement(sql);
+
 			stmt.setInt(1, eletronico.getId());
 
-			
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
-								
+
 				Eletronico a = new Eletronico();
 				Categoria category = new Categoria();
 				category.setDescricao(rs.getString("cat_descricao"));
 				category.setId(rs.getInt("cat_id"));
-						
-						
+
 				a.setNome(rs.getString("ele_nome"));
 				a.setAlimentacao(rs.getString("ele_alimentacao"));
 				a.setCaminhoFoto(rs.getString("ele_caminhofoto"));
@@ -389,32 +373,34 @@ Eletronico eletronico = (Eletronico) entidade;
 				eletronicos.add(categoria);
 				contagem++;
 			}
-			
-			if(visualizar){
+
+			if (visualizar) {
 				resultado.setResultado(eletronicos.get(0));
-			} else{
+			} else {
 				resultado.setListaResultado(eletronicos);
 			}
-			
-		
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
+			con.close();
 			stmt.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
+
 	}
 
 	@Override
@@ -422,131 +408,126 @@ Eletronico eletronico = (Eletronico) entidade;
 		Eletronico eletronico = (Eletronico) e;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		
-
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
-		
-			PreparedStatement stmt = null;
-			
-		
-				stmt = this.con.prepareStatement("SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?");
-				stmt.setString(1, eletronico.getCodigoBarras());
-	
-			
+
+			String sql = "SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, eletronico.getCodigoBarras());
+
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
 				contagem++;
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
 			stmt.close();
+			con.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
-	
-	public Resultado alterarEstoque (EntidadeDominio e) {
+
+	public Resultado alterarEstoque(EntidadeDominio e) {
 		System.out.println(e.getClass().getSimpleName());
 		Eletronico eletronico = (Eletronico) e;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
-		
-			PreparedStatement stmt = null;
-			
-		
-			stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_estoque = ele_estoque - ? WHERE ele_id = ?");	
+
+			String sql = "UPDATE ELETRONICOS SET ele_estoque = ele_estoque - ? WHERE ele_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, eletronico.getEstoque());
 			stmt.setInt(2, eletronico.getId());
-	
-			
+
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
 				contagem++;
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
 			stmt.close();
+			con.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
-	
-	public Resultado voltarEstoque (EntidadeDominio e) {
-		
+
+	public Resultado voltarEstoque(EntidadeDominio e) {
+
 		Eletronico eletronico = (Eletronico) e;
 		Resultado resultado = new Resultado();
 		int contagem = 0;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		try {
-			
-		
-			PreparedStatement stmt = null;
-			
-		
-			stmt = this.con.prepareStatement("UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?");	
+
+			String sql = "UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, eletronico.getEstoque());
 			stmt.setInt(2, eletronico.getId());
-	
-			
+
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
 				contagem++;
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhum produto encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
+			con.close();
 			stmt.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 

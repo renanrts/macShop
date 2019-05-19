@@ -163,7 +163,7 @@
                         <a href="index.jsp">Área Cliente</a>
                         <ul class="sub-menu">
                             <li><a href="area-cli.jsp"">Meus Dados</a></li>
-									<li><a href=" pedidos-cli.jsp">Pedidos</a></li>
+									<li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
                             <li><a href="#">Logout</a></li>
                         </ul>
                         <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>

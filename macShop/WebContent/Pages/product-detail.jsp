@@ -74,7 +74,7 @@
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
                                     <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
-                                    <li><a href="pedidos-cli.jsp">Pedidos</a></li>
+                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
@@ -253,6 +253,7 @@
                         				  <input type="hidden" id="Tipo" name="Tipo" value="${eletronico.tipo}" />
                         				  <input type="hidden" id="FormName" name="FormName" value="VHBLOQUEIO" />
                         				  <input type="hidden" id="txtID" name="txtID" value="${eletronico.id}" />
+                        				  <input type="hidden" id="txtNome" name="txtNome" value="${eletronico.nome}" />
                         				  <input type="hidden" id="FormName" name="lalal" value="${eletronico.estoque}" />
                         				  <input type="hidden" id="operation" name="operation" value="add" />
                                		 <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id= "btnOperacaoSalvar" name="btnOperacao" value="CARRINHOADICIONAR">

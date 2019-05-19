@@ -8,9 +8,15 @@ public class StCalcularTotalPedido implements IStrategy{
 
 	@Override
 	public String processar(EntidadeDominio entidade) {
-		
+		StringBuilder mensagem = new StringBuilder();
 		Pedido pedido = (Pedido) entidade;
 		Double valorTotal = 0.0;
+		
+		 if(pedido.getCarrinho() == null)
+		 {
+			 mensagem.append("Tempo do produto no carrinho expirado. Por favor, visite o catálogo de produtos. ");
+			 return mensagem.toString();
+		 }
 		
 		for (ItemCarrinho produto : pedido.getCarrinho().getItensCarrinho())
 		{

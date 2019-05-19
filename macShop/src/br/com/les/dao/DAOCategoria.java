@@ -10,6 +10,7 @@ import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Categoria;
 import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOCategoria extends AbstractDAO{
@@ -24,17 +25,18 @@ public class DAOCategoria extends AbstractDAO{
 	public Resultado consultar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
 		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 
 		try {
 			
 			List<EntidadeDominio> categorias = new ArrayList<EntidadeDominio>();
-			PreparedStatement stmt = null;
+	
 			Boolean visualizar = false;
 			
-			stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS");
-			
+			String sql = "SELECT * FROM CATEGORIAS";
+			stmt = con.prepareStatement(sql);
 			
 			ResultSet rs = stmt.executeQuery();
 						
@@ -74,6 +76,8 @@ public class DAOCategoria extends AbstractDAO{
 						e1.printStackTrace();
 						resultado.erro("Erro de consulta.");
 						return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -100,8 +104,8 @@ public class DAOCategoria extends AbstractDAO{
 		
 		
 		Resultado resultado = new Resultado();
-		int contagem = 0;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		
 		if (e.getTipo().equals("VHELETRONICO"))
 		{
@@ -110,9 +114,10 @@ public class DAOCategoria extends AbstractDAO{
 			try {
 				
 				
-				PreparedStatement stmt = null;
+
 					
-				stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
+				String sql = "SELECT * FROM CATEGORIAS WHERE CAT_ID = ?";
+				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, idCategoria);
 	
 				ResultSet rs = stmt.executeQuery();
@@ -133,6 +138,8 @@ public class DAOCategoria extends AbstractDAO{
 							e1.printStackTrace();
 							resultado.erro("Erro de consulta.");
 							return resultado;
+			}finally {
+				ConnectionFactory.closeConnection(stmt, con);
 			}
 		
 		}
@@ -143,11 +150,10 @@ public class DAOCategoria extends AbstractDAO{
 			int idCategoria = acessorio.getCategoria().getId();
 			try {
 				
-			
-				PreparedStatement stmt = null;
-			
+
 				
-				stmt = this.con.prepareStatement("SELECT * FROM CATEGORIAS WHERE CAT_ID = ?");
+				String sql = "SELECT * FROM CATEGORIAS WHERE CAT_ID = ?";
+				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, idCategoria);
 	
 				ResultSet rs = stmt.executeQuery();
@@ -168,6 +174,8 @@ public class DAOCategoria extends AbstractDAO{
 							e1.printStackTrace();
 							resultado.erro("Erro de consulta.");
 							return resultado;
+			}finally {
+				ConnectionFactory.closeConnection(stmt, con);
 			}
 		}
 		

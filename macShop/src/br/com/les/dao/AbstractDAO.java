@@ -6,6 +6,6 @@ import br.com.les.util.ConnectionFactory;
 
 public abstract class AbstractDAO implements IDAO{
 	
-	Connection con = new ConnectionFactory().getConnection();
+	Connection con;
 
 }

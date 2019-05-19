@@ -10,6 +10,7 @@ import br.com.les.dominio.Cidade;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Estado;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOEndereco extends AbstractDAO {
@@ -18,7 +19,8 @@ public class DAOEndereco extends AbstractDAO {
 	public Resultado salvar(EntidadeDominio entidade) {
 		
 		Endereco endereco = (Endereco) entidade;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
 		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, end_cli_id, end_status, end_preferencial, end_tipo) "
@@ -26,7 +28,7 @@ public class DAOEndereco extends AbstractDAO {
 
 		try {
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, endereco.getCidade().getId());
 			stmt.setString(2, endereco.getTipoEndereco());
 			stmt.setString(3, endereco.getCep());
@@ -61,6 +63,8 @@ public class DAOEndereco extends AbstractDAO {
 			e1.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 		
 	}
@@ -97,14 +101,13 @@ public class DAOEndereco extends AbstractDAO {
 	
 	public List<Cidade> completarCidades(EntidadeDominio e) {
 		List<Cidade> listaCidade = new ArrayList<Cidade>();
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		try {
 			
-			
-			PreparedStatement stmt = null;
-			
-			stmt = this.con.prepareStatement("SELECT * FROM cidade ORDER BY `cidade`.`cid_nome` ASC");
-			
+
+			String sql = "SELECT * FROM cidade ORDER BY `cidade`.`cid_nome` ASC";
+			stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 						
 			while (rs.next()) {
@@ -125,6 +128,8 @@ public class DAOEndereco extends AbstractDAO {
 				e1.printStackTrace();
 				
 			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
 		return listaCidade;
@@ -132,14 +137,14 @@ public class DAOEndereco extends AbstractDAO {
 	
 	public List<Estado> completarEstados(EntidadeDominio e) {
 		List<Estado> listaEstado = new ArrayList<Estado>();
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		try {
 			
+
 			
-			PreparedStatement stmt = null;
-			
-			stmt = this.con.prepareStatement("SELECT * FROM estado");
-			
+			String sql = "SELECT * FROM estado";
+			stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 						
 			while (rs.next()) {
@@ -160,6 +165,8 @@ public class DAOEndereco extends AbstractDAO {
 				e1.printStackTrace();
 				
 			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
 		return listaEstado;
@@ -168,13 +175,14 @@ public class DAOEndereco extends AbstractDAO {
 	public Endereco complementarEndereco(EntidadeDominio e)
 	{
 		Endereco end = (Endereco) e;
-		
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		try {
 			
+
 			
-			PreparedStatement stmt = null;
-			
-			stmt = this.con.prepareStatement("SELECT * FROM cidade WHERE cid_id = ?");
+			String sql = "SELECT * FROM cidade WHERE cid_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, end.getCidade().getId());
 			
 			ResultSet rs = stmt.executeQuery();
@@ -192,13 +200,16 @@ public class DAOEndereco extends AbstractDAO {
 				e1.printStackTrace();
 				
 			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 		
 		try {
 	
-			PreparedStatement stmt = null;
+
 			
-			stmt = this.con.prepareStatement("SELECT * FROM estado WHERE est_id = ?");
+			String sql = "SELECT * FROM estado WHERE est_id = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, end.getCidade().getEstado().getId());
 			
 			ResultSet rs = stmt.executeQuery();
@@ -215,6 +226,8 @@ public class DAOEndereco extends AbstractDAO {
 				e1.printStackTrace();
 				
 			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
 		return end;

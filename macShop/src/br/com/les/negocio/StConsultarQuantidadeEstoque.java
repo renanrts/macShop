@@ -81,6 +81,7 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	      return mensagem;
 	    }
 	    
+	    resultado.setResultado(carrinho);
 	   return null;
 	    
 	}

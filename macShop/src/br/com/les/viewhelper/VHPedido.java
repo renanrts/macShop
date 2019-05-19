@@ -27,6 +27,13 @@ public class VHPedido implements IViewHelper {
 		CartaoCredito cart = new CartaoCredito();
 		Cupom cupom = new Cupom();
 		
+		
+		if(request.getParameter("pedStatus") != null)
+		{
+			pedido.setStatus(request.getParameter("pedStatus"));
+		}
+		
+		
 		if(request.getParameter("idcartaoPagamento1") != null)
 		{
 			cart.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));

@@ -38,6 +38,7 @@ import br.com.les.negocio.StValidarDadosObrigatoriosPedido;
 import br.com.les.negocio.StValidarExistencia;
 import br.com.les.negocio.StValidarExistenciaCarrinhoSessao;
 import br.com.les.negocio.StValidarExistenciaCliente;
+import br.com.les.negocio.StValidarQuantidadeAIncluirOuExcluirCarrinho;
 import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.util.Resultado;
 import service.CarrinhoServico;
@@ -211,7 +212,12 @@ public class Fachada implements IFachada {
 		rnsSalvarBloqueioProduto.add(new StConsultarQuantidadeEstoque());
 		rnsSalvarBloqueioProduto.add(new StValidarExistenciaCarrinhoSessao());
 		
+		List<IStrategy> rnsAlterarBloqueioProduto = new ArrayList<IStrategy>();
+		rnsAlterarBloqueioProduto.add(new StValidarQuantidadeAIncluirOuExcluirCarrinho());
+		
 		rnsBloqueio.put("CARRINHOADICIONAR", rnsSalvarBloqueioProduto);	
+		rnsBloqueio.put("CARRINHOALTERAR", rnsAlterarBloqueioProduto);	
+		
 		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 		
 	}
@@ -324,6 +330,36 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 	    return resultado;    
 	    
 	    
+	}
+
+	@Override
+	public Resultado excluirDoCarrinho(EntidadeDominio e) {
+		
+		 Resultado resultado = new Resultado();
+		   
+		 
+		       CarrinhoServico servico = new CarrinhoServico();
+		       resultado = servico.excluirItens(e);
+
+		    return resultado;    
+		    
+		    
+	}
+
+	@Override
+	public Resultado alterarCarrinho(EntidadeDominio e) {
+		 Resultado resultado = new Resultado();
+
+		    resultado = validarStrategys(e, "CARRINHOALTERAR");
+		    
+		    if (!resultado.getErro()) {
+			       CarrinhoServico servico = new CarrinhoServico();
+			       resultado = servico.alterarQuantidadeItens(e);
+		    }
+		   
+
+
+	    return resultado;  
 	}
 	
 }

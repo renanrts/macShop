@@ -17,4 +17,8 @@ public interface IFachada {
 
 	public Resultado adicionarAoCarrinho(EntidadeDominio e);
 
+	public Resultado excluirDoCarrinho(EntidadeDominio e);
+
+	public Resultado alterarCarrinho(EntidadeDominio e);
+
 }

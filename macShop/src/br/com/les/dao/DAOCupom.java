@@ -8,65 +8,63 @@ import java.util.Random;
 import br.com.les.dominio.Cupom;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Pedido;
+import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
 public class DAOCupom extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-	
-		Resultado resultado = new Resultado();
 
+		Resultado resultado = new Resultado();
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 
 		Pedido pedido = (Pedido) entidade;
-		
+
 		Cupom cupom = new Cupom();
-		
+
 		cupom.setValor(pedido.getFormapagto().get(0).getValor() - pedido.getValorTotal());
-		
+
 		Random gerador = new Random();
-		
+
 		StringBuilder codigo = new StringBuilder();
-		
-		for(int i=0; i < 5; i++)
-		{
+
+		for (int i = 0; i < 5; i++) {
 			codigo.append(String.valueOf(gerador.nextInt()));
 		}
-		
 
 		try {
-			
 
-			String sql = "INSERT INTO CUPONS (CUP_CODIGO, CUP_VALOR, CLI_ID, CUP_STATUS) "
-					+ "VALUES (?, ?, ?, ?)";
-			
-			PreparedStatement stmt = con.prepareStatement(sql);
+			String sql = "INSERT INTO CUPONS (CUP_CODIGO, CUP_VALOR, CLI_ID, CUP_STATUS) " + "VALUES (?, ?, ?, ?)";
+
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, codigo.toString());
-			
+
 			stmt.setDouble(2, cupom.getValor());
 			stmt.setInt(3, pedido.getCli_id());
 			stmt.setString(4, "ATIVO");
 
 			stmt.executeQuery();
 			stmt.close();
-			
+
 			resultado.sucesso("Cupom criado com sucesso!");
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
-	
-		
+
 	}
 
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
-		
-	
+
 		return null;
 	}
 
@@ -80,32 +78,33 @@ public class DAOCupom extends AbstractDAO {
 	public Resultado excluir(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
 
-
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
 		Cupom cupom = (Cupom) entidade;
 
 		try {
-			
-			
-			PreparedStatement stmt = null;
-				
-			stmt = this.con.prepareStatement("UPDATE CUPONS SET cup_status = ? WHERE CUP_ID = ?");
+
+			String sql = "UPDATE CUPONS SET cup_status = ? WHERE CUP_ID = ?";
+			stmt = con.prepareStatement(sql);
 			stmt.setString(1, "INATIVO");
 			stmt.setInt(2, cupom.getId());
 
 			ResultSet rs = stmt.executeQuery();
-				
+
 			resultado.sucesso("Cupom invalidado com sucesso");
-			
+
 			rs.close();
 			stmt.close();
-		
+
 			return null;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return null;
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
 
@@ -120,54 +119,49 @@ public class DAOCupom extends AbstractDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public Cupom consultarValidade(EntidadeDominio e) {
-		
+
 		Resultado resultado = new Resultado();
 
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		Cupom cupom = (Cupom) e;
 
-			Cupom cupom = (Cupom) e;
-			
-			if (cupom.getId() == null)
-			{
-				return null;
-			}
-
-			try {
-				
-				
-				PreparedStatement stmt = null;
-					
-				stmt = this.con.prepareStatement("SELECT * FROM CUPONS WHERE CUP_ID = ?");
-				stmt.setInt(1, cupom.getId());
-	
-				ResultSet rs = stmt.executeQuery();
-							
-				while (rs.next()) {
-									
-					cupom.setId(Integer.parseInt(rs.getString("cup_id")));
-					cupom.setStatus(rs.getString("cup_status"));
-					cupom.setValor(Double.parseDouble(rs.getString("cup_valor")));
-					
-					
-				}
-				
-				
-				rs.close();
-				stmt.close();
-			
-				return cupom;
-				
-			} catch (SQLException e1) {
-				
-							e1.printStackTrace();
-							resultado.erro("Erro de consulta.");
-							return cupom;
-			}
-		
+		if (cupom.getId() == null) {
+			return null;
 		}
-	
-	
+
+		try {
+
+			String sql = "SELECT * FROM CUPONS WHERE CUP_ID = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, cupom.getId());
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				cupom.setId(Integer.parseInt(rs.getString("cup_id")));
+				cupom.setStatus(rs.getString("cup_status"));
+				cupom.setValor(Double.parseDouble(rs.getString("cup_valor")));
+
+			}
+
+			rs.close();
+			stmt.close();
+
+			return cupom;
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return cupom;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+
 	}
 
-
+}

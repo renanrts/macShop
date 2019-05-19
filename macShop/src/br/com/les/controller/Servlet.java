@@ -23,11 +23,13 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 import br.com.les.command.CmdAlterar;
+import br.com.les.command.CmdCarrinhoAlterar;
 import br.com.les.command.CmdConsultar;
 import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
 import br.com.les.command.CmdVisualizar;
 import br.com.les.command.CommandCarrinhoAdicionar;
+import br.com.les.command.CommandCarrinhoExcluir;
 import br.com.les.command.ICommand;
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOEletronico;
@@ -71,7 +73,8 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapCommand.put("INATIVAR", new CmdInativar());
 			mapCommand.put("ALTERAR", new CmdAlterar());
 			mapCommand.put("CARRINHOADICIONAR", new CommandCarrinhoAdicionar());
-			
+			mapCommand.put("CARRINHOEXCLUIR", new CommandCarrinhoExcluir());
+			mapCommand.put("CARRINHOALTERAR", new CmdCarrinhoAlterar());
 			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
