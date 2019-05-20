@@ -9,11 +9,13 @@ import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOBloqueio;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
+import br.com.les.dao.DAOCupom;
 import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.DAOPedido;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Cliente;
+import br.com.les.dominio.Cupom;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
@@ -35,6 +37,7 @@ import br.com.les.negocio.StValidarCPF;
 import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
 import br.com.les.negocio.StValidarDadosObrigatoriosPedido;
+import br.com.les.negocio.StValidarDataValidadeCupom;
 import br.com.les.negocio.StValidarExistencia;
 import br.com.les.negocio.StValidarExistenciaCarrinhoSessao;
 import br.com.les.negocio.StValidarExistenciaCliente;
@@ -64,6 +67,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("CLIENTE", new DAOCliente());
 		mapDAO.put("BLOQUEIO", new DAOBloqueio());
 		mapDAO.put("PEDIDO", new DAOPedido());
+		mapDAO.put("CUPOM", new DAOCupom());
 		
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		
@@ -88,63 +92,42 @@ public class Fachada implements IFachada {
 		StComplementarCupom StComplementarCupom = new StComplementarCupom();
 		
 		
-		/* Criando uma lista para conter as regras de negócio de fornencedor
-		 * quando a operação for salvar
-		 */
+		//CUPOM
+		List<IStrategy> rnsSalvarCupom = new ArrayList<IStrategy>();
+		rnsSalvarCupom.add(new StValidarDataValidadeCupom());
+		Map<String, List<IStrategy>> rnsCupom = new HashMap<String, List<IStrategy>>();
+		rnsCupom.put("SALVAR", rnsSalvarCupom);	
+		rns.put(Cupom.class.getSimpleName().toUpperCase(), rnsCupom);
+		
+
+		//PRODUTO
 		List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação salvar do fornecedor*/
 		rnsSalvarProduto.add(StComplementarCategoria);
 		rnsSalvarProduto.add(StComplementarDTCadastro);
 		rnsSalvarProduto.add(StValidarExistencia);
 		rnsSalvarProduto.add(StValidarDadosObrigatorios);
 		
-		/* Criando uma lista para conter as regras de negócio de produto
-		 * quando a operação for inativar
-		 */
+
 		List<IStrategy> rnsInativarProduto = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
 		rnsInativarProduto.add(StValidarAtivacaoInativacao);
 		rnsInativarProduto.add(StComplementarInativacao);
 		
 		
-		/* Criando uma lista para conter as regras de negócio de produto
-		 * quando a operação for alterar
-		 */
 		List<IStrategy> rnsAlterarProduto = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
 		rnsAlterarProduto.add(StComplementarCategoria);
 		rnsAlterarProduto.add(StValidarDadosObrigatorios);
 		
-
-		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
-		 * por operação do produto
-		 */
+		
 		Map<String, List<IStrategy>> rnsProduto = new HashMap<String, List<IStrategy>>();
-		/*
-		 * Adiciona a listra de regras na operação salvar no mapa do produto (lista criada na linha 114)
-		 */
 		rnsProduto.put("SALVAR", rnsSalvarProduto);
-		/*
-		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
-		 */
 		rnsProduto.put("ALTERAR", rnsAlterarProduto);
-		/*
-		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
-		 */
 		rnsProduto.put("INATIVAR", rnsInativarProduto);
 		
-		
-		/* Adiciona o mapa(criado na linha 129) com as regras indexadas pelas operações no mapa geral indexado 
-		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
-		 */
 		rns.put(Produto.class.getSimpleName().toUpperCase(), rnsProduto);
 		
 		
-		/* Criando uma lista para conter as regras de negócio de cliente
-		 * quando a operação for salvar
-		 */
+		//CLIENTE
 		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
 		rnsSalvarCliente.add(StValidarCPF);		
 		rnsSalvarCliente.add(StComplementarDTCadastroCliente);
 		rnsSalvarCliente.add(StComplementarEnderecoCliente);
@@ -153,51 +136,49 @@ public class Fachada implements IFachada {
 		rnsSalvarCliente.add(StValidarSenhasCliente);
 		
 		
-		/* Criando uma lista para conter as regras de negócio de cliente
-		 * quando a operação for salvar
-		 */
 		List<IStrategy> rnsAlterarCliente = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
 		rnsAlterarCliente.add(StComplementarEnderecoCliente);
 		rnsAlterarCliente.add(StValidarDadosObrigatoriosCliente);
-		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
-		 * por operação do cliente
-		 */
+
 		Map<String, List<IStrategy>> rnsCliente = new HashMap<String, List<IStrategy>>();
-		/*
-		 * Adiciona a listra de regras na operação salvar no mapa do cliente (lista criada na linha 93)
-		 */
 		rnsCliente.put("SALVAR", rnsSalvarCliente);	
 		rnsCliente.put("ALTERAR", rnsAlterarCliente);	
-		/* Adiciona o mapa(criado na linha 101) com as regras indexadas pelas operações no mapa geral indexado 
-		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
-		 */
+
 		rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);
 		
 		
+		//BLOQUEIO
 		List<IStrategy> rnsConsultarBloqueio = new ArrayList<IStrategy>();
 		rnsConsultarBloqueio.add(StValidarBloqueio);
 		
-		Map<String, List<IStrategy>> rnsBloqueio = new HashMap<String, List<IStrategy>>();
-		rnsBloqueio.put("SALVAR", rnsConsultarBloqueio);	
-		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
-		
 		List<IStrategy> rnsInativarBloqueio = new ArrayList<IStrategy>();
-
-		rnsBloqueio.put("INATIVAR", rnsInativarBloqueio);	
-		
 		
 		List<IStrategy> rnsAlterarBloqueio = new ArrayList<IStrategy>();
 		rnsAlterarBloqueio.add(StValidarBloqueio);
+		
+		List<IStrategy> rnsSalvarBloqueioProduto = new ArrayList<IStrategy>();
+		rnsSalvarBloqueioProduto.add(new StConsultarQuantidadeEstoque());
+		rnsSalvarBloqueioProduto.add(new StValidarExistenciaCarrinhoSessao());
+		
+		List<IStrategy> rnsAlterarBloqueioProduto = new ArrayList<IStrategy>();
+		rnsAlterarBloqueioProduto.add(new StValidarQuantidadeAIncluirOuExcluirCarrinho());
+		
+		Map<String, List<IStrategy>> rnsBloqueio = new HashMap<String, List<IStrategy>>();
+
+		rnsBloqueio.put("SALVAR", rnsConsultarBloqueio);	
+		rnsBloqueio.put("INATIVAR", rnsInativarBloqueio);	
 		rnsBloqueio.put("ALTERAR", rnsAlterarBloqueio);
+		rnsBloqueio.put("CARRINHOADICIONAR", rnsSalvarBloqueioProduto);	
+		rnsBloqueio.put("CARRINHOALTERAR", rnsAlterarBloqueioProduto);	
+		
 		
 		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
 		
+		//PEDIDO
 		
 		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
 		
 		rnsSalvarPedido.add(StValidarDadosObrigatoriosPedido);
-
 		rnsSalvarPedido.add(StComplementarDataPedido);
 		rnsSalvarPedido.add(StComplementarCupom);
 		rnsSalvarPedido.add(StCalcularTotalPedido);
@@ -208,17 +189,7 @@ public class Fachada implements IFachada {
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
 		rns.put(Pedido.class.getSimpleName().toUpperCase(), rnsPedido);
 		
-		List<IStrategy> rnsSalvarBloqueioProduto = new ArrayList<IStrategy>();
-		rnsSalvarBloqueioProduto.add(new StConsultarQuantidadeEstoque());
-		rnsSalvarBloqueioProduto.add(new StValidarExistenciaCarrinhoSessao());
-		
-		List<IStrategy> rnsAlterarBloqueioProduto = new ArrayList<IStrategy>();
-		rnsAlterarBloqueioProduto.add(new StValidarQuantidadeAIncluirOuExcluirCarrinho());
-		
-		rnsBloqueio.put("CARRINHOADICIONAR", rnsSalvarBloqueioProduto);	
-		rnsBloqueio.put("CARRINHOALTERAR", rnsAlterarBloqueioProduto);	
-		
-		rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueio);
+
 		
 	}
 

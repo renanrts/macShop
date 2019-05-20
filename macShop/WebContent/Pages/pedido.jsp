@@ -512,6 +512,7 @@
 
 
                                                 </div>
+                                                <hr>
                                                 <h3 class="mb-4 billing-heading">Endereço de Entrega</h3>
                                                 <div class="billing-form bg-light p-md-4">
 
@@ -531,8 +532,10 @@
 
 
                                                 </div>
-                                                  <h3 class="billing-heading mb-4">Cupom de Desconto</h3>
+                                                <hr>
+                                                  <h3 class="billing-heading mb-4">Cupons de Desconto</h3>
                                                  <div class="billing-form bg-light p-md-4">
+                                                 <h3 class="billing-heading mb-4">Cupons de Troca</h3>
 													<c:forEach var="cupom" items="${cliente.cupons }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">
@@ -543,9 +546,22 @@
                                                             </div>
                                                         </div>
                                                         </c:forEach>
+                                                        <hr>
+                                                         <h3 class="billing-heading mb-4">Cupons Promocionais</h3>
+                                                        <c:forEach var="cupons" items="${cliente.cuponsPromocionais }" >
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="idcupom"
+                                                                            class="mr-2" value="${cupons.id }">ID: ${cupons.id } - VALOR: R$${cupons.valor  } </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </c:forEach>
                                                     
 
                                                     </div>
+                                                    <hr>
                                                 <h3 class="billing-heading mb-4">Total do Pedido</h3>
                                                 <div class="billing-form bg-light p-md-4">
 

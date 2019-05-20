@@ -24,7 +24,8 @@ public class VHPedido implements IViewHelper {
 		Pedido pedido = new Pedido();
 		FormaPagamento formapagto = new FormaPagamento();
 		List<FormaPagamento> listPgto = new ArrayList<FormaPagamento>();
-		CartaoCredito cart = new CartaoCredito();
+		CartaoCredito cart1 = new CartaoCredito();
+		CartaoCredito cart2 = new CartaoCredito();
 		Cupom cupom = new Cupom();
 		
 		
@@ -36,7 +37,7 @@ public class VHPedido implements IViewHelper {
 		
 		if(request.getParameter("idcartaoPagamento1") != null)
 		{
-			cart.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
+			cart1.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
 		}
 		
 		if (request.getParameter("pedID") != null)
@@ -45,7 +46,7 @@ public class VHPedido implements IViewHelper {
 		}
 		
 		
-		formapagto.setCartao(cart);
+		formapagto.setCartao(cart1);
 		
 		if(request.getParameter("parcelasCartao1")!=null) {
 			formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));

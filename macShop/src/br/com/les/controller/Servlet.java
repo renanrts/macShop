@@ -46,6 +46,7 @@ import br.com.les.viewhelper.VHAcessorio;
 import br.com.les.viewhelper.VHBloqueio;
 import br.com.les.viewhelper.VHCategoria;
 import br.com.les.viewhelper.VHCliente;
+import br.com.les.viewhelper.VHCupom;
 import br.com.les.viewhelper.VHEletronico;
 import br.com.les.viewhelper.VHPedido;
 import br.com.les.viewhelper.VHProduto;
@@ -53,7 +54,7 @@ import br.com.les.viewhelper.VHProduto;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido", "/Pages/orders"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido", "/Pages/orders", "/Pages/cupom"})
 public class Servlet extends HttpServlet implements ServletContextListener{
 	
 	 
@@ -83,7 +84,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapViewHelper.put("VHCLIENTE", new VHCliente());
 			mapViewHelper.put("VHBLOQUEIO", new VHBloqueio());
 			mapViewHelper.put("VHPEDIDO", new VHPedido());
-			
+			mapViewHelper.put("VHCUPOM", new VHCupom());
 
 
 		}
@@ -93,15 +94,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
 			request.setCharacterEncoding("UTF-8");
-			
-			
-			if (request.getParameter("qtdeComprada") != null)
-			{
-				int quantidade = Integer.parseInt(request.getParameter("qtdeComprada"));
-				System.out.println(quantidade);
-			}
-		    
-		   
+		      
 			if(getServletContext().getAttribute("bloqueio") == null)
 			{
 				HashMap<String, Carrinho> mapProdutosBloqueados = new HashMap<>();

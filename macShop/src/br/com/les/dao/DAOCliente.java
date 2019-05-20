@@ -198,8 +198,30 @@ public class DAOCliente extends AbstractDAO {
 				}
 
 			}
+			
+			String sql3 = 
+					"SELECT * from CUPONS where cli_id = 0 and CUP_Validade > ?";
+			stmt = con.prepareStatement(sql3);
+			stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now().toString()));
+
+			ResultSet rsT3 = stmt.executeQuery();
+
+			List<Cupom> cuponsPromo = new ArrayList<Cupom>();
+
+			while (rsT3.next()) {
+				Cupom cup = new Cupom();
+
+				cup.setId(Integer.parseInt(rsT3.getString("CUP_ID")));
+				cup.setStatus(rsT3.getString("CUP_STATUS"));
+				cup.setValor(Double.parseDouble(rsT3.getString("CUP_VALOR")));
+				if (cup.getStatus().equals("ATIVO")) {
+					cuponsPromo.add(cup);
+				}
+
+			}
 
 			cliente.setCupons(cupons);
+			cliente.setCuponsPromocionais(cuponsPromo);
 			cliente.setListCartoes(cartoes);
 			cliente.setListEnderecosEntrega(enderecos);
 			clientes.add(cliente);

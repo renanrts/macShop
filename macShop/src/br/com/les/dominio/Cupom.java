@@ -9,7 +9,6 @@ public class Cupom extends EntidadeDominio {
 	private String codigo;
 	private Double valor;
 	private String status;
-	private  List<Cupom> cuponsTroca = new ArrayList<Cupom>();
 	private TipoCupom tipoCupom;
 	private LocalDate dataDeValidade; 
 	
@@ -30,12 +29,6 @@ public class Cupom extends EntidadeDominio {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public List<Cupom> getCuponsTroca() {
-		return cuponsTroca;
-	}
-	public void setCuponsTroca(List<Cupom> cuponsTroca) {
-		this.cuponsTroca = cuponsTroca;
 	}
 	public TipoCupom getTipoCupom() {
 		return tipoCupom;
