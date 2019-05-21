@@ -11,11 +11,13 @@ import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
 import br.com.les.dao.DAOCupom;
 import br.com.les.dao.DAOEletronico;
+import br.com.les.dao.DAOEndereco;
 import br.com.les.dao.DAOPedido;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Cupom;
+import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
@@ -28,6 +30,7 @@ import br.com.les.negocio.StComplementarDTCadastro;
 import br.com.les.negocio.StComplementarDTCadastroCliente;
 import br.com.les.negocio.StComplementarDataPedido;
 import br.com.les.negocio.StComplementarEnderecoCliente;
+import br.com.les.negocio.StComplementarEnderecoEntrega;
 import br.com.les.negocio.StComplementarInativacao;
 import br.com.les.negocio.StConsultarQuantidadeEstoque;
 import br.com.les.negocio.StInutilizarCupom;
@@ -68,6 +71,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("BLOQUEIO", new DAOBloqueio());
 		mapDAO.put("PEDIDO", new DAOPedido());
 		mapDAO.put("CUPOM", new DAOCupom());
+		mapDAO.put("ENDERECO", new DAOEndereco());
 		
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		
@@ -189,7 +193,13 @@ public class Fachada implements IFachada {
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
 		rns.put(Pedido.class.getSimpleName().toUpperCase(), rnsPedido);
 		
-
+		//ENDERECO
+		List<IStrategy> rnsSalvarEndereco = new ArrayList<IStrategy>();
+		rnsSalvarEndereco.add(new StComplementarEnderecoEntrega());
+		Map<String, List<IStrategy>> rnsEndereco = new HashMap<String, List<IStrategy>>();
+		rnsEndereco.put("SALVAR", rnsSalvarEndereco);	
+		rns.put(Endereco.class.getSimpleName().toUpperCase(), rnsEndereco);
+		
 		
 	}
 

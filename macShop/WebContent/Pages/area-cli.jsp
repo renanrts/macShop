@@ -695,111 +695,157 @@
 
                                                     <div class="w-100"></div>
                                                     <hr>
-                                                    <h3 class="mb-4 billing-heading">Cadastrar novo endereço de entrega
-                                                    </h3>
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="streetaddress">Tipo de residência</label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Casa, apartamento...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="streetaddress">Tipo de logradouro</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="streetaddress">Logradouro</label>
-                                                             <input value="" type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Número">
-                                                        </div>
-                                                    </div>
+                                  <form action="/macShop/Pages/endereco" method="POST" class="billing-form bg-light p-3 p-md-5">
+									
 
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="country">País</label>
-                                                            <div class="select-wrap">
-                                                                <div class="icon"><span
-                                                                        class="ion-ios-arrow-down"></span></div>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="">Brasil</option>
-                                                                    <option value="">Canadá</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="country">Estado</label>
-                                                            <div class="select-wrap">
-                                                                <div class="icon"><span
-                                                                        class="ion-ios-arrow-down"></span></div>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="">São Paulo</option>
-                                                                    <option value="">Rio de Janeiro</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+											<div class="w-100"></div>
+											<hr>
+											<h3 class="mb-4 billing-heading">Cadastrar novo endereço
+												de entrega</h3>
+											<div class="w-100"></div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="streetaddress">Tipo de residência</label> <select
+														name="txtTipoEnderecoEntrega" id="txtCategoria"
+														class="form-control">
+														<c:forEach var="listaTipoEndereco"
+															items="${baseCadastro.listaTipoEndereco }">
 
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="country">Cidade</label>
-                                                            <div class="select-wrap">
-                                                                <div class="icon"><span
-                                                                        class="ion-ios-arrow-down"></span></div>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="">São Paulo</option>
-                                                                    <option value="">Mogi das Cruzes</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="postcodezip">CEP</label>
-                                                            <input type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
+															<option name="txtTipoEnderecoEntrega">${listaTipoEndereco }</option>
 
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-13">
-                                                            <div class="form-group">
-                                                                <label for="towncity">Observações</label>
-                                                                <textarea class="form-control" name="message"
-                                                                    placeholder=""></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+														</c:forEach>
+														
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="streetaddress">Tipo de logradouro</label> <select
+														name="txtTiposLogradouroEntrega" id="txtCategoria"
+														class="form-control">
+														
+														<c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }">
+
+															<option name="txtTiposLogradouroEntrega" value="${tiposLogradouro }">${tiposLogradouro }</option>
+
+														</c:forEach>
+														
+													</select>
+												</div>
+											</div>
+											<div class="w-100"></div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="streetaddress">Logradouro</label> <input
+														type="text" class="form-control" id="txtLogradouro"
+														name="txtLogradouroEntrega" placeholder="">
+
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input 
+														type="text" class="form-control" id="txtNumero"
+														name="txtNumeroEntrega" placeholder="">
+
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="streetaddress">Bairro</label> <input
+														 type="text"
+														class="form-control" id="txtBairro" name="txtBairroEntrega"
+														placeholder="">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="country">Estado</label>
+													<div class="select-wrap">
+														<div class="icon">
+															<span class="ion-ios-arrow-down"></span>
+														</div>
+														<select name="txtEstadoEntrega" id="txtEstado"
+															class="form-control">
+															<c:forEach var="listaEstados"
+																items="${baseCadastro.listaEstados }">
+
+																<option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.nome }</option>
+
+															</c:forEach>
+
+														</select>
+													</div>
+												</div>
+											</div>
+
+											<div class="w-100"></div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="country">Cidade</label>
+													<div class="select-wrap">
+														<div class="icon">
+															<span class="ion-ios-arrow-down"></span>
+														</div>
+														<select name="txtCidadeEntrega" id="txtCidade"
+															class="form-control">
+															<c:forEach var="listaCidades"
+																items="${baseCadastro.listaCidades }">
+
+																<option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.nome }</option>
+
+															</c:forEach>
+														
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="postcodezip">CEP</label> <input
+														value="" type="text"
+														class="form-control" id="txtCEP" name="txtCEPEntrega"
+														placeholder="">
+												</div>
+											</div>
+
+											<div class="col-md-12">
+												<div class="col-md-13">
+													<div class="form-group">
+														<label for="towncity">Observações</label>
+														<textarea type="text" class="form-control" placeholder=""
+															id="txtObservacao" name="txtObservacaoEntrega"
+															value=""></textarea>
+
+													</div>
+												</div>
+											</div>
+
+
+
+										</div>
+										<div class="w-100"></div>
+										<div class="col-md-12">
+											<div class="form-group mt-4">
+												<center>
+													<div class="header-cart-wrapbtn">
+														<!-- Button -->
+														<input type="hidden" id="FormName" name="FormName" value="VHENDERECO" />
+														<input type="hidden" id="Direcionamento" name="Direcionamento" value="AREACLIE" />
+														<input type="hidden" id="cliId" name="cliId" value="${cliente.id }" />
+														<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Cadastrar</button>
+													</div>
+												</center>
+											</div>
+										</div>
+								</div>
+								</form>
 
 
 
                                                 </div>
-                                                <div class="w-100"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group mt-4">
-                                                        <center>
-                                                            <div class="header-cart-wrapbtn">
-                                                                <!-- Button -->
-                                                                <a href="#"
-                                                                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                    Salvar
-                                                                </a>
-                                                            </div>
-                                                        </center>
-                                                    </div>
-                                                </div>
+                                           
                                         </div>
                                         </form><!-- END -->
                                     </div> <!-- .col-md-8 -->
