@@ -230,7 +230,8 @@
 
 
 
-									<form action="/macShop/Pages/endereco" method="POST" class="billing-form bg-light p-3 p-md-5">
+									<form action="/macShop/Pages/endereco" method="POST"
+										class="billing-form bg-light p-3 p-md-5">
 										<h3 class="mb-4 billing-heading">Selecionar endereço de
 											entrega</h3>
 										<div class="row align-items-end">
@@ -271,7 +272,7 @@
 															<option name="txtTipoEnderecoEntrega">${listaTipoEndereco }</option>
 
 														</c:forEach>
-														
+
 													</select>
 												</div>
 											</div>
@@ -280,13 +281,15 @@
 													<label for="streetaddress">Tipo de logradouro</label> <select
 														name="txtTiposLogradouroEntrega" id="txtCategoria"
 														class="form-control">
-														
-														<c:forEach var="tiposLogradouro" items="${baseCadastro.tiposLogradouro }">
 
-															<option name="txtTiposLogradouroEntrega" value="${tiposLogradouro }">${tiposLogradouro }</option>
+														<c:forEach var="tiposLogradouro"
+															items="${baseCadastro.tiposLogradouro }">
+
+															<option name="txtTiposLogradouroEntrega"
+																value="${tiposLogradouro }">${tiposLogradouro }</option>
 
 														</c:forEach>
-														
+
 													</select>
 												</div>
 											</div>
@@ -301,8 +304,7 @@
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<input 
-														type="text" class="form-control" id="txtNumero"
+													<input type="text" class="form-control" id="txtNumero"
 														name="txtNumeroEntrega" placeholder="">
 
 												</div>
@@ -311,9 +313,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="streetaddress">Bairro</label> <input
-														 type="text"
-														class="form-control" id="txtBairro" name="txtBairroEntrega"
-														placeholder="">
+														type="text" class="form-control" id="txtBairro"
+														name="txtBairroEntrega" placeholder="">
 												</div>
 											</div>
 											<div class="col-md-6">
@@ -328,7 +329,8 @@
 															<c:forEach var="listaEstados"
 																items="${baseCadastro.listaEstados }">
 
-																<option name="txtEstadoEntrega" value="${listaEstados.id }">${listaEstados.nome }</option>
+																<option name="txtEstadoEntrega"
+																	value="${listaEstados.id }">${listaEstados.nome }</option>
 
 															</c:forEach>
 
@@ -350,20 +352,20 @@
 															<c:forEach var="listaCidades"
 																items="${baseCadastro.listaCidades }">
 
-																<option name="txtCidadeEntrega" value="${listaCidades.id }">${listaCidades.nome }</option>
+																<option name="txtCidadeEntrega"
+																	value="${listaCidades.id }">${listaCidades.nome }</option>
 
 															</c:forEach>
-														
+
 														</select>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label for="postcodezip">CEP</label> <input
-														value="" type="text"
-														class="form-control" id="txtCEP" name="txtCEPEntrega"
-														placeholder="">
+													<label for="postcodezip">CEP</label> <input value=""
+														type="text" class="form-control" id="txtCEP"
+														name="txtCEPEntrega" placeholder="">
 												</div>
 											</div>
 
@@ -372,8 +374,7 @@
 													<div class="form-group">
 														<label for="towncity">Observações</label>
 														<textarea type="text" class="form-control" placeholder=""
-															id="txtObservacao" name="txtObservacaoEntrega"
-															value=""></textarea>
+															id="txtObservacao" name="txtObservacaoEntrega" value=""></textarea>
 
 													</div>
 												</div>
@@ -388,10 +389,13 @@
 												<center>
 													<div class="header-cart-wrapbtn">
 														<!-- Button -->
-														<input type="hidden" id="FormName" name="FormName" value="VHENDERECO" />
-														<input type="hidden" id="Direcionamento" name="Direcionamento" value="COMPRA" />
-														<input type="hidden" id="cliId" name="cliId" value="${cliente.id }" />
-														<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Cadastrar</button>
+														<input type="hidden" id="FormName" name="FormName"
+															value="VHENDERECO" /> <input type="hidden"
+															id="Direcionamento" name="Direcionamento" value="COMPRA" />
+														<input type="hidden" id="cliId" name="cliId"
+															value="${cliente.id }" />
+														<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
+															name="btnOperacao" value="SALVAR">Cadastrar</button>
 													</div>
 												</center>
 											</div>
@@ -416,7 +420,7 @@
 
 
 
-									<form action="#" class="billing-form bg-light p-3 p-md-5">
+									<form action="/macShop/Pages/cartao" method="POST"  class="billing-form bg-light p-3 p-md-5">
 										<h3 class="mb-4 billing-heading">Selecionar cartão para
 											pagamento</h3>
 										<div class="row align-items-end">
@@ -437,58 +441,66 @@
 											</div>
 
 											<div class="w-100"></div>
-											<h3 class="mb-4 billing-heading">Cadastrar novo cartão
-												de crédito</h3>
-											<div class="row align-items-end">
-												<div class="col-md-4">
-													<div class="form-group">
-														<label for="country">Bandeira</label>
-														<div class="select-wrap">
-															<div class="icon">
-																<span class="ion-ios-arrow-down"></span>
-															</div>
-															<select name="" id="" class="form-control">
-																<option value="">Visa</option>
-																<option value="">Master</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-8">
-													<div class="form-group">
-														<label for="postcodezip">Número</label> <input type="text"
-															class="form-control" placeholder="">
-													</div>
-												</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="country">Bandeira</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                      <select name="txtBandeira" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="listaBandeira" items="${baseCadastro.listaBandeira }" >
+                                                            
+                                                                      <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
+															
+																     </c:forEach>   
+																                                                           </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Número</label>
+                                                <input  type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
+                                            </div>
+                                        </div>
 
 
-												<div class="w-100"></div>
+                                        <div class="w-100"></div>
 
-												<div class="col-md-12">
-													<div class="form-group">
-														<label for="postcodezip">Nome</label> <input type="text"
-															class="form-control"
-															placeholder="Nome impresso no cartão">
-													</div>
-												</div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Nome</label>
+                                             <input type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
 
-												<div class="col-md-4">
-													<div class="form-group">
-														<label for="postcodezip">Código de Segurança</label> <input
-															type="text" class="form-control" placeholder="">
-													</div>
-												</div>
+                                            </div>
+                                        </div>
 
-											</div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Código de Segurança</label>
+                               <input  type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Data de Vencimento</label>
+                                                <input type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
+
+                                            </div>
+                                        </div>
 											<div class="w-100"></div>
 											<div class="col-md-12">
 												<div class="form-group mt-4">
 													<center>
 														<div class="header-cart-wrapbtn">
 															<!-- Button -->
-															<a href="#"
-																class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-																Cadastrar </a>
+															<input type="hidden" id="FormName" name="FormName"
+																value="VHCARTAO" /> <input type="hidden"
+																id="Direcionamento" name="Direcionamento" value="COMPRA" />
+															<input type="hidden" id="cliId" name="cliId"
+																value="${cliente.id }" />
+															<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
+																name="btnOperacao" value="SALVAR">Cadastrar</button>
 														</div>
 													</center>
 												</div>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOBloqueio;
+import br.com.les.dao.DAOCartao;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
 import br.com.les.dao.DAOCupom;
@@ -15,6 +16,7 @@ import br.com.les.dao.DAOEndereco;
 import br.com.les.dao.DAOPedido;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
+import br.com.les.dominio.CartaoCredito;
 import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Cupom;
 import br.com.les.dominio.Endereco;
@@ -38,7 +40,9 @@ import br.com.les.negocio.StValidarAtivacaoInativacao;
 import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
 import br.com.les.negocio.StValidarDadosObrigatorios;
+import br.com.les.negocio.StValidarDadosObrigatoriosCartao;
 import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
+import br.com.les.negocio.StValidarDadosObrigatoriosEndereco;
 import br.com.les.negocio.StValidarDadosObrigatoriosPedido;
 import br.com.les.negocio.StValidarDataValidadeCupom;
 import br.com.les.negocio.StValidarExistencia;
@@ -72,6 +76,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("PEDIDO", new DAOPedido());
 		mapDAO.put("CUPOM", new DAOCupom());
 		mapDAO.put("ENDERECO", new DAOEndereco());
+		mapDAO.put("CARTAOCREDITO", new DAOCartao());
 		
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		
@@ -94,7 +99,7 @@ public class Fachada implements IFachada {
 		StValidarDadosObrigatoriosPedido StValidarDadosObrigatoriosPedido = new StValidarDadosObrigatoriosPedido();
 		StAprovarPedido StAprovarPedido = new StAprovarPedido();
 		StComplementarCupom StComplementarCupom = new StComplementarCupom();
-		
+		 
 		
 		//CUPOM
 		List<IStrategy> rnsSalvarCupom = new ArrayList<IStrategy>();
@@ -196,9 +201,17 @@ public class Fachada implements IFachada {
 		//ENDERECO
 		List<IStrategy> rnsSalvarEndereco = new ArrayList<IStrategy>();
 		rnsSalvarEndereco.add(new StComplementarEnderecoEntrega());
+		rnsSalvarEndereco.add(new StValidarDadosObrigatoriosEndereco());
 		Map<String, List<IStrategy>> rnsEndereco = new HashMap<String, List<IStrategy>>();
 		rnsEndereco.put("SALVAR", rnsSalvarEndereco);	
 		rns.put(Endereco.class.getSimpleName().toUpperCase(), rnsEndereco);
+		
+		//CARTAO
+		List<IStrategy> rnsSalvarCartao = new ArrayList<IStrategy>();
+		rnsSalvarCartao.add(new StValidarDadosObrigatoriosCartao());
+		Map<String, List<IStrategy>> rnsCartao = new HashMap<String, List<IStrategy>>();
+		rnsCartao.put("SALVAR", rnsSalvarCartao);	
+		rns.put(CartaoCredito.class.getSimpleName().toUpperCase(), rnsCartao);
 		
 		
 	}
