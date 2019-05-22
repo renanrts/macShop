@@ -203,12 +203,12 @@
 
 
 				<li class="nav-item"><a class="nav-link active"
-					data-toggle="tab" href="#endereco" role="tab">Entrega</a></li>
+					data-toggle="tab" href="#endereco" role="tab">Resumo do Pedido</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#pagamento" role="tab">Formas de Pagamento</a></li>
+					href="#pagamento" role="tab">Adicionar Formas de Pagamento</a></li>
 
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#pedido" role="tab">Resumo do Pedido</a></li>
+					href="#pedido" role="tab">Adicionar Endereço de Entrega</a></li>
 
 			</ul>
 
@@ -227,39 +227,281 @@
 						<div class="container">
 							<div class="row justify-content-center">
 								<div class="col-xl-8 ftco-animate">
-
-
-
-									<form action="/macShop/Pages/endereco" method="POST"
-										class="billing-form bg-light p-3 p-md-5">
-										<h3 class="mb-4 billing-heading">Selecionar endereço de
-											entrega</h3>
+									
 										<div class="row align-items-end">
+											<div class="billing-form bg-light p-md-4">
+											<h3 class="mb-4 billing-heading">Selecionar endereço de entrega</h3>
+											<select name="end_id" id="txtCategoria" class="end_sel_id">
+											<c:forEach var="enderecoEntrega" items="${cliente.listEnderecosEntrega }">
+												<option name="end_id" class="end_sel_id" value="${enderecoEntrega.id }">${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }</option>
+											</c:forEach>
+											
+											</select>
+
+											<hr>
+											
+										<h3 class="mb-4 billing-heading">Selecionar cartão para
+											pagamento</h3>
+										
 
 											<div class="billing-form bg-light p-md-4">
-												<c:forEach var="enderecoEntrega"
-													items="${cliente.listEnderecosEntrega }">
+												<c:forEach var="cartao" items="${cliente.listCartoes }">
 													<div class="form-group">
 														<div class="col-md-12">
 															<div class="radio">
-																<label><input type="radio" name="end_id"
-																	class="end_sel_id" value="${enderecoEntrega.id }"><input
-																	value="${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }"
-																	class="endereco"
-																	${enderecoEntrega.tipoEndereco } - ${enderecoEntrega.tipoLogradouro  } - ${enderecoEntrega.logradouro }></label>
-
+																<label><input type="checkbox" name="optradio"
+																	class="mr-2">${cartao.bandeira}</label>
 															</div>
 														</div>
 													</div>
 												</c:forEach>
-
+												
 
 											</div>
-
-											<div class="w-100"></div>
+											
 											<hr>
+											
+											<h3 class="billing-heading mb-4">Cupons de Desconto</h3>
+										<div class="billing-form bg-light p-md-4">
+											<h3 class="billing-heading mb-4">Cupons de Troca</h3>
+											<c:forEach var="cupom" items="${cliente.cupons }">
+												<div class="form-group">
+													<div class="col-md-12">
+														<div class="radio">
+															<label><input type="radio" name="idcupom"
+																class="mr-2" value="${cupom.id }">ID: ${cupom.id }
+																- VALOR: R$${cupom.valor } </label>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+											<hr>
+											<h3 class="billing-heading mb-4">Cupons Promocionais</h3>
+											<c:forEach var="cupons"
+												items="${cliente.cuponsPromocionais }">
+												<div class="form-group">
+													<div class="col-md-12">
+														<div class="radio">
+															<label><input type="radio" name="idcupom"
+																class="mr-2" value="${cupons.id }">ID:
+																${cupons.id } - VALOR: R$${cupons.valor } </label>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+
+
+										</div>
+										<hr>
+										<h3 class="billing-heading mb-4">Total do Pedido</h3>
+										<div class="billing-form bg-light p-md-4">
+
+											<p class="d-flex">
+											<p>Subtotal</p>
+											<span>$20.60</span>
+											</p>
+											<p class="d-flex">
+											<p>Frete</p>
+											<span>$0.00</span>
+											</p>
+											<p class="d-flex">
+											<p>Desconto</p>
+											<span>$3.00</span>
+											</p>
+											<hr>
+											<p class="d-flex total-price">
+											<p>Total</p>
+											<span>$17.60</span>
+											</p>
+										</div>
+								</div>
+
+
+
+
+
+
+
+								<div class="w-100"></div>
+								<div class="col-md-12">
+									<div class="form-group mt-4">
+										<center>
+											<div class="header-cart-wrapbtn">
+												<!-- Button -->
+												<input type="hidden" id="FormName" name="FormName"
+													value="VHPEDIDO" /> <input type="hidden" name="cli_id"
+													class="mr-2" value="${cliente.id }">
+												<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
+													name="btnOperacao" value="SALVAR">Comprar</button>
+											</div>
+										</center>
+									</div>
+								</div>
+							</div>
+							</form>
+											
+											<!--
+											
+										<form action="#" class="billing-form bg-light p-3 p-md-5">
+										<h3 class="mb-4 billing-heading">Forma de Pagamento</h3>
+
+
+										<div class="billing-form bg-light p-md-4">
+
+											<div class="form-group">
+												<div class="col-md-12">
+													<div class="radio">
+
+														${cliente.listCartoes.get(0).id } -
+														${cliente.listCartoes.get(0).bandeira } <input
+															type="hidden" name="idcartaoPagamento1" class="mr-2"
+															value="${cliente.listCartoes.get(0).id }"> <label>
+															Parcelas </label> <input type="number" name="parcelasCartao1"
+															class="mr-2" placeholder="parcelas"> <label>
+															Valor </label> <input type="number" name="valorCartao1"
+															class="mr-2" placeholder="valor">
+													</div>
+												</div>
+											</div>
+
+
+
+										</div>
+										<hr>
+										<h3 class="mb-4 billing-heading">Endereço de Entrega</h3>
+										<div class="billing-form bg-light p-md-4">
+
+											<div class="form-group">
+												<div class="col-md-12">
+													<div class="radio">
+														<label> <input type="text"
+															id="idendereco-selecionado" name="enderecoselecionado_id"
+															class="mr-2"> <input type="text"
+															id="endereco-selecionado" name="cup_id" class="mr-2">
+														</label>
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+										<hr>		
+											
+											
+											  -->
+											
+											
+											
+										
+								<!-- END -->
+							</div>
+							<!-- .col-md-8 -->
+						</div>
+					</div>
+					</section>
+					<!-- .section -->
+
+				</div>
+				<div class="tab-pane fade" id="pagamento" role="tabpanel">
+					<section class="ftco-section">
+					<div class="container bgwhite p-t-35 p-b-80">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-xl-8 ftco-animate">
+
+									<form action="/macShop/Pages/cartao" method="POST"  class="billing-form bg-light p-3 p-md-5">
+						<h3 class="mb-4 billing-heading">Cadastrar novo cartão</h3>
+						<div class="row align-items-end">
+											<div class="w-100"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="country">Bandeira</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                      <select name="txtBandeira" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="listaBandeira" items="${baseCadastro.listaBandeira }" >
+                                                            
+                                                                      <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
+															
+																     </c:forEach>   
+																                                                           </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Número</label>
+                                                <input  type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
+                                            </div>
+                                        </div>
+
+
+                                        <div class="w-100"></div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Nome</label>
+                                             <input type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Código de Segurança</label>
+                               <input  type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Data de Vencimento</label>
+                                                <input type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
+
+                                            </div>
+                                        </div>
+											<div class="w-100"></div>
+											<div class="col-md-12">
+												<div class="form-group mt-4">
+													<center>
+														<div class="header-cart-wrapbtn">
+															<!-- Button -->
+															<input type="hidden" id="FormName" name="FormName"
+																value="VHCARTAO" /> <input type="hidden"
+																id="Direcionamento" name="Direcionamento" value="COMPRA" />
+															<input type="hidden" id="txtCliID" name="txtCliID"
+																value="${cliente.id }" />
+															<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
+																name="btnOperacao" value="SALVAR">Cadastrar</button>
+																									</form>
+																
+														</div>
+													</center>
+												</div>
+											</div>
+										</div>
+									<!-- END -->
+								</div>
+								<!-- .col-md-8 -->
+							</div>
+						</div>
+					</section>
+					<!-- .section -->
+				</div>
+				<!-- - -->
+				<div class="tab-pane fade" id="pedido" role="tabpanel">
+					<section class="ftco-section">
+					<div class="container bgwhite p-t-35 p-b-80">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-xl-8 ftco-animate">
+
+										<form action="/macShop/Pages/endereco" method="POST" class="billing-form bg-light p-3 p-md-5">
 											<h3 class="mb-4 billing-heading">Cadastrar novo endereço
 												de entrega</h3>
+											<div class="row align-items-end">
+											
+											
 											<div class="w-100"></div>
 											<div class="col-md-6">
 												<div class="form-group">
@@ -402,251 +644,9 @@
 										</div>
 								</div>
 								</form>
-								<!-- END -->
-							</div>
-							<!-- .col-md-8 -->
-						</div>
-					</div>
-					</section>
-					<!-- .section -->
 
-				</div>
-				<div class="tab-pane fade" id="pagamento" role="tabpanel">
-					<section class="ftco-section">
-					<div class="container bgwhite p-t-35 p-b-80">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-xl-8 ftco-animate">
-
-
-
-									<form action="/macShop/Pages/cartao" method="POST"  class="billing-form bg-light p-3 p-md-5">
-										<h3 class="mb-4 billing-heading">Selecionar cartão para
-											pagamento</h3>
-										<div class="row align-items-end">
-
-											<div class="billing-form bg-light p-md-4">
-												<c:forEach var="cartao" items="${cliente.listCartoes }">
-													<div class="form-group">
-														<div class="col-md-12">
-															<div class="radio">
-																<label><input type="checkbox" name="optradio"
-																	class="mr-2">${cartao.bandeira}</label>
-															</div>
-														</div>
-													</div>
-												</c:forEach>
-
-
-											</div>
-
-											<div class="w-100"></div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="country">Bandeira</label>
-                                                <div class="select-wrap">
-                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                      <select name="txtBandeira" id="txtCategoria" class="form-control">
-                                                                     <c:forEach var="listaBandeira" items="${baseCadastro.listaBandeira }" >
-                                                            
-                                                                      <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
-															
-																     </c:forEach>   
-																                                                           </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="postcodezip">Número</label>
-                                                <input  type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
-                                            </div>
-                                        </div>
-
-
-                                        <div class="w-100"></div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="postcodezip">Nome</label>
-                                             <input type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="postcodezip">Código de Segurança</label>
-                               <input  type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="form-group">
-                                                <label for="streetaddress">Data de Vencimento</label>
-                                                <input type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
-
-                                            </div>
-                                        </div>
-											<div class="w-100"></div>
-											<div class="col-md-12">
-												<div class="form-group mt-4">
-													<center>
-														<div class="header-cart-wrapbtn">
-															<!-- Button -->
-															<input type="hidden" id="FormName" name="FormName"
-																value="VHCARTAO" /> <input type="hidden"
-																id="Direcionamento" name="Direcionamento" value="COMPRA" />
-															<input type="hidden" id="cliId" name="cliId"
-																value="${cliente.id }" />
-															<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
-																name="btnOperacao" value="SALVAR">Cadastrar</button>
-														</div>
-													</center>
-												</div>
-											</div>
-										</div>
-									</form>
-									<!-- END -->
-								</div>
-								<!-- .col-md-8 -->
-							</div>
-						</div>
-					</section>
-					<!-- .section -->
-				</div>
-				<!-- - -->
-				<div class="tab-pane fade" id="pedido" role="tabpanel">
-					<section class="ftco-section">
-					<div class="container bgwhite p-t-35 p-b-80">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-xl-8 ftco-animate">
-
-
-
-									<form action="#" class="billing-form bg-light p-3 p-md-5">
-										<h3 class="mb-4 billing-heading">Forma de Pagamento</h3>
-
-
-										<div class="billing-form bg-light p-md-4">
-
-											<div class="form-group">
-												<div class="col-md-12">
-													<div class="radio">
-
-														${cliente.listCartoes.get(0).id } -
-														${cliente.listCartoes.get(0).bandeira } <input
-															type="hidden" name="idcartaoPagamento1" class="mr-2"
-															value="${cliente.listCartoes.get(0).id }"> <label>
-															Parcelas </label> <input type="number" name="parcelasCartao1"
-															class="mr-2" placeholder="parcelas"> <label>
-															Valor </label> <input type="number" name="valorCartao1"
-															class="mr-2" placeholder="valor">
-													</div>
-												</div>
-											</div>
-
-
-
-										</div>
-										<hr>
-										<h3 class="mb-4 billing-heading">Endereço de Entrega</h3>
-										<div class="billing-form bg-light p-md-4">
-
-											<div class="form-group">
-												<div class="col-md-12">
-													<div class="radio">
-														<label> <input type="text"
-															id="idendereco-selecionado" name="enderecoselecionado_id"
-															class="mr-2"> <input type="text"
-															id="endereco-selecionado" name="cup_id" class="mr-2">
-														</label>
-													</div>
-												</div>
-											</div>
-
-
-										</div>
-										<hr>
-										<h3 class="billing-heading mb-4">Cupons de Desconto</h3>
-										<div class="billing-form bg-light p-md-4">
-											<h3 class="billing-heading mb-4">Cupons de Troca</h3>
-											<c:forEach var="cupom" items="${cliente.cupons }">
-												<div class="form-group">
-													<div class="col-md-12">
-														<div class="radio">
-															<label><input type="radio" name="idcupom"
-																class="mr-2" value="${cupom.id }">ID: ${cupom.id }
-																- VALOR: R$${cupom.valor } </label>
-														</div>
-													</div>
-												</div>
-											</c:forEach>
-											<hr>
-											<h3 class="billing-heading mb-4">Cupons Promocionais</h3>
-											<c:forEach var="cupons"
-												items="${cliente.cuponsPromocionais }">
-												<div class="form-group">
-													<div class="col-md-12">
-														<div class="radio">
-															<label><input type="radio" name="idcupom"
-																class="mr-2" value="${cupons.id }">ID:
-																${cupons.id } - VALOR: R$${cupons.valor } </label>
-														</div>
-													</div>
-												</div>
-											</c:forEach>
-
-
-										</div>
-										<hr>
-										<h3 class="billing-heading mb-4">Total do Pedido</h3>
-										<div class="billing-form bg-light p-md-4">
-
-											<p class="d-flex">
-											<p>Subtotal</p>
-											<span>$20.60</span>
-											</p>
-											<p class="d-flex">
-											<p>Frete</p>
-											<span>$0.00</span>
-											</p>
-											<p class="d-flex">
-											<p>Desconto</p>
-											<span>$3.00</span>
-											</p>
-											<hr>
-											<p class="d-flex total-price">
-											<p>Total</p>
-											<span>$17.60</span>
-											</p>
-										</div>
-								</div>
-
-
-
-
-
-
-
-								<div class="w-100"></div>
-								<div class="col-md-12">
-									<div class="form-group mt-4">
-										<center>
-											<div class="header-cart-wrapbtn">
-												<!-- Button -->
-												<input type="hidden" id="FormName" name="FormName"
-													value="VHPEDIDO" /> <input type="hidden" name="cli_id"
-													class="mr-2" value="${cliente.id }">
-												<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
-													name="btnOperacao" value="SALVAR">Comprar</button>
-											</div>
-										</center>
-									</div>
-								</div>
-							</div>
-							</form>
+								
+										
 							<!-- END -->
 						</div>
 						<!-- .col-md-8 -->

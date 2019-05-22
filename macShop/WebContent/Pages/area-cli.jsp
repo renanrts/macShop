@@ -839,14 +839,7 @@
 												</center>
 											</div>
 										</div>
-								</div>
-								</form>
-
-
-
-                                                </div>
-                                           
-                                        </div>
+								 </div>
                                         </form><!-- END -->
                                     </div> <!-- .col-md-8 -->
                                 </div>
@@ -854,6 +847,8 @@
                         </section> <!-- .section -->
 
                     </div>
+                         
+
                     <div class="tab-pane fade" id="pagamento" role="tabpanel">
                         <section class="ftco-section">
                             <div class="container bgwhite p-t-35 p-b-80">
@@ -893,68 +888,74 @@
                                                     <div class="w-100"></div>
                                                     <h3 class="mb-4 billing-heading">Cadastrar novo cartão de crédito
                                                     </h3>
-                                                    <div class="row align-items-end">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="country">Bandeira</label>
-                                                                <div class="select-wrap">
-                                                                    <div class="icon"><span
-                                                                            class="ion-ios-arrow-down"></span></div>
-                                                                    <select name="" id="" class="form-control">
-                                                                        <option value="">Visa</option>
-                                                                        <option value="">Master</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label for="postcodezip">Número</label>
-                                                                <input type="text" class="form-control" placeholder="">
-                                                            </div>
-                                                        </div>
+                                                  <form action="/macShop/Pages/cartao" method="POST"  class="billing-form bg-light p-3 p-md-5">
+										
+										<div class="row align-items-end">
+
+						
+
+											<div class="w-100"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="country">Bandeira</label>
+                                                <div class="select-wrap">
+                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                      <select name="txtBandeira" id="txtCategoria" class="form-control">
+                                                                     <c:forEach var="listaBandeira" items="${baseCadastro.listaBandeira }" >
+                                                            
+                                                                      <option name="txtBandeira" value="${listaBandeira }">${listaBandeira }</option>
+															
+																     </c:forEach>   
+																                                                           </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Número</label>
+                                                <input  type="text" class="form-control" id="txtNumeroCartao" name="txtNumeroCartao" placeholder="" >
+                                            </div>
+                                        </div>
 
 
-                                                        <div class="w-100"></div>
+                                        <div class="w-100"></div>
 
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="postcodezip">Nome</label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Nome impresso no cartão">
-                                                            </div>
-                                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Nome</label>
+                                             <input type="text" class="form-control" id="txtNomeCartao" name="txtNomeCartao" placeholder="" >
 
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="postcodezip">Código de Segurança</label>
-                                                                <input type="text" class="form-control" placeholder="">
-                                                            </div>
-                                                        </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="postcodezip">Código de Segurança</label>
+                               <input  type="text" class="form-control" id="txtCodSeguranca" name="txtCodSeguranca" placeholder="" >
 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="streetaddress">Data de Vencimento</label>
+                                                <input type="date" class="form-control" id="txtDataVencimento" name="txtDataVencimento" placeholder=""  maxlength="10" autocomplete="off">
 
-
-
-
-
-
-
-                                                    </div>
-                                                    <div class="w-100"></div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group mt-4">
-                                                            <center>
-                                                                <div class="header-cart-wrapbtn">
-                                                                    <!-- Button -->
-                                                                    <a href="#"
-                                                                        class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                                                        Salvar
-                                                                    </a>
-                                                                </div>
-                                                            </center>
-                                                        </div>
-                                                    </div>
+                                            </div>
+                                        </div>
+											<div class="w-100"></div>
+											<div class="col-md-12">
+												<div class="form-group mt-4">
+													<center>
+														<div class="header-cart-wrapbtn">
+															<!-- Button -->
+															<input type="hidden" id="FormName" name="FormName"
+																value="VHCARTAO" /> <input type="hidden"
+																id="Direcionamento" name="Direcionamento" value="AreaCli" />
+															<input type="hidden" id="txtCliID" name="txtCliID"
+																value="${cliente.id }" />
+															<button class="btn mosh-btn mt-50" id="btnOperacaoSalvar"
+																name="btnOperacao" value="SALVAR">Cadastrar</button>
+											
 
                                                 </div>
                                             </form><!-- END -->
@@ -975,6 +976,11 @@
 
                                                 <h3 class="mb-4 billing-heading">Meus cupons</h3>
                                                  <div class="billing-form bg-light p-md-4">
+                                                 
+                                                 
+                                                 <c:if test="${cliente.cupons == null}">
+                                                 <h6 class="m-text20 p-b-24">Não há cupons para este cadastro.</h6>
+                                                 </c:if>
 													<c:forEach var="cupom" items="${cliente.cupons }" >
                                                         <div class="form-group">
                                                             <div class="col-md-12">

@@ -31,7 +31,7 @@ public class DAOCartao extends AbstractDAO {
 			stmt.setDate(5, Date.valueOf(cartao.getDtVenciamento()));
 			
 
-			stmt.setBoolean(6, true);
+			stmt.setBoolean(6, false);
 			stmt.setInt(7, cartao.getCliId());
 			stmt.setBoolean(8, true);
 	

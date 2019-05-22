@@ -106,66 +106,65 @@ public class DAOCliente extends AbstractDAO {
 			List<EntidadeDominio> clientes = new ArrayList<EntidadeDominio>();
 			List<Endereco> enderecos = new ArrayList<Endereco>();
 			List<CartaoCredito> cartoes = new ArrayList<CartaoCredito>();
-
-			String sql = 
-					"SELECT * from ENDERECOS AS C INNER JOIN CLIENTES AS F ON C.end_cli_Id = F.cli_id INNER JOIN CARTOES AS D ON F.cli_id = D.cart_cli_id INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id AND c.end_status = 1 AND d.cart_status = 1 AND f.cli_id = ?";
+			
+			
+			String sql = "Select * from Clientes where cli_id = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, cliente.getId());
-
 			ResultSet rs = stmt.executeQuery();
-
+			
+			
 			while (rs.next()) {
-				if (contagem == 0) {
-					cliente.setCpf(rs.getString("cli_cpf"));
-					cliente.setEmail(rs.getString("cli_email"));
-					cliente.setGenero(rs.getString("cli_genero"));
-					cliente.setNome(rs.getString("cli_nome"));
-					Calendar data = Calendar.getInstance();
-					data.setTime(rs.getDate("cli_dt_nascimento"));
-					cliente.setDataNascimento(data);
+				cliente.setCpf(rs.getString("cli_cpf"));
+				cliente.setEmail(rs.getString("cli_email"));
+				cliente.setGenero(rs.getString("cli_genero"));
+				cliente.setNome(rs.getString("cli_nome"));
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("cli_dt_nascimento"));
+				cliente.setDataNascimento(data);
 
-					Telefone telefone = new Telefone();
-					telefone.setDdd(rs.getString("cli_tel_ddd"));
-					telefone.setNumero(rs.getString("cli_tel_numero"));
-					telefone.setTipoTelefone(rs.getString("cli_tel_tipo"));
-
-					cliente.setTelefone(telefone);
-
-					CartaoCredito cart = new CartaoCredito();
-					cart.setBandeira(rs.getString("cart_bandeira"));
-					cart.setCodSeguranca(rs.getString("cart_cod"));
-					cart.setNome(rs.getString("cart_nome"));
-					cart.setNumero(rs.getString("cart_numero"));
-					cart.setPreferencial(rs.getBoolean("cart_preferencial"));
-					cart.setId(rs.getInt("cart_id"));
-					cart.setDtVenciamento(LocalDate.parse(rs.getDate("cart_vencimento").toString()));
-					cartoes.add(cart);
-
-				}
-
+				Telefone telefone = new Telefone();
+				telefone.setDdd(rs.getString("cli_tel_ddd"));
+				telefone.setNumero(rs.getString("cli_tel_numero"));
+				telefone.setTipoTelefone(rs.getString("cli_tel_tipo"));
+				cliente.setTelefone(telefone);
+				
+				clientes.add(cliente);	
+				contagem++;
+			}
+			
+			rs.close();
+			
+			
+			String sqlEnderecos = "Select * from Enderecos as C INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id AND c.end_status = 1 and end_cli_id = ?";
+			stmt = con.prepareStatement(sqlEnderecos);
+			stmt.setInt(1, cliente.getId());
+			ResultSet rsEndereco = stmt.executeQuery();
+			
+			while (rsEndereco.next()) {
 				Endereco end = new Endereco();
 
 				Estado est = new Estado();
-				est.setId(rs.getInt("est_id"));
-				est.setNome(rs.getString("est_nome"));
+				est.setId(rsEndereco.getInt("est_id"));
+				est.setNome(rsEndereco.getString("est_nome"));
 
 				Cidade cid = new Cidade();
 
 				cid.setEstado(est);
-				cid.setId(rs.getInt("cid_id"));
-				cid.setNome(rs.getString("cid_nome"));
+				cid.setId(rsEndereco.getInt("cid_id"));
+				cid.setNome(rsEndereco.getString("cid_nome"));
 
-				end.setBairro(rs.getString("end_bairro"));
-				end.setCep(rs.getString("end_cep"));
+				end.setBairro(rsEndereco.getString("end_bairro"));
+				end.setCep(rsEndereco.getString("end_cep"));
 				end.setCidade(cid);
-				end.setId(rs.getInt("end_id"));
-				end.setLogradouro(rs.getString("end_logradouro"));
-				end.setNumero(rs.getString("end_numero"));
-				end.setObservacao(rs.getString("end_obs"));
-				end.setPreferencial(rs.getBoolean("end_preferencial"));
-				end.setTipo(rs.getString("end_tipo"));
-				end.setTipoEndereco(rs.getString("end_tipo_residencia"));
-				end.setTipoLogradouro(rs.getString("end_tipo_logradouro"));
+				end.setId(rsEndereco.getInt("end_id"));
+				end.setLogradouro(rsEndereco.getString("end_logradouro"));
+				end.setNumero(rsEndereco.getString("end_numero"));
+				end.setObservacao(rsEndereco.getString("end_obs"));
+				end.setPreferencial(rsEndereco.getBoolean("end_preferencial"));
+				end.setTipo(rsEndereco.getString("end_tipo"));
+				end.setTipoEndereco(rsEndereco.getString("end_tipo_residencia"));
+				end.setTipoLogradouro(rsEndereco.getString("end_tipo_logradouro"));
 
 				if (end.getTipo().equals("ENDERECO COBRANCA")) {
 					cliente.setEnderecoCobranca(end);
@@ -174,51 +173,75 @@ public class DAOCliente extends AbstractDAO {
 				} else if (end.getTipo().equals("ENDERECO RESIDENCIAL")) {
 					cliente.setEnderecoResidencial(end);
 				}
-
-				contagem++;
+				
 			}
-
-			String sql2 = 
-					"SELECT * from CUPONS AS C INNER JOIN CLIENTES AS F ON C.CLI_ID = f.cli_id where f.cli_id = ?";
-			stmt = con.prepareStatement(sql2);
+			
+			rsEndereco.close();
+			
+			
+			String sqlCartoes = "Select * from Cartoes where cart_cli_id = ?";
+			stmt = con.prepareStatement(sqlCartoes);
 			stmt.setInt(1, cliente.getId());
+			ResultSet rsCartoes = stmt.executeQuery();
+			
+			while (rsCartoes.next()) {
+				CartaoCredito cart = new CartaoCredito();
+				cart.setBandeira(rsCartoes.getString("cart_bandeira"));
+				cart.setCodSeguranca(rsCartoes.getString("cart_cod"));
+				cart.setNome(rsCartoes.getString("cart_nome"));
+				cart.setNumero(rsCartoes.getString("cart_numero"));
+				cart.setPreferencial(rsCartoes.getBoolean("cart_preferencial"));
+				cart.setId(rsCartoes.getInt("cart_id"));
+				cart.setDtVenciamento(LocalDate.parse(rsCartoes.getDate("cart_vencimento").toString()));
+				cartoes.add(cart);
+			}
+			
+			rsCartoes.close();
+			
 
-			ResultSet rsT = stmt.executeQuery();
+			String sqlCuPOM = "SELECT * from CUPONS AS C INNER JOIN CLIENTES AS F ON C.CLI_ID = f.cli_id where f.cli_id = ? and CUP_STATUS = ?";
+			stmt = con.prepareStatement(sqlCuPOM);
+			stmt.setInt(1, cliente.getId());
+			stmt.setString(2, "ATIVO");
+			ResultSet rsTCupom = stmt.executeQuery();
 
 			List<Cupom> cupons = new ArrayList<Cupom>();
 
-			while (rsT.next()) {
+			while (rsTCupom.next()) {
 				Cupom cup = new Cupom();
 
-				cup.setId(Integer.parseInt(rsT.getString("CUP_ID")));
-				cup.setStatus(rsT.getString("CUP_STATUS"));
-				cup.setValor(Double.parseDouble(rsT.getString("CUP_VALOR")));
-				if (cup.getStatus().equals("ATIVO")) {
-					cupons.add(cup);
-				}
+				cup.setId(Integer.parseInt(rsTCupom.getString("CUP_ID")));
+				cup.setStatus(rsTCupom.getString("CUP_STATUS"));
+				cup.setValor(Double.parseDouble(rsTCupom.getString("CUP_VALOR")));
+				cupons.add(cup);
 
 			}
 			
-			String sql3 = 
-					"SELECT * from CUPONS where cli_id = 0 and CUP_Validade > ?";
-			stmt = con.prepareStatement(sql3);
+			rsTCupom.close();
+			
+			
+			String sqlCupomPromo = "SELECT * from CUPONS where cli_id = 0 and CUP_Validade > ?";
+			stmt = con.prepareStatement(sqlCupomPromo);
 			stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now().toString()));
 
-			ResultSet rsT3 = stmt.executeQuery();
+			ResultSet rstPromo = stmt.executeQuery();
 
 			List<Cupom> cuponsPromo = new ArrayList<Cupom>();
 
-			while (rsT3.next()) {
+			while (rstPromo.next()) {
 				Cupom cup = new Cupom();
 
-				cup.setId(Integer.parseInt(rsT3.getString("CUP_ID")));
-				cup.setStatus(rsT3.getString("CUP_STATUS"));
-				cup.setValor(Double.parseDouble(rsT3.getString("CUP_VALOR")));
+				cup.setId(Integer.parseInt(rstPromo.getString("CUP_ID")));
+				cup.setStatus(rstPromo.getString("CUP_STATUS"));
+				cup.setValor(Double.parseDouble(rstPromo.getString("CUP_VALOR")));
 				if (cup.getStatus().equals("ATIVO")) {
 					cuponsPromo.add(cup);
 				}
 
 			}
+			
+			rstPromo.close();
+			
 
 			cliente.setCupons(cupons);
 			cliente.setCuponsPromocionais(cuponsPromo);
@@ -228,15 +251,12 @@ public class DAOCliente extends AbstractDAO {
 			resultado.setListaResultado(clientes);
 
 			if (contagem == 0) {
-				resultado.sucesso("Nenhum produto encontrado.");
+				resultado.sucesso("Nenhum cliente encontrado.");
 			} else {
 				resultado.sucesso("");
 			}
 
 			resultado.setContagem(contagem);
-			rs.close();
-			rsT.close();
-			stmt.close();
 			return resultado;
 
 		} catch (SQLException e1) {

@@ -38,8 +38,8 @@ public class VHCartao implements IViewHelper {
 		LocalDate dataVencimento = LocalDate.parse(strDataVencimento, formatter);
 		cartao.setDtVenciamento(dataVencimento);
 		
-		if(request.getParameter("CliID") != null){
-			cartao.setCliId(Integer.parseInt(request.getParameter("CliID")));
+		if(request.getParameter("txtCliID") != null){
+			cartao.setCliId(Integer.parseInt(request.getParameter("txtCliID")));
 		}	
 				
 		return cartao;
