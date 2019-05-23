@@ -39,6 +39,7 @@ import br.com.les.negocio.StInutilizarCupom;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
 import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
+import br.com.les.negocio.StValidarCarrinhoExpirado;
 import br.com.les.negocio.StValidarDadosObrigatorios;
 import br.com.les.negocio.StValidarDadosObrigatoriosCartao;
 import br.com.les.negocio.StValidarDadosObrigatoriosCliente;
@@ -48,6 +49,7 @@ import br.com.les.negocio.StValidarDataValidadeCupom;
 import br.com.les.negocio.StValidarExistencia;
 import br.com.les.negocio.StValidarExistenciaCarrinhoSessao;
 import br.com.les.negocio.StValidarExistenciaCliente;
+import br.com.les.negocio.StValidarFormaDePagamento;
 import br.com.les.negocio.StValidarQuantidadeAIncluirOuExcluirCarrinho;
 import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.util.Resultado;
@@ -186,13 +188,25 @@ public class Fachada implements IFachada {
 		//PEDIDO
 		
 		List<IStrategy> rnsSalvarPedido = new ArrayList<IStrategy>();
-		
+		rnsSalvarPedido.add(new StValidarCarrinhoExpirado());
 		rnsSalvarPedido.add(StValidarDadosObrigatoriosPedido);
-		rnsSalvarPedido.add(StComplementarDataPedido);
+		rnsSalvarPedido.add(new StValidarFormaDePagamento());
 		rnsSalvarPedido.add(StComplementarCupom);
+		rnsSalvarPedido.add(StComplementarDataPedido);
 		rnsSalvarPedido.add(StCalcularTotalPedido);
 		rnsSalvarPedido.add(StAprovarPedido);
+		
+		
 		rnsSalvarPedido.add(StInutilizarCupom);
+		
+		
+		
+
+	
+		// listStrategySalvarCompra.add(new StValidarValorMinimoParaPagamentoComCartao());
+		// listStrategySalvarCompra.add(new StValidarValorExcendenteAoPagamento());
+		// listStrategySalvarCompra.add(new StInativarCupom());
+		// listStrategySalvarCompra.add(new StGerarCodigoCompra());
 
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	

@@ -9,11 +9,12 @@ public class Pedido extends EntidadeDominio {
 	private Double valorTotal;
 	private String status;
 	private Double frete;
-	private Integer cupom_id;
+	private Cupom cupom_id;
 	private Carrinho carrinho;
 	private List<FormaPagamento> formapagto;
 	private LocalDate dataPedido;
 	private Endereco endEntrega;
+	private List<Cupom> cuponsTroca;
 	
 	public Integer getCli_id() {
 		return cli_id;
@@ -39,10 +40,10 @@ public class Pedido extends EntidadeDominio {
 	public void setFrete(Double frete) {
 		this.frete = frete;
 	}
-	public Integer getCupom_id() {
+	public Cupom getCupom_id() {
 		return cupom_id;
 	}
-	public void setCupom_id(Integer cupom_id) {
+	public void setCupom_id(Cupom cupom_id) {
 		this.cupom_id = cupom_id;
 	}
 	public Carrinho getCarrinho() {
@@ -68,6 +69,12 @@ public class Pedido extends EntidadeDominio {
 	}
 	public void setEndEntrega(Endereco endEntrega) {
 		this.endEntrega = endEntrega;
+	}
+	public List<Cupom> getCuponsTroca() {
+		return cuponsTroca;
+	}
+	public void setCuponsTroca(List<Cupom> cuponsTroca) {
+		this.cuponsTroca = cuponsTroca;
 	}
 
 	

@@ -323,7 +323,7 @@
 													<div class="form-group">
 														<div class="col-md-12">
 															<div class="radio">
-																<label><input type="radio" name="idcupom"
+																<label><input type="radio" name="cupom-troca"
 																	class="mr-2" value="${cupom.id }">ID:
 																	${cupom.id } - VALOR: R$${cupom.valor } </label>
 															</div>

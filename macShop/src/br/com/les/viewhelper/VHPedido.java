@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.CartaoCredito;
-import br.com.les.dominio.Cliente;
 import br.com.les.dominio.Cupom;
 import br.com.les.dominio.Endereco;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.FormaPagamento;
 import br.com.les.dominio.Pedido;
+import br.com.les.dominio.TipoCupom;
 import br.com.les.util.Resultado;
 
 public class VHPedido implements IViewHelper {
@@ -23,12 +23,30 @@ public class VHPedido implements IViewHelper {
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		Pedido pedido = new Pedido();
 		FormaPagamento formapagto = new FormaPagamento();
+		FormaPagamento formapagto2 = new FormaPagamento();
 		List<FormaPagamento> listPgto = new ArrayList<FormaPagamento>();
 		CartaoCredito cart1 = new CartaoCredito();
 		CartaoCredito cart2 = new CartaoCredito();
 		Cupom cupom = new Cupom();
 		
-		
+		String[] strIdCuponsTroca = request.getParameterValues("cupom-troca");
+		    
+		    ArrayList<Cupom> cuponsSelecionados = new ArrayList<>();
+		    
+		    if( null != strIdCuponsTroca) {
+		      for (int i = 0; i < strIdCuponsTroca.length; i++) {
+		        
+		        if(strIdCuponsTroca[i] != null) {
+		          Cupom cup = new Cupom();
+		          cup.setId(Integer.parseInt(strIdCuponsTroca[i]));
+		          cup.setTipoCupom(TipoCupom.TROCA);
+		          cuponsSelecionados.add(cup);        
+		        }    
+		      }    
+		    }
+		    
+		    pedido.setCuponsTroca(cuponsSelecionados);
+
 		if(request.getParameter("pedStatus") != null)
 		{
 			pedido.setStatus(request.getParameter("pedStatus"));
@@ -48,6 +66,14 @@ public class VHPedido implements IViewHelper {
 		
 		formapagto.setCartao(cart1);
 		
+		if(request.getParameter("idcartaoPagamento2") != null)
+		{
+			cart2.setId(Integer.parseInt(request.getParameter("idcartaoPagamento2")));
+		}
+		
+		
+		formapagto2.setCartao(cart2);
+		
 		if(request.getParameter("parcelasCartao1")!=null) {
 			formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));
 		}
@@ -57,12 +83,26 @@ public class VHPedido implements IViewHelper {
 			formapagto.setValor(Double.parseDouble(request.getParameter("valorCartao1")));
 		}
 		
+		if(request.getParameter("parcelasCartao2")!=null) {
+			formapagto2.setParcela(Integer.parseInt(request.getParameter("parcelasCartao2")));
+		}
+		
+		if(request.getParameter("valorCartao2")!=null)
+		{
+			formapagto2.setValor(Double.parseDouble(request.getParameter("valorCartao2")));
+		}
+		
+		
+		
+		
+		
 		if (request.getParameter("idcupom")!=null)
 		{
 			cupom.setId(Integer.parseInt(request.getParameter("idcupom")));
 		}
 		
-		formapagto.setCupom(cupom);
+		pedido.setCupom_id(cupom);
+		
 		listPgto.add(formapagto);
 		
 		if(request.getSession().getAttribute("carrinho")!=null)
