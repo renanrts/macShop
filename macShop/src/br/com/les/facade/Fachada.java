@@ -52,6 +52,7 @@ import br.com.les.negocio.StValidarExistenciaCliente;
 import br.com.les.negocio.StValidarFormaDePagamento;
 import br.com.les.negocio.StValidarQuantidadeAIncluirOuExcluirCarrinho;
 import br.com.les.negocio.StValidarSenhasCliente;
+import br.com.les.negocio.StValidarValorExcendenteAoPagamento;
 import br.com.les.util.Resultado;
 import service.CarrinhoServico;
 
@@ -194,19 +195,11 @@ public class Fachada implements IFachada {
 		rnsSalvarPedido.add(StComplementarCupom);
 		rnsSalvarPedido.add(StComplementarDataPedido);
 		rnsSalvarPedido.add(StCalcularTotalPedido);
-		rnsSalvarPedido.add(StAprovarPedido);
-		
-		
+		rnsSalvarPedido.add(new StValidarValorExcendenteAoPagamento());
+		rnsSalvarPedido.add(StAprovarPedido);	
 		rnsSalvarPedido.add(StInutilizarCupom);
-		
-		
-		
 
-	
-		// listStrategySalvarCompra.add(new StValidarValorMinimoParaPagamentoComCartao());
-		// listStrategySalvarCompra.add(new StValidarValorExcendenteAoPagamento());
-		// listStrategySalvarCompra.add(new StInativarCupom());
-		// listStrategySalvarCompra.add(new StGerarCodigoCompra());
+
 
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	

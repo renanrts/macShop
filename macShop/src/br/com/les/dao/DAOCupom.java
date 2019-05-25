@@ -22,23 +22,22 @@ public class DAOCupom extends AbstractDAO {
 
 		Cupom cupom = (Cupom) entidade;
 
-		Random gerador = new Random();
-
-		StringBuilder codigo = new StringBuilder();
-
-		for (int i = 0; i < 5; i++) {
-			codigo.append(String.valueOf(gerador.nextInt(10)));
-		}
 
 		try {
 			
 			String sql = "INSERT INTO CUPONS (CUP_CODIGO, CUP_VALOR, CLI_ID, CUP_STATUS, CUP_TIPO, CUP_VALIDADE) " + "VALUES (?, ?, ?, ?, ?, ?)";
 
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, codigo.toString());
-
+			stmt.setString(1, cupom.getCodigo());
 			stmt.setDouble(2, cupom.getValor());
-			stmt.setInt(3, 0);
+			if (cupom.getCliId() != 0)
+			{
+				stmt.setInt(3, cupom.getCliId());
+			}
+			else
+			{
+				stmt.setInt(3, 0);
+			}
 			stmt.setString(4, "ATIVO");
 			stmt.setString(5, cupom.getTipoCupom().toString());
 			stmt.setDate(6, java.sql.Date.valueOf(cupom.getDataDeValidade().toString()));

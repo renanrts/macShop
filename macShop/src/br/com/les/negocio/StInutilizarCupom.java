@@ -1,8 +1,8 @@
 package br.com.les.negocio;
 
 import br.com.les.dao.DAOCupom;
+import br.com.les.dominio.Cupom;
 import br.com.les.dominio.EntidadeDominio;
-import br.com.les.dominio.FormaPagamento;
 import br.com.les.dominio.Pedido;
 
 public class StInutilizarCupom implements IStrategy {
@@ -10,34 +10,21 @@ public class StInutilizarCupom implements IStrategy {
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		
-		Pedido pedido = (Pedido) entidade;
+		String mensagem = "";
 		
-		DAOCupom dao = new DAOCupom();
-		
-		Double valorTotalCartoes = 0.0;
-
-		
-		for(FormaPagamento pagto: pedido.getFormapagto())
-		{
-			valorTotalCartoes += pagto.getValor();
-		}
-		
-		if (pedido.getValorTotal() > (valorTotalCartoes + pedido.getFormapagto().get(0).getCupom().getValor()))
-		{
-			return null;
-		}
-		
-		else
-		{
-			if(pedido.getFormapagto().get(0).getCupom().getValor() > pedido.getValorTotal())
-			{
-				dao.salvar(pedido);
-			}
-			dao.excluir(pedido.getFormapagto().get(0).getCupom());
-		}
-		
-		
-		return null;
+	    Pedido pedido = (Pedido) entidade;
+	    
+	    DAOCupom daoCupom = new DAOCupom();
+	    
+	    if(pedido.getCupom_id().getId().equals(0)) {
+	      daoCupom.excluir(pedido.getCupom_id());
+	    }
+	    
+	    for (int i = 0; i < pedido.getCuponsTroca().size(); i++) {
+	      Cupom cupomAdesativar = pedido.getCuponsTroca().get(i);
+	      daoCupom.excluir(cupomAdesativar);  
+	    }
+	       
+	    return mensagem;
+	  }
 	}
-
-}

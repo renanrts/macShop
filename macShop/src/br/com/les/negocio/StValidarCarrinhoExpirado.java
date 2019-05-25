@@ -10,7 +10,7 @@ public class StValidarCarrinhoExpirado implements IStrategy {
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		StringBuilder mensagem = new StringBuilder();
-	    mensagem.append("");
+	 
 	    Pedido pedido = (Pedido) entidade;
 	    Carrinho carrinho = pedido.getCarrinho();
 	    if(null == carrinho) {
@@ -29,6 +29,10 @@ public class StValidarCarrinhoExpirado implements IStrategy {
 	        }
 	      } 
 	    }
+	    
+	    if(mensagem.length() == 0){
+			return null;
+		}
 	    
 	    return mensagem.toString();
 	}

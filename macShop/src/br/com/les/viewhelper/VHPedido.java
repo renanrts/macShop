@@ -28,108 +28,101 @@ public class VHPedido implements IViewHelper {
 		CartaoCredito cart1 = new CartaoCredito();
 		CartaoCredito cart2 = new CartaoCredito();
 		Cupom cupom = new Cupom();
-		
-		String[] strIdCuponsTroca = request.getParameterValues("cupom-troca");
-		    
-		    ArrayList<Cupom> cuponsSelecionados = new ArrayList<>();
-		    
-		    if( null != strIdCuponsTroca) {
-		      for (int i = 0; i < strIdCuponsTroca.length; i++) {
-		        
-		        if(strIdCuponsTroca[i] != null) {
-		          Cupom cup = new Cupom();
-		          cup.setId(Integer.parseInt(strIdCuponsTroca[i]));
-		          cup.setTipoCupom(TipoCupom.TROCA);
-		          cuponsSelecionados.add(cup);        
-		        }    
-		      }    
-		    }
-		    
-		    pedido.setCuponsTroca(cuponsSelecionados);
 
-		if(request.getParameter("pedStatus") != null)
-		{
+		String[] strIdCuponsTroca = request.getParameterValues("cupom-troca");
+
+		ArrayList<Cupom> cuponsSelecionados = new ArrayList<>();
+
+		if (null != strIdCuponsTroca) {
+			for (int i = 0; i < strIdCuponsTroca.length; i++) {
+
+				if (strIdCuponsTroca[i] != null) {
+					Cupom cup = new Cupom();
+					cup.setId(Integer.parseInt(strIdCuponsTroca[i]));
+					cup.setTipoCupom(TipoCupom.TROCA);
+					cuponsSelecionados.add(cup);
+				}
+			}
+		}
+
+		pedido.setCuponsTroca(cuponsSelecionados);
+
+		if (request.getParameter("pedStatus") != null) {
 			pedido.setStatus(request.getParameter("pedStatus"));
 		}
-		
-		
-		if(request.getParameter("idcartaoPagamento1") != null)
-		{
+
+		if (request.getParameter("idcartaoPagamento1") != null) {
 			cart1.setId(Integer.parseInt(request.getParameter("idcartaoPagamento1")));
 		}
-		
-		if (request.getParameter("pedID") != null)
-		{
+
+		if (request.getParameter("pedID") != null) {
 			pedido.setId(Integer.parseInt(request.getParameter("pedID")));
 		}
-		
-		
+
 		formapagto.setCartao(cart1);
-		
-		if(request.getParameter("idcartaoPagamento2") != null)
-		{
+
+		if (request.getParameter("idcartaoPagamento2") != null) {
 			cart2.setId(Integer.parseInt(request.getParameter("idcartaoPagamento2")));
 		}
-		
-		
+
 		formapagto2.setCartao(cart2);
-		
-		if(request.getParameter("parcelasCartao1")!=null) {
+
+		if (request.getParameter("parcelasCartao1") != null) {
 			formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));
 		}
-		
-		if(request.getParameter("valorCartao1")!=null)
-		{
+
+		if (request.getParameter("valorCartao1") != null) {
 			formapagto.setValor(Double.parseDouble(request.getParameter("valorCartao1")));
 		}
-		
-		if(request.getParameter("parcelasCartao2")!=null) {
-			formapagto2.setParcela(Integer.parseInt(request.getParameter("parcelasCartao2")));
+
+		if (request.getParameter("parcelasCartao2") != null) {
+			if (request.getParameter("valorCartao2") == "") {
+				formapagto2.setValor(0.0);
+			} else {
+				formapagto2.setParcela(Integer.parseInt(request.getParameter("parcelasCartao2")));
+			}
+
 		}
-		
-		if(request.getParameter("valorCartao2")!=null)
-		{
-			formapagto2.setValor(Double.parseDouble(request.getParameter("valorCartao2")));
+
+		if (request.getParameter("valorCartao2") != null) {
+			if (request.getParameter("valorCartao2") == "") {
+				formapagto2.setValor(0.0);
+			} else {
+				formapagto2.setValor(Double.parseDouble(request.getParameter("valorCartao2")));
+			}
+
 		}
-		
-		
-		
-		
-		
-		if (request.getParameter("idcupom")!=null)
-		{
+
+		if (request.getParameter("idcupom") != null) {
 			cupom.setId(Integer.parseInt(request.getParameter("idcupom")));
 		}
-		
+
 		pedido.setCupom_id(cupom);
-		
+
 		listPgto.add(formapagto);
-		
-		if(request.getSession().getAttribute("carrinho")!=null)
-		{
+		listPgto.add(formapagto2);
+
+		if (request.getSession().getAttribute("carrinho") != null) {
 			pedido.setCarrinho((Carrinho) request.getSession().getAttribute("carrinho"));
 		}
-		
+
 		pedido.setFormapagto(listPgto);
-		
-		if(request.getParameter("cli_id")!=null)
-		{
+
+		if (request.getParameter("cli_id") != null) {
 			pedido.setCli_id(Integer.parseInt(request.getParameter("cli_id")));
 		}
-		
-		if(request.getParameter("enderecoselecionado_id")!=null)
-		{
-			Endereco end = new Endereco();	
+
+		if (request.getParameter("enderecoselecionado_id") != null) {
+			Endereco end = new Endereco();
 			end.setId(Integer.parseInt(request.getParameter("enderecoselecionado_id")));
 			pedido.setEndEntrega(end);
 		}
-		
-		if(request.getSession().getAttribute("frete") != null)
-		{
-			
+
+		if (request.getSession().getAttribute("frete") != null) {
+
 			pedido.setFrete((Double) request.getSession().getAttribute("frete"));
 		}
-		
+
 		return pedido;
 	}
 
@@ -137,64 +130,55 @@ public class VHPedido implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
 		String operacao = request.getParameter("btnOperacao");
-		String mensagem[] = resultado.getMensagem().split("\n");		
-		
-		if(resultado.getErro())
+		String mensagem[] = resultado.getMensagem().split("\n");
+
+		if (resultado.getErro())
 			request.setAttribute("erro", mensagem);
 		else
 			request.setAttribute("sucesso", mensagem);
-	
-		
-		
+
 		try {
-			if(operacao.equals("SALVAR")){
-				if(resultado.getErro()) {
+			if (operacao.equals("SALVAR")) {
+				if (resultado.getErro()) {
 					RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
 					rd.forward(request, response);
-				}
-				else {
+				} else {
 					request.getSession().setAttribute("carrinho", null);
 					request.getSession().setAttribute("frete", 0.0);
 					request.getSession().setAttribute("cep", "");
 					RequestDispatcher rd = request.getRequestDispatcher("sucesso.jsp");
 					rd.forward(request, response);
 				}
-			
-			}
-			else if(operacao.equals("CONSULTAR")){	
+
+			} else if (operacao.equals("CONSULTAR")) {
 				request.setAttribute("pedidos", resultado.getListaResultado());
-				if(request.getParameter("Direcionamento").equals("CLIENTE"))
-				{
+				if (request.getParameter("Direcionamento").equals("CLIENTE")) {
 					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
 					rd.forward(request, response);
-				}
-				else
-					
+				} else
+
 				{
 					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
 					rd.forward(request, response);
 				}
-				
-			}
-			else if(operacao.equals("VISUALIZAR")){
-					request.setAttribute("pedidos", resultado.getListaResultado());
-					RequestDispatcher rd = request.getRequestDispatcher("detalhes-compra.jsp");
-					rd.forward(request, response);
 
-			}
-			else if(operacao.equals("INATIVAR")){
-								
-					RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
-					rd.forward(request, response);
+			} else if (operacao.equals("VISUALIZAR")) {
+				request.setAttribute("pedidos", resultado.getListaResultado());
+				RequestDispatcher rd = request.getRequestDispatcher("detalhes-compra.jsp");
+				rd.forward(request, response);
 
-			}
-			else if(operacao.equals("ALTERAR")){
-				
+			} else if (operacao.equals("INATIVAR")) {
+
+				RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");
+				rd.forward(request, response);
+
+			} else if (operacao.equals("ALTERAR")) {
+
 				RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
 				rd.forward(request, response);
 
-		}
-			
+			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

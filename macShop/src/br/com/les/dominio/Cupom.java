@@ -11,6 +11,7 @@ public class Cupom extends EntidadeDominio {
 	private String status;
 	private TipoCupom tipoCupom;
 	private LocalDate dataDeValidade; 
+	private Integer cliId;
 	
 	public String getCodigo() {
 		return codigo;
@@ -41,6 +42,12 @@ public class Cupom extends EntidadeDominio {
 	}
 	public void setDataDeValidade(LocalDate dataDeValidade) {
 		this.dataDeValidade = dataDeValidade;
+	}
+	public Integer getCliId() {
+		return cliId;
+	}
+	public void setCliId(Integer cliId) {
+		this.cliId = cliId;
 	}
 	
 	

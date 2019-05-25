@@ -11,7 +11,7 @@ public class StValidarFormaDePagamento implements IStrategy {
 
 	@Override
 	public String processar(EntidadeDominio entidade) {
-		 String mensagem = "";
+		 String mensagem = null;
 		    Pedido pedido = (Pedido) entidade;
 		   
 		    Cupom cupomPromocional = pedido.getCupom_id();
@@ -39,6 +39,10 @@ public class StValidarFormaDePagamento implements IStrategy {
 		    if(!usouCartao && !usouCupomPromocional && !usouCupomTroca) {
 		      mensagem = "Selecione uma forma de pagamento";
 		    }
+		    
+		    if(mensagem.length() == 0){
+				return null;
+			}
 		    
 		    return mensagem;
 	}
