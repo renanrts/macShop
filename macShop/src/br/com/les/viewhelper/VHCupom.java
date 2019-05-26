@@ -3,6 +3,7 @@ package br.com.les.viewhelper;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +25,18 @@ public class VHCupom implements IViewHelper {
 		if (request.getParameter("codCupom") != null) {
 			cupom.setCodigo(request.getParameter("codCupom"));
 		}
+		
+		if(request.getParameter("codCupom") == null) {
+		        
+		    	Random gerador = new Random();
+		    	StringBuilder codigo = new StringBuilder();
+		    	
+		        for (int i = 0; i < 5; i++) {
+					codigo.append(String.valueOf(gerador.nextInt(10)));
+				}
+		        
+		        cupom.setCodigo(codigo.toString());
+		}
 
 		if (request.getParameter("txtDataVencimento") != null) {
 			String strDataVencimento = null != request.getParameter("txtDataVencimento")
@@ -42,6 +55,11 @@ public class VHCupom implements IViewHelper {
 
 		if (request.getParameter("txtId") != null) {
 			cupom.setId(Integer.parseInt(request.getParameter("txtId")));
+		}
+		
+		if(request.getParameter("cliId") == null)
+		{
+			cupom.setCliId(0);
 		}
 
 		cupom.setValor(Double.parseDouble(request.getParameter("txtValor")));

@@ -121,39 +121,47 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		
 		@Override
 		  public void init() {
-		    System.out.println("contextInitialized");
+			   System.out.println("contextInitialized");
 
-		    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
-		    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
+			    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
+			    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
 
 
-		    HashMap<String, Carrinho> mapProdutosDesbloqueados = new HashMap<>();     
-		    getServletContext().setAttribute("desbloqueio", mapProdutosDesbloqueados);
+			    HashMap<String, Carrinho> mapProdutosDesbloqueados = new HashMap<>();     
+			    getServletContext().setAttribute("desbloqueio", mapProdutosDesbloqueados);
 
-		    SchedulerFactory shedFact = new StdSchedulerFactory();
-		    try {
-		           Scheduler scheduler = shedFact.getScheduler();
-		           scheduler.start();
-		         JobDataMap jobDataMap = new JobDataMap();
-		         jobDataMap.put("servletContext", getServletContext());
-		           JobDetail job = JobBuilder.newJob(StValidarItensCarrinhoComTempoExpirado.class)
-		                         .withIdentity("validadorJOB", "grupo01")
-		                         .usingJobData(jobDataMap)
-		                         .build();
-		           
-		          JobDetail jobAprovarOuReprovarCompra = JobBuilder.newJob(StAprovarOuReprovarCompra.class)
-		                                                .withIdentity("validadorOperadora", "grupo01")
-		                                                .usingJobData(jobDataMap)
-		                                                .build();
-		           Trigger trigger = TriggerBuilder.newTrigger()
-		                         .withIdentity("validadorTRIGGER","grupo01")
-		                         .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
-		                         .build();
-		           scheduler.scheduleJob(job, trigger);
-		           
-		  } catch (SchedulerException e) {
-		      e.printStackTrace();
-		  }
+			    SchedulerFactory shedFact = new StdSchedulerFactory();
+			    try {
+			           Scheduler scheduler = shedFact.getScheduler();
+			           Scheduler scheduler2 = shedFact.getScheduler();
+			           scheduler.start();
+			           scheduler2.start();
+			         JobDataMap jobDataMap = new JobDataMap();
+			         jobDataMap.put("servletContext", getServletContext());
+			           JobDetail job = JobBuilder.newJob(StValidarItensCarrinhoComTempoExpirado.class)
+			                         .withIdentity("validadorJOB", "grupo01")
+			                         .usingJobData(jobDataMap)
+			                         .build();
+			           
+			          JobDetail jobAprovarOuReprovarCompra = JobBuilder.newJob(StAprovarOuReprovarCompra.class)
+			                                                .withIdentity("validadorOperadora", "grupo02")
+			                                                .usingJobData(jobDataMap)
+			                                                .build();
+			           Trigger trigger = TriggerBuilder.newTrigger()
+			                         .withIdentity("validadorTRIGGER","grupo01")
+			                         .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
+			                         .build();
+			           Trigger trigger2 = TriggerBuilder.newTrigger()
+			               .withIdentity("validadorTRIGGER2","grupo02")
+//			               .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 0 ? * * * "))
+			             .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
+			               .build();
+			           scheduler.scheduleJob(job, trigger);
+			           scheduler2.scheduleJob(jobAprovarOuReprovarCompra, trigger2);
+			           
+			  } catch (SchedulerException e) {
+			      e.printStackTrace();
+			  }
 		      
 		      
 		    

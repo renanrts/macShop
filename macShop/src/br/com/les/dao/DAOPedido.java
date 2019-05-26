@@ -511,4 +511,48 @@ public class DAOPedido extends AbstractDAO {
 		return null;
 	}
 
+	public void aprovarCompra() {
+		String sql = "UPDATE PEDIDOS set ped_status = ? WHERE ped_status = ? ";
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		
+	    try {
+	      stmt = con.prepareStatement(sql);
+	      stmt.setString(1, StatusPedido.EMPROCESSAMENTO.getDescription());
+	      stmt.setString(2, StatusPedido.APROVADO.getDescription());
+	      
+	      stmt.executeUpdate();
+	      
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+		
+	}
+
+	public void reprovarCompra() {
+		String sql = "UPDATE PEDIDOS set ped_status = ? WHERE ped_status = ? ";
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		
+	    try {
+	      stmt = con.prepareStatement(sql);
+	      stmt.setString(1, StatusPedido.EMPROCESSAMENTO.getDescription());
+	      stmt.setString(2, StatusPedido.REPROVADO.getDescription());
+	      
+	      stmt.executeUpdate();
+	      
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+		
+	}
+
 }

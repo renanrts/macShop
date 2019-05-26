@@ -19,6 +19,8 @@ public class StValidarFormaDePagamento implements IStrategy {
 		    boolean usouCupomPromocional = false;
 		    boolean usouCupomTroca = false;
 		    boolean usouCartao = false;
+		    boolean cart1 = false;
+		    boolean cart2 = false;
 		    
 		    for(Cupom cupom : cuponsTroca) {
 		      if(!cupom.getId().equals(0)) {
@@ -32,7 +34,15 @@ public class StValidarFormaDePagamento implements IStrategy {
 		    CartaoCredito cartao1 = (CartaoCredito) pedido.getFormapagto().get(0).getCartao();
 		    CartaoCredito cartao2 = (CartaoCredito) pedido.getFormapagto().get(1).getCartao();
 		    
+		    cart1 = cartao1.getId().equals(0) ? false : true;
+		    cart2 = cartao2.getId().equals(0) ? false : true;
 		    
+		    if (cart1 == false && cartao2.getId().equals(0) && !usouCupomPromocional && !usouCupomTroca)
+		    {
+		    	mensagem = "Por favor escolha a bandeira do cartão ou cadastre um novo";
+		    }
+		    	
+		    	
 		    usouCartao = cartao1.getId().equals(0) 
 		        && cartao2.getId().equals(0) ? false : true;
 		    
