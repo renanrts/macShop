@@ -3,6 +3,8 @@ package br.com.les.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Random;
 
 import br.com.les.dominio.Cupom;
@@ -143,7 +145,7 @@ public class DAOCupom extends AbstractDAO {
 				cupom.setId(Integer.parseInt(rs.getString("cup_id")));
 				cupom.setStatus(rs.getString("cup_status"));
 				cupom.setValor(Double.parseDouble(rs.getString("cup_valor")));
-
+				cupom.setDataDeValidade(rs.getDate("CUP_validade").toLocalDate());
 			}
 
 			rs.close();

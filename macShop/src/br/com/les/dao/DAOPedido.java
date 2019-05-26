@@ -17,6 +17,7 @@ import br.com.les.dominio.Estado;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
+import br.com.les.dominio.StatusPedido;
 import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
@@ -40,9 +41,9 @@ public class DAOPedido extends AbstractDAO {
 			stmt.setInt(1, pedido.getCli_id());
 			stmt.setInt(2, pedido.getEndEntrega().getId());
 			stmt.setDouble(3, pedido.getValorTotal());
-			stmt.setString(4, pedido.getStatus());
+			stmt.setString(4, StatusPedido.EMPROCESSAMENTO.getDescription());
 			stmt.setDouble(5, pedido.getFrete());
-			stmt.setInt(6, pedido.getFormapagto().get(0).getCupom().getId());
+			stmt.setInt(6, pedido.getCupom_id().getId());
 			stmt.setDate(7, java.sql.Date.valueOf(pedido.getDataPedido().toString()));
 
 			stmt.execute();
@@ -78,16 +79,19 @@ public class DAOPedido extends AbstractDAO {
 			for (int i = 0; i < pedido.getFormapagto().size(); i++) {
 				String sql3 = "INSERT INTO Form_pagto (cart_id, Form_pagto_psrcelas, Form_pagto_valor, ped_id) "
 						+ "VALUES (?, ?, ?, ?)";
+				if(pedido.getFormapagto().get(i).getValor() != 0)
+				{
+					PreparedStatement stmt3 = con.prepareStatement(sql3);
+					stmt3.setInt(1, pedido.getFormapagto().get(i).getCartao().getId());
+					stmt3.setInt(2, pedido.getFormapagto().get(i).getParcela());
+					stmt3.setDouble(3, pedido.getFormapagto().get(i).getValor());
+					stmt3.setInt(4, pedido.getId());
 
-				PreparedStatement stmt3 = con.prepareStatement(sql3);
-				stmt3.setInt(1, pedido.getFormapagto().get(i).getCartao().getId());
-				stmt3.setInt(2, pedido.getFormapagto().get(i).getParcela());
-				stmt3.setDouble(3, pedido.getFormapagto().get(0).getValor());
-				stmt3.setInt(4, pedido.getId());
+					stmt3.execute();
 
-				stmt3.execute();
-
-				stmt3.close();
+					stmt3.close();
+				}
+			
 			}
 
 			for (ItemCarrinho item : pedido.getCarrinho().getItensCarrinho()) {

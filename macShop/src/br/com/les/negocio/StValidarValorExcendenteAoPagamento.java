@@ -11,6 +11,7 @@ import br.com.les.dominio.TipoCupom;
 
 public class StValidarValorExcendenteAoPagamento implements IStrategy {
 
+	@SuppressWarnings("unused")
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		  Pedido pedido = (Pedido) entidade;
@@ -19,7 +20,7 @@ public class StValidarValorExcendenteAoPagamento implements IStrategy {
 	      String mensagem = null;
 	      LocalDate dataValidade = LocalDate.MIN;
 	      
-	      double totalAPagar = pedido.getValorTotal() + pedido.getFrete();
+	      double totalAPagar = pedido.getValorTotal();
 	      double valorCartao1 = pedido.getFormapagto().get(0).getValor();
 	      double valorCartao2 = pedido.getFormapagto().get(1).getValor();
 	      
@@ -69,7 +70,7 @@ public class StValidarValorExcendenteAoPagamento implements IStrategy {
 	        daoCupom.salvar(novoCupom);       
 	      }
 	      
-	      if(mensagem.length() == 0){
+	      if(mensagem == null){
 				return null;
 			}
 	      

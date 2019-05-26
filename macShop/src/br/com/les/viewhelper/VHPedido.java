@@ -68,11 +68,19 @@ public class VHPedido implements IViewHelper {
 		formapagto2.setCartao(cart2);
 
 		if (request.getParameter("parcelasCartao1") != null) {
+			if (request.getParameter("parcelasCartao1") == "") {
+				formapagto.setParcela(0);
+			} else {
 			formapagto.setParcela(Integer.parseInt(request.getParameter("parcelasCartao1")));
+			}
 		}
 
 		if (request.getParameter("valorCartao1") != null) {
+			if (request.getParameter("valorCartao1") == "") {
+				formapagto.setValor(0.0);
+			} else {
 			formapagto.setValor(Double.parseDouble(request.getParameter("valorCartao1")));
+			}
 		}
 
 		if (request.getParameter("parcelasCartao2") != null) {
@@ -87,6 +95,7 @@ public class VHPedido implements IViewHelper {
 		if (request.getParameter("valorCartao2") != null) {
 			if (request.getParameter("valorCartao2") == "") {
 				formapagto2.setValor(0.0);
+				formapagto2.setParcela(0);
 			} else {
 				formapagto2.setValor(Double.parseDouble(request.getParameter("valorCartao2")));
 			}
@@ -95,6 +104,11 @@ public class VHPedido implements IViewHelper {
 
 		if (request.getParameter("idcupom") != null) {
 			cupom.setId(Integer.parseInt(request.getParameter("idcupom")));
+		}
+		
+		if (request.getParameter("idcupom") == null) {
+			cupom.setId(0);
+			cupom.setValor(0.0);
 		}
 
 		pedido.setCupom_id(cupom);

@@ -40,7 +40,7 @@ public class StValidarFormaDePagamento implements IStrategy {
 		      mensagem = "Selecione uma forma de pagamento";
 		    }
 		    
-		    if(mensagem.length() == 0){
+		    if(mensagem == null){
 				return null;
 			}
 		    

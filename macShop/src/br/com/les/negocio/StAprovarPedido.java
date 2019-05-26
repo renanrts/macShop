@@ -21,6 +21,11 @@ public class StAprovarPedido implements IStrategy {
 		for (int i = 0; i < pedido.getCuponsTroca().size(); i++) {
 			valorTotalCupons += pedido.getCuponsTroca().get(i).getValor();
 		}
+		
+		if (pedido.getCupom_id().getId().equals(0))
+		{
+			pedido.getCupom_id().setValor(0.0);
+		}
 
 		valorTotalCupons += pedido.getCupom_id().getValor();
 
