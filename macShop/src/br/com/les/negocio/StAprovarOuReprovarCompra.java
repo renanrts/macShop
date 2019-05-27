@@ -21,7 +21,7 @@ public class StAprovarOuReprovarCompra implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		 System.out.println("StAprovarOuReprovarCompra ");
 		 Random random = new Random();
-		 Integer analisarPedido = random.nextInt(10);
+		 Integer analisarPedido = random.nextInt(3);
 		    DAOPedido daoPedido = new DAOPedido();
 		    if(analisarPedido % 2 == 0) {
 		      

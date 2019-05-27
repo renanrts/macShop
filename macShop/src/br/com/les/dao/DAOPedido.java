@@ -518,10 +518,14 @@ public class DAOPedido extends AbstractDAO {
 		
 	    try {
 	      stmt = con.prepareStatement(sql);
-	      stmt.setString(1, StatusPedido.EMPROCESSAMENTO.getDescription());
-	      stmt.setString(2, StatusPedido.APROVADO.getDescription());
+	      stmt.setString(1, StatusPedido.APROVADO.getDescription());
+	      stmt.setString(2, StatusPedido.EMPROCESSAMENTO.getDescription());
 	      
 	      stmt.executeUpdate();
+	      
+	      DAOProdxPed daoItens = new DAOProdxPed();
+	      
+	      daoItens.aprovar();
 	      
 
 	    } catch (Exception e) {
@@ -537,14 +541,18 @@ public class DAOPedido extends AbstractDAO {
 		String sql = "UPDATE PEDIDOS set ped_status = ? WHERE ped_status = ? ";
 		con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
-		
+		Pedido pedido = new Pedido();
 	    try {
-	      stmt = con.prepareStatement(sql);
-	      stmt.setString(1, StatusPedido.EMPROCESSAMENTO.getDescription());
-	      stmt.setString(2, StatusPedido.REPROVADO.getDescription());
+	     stmt = con.prepareStatement(sql);
+	      stmt.setString(1, StatusPedido.REPROVADO.getDescription());
+	      stmt.setString(2, StatusPedido.EMPROCESSAMENTO.getDescription());
 	      
 	      stmt.executeUpdate();
+	    
+
 	      
+	      DAOProdxPed daoItens = new DAOProdxPed();
+	      daoItens.reprovar();
 
 	    } catch (Exception e) {
 	      e.printStackTrace();

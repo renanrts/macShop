@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
 import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
@@ -25,7 +26,27 @@ public class DAOProdxPed extends AbstractDAO {
 
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
+		Resultado resultado = new Resultado();
+		
+	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    
+	    con = ConnectionFactory.getConnection();
+	    
+		PreparedStatement pst = null;
+	    
+	    try {
+	      pst = con.prepareStatement(sql);
+	      pst.setString(1, "APROVADO");   
+	      pst.setString(2, "ATIVO");
+	      
+	      pst.executeQuery();
+	      
+	    } catch (Exception e) {
+	      resultado.erro("Erro ao consultar itens em processamento");
+	      e.printStackTrace();
+	    }finally {
+			ConnectionFactory.closeConnection(pst, con);
+		}
 		return null;
 	}
 
@@ -85,7 +106,64 @@ public class DAOProdxPed extends AbstractDAO {
 	    }finally {
 			ConnectionFactory.closeConnection(stmt, con);
 		}
+
+	    
+	    
+	    
+	    
 	    return resultado;
+	}
+
+	public void reprovar() {
+		Resultado resultado = new Resultado();
+		
+	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    
+	    con = ConnectionFactory.getConnection();
+	    
+		PreparedStatement pst = null;
+	    
+	    try {
+	      pst = con.prepareStatement(sql);
+	      pst.setString(1, "REPROVADO");   
+	      pst.setString(2, "ATIVO");
+	      
+	      pst.executeQuery();
+	      
+	    } catch (Exception e) {
+	      resultado.erro("Erro ao consultar itens em processamento");
+	      e.printStackTrace();
+	    }finally {
+			ConnectionFactory.closeConnection(pst, con);
+		}
+
+		
+	}
+
+	public Resultado aprovar() {
+	Resultado resultado = new Resultado();
+		
+	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    
+	    con = ConnectionFactory.getConnection();
+	    
+		PreparedStatement pst = null;
+	    
+	    try {
+	      pst = con.prepareStatement(sql);
+	      pst.setString(1, "APROVADO");   
+	      pst.setString(2, "ATIVO");
+	      
+	      pst.executeQuery();
+	      
+	    } catch (Exception e) {
+	      resultado.erro("Erro ao consultar itens em processamento");
+	      e.printStackTrace();
+	    }finally {
+			ConnectionFactory.closeConnection(pst, con);
+		}
+		return null;
+		
 	}
 
 }
