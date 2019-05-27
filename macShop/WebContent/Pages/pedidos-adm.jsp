@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -247,19 +250,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="pedido" items="${pedidos }" >
                         <tr>
 
-                            <td>001</td>
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
+                            <td>${pedido.id }</td>
+                            <td>${pedido.cli_id }</td>
+                            <td>${pedido.dataPedido }</td>
+                            <td>R$${pedido.valorTotal}</td>
+                            <td>${pedido.status}</td>
+                            <c:if test="${pedido.status == 'Aprovado'}">
                             <td>
                                 <a href="#transporte" class="confirm" data-toggle="modal"
                                     style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
                                         title="Add" style="display:inline-block">check</i></a>
 
                             </td>
+                            </c:if>
                             <td>
                                 <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
                                         class="material-icons" data-toggle="tooltip" title="Add"
@@ -275,119 +281,8 @@
                             </td>
 
                         </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-                            <td>
-                                <a href="#transporte" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">check</i></a>
-
-                            </td>
-                            <td>
-                                <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-                            <td>
-                                <a href="#transporte" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">check</i></a>
-
-                            </td>
-                            <td>
-                                <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-                            <td>
-                                <a href="#transporte" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">check</i></a>
-
-                            </td>
-                            <td>
-                                <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>002</td>
-                            <td>001</td>
-                            <td>xx/xx/xxxx</td>
-                            <td>R$1.000,00</td>
-                            <td>Entregue</td>
-                            <td>
-                                <a href="#transporte" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">check</i></a>
-
-                            </td>
-                            <td>
-                                <a href="#entrega" class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-
-                            </td>
-
-                            <td>
-                                <a href="#addEstoque" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">search</i></a>
-
-                            </td>
-
-
-                        </tr>
+                        </c:forEach>
+                       
 
                     </tbody>
                 </table>

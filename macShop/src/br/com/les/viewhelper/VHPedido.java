@@ -125,6 +125,7 @@ public class VHPedido implements IViewHelper {
 		if (request.getParameter("cli_id") != null) {
 			pedido.setCli_id(Integer.parseInt(request.getParameter("cli_id")));
 		}
+		pedido.setTipo(request.getParameter("Direcionamento"));
 
 		if (request.getParameter("enderecoselecionado_id") != null) {
 			Endereco end = new Endereco();
@@ -172,7 +173,7 @@ public class VHPedido implements IViewHelper {
 				} else
 
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("pedidos-adm.jsp");
 					rd.forward(request, response);
 				}
 
