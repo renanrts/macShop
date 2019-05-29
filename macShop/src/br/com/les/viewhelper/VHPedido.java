@@ -189,8 +189,16 @@ public class VHPedido implements IViewHelper {
 
 			} else if (operacao.equals("ALTERAR")) {
 
-				RequestDispatcher rd = request.getRequestDispatcher("area-cli.jsp");
-				rd.forward(request, response);
+				request.setAttribute("pedidos", resultado.getListaResultado());
+				if (request.getParameter("Direcionamento").equals("CLIENTE")) {
+					RequestDispatcher rd = request.getRequestDispatcher("pedidos-cli.jsp");
+					rd.forward(request, response);
+				} else
+
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN");
+					rd.forward(request, response);
+				}
 
 			}
 

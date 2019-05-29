@@ -84,7 +84,7 @@
                                     <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
                                     <li><a href="troca.jsp">Consultar Trocas</a></li>
-                                    <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
+                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>
@@ -260,10 +260,13 @@
                             <td>${pedido.status}</td>
                             <c:if test="${pedido.status == 'Aprovado'}">
                             <td>
-                                <a href="#transporte" class="confirm" data-toggle="modal"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block">check</i></a>
-
+                                  <form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
+                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="ADMIN" />
+                        				  <input type="hidden" id="pedStatus" name="pedStatus" value="${pedido.status }" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="ALTERAR">
+            					   </form>  
                             </td>
                             </c:if>
                             <td>

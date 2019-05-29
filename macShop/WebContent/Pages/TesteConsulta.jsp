@@ -84,7 +84,7 @@
                                     <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
                                     <li><a href="troca.jsp">Consultar Trocas</a></li>
-                                    <li><a href="pedidos-adm.jsp">Consultar Pedidos</a></li>
+                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>

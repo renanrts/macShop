@@ -24,6 +24,7 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
 import br.com.les.negocio.IStrategy;
+import br.com.les.negocio.StAlterarStatusPedido;
 import br.com.les.negocio.StAprovarPedido;
 import br.com.les.negocio.StCalcularTotalPedido;
 import br.com.les.negocio.StComplementarCategoria;
@@ -199,10 +200,12 @@ public class Fachada implements IFachada {
 		rnsSalvarPedido.add(StAprovarPedido);	
 		rnsSalvarPedido.add(StInutilizarCupom);
 
-
+		List<IStrategy> rnsAlterarPedido = new ArrayList<IStrategy>();
+		rnsAlterarPedido.add(new StAlterarStatusPedido());
 
 		Map<String, List<IStrategy>> rnsPedido = new HashMap<String, List<IStrategy>>();
 		rnsPedido.put("SALVAR", rnsSalvarPedido);	
+		rnsPedido.put("ALTERAR", rnsAlterarPedido);
 		rns.put(Pedido.class.getSimpleName().toUpperCase(), rnsPedido);
 		
 		//ENDERECO
@@ -310,7 +313,7 @@ public Resultado validarStrategys(EntidadeDominio entidade, String operacao){
 	
 		if (!resultado.getErro()) {
 		IDAO dao = mapDAO.get(e.getClass().getSimpleName().toUpperCase());
-		return dao.alterar(e);
+		resultado = dao.alterar(e);
 		}
 		
 		return resultado;

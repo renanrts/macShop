@@ -467,8 +467,32 @@ public class DAOPedido extends AbstractDAO {
 
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		Pedido pedido = (Pedido) entidade;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		Resultado resultado = new Resultado();
+		
+		try {
+
+
+			String sql = "UPDATE PEDIDOS SET ped_status = ? WHERE ped_id = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, pedido.getStatus());
+			stmt.setInt(2, pedido.getId());
+			stmt.executeQuery();
+		}catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+
+	
+		resultado.sucesso("Pedido alterado com sucesso!");
+
+		return resultado;
 	}
 
 	@Override
