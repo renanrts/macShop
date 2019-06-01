@@ -271,7 +271,7 @@
             				</c:if>
             				
             				<c:if test="${pedido.status == 'Entregue'}">
-            				<input type="submit" style="display:inline-block" name="btnOperacao" value="TROCAR">
+            			
             				<input type="submit" style="display:inline-block" name="btnOperacao" value="DEVOLVER">
             				<form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />

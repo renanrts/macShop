@@ -55,24 +55,29 @@ public class DAOPedido extends AbstractDAO {
 			stmt.close();
 
 			for (ItemCarrinho item : pedido.getCarrinho().getItensCarrinho()) {
-				String sql2 = "INSERT INTO ProdxPed (ped_id, prodxped_qtde, prodxped_status, ele_id, acs_id)"
-						+ "VALUES (?, ?, ?, ?, ?)";
+				
+				for (int i = 1; i <= item.getQuantidade(); i++)
+				{
+					String sql2 = "INSERT INTO ProdxPed (ped_id, prodxped_qtde, prodxped_status, ele_id, acs_id)"
+							+ "VALUES (?, ?, ?, ?, ?)";
 
-				PreparedStatement stmt2 = con.prepareStatement(sql2);
-				stmt2.setInt(1, pedido.getId());
-				stmt2.setInt(2, item.getQuantidade());
-				stmt2.setString(3, "ATIVO");
-				if (item.getProduto().getTipo().equals("VHELETRONICO")) {
-					stmt2.setInt(4, item.getProduto().getId());
-					stmt2.setInt(5, 0);
-				} else {
-					stmt2.setInt(4, 0);
-					stmt2.setInt(5, item.getProduto().getId());
+					PreparedStatement stmt2 = con.prepareStatement(sql2);
+					stmt2.setInt(1, pedido.getId());
+					stmt2.setInt(2, 1);
+					stmt2.setString(3, "ATIVO");
+					if (item.getProduto().getTipo().equals("VHELETRONICO")) {
+						stmt2.setInt(4, item.getProduto().getId());
+						stmt2.setInt(5, 0);
+					} else {
+						stmt2.setInt(4, 0);
+						stmt2.setInt(5, item.getProduto().getId());
+					}
+
+					stmt2.execute();
+
+					stmt2.close();
 				}
-
-				stmt2.execute();
-
-				stmt2.close();
+				
 
 			}
 
@@ -565,6 +570,7 @@ public class DAOPedido extends AbstractDAO {
 					}
 
 					prods.setAtivo(rsm.getString("prodxped_status"));
+					item.setId(rsm.getInt("prodxped_id"));
 					item.setProduto(prods);
 					item.setQuantidade(rsm.getInt("prodxped_qtde"));
 					itensCarrinho.add(item);

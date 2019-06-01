@@ -246,7 +246,7 @@
                             <th>Status</th>
                             <th>Em transporte?</th>
                             <th>Entregue?</th>
-                            <th>Ações</th>
+                           
                         </tr>
                     </thead>
                     <tbody>

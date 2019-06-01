@@ -1,6 +1,6 @@
 package br.com.les.dominio;
 
-public class ItemCarrinho {
+public class ItemCarrinho extends EntidadeDominio {
 	
 	private Produto produto;
 	private Integer quantidade;

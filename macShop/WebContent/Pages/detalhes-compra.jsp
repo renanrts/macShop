@@ -266,10 +266,17 @@
                             <td>R$${item.produto.preco}</td>
                             <td>${item.produto.ativo}</td>
                              <td>
-                                <a href="javascript:void(0)" class="confirm"
-                                    style="display:inline-block"><i class="material-icons" data-toggle="tooltip"
-                                        title="Add" style="display:inline-block" onclick="setaDadosModal('${pedido.carrinho}')">search</i></a>
-                            </td>
+                             <c:if test="${item.produto.ativo == 'Aprovado'}">
+<form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
+                        				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
+                        				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="TROCAR">
+            					   </form>
+            					   </c:if>     
+            					                    
+            					     </td>
 
                         </tr>
                       </c:forEach>

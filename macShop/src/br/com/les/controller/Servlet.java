@@ -50,6 +50,7 @@ import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHCupom;
 import br.com.les.viewhelper.VHEletronico;
 import br.com.les.viewhelper.VHEndereco;
+import br.com.les.viewhelper.VHItemProduto;
 import br.com.les.viewhelper.VHPedido;
 import br.com.les.viewhelper.VHProduto;
 
@@ -78,6 +79,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapCommand.put("CARRINHOADICIONAR", new CommandCarrinhoAdicionar());
 			mapCommand.put("CARRINHOEXCLUIR", new CommandCarrinhoExcluir());
 			mapCommand.put("CARRINHOALTERAR", new CmdCarrinhoAlterar());
+			mapCommand.put("TROCAR", new CmdSalvar());
 			
 			mapViewHelper.put("VHELETRONICO", new VHEletronico());
 			mapViewHelper.put("VHCATEGORIA", new VHCategoria());
@@ -89,6 +91,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapViewHelper.put("VHCUPOM", new VHCupom());
 			mapViewHelper.put("VHENDERECO", new VHEndereco());
 			mapViewHelper.put("VHCARTAO", new VHCartao());
+			mapViewHelper.put("VHITEMPRODUTO", new VHItemProduto());
 
 
 		}

@@ -46,7 +46,7 @@ public class VHPedido implements IViewHelper {
 		}
 
 		pedido.setCuponsTroca(cuponsSelecionados);
-
+		
 		if (request.getParameter("pedStatus") != null) {
 			pedido.setStatus(request.getParameter("pedStatus"));
 		}

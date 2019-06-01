@@ -36,7 +36,7 @@ public class DAOProdxPed extends AbstractDAO {
 	    
 	    try {
 	      pst = con.prepareStatement(sql);
-	      pst.setString(1, "APROVADO");   
+	      pst.setString(1, "Aprovado");   
 	      pst.setString(2, "ATIVO");
 	      
 	      pst.executeQuery();
@@ -151,7 +151,7 @@ public class DAOProdxPed extends AbstractDAO {
 	    
 	    try {
 	      pst = con.prepareStatement(sql);
-	      pst.setString(1, "APROVADO");   
+	      pst.setString(1, "Aprovado");   
 	      pst.setString(2, "ATIVO");
 	      
 	      pst.executeQuery();

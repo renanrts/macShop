@@ -14,6 +14,8 @@ public interface IFachada {
 	public Resultado excluir(EntidadeDominio e);
 
 	public Resultado alterar(EntidadeDominio e);
+	
+	public Resultado chamarServico(EntidadeDominio e);
 
 	public Resultado adicionarAoCarrinho(EntidadeDominio e);
 
