@@ -179,9 +179,15 @@ public class VHPedido implements IViewHelper {
 
 			} else if (operacao.equals("VISUALIZAR")) {
 				request.setAttribute("pedidos", resultado.getListaResultado());
+				if (request.getParameter("Direcionamento").equals("CLIENTE")) {
 				RequestDispatcher rd = request.getRequestDispatcher("detalhes-compra.jsp");
 				rd.forward(request, response);
+				} else
 
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("detalhes-compra-adm.jsp");
+					rd.forward(request, response);
+				}
 			} else if (operacao.equals("INATIVAR")) {
 
 				RequestDispatcher rd = request.getRequestDispatcher("consulta-cli.jsp");

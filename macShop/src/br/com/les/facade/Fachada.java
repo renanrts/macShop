@@ -220,6 +220,18 @@ public class Fachada implements IFachada {
 		Map<String, List<IStrategy>> rnsItemProduto = new HashMap<String, List<IStrategy>>();
 		rnsItemProduto.put("SALVAR", rnsSalvarItemProduto);
 		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
+		
+		List<IStrategy> rnsAlterarItemProduto = new ArrayList<IStrategy>();
+		rnsAlterarItemProduto.add(new StAlterarStatusItemProduto());
+
+		rnsItemProduto.put("ALTERAR", rnsAlterarItemProduto);
+		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
+		
+		List<IStrategy> rnsReprovarItemProduto = new ArrayList<IStrategy>();
+		rnsReprovarItemProduto.add(new StAlterarStatusItemProduto());
+
+		rnsItemProduto.put("EXCLUIR", rnsReprovarItemProduto);
+		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
 
 	}
 

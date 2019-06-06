@@ -34,6 +34,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
     <!--===============================================================================================-->
 </head>
 
@@ -73,7 +75,7 @@
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
                                     <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
-                                    <li><a href="pedidos-cli.jsp">Pedidos</a></li>
+                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
@@ -91,7 +93,6 @@
                         </ul>
                     </nav>
                 </div>
-
                 <!-- Header Icon -->
                 <div class="header-icons">
                     <a href="login.jsp" class="header-wrapicon1 dis-block">
@@ -166,7 +167,7 @@
                         <a href="index.jsp">Área Cliente</a>
                         <ul class="sub-menu">
                             <li><a href="area-cli.jsp"">Meus Dados</a></li>
-									<li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
+									<li><a href=" pedidos-cli.jsp">Pedidos</a></li>
                             <li><a href="#">Logout</a></li>
                         </ul>
                         <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
@@ -193,7 +194,7 @@
     <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(../images/iphone_banner.jpg);">
         <h2 class="l-text2 t-center">
-            Consulta de Pedidos
+           Pedido
         </h2>
     </section>
 
@@ -204,121 +205,91 @@
 
 
     <section class="bgwhite p-t-36 p-b-60">
-
-        <div class="container">
-
-            <div class="col-md-4">
-                <div class="p-b-35">
-                    <div>
-                        <div class="rs2-select2 bo4 m-t-5 m-b-5">
-                            <select class="selection-2" name="sorting">
-                                <option>Filtro 1</option>
-                                <option>Filtro 2</option>
-                                <option>Filtro 3</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="search-product pos-relative bo4 of-hidden">
-                    <input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product"
-                        placeholder="Buscar pedidos...">
-
-                    <button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-                        <i class="fs-12 fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="table-wrapper">
+<div class="container">
+		<div class="billing-form bg-light p-3 p-md-5">
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Informações do Pedido</h4>
+						<ul class="list">
+							<li><a><span>Número do Pedido</span> : ${pedidos[0].id}</a></li>
+							<li><a><span>Data</span> : ${pedidos[0].dataPedido}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Endereço de Entrega</h4>
+						<ul class="list">
+							<li><a><span>Rua</span> : ${pedidos[0].endEntrega.logradouro}</a></li>
+							<li><a><span>Cidade</span> : ${pedidos[0].endEntrega.cidade.nome}</a></li>
+							<li><a><span>Estado</span> : ${pedidos[0].endEntrega.cidade.estado.nome}</a></li>
+							<li><a><span>CEP </span> : ${pedidos[0].endEntrega.cep}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Valores</h4>
+						<ul class="list">
+							<li><a><span>Frete</span> : R$ <fmt:formatNumber type = "number" 
+         maxIntegerDigits = "2" value = "${pedidos[0].frete}" />  </a></li>
+							<li><a><span>Total</span> : R$  <fmt:formatNumber type = "number" 
+         maxIntegerDigits = "2" value = "${pedidos[0].valorTotal}" /> </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="container">
+			<div class="order_details_table">
+				<br><br>
+				
+				<div class="table-wrapper">
 
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
 
-                            <th>Código Pedido</th>
-                            <th>Código Cliente</th>
-
-                            <th>Data Pedido</th>
+                            <th>Produto</th>
                             <th>Valor</th>
                             <th>Status</th>
-                            <th>Em transporte?</th>
-                            <th>Entregue?</th>
                             <th>Ações</th>
-                           
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="pedido" items="${pedidos }" >
+                    
+                    <c:forEach var="item" items="${pedidos[0].carrinho.itensCarrinho }" >
                         <tr>
 
-                            <td>${pedido.id }</td>
-                            <td>${pedido.cli_id }</td>
-                            <td>${pedido.dataPedido }</td>
-                            <td>R$${pedido.valorTotal}</td>
-                            <td>${pedido.status}</td>
-                            <c:if test="${pedido.status == 'Aprovado'}">
-                            <td>
-                                  <form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
-                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="ADMIN" />
-                        				  <input type="hidden" id="pedStatus" name="pedStatus" value="${pedido.status }" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="ALTERAR">
-            					   </form>  
-                            </td>
-                            </c:if>
-                            <td>
-                             <c:if test="${pedido.status  == 'Em transporte'}">
-                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-                                        </c:if>
-                                        <c:if test="${pedido.status  == 'Entregue'}">
-                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-                                        </c:if>
-                            </td>
-
-                            <td>
-                            
-                              <c:if test="${pedido.status  == 'Em transporte'}">
-                                  <form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
-                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="ADMIN" />
-                        				  <input type="hidden" id="pedStatus" name="pedStatus" value="${pedido.status }" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="ALTERAR">
-            					   </form> 
-								</c:if>
-								
-								 <c:if test="${pedido.status  == 'Entregue'}">
-                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
-                                        class="material-icons" data-toggle="tooltip" title="Add"
-                                        style="display:inline-block">check</i></a>
-                                        </c:if>
-                                
-
-                            </td>
-                            
-                            
-                            <td>
-                            <form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
-                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="ADMIN" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
-            				</form>  
-                            
-                            </td>
+                            <td>${item.produto.nome }</td>
+                            <td>R$${item.produto.preco}</td>
+                            <td>${item.produto.ativo}</td>
+                             <td>
+                             <c:if test="${item.produto.ativo == 'Em Troca'}">
+<form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
+                        				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
+                        				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="APROVAR">
+            					   </form>
+            					   </c:if>     
+            					   
+            					   <c:if test="${item.produto.ativo == 'Em Troca'}">
+<form action="/macShop/Pages/orders" method="POST">
+            					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
+                        				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
+                        				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="REPROVAR">
+            					   </form>
+            					   </c:if> 
+            					                    
+            					     </td>
 
                         </tr>
-                        </c:forEach>
-                       
-
+                      </c:forEach>
                     </tbody>
                 </table>
                 <div class="clearfix">
@@ -334,183 +305,15 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <!-- Edit Modal HTML -->
+			</div>
+		</div>
+</div>
 
 
-        <div id="addEstoque" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Consulta Pedido - xxxx</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body" style="background: #ecf0f1;">
+	</section>
 
 
 
-
-                            <form action="#" class="billing-form bg-light p-3 p-md-5">
-
-
-                                <div class="row align-items-end">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="w-100"></div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="w-100"></div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Nome</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Valor</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="lastname">Status</label>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-
-
-
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Ok">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div id="transporte" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-
-
-
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Alterar Status</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tem certeza que deseja alterar o status do pedido para Em Transporte?</p>
-
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="button" class="btn btn-info" data-dismiss="modal" value="Ok">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="entrega" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-
-
-
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Alterar Status</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tem certeza que deseja alterar o status do pedido para Entregue?</p>
-
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="button" class="btn btn-info" data-dismiss="modal" value="Ok">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -703,6 +506,27 @@
                 dropdownParent: $('#dropDownSelect2')
             });
         </script>
+        <script type="text/javascript">
+    function setaDadosModal(carrinho) {
+    	<c:set var="message" value="carrinho" />
+    	var message = <c:out value="${message}"/>
+    	console.log(message)
+    	itensCarrinho = carrinho.itensCarrinho;
+    	
+    	//console.log(carrinho.getItensCarrinho())
+    	
+     
+    	/*carrinho.forEach(item)=> {
+    		console.log()
+    		console.log(item.quantidade)
+    		
+    	})*/
+    	
+     	$("#addEstoque").modal("show")   
+    }
+    </script>
+        
+        
         <!--===============================================================================================-->
         <script src="../https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
         <script src="../js/map-custom.js"></script>
