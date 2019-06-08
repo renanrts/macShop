@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Contact</title>
+    <title>Relatórios</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -32,6 +32,32 @@
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!--===============================================================================================-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Data', 'iPhone', 'iPad', 'Macbook'],
+          ['01', 1000, 400, 200],
+          ['02', 1170, 460, 250],
+          ['03', 660, 1120, 300],
+          ['31', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Vendas Produtos macShop',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
 </head>
 
 <body class="animsition">
@@ -189,54 +215,28 @@
     </header>
 
     <!-- Title Page -->
-    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
-        style="background-image: url(../images/heading-pages-06.jpg);">
+    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(../images/reports.jpg);">
         <h2 class="l-text2 t-center">
-            Contact
+            Relatórios
         </h2>
     </section>
 
     <!-- content page -->
+
     <section class="bgwhite p-t-66 p-b-60">
-        <div class="container">
-
-
-            <center>
-                <div class="col-md-6 p-b-30">
-                    <form class="leave-comment">
-                        <h4 class="m-text26 p-b-36 p-t-15">
-                            Entre em contato conosco!
-                        </h4>
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Nome">
-                        </div>
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone-number"
-                                placeholder="Telefone">
-                        </div>
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="E-mail">
-                        </div>
-
-                        <textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message"
-                            placeholder="Mensagem"></textarea>
-
-                        <div class="w-size25">
-                            <!-- Button -->
-                            <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
-                                Enviar
-                            </button>
-                        </div>
-                    </form>
-            </center>
-        </div>
-        </div>
+    <center><label> Data de Início</label>
+    <input type="date">
+    
+    <label> Data de Fim</label>
+    <input type="date">
+    <input type="submit">
+    </center>
+    
+    <center>
+    <br><br>
+    <div id="columnchart_material" style="width: 800px; height: 500px;"></div></center>
+        
     </section>
-
-
     <!-- Footer -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
         <div class="flex-w p-b-90">

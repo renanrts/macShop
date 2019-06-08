@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +22,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 import br.com.les.command.CmdAlterar;
-import br.com.les.command.CmdCarrinhoAlterar;
+import br.com.les.command.CommandCarrinhoAlterar;
 import br.com.les.command.CmdConsultar;
 import br.com.les.command.CmdInativar;
 import br.com.les.command.CmdSalvar;
@@ -31,13 +30,9 @@ import br.com.les.command.CmdVisualizar;
 import br.com.les.command.CommandCarrinhoAdicionar;
 import br.com.les.command.CommandCarrinhoExcluir;
 import br.com.les.command.ICommand;
-import br.com.les.dao.DAOAcessorio;
-import br.com.les.dao.DAOEletronico;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
-import br.com.les.dominio.ItemCarrinho;
-import br.com.les.dominio.Produto;
 import br.com.les.negocio.StAprovarOuReprovarCompra;
 import br.com.les.negocio.StValidarItensCarrinhoComTempoExpirado;
 import br.com.les.util.Resultado;
@@ -53,11 +48,12 @@ import br.com.les.viewhelper.VHEndereco;
 import br.com.les.viewhelper.VHItemProduto;
 import br.com.les.viewhelper.VHPedido;
 import br.com.les.viewhelper.VHProduto;
+import br.com.les.viewhelper.VHRelatorio;
 
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido", "/Pages/orders", "/Pages/cupom", "/Pages/endereco", "/Pages/cartao"})
+@WebServlet(urlPatterns={"/Pages/servlet", "/Pages/consultaCategoria", "/Pages/cadastroEletronico", "/Pages/cadastroAcessorio", "/Pages/consultaProdutos" , "/Pages/visualizarProduto", "/Pages/inativarProduto", "/Pages/alterarEletronico", "/Pages/cadastrarAcessorio", "/Pages/cadastroCliente", "/Pages/contact", "/Pages/alteracaoCliente", "/Pages/product", "/Pages/product-detail", "/Pages/carrinho", "/Pages/pedido", "/Pages/orders", "/Pages/cupom", "/Pages/endereco", "/Pages/cartao", "/Pages/relatorio3variaveis"})
 public class Servlet extends HttpServlet implements ServletContextListener{
 	
 	 
@@ -78,7 +74,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapCommand.put("ALTERAR", new CmdAlterar());
 			mapCommand.put("CARRINHOADICIONAR", new CommandCarrinhoAdicionar());
 			mapCommand.put("CARRINHOEXCLUIR", new CommandCarrinhoExcluir());
-			mapCommand.put("CARRINHOALTERAR", new CmdCarrinhoAlterar());
+			mapCommand.put("CARRINHOALTERAR", new CommandCarrinhoAlterar());
 			mapCommand.put("TROCAR", new CmdSalvar());
 			mapCommand.put("APROVAR", new CmdSalvar());
 			mapCommand.put("REPROVAR", new CmdInativar());
@@ -96,6 +92,7 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			mapViewHelper.put("VHENDERECO", new VHEndereco());
 			mapViewHelper.put("VHCARTAO", new VHCartao());
 			mapViewHelper.put("VHITEMPRODUTO", new VHItemProduto());
+			mapViewHelper.put("VHRELATORIO", new VHRelatorio());
 
 
 		}

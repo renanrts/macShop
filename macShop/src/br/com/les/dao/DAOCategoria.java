@@ -95,8 +95,8 @@ public class DAOCategoria extends AbstractDAO{
 
 	@Override
 	public Resultado visualizar(EntidadeDominio e) {
-		// TODO Auto-generated method stub
 		return null;
+		
 	}
 	
 	public Resultado consultarCategoria(EntidadeDominio e)
@@ -187,4 +187,40 @@ public class DAOCategoria extends AbstractDAO{
 		return null;
 	}
 
+	public List<EntidadeDominio> consultarCategorias()
+	{
+		List<EntidadeDominio> categorias = new ArrayList<EntidadeDominio>();
+		Resultado resultado = new Resultado();
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		try {
+		String sql = "SELECT * FROM CATEGORIAS";
+		stmt = con.prepareStatement(sql);
+
+
+		ResultSet rs = stmt.executeQuery();
+					
+		while (rs.next()) {
+			
+			Categoria cat = new Categoria();
+			cat.setDescricao(rs.getString("cat_descricao"));
+			categorias.add(cat);
+
+		}
+
+		
+		rs.close();
+		stmt.close();
+		return categorias;
+		
+	} catch (SQLException e1) {
+		
+					e1.printStackTrace();
+					resultado.erro("Erro de consulta.");
+					return null;
+	}finally {
+		ConnectionFactory.closeConnection(stmt, con);
+	}
+	
+	}
 }

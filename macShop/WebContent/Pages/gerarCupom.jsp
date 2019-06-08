@@ -87,6 +87,7 @@
 							<li><a href="consulta-prod.jsp">Produtos</a></li>
 							<li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
+							<li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
 							<li><a href="relatorio.jsp">Relatórios</a></li>
 						</ul></li>
 				</ul>
@@ -182,8 +183,8 @@
 
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
-		style="background-image: url(../images/heading-pages-06.jpg);">
-	<h2 class="l-text2 t-center">Contact</h2>
+		style="background-image: url(../images/carrinho_banner.jpg);">
+	<h2 class="l-text2 t-center">Gerar Cupom Promocional</h2>
 	</section>
 
 	<!-- content page -->

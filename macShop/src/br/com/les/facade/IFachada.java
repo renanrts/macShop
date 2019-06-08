@@ -15,12 +15,7 @@ public interface IFachada {
 
 	public Resultado alterar(EntidadeDominio e);
 	
-	public Resultado chamarServico(EntidadeDominio e);
+	public Resultado chamarServico(EntidadeDominio e, String operacao);
 
-	public Resultado adicionarAoCarrinho(EntidadeDominio e);
-
-	public Resultado excluirDoCarrinho(EntidadeDominio e);
-
-	public Resultado alterarCarrinho(EntidadeDominio e);
 
 }

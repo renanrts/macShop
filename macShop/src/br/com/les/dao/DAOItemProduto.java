@@ -129,8 +129,37 @@ Resultado resultado = new Resultado();
 
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		Resultado resultado = new Resultado();
+		
+		ItemCarrinho item = (ItemCarrinho) entidade;
+		
+		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
+		
+	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
+	    
+	    con = ConnectionFactory.getConnection();
+	    
+		PreparedStatement pst = null;
+	    
+	    try {
+	      pst = con.prepareStatement(sql);
+	      pst.setString(1, item.getProduto().getAtivo());   
+	      pst.setInt(2, item.getId());
+	      
+	      pst.executeQuery();
+	      
+
+	      
+	    } catch (Exception e) {
+	      resultado.erro("Erro ao consultar itens em processamento");
+	      e.printStackTrace();
+	    }finally {
+			ConnectionFactory.closeConnection(pst, con);
+		}
+
+	    resultado.sucesso("Salvo com sucesso!");
+	    
+		return resultado;
 	}
 
 	@Override

@@ -87,6 +87,7 @@
 							<li><a href="consulta-prod.jsp">Produtos</a></li>
 							<li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
+							<li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
 							<li><a href="relatorio.jsp">Relatórios</a></li>
 						</ul></li>
 				</ul>
@@ -323,7 +324,7 @@
 													<div class="form-group">
 														<div class="col-md-12">
 															<div class="radio">
-																<label><input type="radio" name="cupom-troca"
+																<label><input type="checkbox" name="cupom-troca"
 																	class="mr-2" value="${cupom.id }">ID:
 																	${cupom.id } - VALOR: R$${cupom.valor } </label>
 															</div>
@@ -338,19 +339,26 @@
 
 											<hr>
 											<h3 class="billing-heading mb-4">Cupons Promocionais</h3>
-											<c:forEach var="cupons"
-												items="${cliente.cuponsPromocionais }">
-												<div class="form-group">
+											
+											
+											<select name="idcupom" id = "idcupom" class="form-control">
+											 <option name="idcupom" class="end_sel_id" value="0"> Nenhum
+							</option>
+											<c:forEach var="cupons" items="${cliente.cuponsPromocionais }">
+												<!-- <div class="form-group">
 													<div class="col-md-12">
 														<div class="radio">
-															<label><input type="radio" name="idcupom"
-																class="mr-2" value="${cupons.id }">ID:
-																${cupons.id } - VALOR: R$${cupons.valor } </label>
+														
+														
+												 -->			
+												 <option name="idcupom" class="end_sel_id" value="${cupons.id }" preco="${cupons.valor }"> ID: ${cupons.id } - VALOR: R$ ${cupons.valor }
+																
+												</option>
 														</div>
 													</div>
 												</div>
 											</c:forEach>
-
+											</select>
 
 										</div>
 										<hr>
@@ -358,21 +366,17 @@
 										<div class="billing-form bg-light p-md-4">
 
 											<p class="d-flex">
-											<p>Subtotal</p>
-											<span>$20.60</span>
-											</p>
-											<p class="d-flex">
-											<p>Frete</p>
-											<span>$0.00</span>
+											<p>SubTotal + Frete</p>
+											<span id="subtotal"> </span>
 											</p>
 											<p class="d-flex">
 											<p>Desconto</p>
-											<span>$3.00</span>
+											<span id="descontos"></span>
 											</p>
 											<hr>
 											<p class="d-flex total-price">
 											<p>Total</p>
-											<span>$17.60</span>
+											<span id="total"></span>
 											</p>
 										</div>
 									</div>
@@ -866,7 +870,37 @@
 			});
 		});
 	</script>
+	<script>
+	$().ready(function(){
+	 var subtotal =	sessionStorage.getItem("total")
+	 
+	 $("#subtotal").text("R$ " + subtotal)
+	 
+	
+	})
+	
 
+	
+	
+	</script>
+	
+	<script>
+	
+	$("#idcupom").change(function(){
+		var totalDescontos = 0 
+		totalDescontos += Number($("#idcupom option:selected").attr("preco"))	
+		$("#descontos").text("R$ " + totalDescontos)
+		
+		var a = subtotal.innerText.trim().replace("R$ ", "")
+
+		 $("#total").text("R$ " + (a-totalDescontos))
+	})
+	
+	
+	
+	
+	</script>
+	
 	<!--===============================================================================================-->
 	<script src="../js/main.js"></script>
 	<script src="../js/customizacoes.js"></script>

@@ -32,7 +32,7 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	    
 	    Produto produto = itemCarrinho.getProduto();
 	    
-	    Integer quantidadeAInserir = itemCarrinho.getQuantidade();  
+	    Integer quantidadeAInserir = 1; 
 	    
 	    if (produtoBloqueado.getCarrinho().getItensCarrinho().get(0).getProduto().getTipo().equals("VHELETRONICO"))
 		{

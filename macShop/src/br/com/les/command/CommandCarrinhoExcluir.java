@@ -8,7 +8,7 @@ public class CommandCarrinhoExcluir extends AbstractCommand {
 	@Override
 	public Resultado executar(EntidadeDominio e) {
 		// TODO Auto-generated method stub
-		return fachada.excluirDoCarrinho(e);
+		return fachada.chamarServico(e, this.getClass().getSimpleName());
 	}
 
 }

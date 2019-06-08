@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.les.command.CommandCarrinhoAlterar;
+import br.com.les.command.CommandCarrinhoAdicionar;
+import br.com.les.command.CommandCarrinhoExcluir;
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOBloqueio;
 import br.com.les.dao.DAOCartao;
@@ -15,6 +18,7 @@ import br.com.les.dao.DAOEletronico;
 import br.com.les.dao.DAOEndereco;
 import br.com.les.dao.DAOItemProduto;
 import br.com.les.dao.DAOPedido;
+import br.com.les.dao.DAORelatorio;
 import br.com.les.dao.IDAO;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.CartaoCredito;
@@ -25,6 +29,7 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
+import br.com.les.dominio.Relatorio;
 import br.com.les.negocio.IStrategy;
 import br.com.les.negocio.StAlterarStatusItemProduto;
 import br.com.les.negocio.StAlterarStatusPedido;
@@ -38,8 +43,10 @@ import br.com.les.negocio.StComplementarDataPedido;
 import br.com.les.negocio.StComplementarEnderecoCliente;
 import br.com.les.negocio.StComplementarEnderecoEntrega;
 import br.com.les.negocio.StComplementarInativacao;
+import br.com.les.negocio.StComplementarVariaveis;
 import br.com.les.negocio.StConsultarQuantidadeEstoque;
 import br.com.les.negocio.StInutilizarCupom;
+import br.com.les.negocio.StReprovarTroca;
 import br.com.les.negocio.StValidarAtivacaoInativacao;
 import br.com.les.negocio.StValidarBloqueio;
 import br.com.les.negocio.StValidarCPF;
@@ -59,13 +66,19 @@ import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.negocio.StValidarValorExcendenteAoPagamento;
 import br.com.les.negocio.StVoltarAoEstoqueTroca;
 import br.com.les.util.Resultado;
+import service.CarrinhoAdicionar;
+import service.CarrinhoAlterar;
+import service.CarrinhoExcluir;
 import service.CarrinhoServico;
+import service.IServico;
 
 public class Fachada implements IFachada {
 
 	private Map<String, IDAO> mapDAO;
 
 	private Map<String, Map<String, List<IStrategy>>> rns;
+	
+	private Map<String, IServico> mapServico;
 
 	public Fachada() {
 
@@ -81,6 +94,7 @@ public class Fachada implements IFachada {
 		mapDAO.put("ENDERECO", new DAOEndereco());
 		mapDAO.put("CARTAOCREDITO", new DAOCartao());
 		mapDAO.put("ITEMCARRINHO", new DAOItemProduto());
+		mapDAO.put("RELATORIO", new DAORelatorio());
 
 		rns = new HashMap<String, Map<String, List<IStrategy>>>();
 
@@ -170,9 +184,9 @@ public class Fachada implements IFachada {
 
 		Map<String, List<IStrategy>> rnsBloqueio = new HashMap<String, List<IStrategy>>();
 
-		rnsBloqueio.put("SALVAR", rnsConsultarBloqueio);
-		rnsBloqueio.put("INATIVAR", rnsInativarBloqueio);
-		rnsBloqueio.put("ALTERAR", rnsAlterarBloqueio);
+		//rnsBloqueio.put("SALVAR", rnsConsultarBloqueio);
+		rnsBloqueio.put("CARRINHOEXCLUIR", rnsInativarBloqueio);
+		//rnsBloqueio.put("ALTERAR", rnsAlterarBloqueio);
 		rnsBloqueio.put("CARRINHOADICIONAR", rnsSalvarBloqueioProduto);
 		rnsBloqueio.put("CARRINHOALTERAR", rnsAlterarBloqueioProduto);
 
@@ -231,10 +245,30 @@ public class Fachada implements IFachada {
 	
 		
 		List<IStrategy> rnsReprovarItemProduto = new ArrayList<IStrategy>();
-		rnsReprovarItemProduto.add(new StAlterarStatusItemProduto());
+		rnsReprovarItemProduto.add(new StReprovarTroca());
 
 		rnsItemProduto.put("INATIVAR", rnsReprovarItemProduto);
 		rns.put(ItemCarrinho.class.getSimpleName().toUpperCase(), rnsItemProduto);
+		
+		
+		// RELATORIO
+				List<IStrategy> rnsConsultarRelatorio = new ArrayList<IStrategy>();
+				rnsConsultarRelatorio.add(new StComplementarVariaveis());
+				
+				Map<String, List<IStrategy>> rnsRelatorio = new HashMap<String, List<IStrategy>>();
+				rnsRelatorio.put("CONSULTAR", rnsConsultarRelatorio);
+				rns.put(Relatorio.class.getSimpleName().toUpperCase(), rnsRelatorio);
+				
+				
+				//MAP SERVICO
+				mapServico = new HashMap<String, IServico>();
+	
+				//Carrinho
+				
+				    mapServico.put(CommandCarrinhoAdicionar.class.getSimpleName(), new CarrinhoAdicionar());
+				    mapServico.put(CommandCarrinhoExcluir.class.getSimpleName(), new CarrinhoExcluir());
+				    mapServico.put(CommandCarrinhoAlterar.class.getSimpleName(), new CarrinhoAlterar());
+			
 
 	}
 
@@ -325,52 +359,20 @@ public class Fachada implements IFachada {
 		return resultado;
 	}
 
+
 	@Override
-	public Resultado adicionarAoCarrinho(EntidadeDominio e) {
-
+	public Resultado chamarServico(EntidadeDominio e, String cmd) {
 		Resultado resultado = new Resultado();
-		resultado = validarStrategys(e, "CARRINHOADICIONAR");
-
+		String operacao = cmd.toUpperCase().substring(7);
+		
+		resultado = validarStrategys(e,operacao);
+		
 		if (!resultado.getErro()) {
-
-			CarrinhoServico servico = new CarrinhoServico();
-			resultado = servico.adicionar(e);
+			IServico servico = mapServico.get(cmd);
+			resultado = servico.executarServico(e);
 		}
 
 		return resultado;
-
-	}
-
-	@Override
-	public Resultado excluirDoCarrinho(EntidadeDominio e) {
-
-		Resultado resultado = new Resultado();
-
-		CarrinhoServico servico = new CarrinhoServico();
-		resultado = servico.excluirItens(e);
-
-		return resultado;
-
-	}
-
-	@Override
-	public Resultado alterarCarrinho(EntidadeDominio e) {
-		Resultado resultado = new Resultado();
-
-		resultado = validarStrategys(e, "CARRINHOALTERAR");
-
-		if (!resultado.getErro()) {
-			CarrinhoServico servico = new CarrinhoServico();
-			resultado = servico.alterarQuantidadeItens(e);
-		}
-
-		return resultado;
-	}
-
-	@Override
-	public Resultado chamarServico(EntidadeDominio e) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

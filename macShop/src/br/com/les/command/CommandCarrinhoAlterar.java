@@ -3,12 +3,12 @@ package br.com.les.command;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.Resultado;
 
-public class CmdCarrinhoAlterar extends AbstractCommand {
+public class CommandCarrinhoAlterar extends AbstractCommand {
 
 	@Override
 	public Resultado executar(EntidadeDominio e) {
 		// TODO Auto-generated method stub
-		return fachada.alterarCarrinho(e);
+		return fachada.chamarServico(e, this.getClass().getSimpleName());
 	}
 
 }

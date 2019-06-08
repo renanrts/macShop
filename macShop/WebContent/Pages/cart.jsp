@@ -86,6 +86,7 @@
 							<li><a href="consulta-prod.jsp">Produtos</a></li>
 							<li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
+							<li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
 							<li><a href="relatorio.jsp">Relatórios</a></li>
 						</ul></li>
 				</ul>
@@ -273,7 +274,7 @@
 									</div>
 
 								</td>
-								<td class="column-3">${eletronico.quantidade * eletronico.produto.preco}</td>
+								<td class="column-3 totalProduto"> ${eletronico.quantidade * eletronico.produto.preco} </td>
 								<td><a href="#deleteEmployeeModal" class="confirm"
 									data-toggle="modal" style="display: inline-block"> <i
 										class="material-icons" data-toggle="tooltip" title="Add"
@@ -348,8 +349,9 @@
 
 				<!--  -->
 				<div class="flex-w flex-sb-m p-t-26 p-b-30">
-					<span class="m-text22 w-size19 w-full-sm"> Total: </span> <span
-						class="m-text21 w-size20 w-full-sm"> <input
+					<span class="m-text22 w-size19 w-full-sm"> Total: </span> 
+					<span class="m-text21 w-size20 w-full-sm"> 
+						<input
 						class="size8 m-text18 t-center num-product" type="text"
 						id="valorTotal" name="valorTotal">
 					</span>
@@ -581,5 +583,24 @@
         document.getElementById("txtIDExclusao").value = id;
     }
     </script>
+    
+<script type="text/javascript">
+let total = 0;
+
+$(".totalProduto").each(function(){
+	total+=Number($(this).html())
+})
+
+total += Number($("#frete").val())
+
+$("#valorTotal").val(total)
+
+console.log($("#valorTotal").parent().html())
+sessionStorage.setItem("total", total)
+</script>
+
+
+
+
 
 </html>

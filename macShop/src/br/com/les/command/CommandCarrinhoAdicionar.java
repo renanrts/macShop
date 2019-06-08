@@ -8,7 +8,7 @@ public class CommandCarrinhoAdicionar extends AbstractCommand {
 	@Override
 	public Resultado executar(EntidadeDominio e) {
 		// TODO Auto-generated method stub
-		return fachada.adicionarAoCarrinho(e);
+		return fachada.chamarServico(e, this.getClass().getSimpleName());
 	}
 
 }

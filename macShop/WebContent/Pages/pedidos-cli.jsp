@@ -85,6 +85,7 @@
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
                                     <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
+                                   <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>
@@ -236,7 +237,7 @@
                             <c:if test="${pedido.status == 'Em processamento'}">
                                                  
                             
-          						<input type="submit" style="display:inline-block" name="btnOperacao" value="CANCELAR">
+          						
                                <form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
                         				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
@@ -249,7 +250,7 @@
             				<c:if test="${pedido.status == 'Aprovado'}">
                                                  
                             
-          						<input type="submit" style="display:inline-block" name="btnOperacao" value="CANCELAR">
+          					
                                <form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
                         				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
@@ -260,7 +261,7 @@
             				</c:if>
             				
             				<c:if test="${pedido.status == 'Em transporte'}">
-            				<input type="submit" style="display:inline-block" name="btnOperacao" value="CANCELAR">
+            				
             			
             				<form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
@@ -272,7 +273,7 @@
             				
             				<c:if test="${pedido.status == 'Entregue'}">
             			
-            				<input type="submit" style="display:inline-block" name="btnOperacao" value="DEVOLVER">
+            				
             				<form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
                         				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
