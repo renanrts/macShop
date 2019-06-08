@@ -226,6 +226,7 @@
 							<li><a><span>Cidade</span> : ${pedidos[0].endEntrega.cidade.nome}</a></li>
 							<li><a><span>Estado</span> : ${pedidos[0].endEntrega.cidade.estado.nome}</a></li>
 							<li><a><span>CEP </span> : ${pedidos[0].endEntrega.cep}</a></li>
+							<li><a><span>CLIID </span> : </a></li>
 						</ul>
 					</div>
 				</div>
@@ -272,6 +273,7 @@
             					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
                         				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  <input type="hidden" id="itemPreco" name="itemPreco" value="${item.produto.preco }" />
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="APROVAR">
             					   </form>
@@ -283,6 +285,7 @@
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
                         				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+                        				  
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="REPROVAR">
             					   </form>
             					   </c:if> 
@@ -293,6 +296,8 @@
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
                         				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
+                        				  <input type="text" id="txtID" name="txtID" value="${pedidos[0].cli_id}" />
+                        				  <input type="text" id="txtID" name="itemPreco" value="${item.produto.preco}" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VOLTAR AO ESTOQUE">
             					   </form>
             					   </c:if> 
@@ -302,6 +307,7 @@
             					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
                         				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
+                        				  
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="RECEBIDO">
             					   </form>

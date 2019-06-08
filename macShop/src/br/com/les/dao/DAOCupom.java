@@ -10,6 +10,8 @@ import java.util.Random;
 import br.com.les.dominio.Cupom;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Pedido;
+import br.com.les.dominio.Produto;
+import br.com.les.dominio.TipoCupom;
 import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
@@ -162,6 +164,67 @@ public class DAOCupom extends AbstractDAO {
 			ConnectionFactory.closeConnection(stmt, con);
 		}
 
+	}
+
+	public void criarCupomTroca(Produto produto) {
+		
+
+		Resultado resultado = new Resultado();
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		 Cupom novoCupom = new Cupom();
+	        
+	    	Random gerador = new Random();
+	    	StringBuilder codigo = new StringBuilder();
+	    	
+	        for (int i = 0; i < 5; i++) {
+				codigo.append(String.valueOf(gerador.nextInt(10)));
+			}
+	        
+	        novoCupom.setCodigo(codigo.toString());
+	        novoCupom.setValor(produto.getPreco());
+	        novoCupom.setCliId(produto.getId());
+	        novoCupom.setStatus("Ativo");
+	        novoCupom.setTipoCupom(TipoCupom.TROCA);
+	        novoCupom.setDataDeValidade(LocalDate.now().plusMonths(1));
+	        
+
+		try {
+			
+			String sql = "INSERT INTO CUPONS (CUP_CODIGO, CUP_VALOR, CLI_ID, CUP_STATUS, CUP_TIPO, CUP_VALIDADE) " + "VALUES (?, ?, ?, ?, ?, ?)";
+
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, novoCupom.getCodigo());
+			stmt.setDouble(2, novoCupom.getValor());
+			if (novoCupom.getCliId() != 0)
+			{
+				stmt.setInt(3, novoCupom.getCliId());
+			}
+			else
+			{
+				stmt.setInt(3, 0);
+			}
+			stmt.setString(4, "ATIVO");
+			stmt.setString(5, novoCupom.getTipoCupom().toString());
+			stmt.setDate(6, java.sql.Date.valueOf(novoCupom.getDataDeValidade().toString()));
+			
+
+			stmt.executeQuery();
+			stmt.close();
+
+			resultado.sucesso("Cupom criado com sucesso!");
+		
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+		
 	}
 
 }

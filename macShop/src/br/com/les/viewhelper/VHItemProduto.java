@@ -30,8 +30,24 @@ public class VHItemProduto implements IViewHelper {
 			item.setId(Integer.parseInt(request.getParameter("itemID")));
 		}
 		
-		item.setProduto(prod);
+		if(request.getParameter("itemPreco") != null)
+		{
+			prod.setPreco(Double.parseDouble(request.getParameter("itemPreco")));
+		}
 		
+		
+		
+		if(request.getParameter("txtTipo") != null)
+		{
+			item.setTipo(request.getParameter("txtTipo"));
+		}
+		
+		if(request.getParameter("txtID") != null)
+		{
+			prod.setId(Integer.parseInt(request.getParameter("txtID")));
+		}
+		
+		item.setProduto(prod);
 		return item;
 	}
 

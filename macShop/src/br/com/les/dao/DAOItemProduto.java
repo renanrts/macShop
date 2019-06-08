@@ -11,6 +11,7 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Pedido;
 import br.com.les.dominio.Produto;
+import br.com.les.dominio.StatusPedido;
 import br.com.les.dominio.Telefone;
 import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
@@ -19,44 +20,35 @@ public class DAOItemProduto extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-		
+
 		Resultado resultado = new Resultado();
-		
+
 		ItemCarrinho item = (ItemCarrinho) entidade;
-		
+
 		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
-		
-	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
-	    
-	    con = ConnectionFactory.getConnection();
-	    
+
+		String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
+
+		con = ConnectionFactory.getConnection();
+
 		PreparedStatement pst = null;
-	    
-	    try {
-	      pst = con.prepareStatement(sql);
-	      pst.setString(1, item.getProduto().getAtivo());   
-	      pst.setInt(2, item.getId());
-	      
-	      pst.executeQuery();
-	      
-//	      Pedido ped = new Pedido();
-//	      Carrinho car = new Carrinho();
-//	      
-//	      car.setItensCarrinho(itensCarrinho);
-//	      ped.setCarrinho(car);
-//	      pedidos.add(ped);
-//	      
-//	      resultado.setListaResultado(pedidos);
-	      
-	    } catch (Exception e) {
-	      resultado.erro("Erro ao consultar itens em processamento");
-	      e.printStackTrace();
-	    }finally {
+
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, item.getProduto().getAtivo());
+			pst.setInt(2, item.getId());
+
+			pst.executeQuery();
+
+		} catch (Exception e) {
+			resultado.erro("Erro ao consultar itens em processamento");
+			e.printStackTrace();
+		} finally {
 			ConnectionFactory.closeConnection(pst, con);
 		}
 
-	    resultado.sucesso("Salvo com sucesso!");
-	    
+		resultado.sucesso("Salvo com sucesso!");
+
 		return resultado;
 	}
 
@@ -69,96 +61,95 @@ public class DAOItemProduto extends AbstractDAO {
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
 		this.salvar(entidade);
-		
-Resultado resultado = new Resultado();
-		
+
+		Resultado resultado = new Resultado();
+
 		ItemCarrinho item = (ItemCarrinho) entidade;
 		Produto prod = new Produto();
-		
-	    String sql = "Select * from ProdxPed WHERE prodxped_id = ? ";
-	    
-	    con = ConnectionFactory.getConnection();
-	    
-		PreparedStatement pst = null;
-	    
-	    try {
-	      pst = con.prepareStatement(sql); 
-	      pst.setInt(1, item.getId());
-	     	      
-	      ResultSet rs = pst.executeQuery();
-		
-		
-		while (rs.next()) {
-			
-			prod.setEstoque(rs.getInt("prodxped_qtde"));
-			prod.setId(rs.getInt("acs_id"));
-			if(prod.getId().equals(0))
-			{
-				prod.setId(rs.getInt("ele_id"));
-				prod.setTipo("VHELETRONICO");
-			}
-			else {
-				prod.setTipo("VHACESSORIO");
-			}
-		}
 
-	
-		DAOEletronico daoEle = new DAOEletronico();
-		DAOAcessorio daoAcs = new DAOAcessorio();
-		
-		if (prod.getTipo().equals("VHACESSORIO"))
-		{
-			daoAcs.voltarEstoque(prod);
-		}
-		else {
-			daoEle.voltarEstoque(prod);
-		}
-	      
-	    } catch (Exception e) {
-	      resultado.erro("Erro ao consultar itens em processamento");
-	      e.printStackTrace();
-	    }finally {
+		String sql = "Select * from ProdxPed WHERE prodxped_id = ? ";
+
+		con = ConnectionFactory.getConnection();
+
+		PreparedStatement pst = null;
+
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, item.getId());
+
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+
+				prod.setEstoque(rs.getInt("prodxped_qtde"));
+				prod.setId(rs.getInt("acs_id"));
+				if (prod.getId().equals(0)) {
+					prod.setId(rs.getInt("ele_id"));
+					prod.setTipo("VHELETRONICO");
+				} else {
+					prod.setTipo("VHACESSORIO");
+				}
+			}
+
+			if (item.getProduto().getAtivo().equals(StatusPedido.TROCADO.getDescription())) {
+
+				DAOCupom dao = new DAOCupom();
+				
+				dao.criarCupomTroca(item.getProduto());
+				
+			}
+			DAOEletronico daoEle = new DAOEletronico();
+			DAOAcessorio daoAcs = new DAOAcessorio();
+
+			if (prod.getTipo().equals("VHACESSORIO")) {
+				daoAcs.voltarEstoque(prod);
+			} else {
+				daoEle.voltarEstoque(prod);
+			}
+
+		} catch (Exception e) {
+			resultado.erro("Erro ao consultar itens em processamento");
+			e.printStackTrace();
+		} finally {
 			ConnectionFactory.closeConnection(pst, con);
 		}
 
-	    resultado.sucesso("Salvo com sucesso!");
-	    
+		resultado.sucesso("Salvo com sucesso!");
+
 		return resultado;
-		
+
 	}
 
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
-		
-		ItemCarrinho item = (ItemCarrinho) entidade;
-		
-		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
-		
-	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
-	    
-	    con = ConnectionFactory.getConnection();
-	    
-		PreparedStatement pst = null;
-	    
-	    try {
-	      pst = con.prepareStatement(sql);
-	      pst.setString(1, item.getProduto().getAtivo());   
-	      pst.setInt(2, item.getId());
-	      
-	      pst.executeQuery();
-	      
 
-	      
-	    } catch (Exception e) {
-	      resultado.erro("Erro ao consultar itens em processamento");
-	      e.printStackTrace();
-	    }finally {
+		ItemCarrinho item = (ItemCarrinho) entidade;
+
+		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
+
+		String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
+
+		con = ConnectionFactory.getConnection();
+
+		PreparedStatement pst = null;
+
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, item.getProduto().getAtivo());
+			pst.setInt(2, item.getId());
+
+			pst.executeQuery();
+
+		} catch (Exception e) {
+			resultado.erro("Erro ao consultar itens em processamento");
+			e.printStackTrace();
+		} finally {
 			ConnectionFactory.closeConnection(pst, con);
 		}
 
-	    resultado.sucesso("Salvo com sucesso!");
-	    
+		resultado.sucesso("Salvo com sucesso!");
+
 		return resultado;
 	}
 
@@ -173,10 +164,9 @@ Resultado resultado = new Resultado();
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public String verificarTipoProduto(EntidadeDominio e)
-	{
-		
+
+	public String verificarTipoProduto(EntidadeDominio e) {
+
 		return null;
 	}
 
