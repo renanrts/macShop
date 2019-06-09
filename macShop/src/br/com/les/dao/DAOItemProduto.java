@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Carrinho;
+import br.com.les.dominio.Eletronico;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Pedido;
@@ -102,9 +104,15 @@ public class DAOItemProduto extends AbstractDAO {
 			DAOAcessorio daoAcs = new DAOAcessorio();
 
 			if (prod.getTipo().equals("VHACESSORIO")) {
-				daoAcs.voltarEstoque(prod);
+				Acessorio acs = new Acessorio();
+				acs.setId(prod.getId());
+				acs.setEstoque(prod.getEstoque());
+				daoAcs.voltarEstoque(acs);
 			} else {
-				daoEle.voltarEstoque(prod);
+				Eletronico ele = new Eletronico();
+				ele.setId(prod.getId());
+				ele.setEstoque(prod.getEstoque());
+				daoEle.voltarEstoque(ele);
 			}
 
 		} catch (Exception e) {
