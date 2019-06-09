@@ -267,7 +267,7 @@
                             <td>R$${item.produto.preco}</td>
                             <td>${item.produto.ativo}</td>
                              <td>
-                             <c:if test="${item.produto.ativo == 'Aprovado'}">
+                             <c:if test="${pedidos[0].status == 'Entregue'}">
 <form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
