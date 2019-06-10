@@ -84,9 +84,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>

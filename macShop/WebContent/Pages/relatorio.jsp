@@ -32,6 +32,82 @@
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!--===============================================================================================-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Masculino', 'Feminino'],
+          ['iPhone', ${quantidade[0]}, ${quantidade[1]}],
+          ['iPad', ${quantidade[2]}, ${quantidade[3]}],
+          ['Macbook', ${quantidade[4]}, ${quantidade[5]}]
+        ]);
+        
+		
+        var options = {
+          chart: {
+            title: 'Vendas Eletronicos macShop',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    
+     <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChartTroca);
+
+      function drawChartTroca() {
+        var data = google.visualization.arrayToDataTable([
+          ['Status', 'Eletrônicos'],
+          ['Total', ${quantidade[10]}],
+          ['Em Troca', ${quantidade[11]}],
+          ['Trocados', ${quantidade[9]}],
+          ['Reprovado', ${quantidade[12]}],
+          
+        ]);
+        
+		
+        var options = {
+          chart: {
+            title: 'Troca Eletronicos macShop',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_troca'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawPieChart);
+
+      function drawPieChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Categorias', 'Quantidade'],
+          ['iPhone',     ${quantidade[6]}],
+          ['iPad',      ${quantidade[7]}],
+          ['Macbook',  ${quantidade[8]}],
+        ]);
+
+        var options = {
+          title: 'Vendas de Eletrônicos'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 
 <body class="animsition">
@@ -78,11 +154,11 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                   <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
+                                   
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
-                                    <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
+                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>
@@ -198,54 +274,25 @@
     <!-- content page -->
 
     <section class="bgwhite p-t-66 p-b-60">
-        <div class="container">
-            <script>
-                window.onload = function () {
-
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                        exportEnabled: true,
-                        animationEnabled: true,
-                        title: {
-                            text: "State Operating Funds"
-                        },
-                        legend: {
-                            cursor: "pointer",
-                            itemclick: explodePie
-                        },
-                        data: [{
-                            type: "pie",
-                            showInLegend: true,
-                            toolTipContent: "{name}: <strong>{y}%</strong>",
-                            indexLabel: "{name} - {y}%",
-                            dataPoints: [
-                                { y: 26, name: "School Aid", exploded: true },
-                                { y: 20, name: "Medical Aid" },
-                                { y: 5, name: "Debt/Capital" },
-                                { y: 3, name: "Elected Officials" },
-                                { y: 7, name: "University" },
-                                { y: 17, name: "Executive" },
-                                { y: 22, name: "Other Local Assistance" }
-                            ]
-                        }]
-                    });
-                    chart.render();
-                }
-
-                function explodePie(e) {
-                    if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
-                        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
-                    } else {
-                        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
-                    }
-                    e.chart.render();
-
-                }
-            </script>
-
-            <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-            <script src="../js/canvasjs.min.js"></script>
-
-        </div>
+    
+    <form action="/macShop/Pages/relatorio3variaveis" method="POST">
+    <center><label> Data de Início</label>
+    <input type="date" name="txtDataInicio">
+    
+    <label> Data de Fim</label>
+    <input type="date" name="txtDataFim">
+    <input type="hidden" id="FormName" name="FormName" value="VHRELATORIO" />
+    <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">
+							Enviar</button>
+    </center>
+    </form>
+    <center>
+    <br><br>
+    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <hr>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <hr>
+    <div id="columnchart_troca" style="width: 800px; height: 500px;"></div></center>
     </section>
     <!-- Footer -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">

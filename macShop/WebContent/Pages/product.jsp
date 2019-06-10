@@ -83,9 +83,9 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
+                                    
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                    <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -243,33 +243,13 @@
 							</li>
 						</ul>
 
-						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Buscar produtos...">
-
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
+		
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
 					<!--  -->
-					<div class="flex-sb-m flex-w p-b-35">
-						<div class="flex-w">
-							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting">
-									<option>Popularidade</option>
-									<option>Preço: menor para o maior</option>
-									<option>Preço: maior para o menor</option>
-								</select>
-							</div>
-						</div>
-
-						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
-						</span>
-					</div>
+					
 
 					<!-- Product -->
 					
@@ -281,7 +261,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="../images/item-02.jpg" alt="IMG-PRODUCT">
+									<img src="../images/iphone.jpg" alt="IMG-PRODUCT">
 
 								</div>
 					
@@ -309,11 +289,7 @@
 
 				</c:forEach>
 
-					<!-- Pagination -->
-					<div class="pagination flex-m flex-w p-t-26">
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -446,23 +422,23 @@
 	
 			<div class="t-center p-l-15 p-r-15">
 				<a href="#">
-					<img class="h-size2" src="images/icons/paypal.png" alt="IMG-PAYPAL">
+					<img class="h-size2" src="../images/icons/paypal.png" alt="IMG-PAYPAL">
 				</a>
 	
 				<a href="#">
-					<img class="h-size2" src="images/icons/visa.png" alt="IMG-VISA">
+					<img class="h-size2" src="../images/icons/visa.png" alt="IMG-VISA">
 				</a>
 	
 				<a href="#">
-					<img class="h-size2" src="images/icons/mastercard.png" alt="IMG-MASTERCARD">
+					<img class="h-size2" src="../images/icons/mastercard.png" alt="IMG-MASTERCARD">
 				</a>
 	
 				<a href="#">
-					<img class="h-size2" src="images/icons/express.png" alt="IMG-EXPRESS">
+					<img class="h-size2" src="../images/icons/express.png" alt="IMG-EXPRESS">
 				</a>
 	
 				<a href="#">
-					<img class="h-size2" src="images/icons/discover.png" alt="IMG-DISCOVER">
+					<img class="h-size2" src="../images/icons/discover.png" alt="IMG-DISCOVER">
 				</a>
 	
 				<div class="t-center s-text8 p-t-20">

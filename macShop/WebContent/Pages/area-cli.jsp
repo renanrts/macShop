@@ -81,9 +81,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                     <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -982,16 +981,29 @@
                                                  <c:if test="${cliente.cupons == null}">
                                                  <h6 class="m-text20 p-b-24">Não há cupons para este cadastro.</h6>
                                                  </c:if>
-													<c:forEach var="cupom" items="${cliente.cupons }" >
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="radio">
-                                                                    <label><input type="text" name="optradio"
-                                                                            class="mr-2" value="ID: ${cupom.id } - VALOR: R$${cupom.valor  }" ></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        </c:forEach>
+                                                 
+                                                 <select name="idcupom" id = "idcupom" class="form-control">
+											 <option name="idcupom" class="end_sel_id" value="0"> Nenhum
+							</option>
+												<c:forEach var="cupom" items="${cliente.cupons }" >
+												<!-- <div class="form-group">
+													<div class="col-md-12">
+														<div class="radio">
+														
+														
+												 -->			
+												 <option name="idcupom" class="end_sel_id" value="${cupom.id }"> ID: ${cupom.id } - VALOR: R$ ${cupom.valor }
+																
+												</option>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+											</select>
+                                                 
+                                                 
+                                                 
+												
                                                     
 
                                                     </div>

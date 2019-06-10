@@ -83,9 +83,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -267,20 +266,39 @@
                             <td>R$${item.produto.preco}</td>
                             <td>${item.produto.ativo}</td>
                              <td>
-                             <c:if test="${item.produto.ativo == 'Trocado'}">
+                      						 
+																
+                             <c:choose>
                              
-                             </c:if>
+                              <c:when test="${item.produto.ativo == 'Trocado'}">
+                             -
+                             </c:when>
                              
+                             <c:when test="${item.produto.ativo == 'Trocado'}">
+                             -
+                             </c:when>
                              
-                             <c:if test="${pedidos[0].status == 'Entregue'}">
-<form action="/macShop/Pages/orders" method="POST">
+                             <c:when test="${item.produto.ativo == 'Em Troca'}">
+                             -
+                             </c:when>
+                             
+                             <c:when test="${pedidos[0].status == 'Entregue'}">
+                             <form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHITEMPRODUTO" />
                         				  <input type="hidden" id="itemID" name="itemID" value="${item.id }" />
                         				  <input type="hidden" id="itemStatus" name="itemStatus" value="${item.produto.ativo }" />
                         				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
             	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="TROCAR">
             					   </form>
-            					   </c:if>     
+                             </c:when>
+                             
+                             <c:otherwise>
+                             
+                            -
+
+            					  </c:otherwise>
+            					  
+            					  </c:choose>    
             					                    
             					     </td>
 
@@ -288,18 +306,7 @@
                       </c:forEach>
                     </tbody>
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Mostrando <b>5</b> de <b>25</b> pedidos.</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Anterior</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Próximo</a></li>
-                    </ul>
-                </div>
+              
             </div>
 			</div>
 		</div>

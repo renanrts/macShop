@@ -78,9 +78,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                   <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -190,7 +189,7 @@
 
     <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
-        style="background-image: url(../images/heading-pages-06.jpg);">
+        style="background-image: url(../images/reports.jpg);">
         <h2 class="l-text2 t-center">
             Contact
         </h2>

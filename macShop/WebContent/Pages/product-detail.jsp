@@ -82,9 +82,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                    <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -199,12 +198,12 @@
         <div class="flex-w flex-sb">
             <div class="w-size13 p-t-30 respon5">
                 <div class="wrap-slick3 flex-sb flex-w">
-                    <div class="wrap-slick3-dots"></div>
+                    
 
                     <div class="slick3">
-                        <div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
+                        <div class="item-slick3">
                             <div class="wrap-pic-w">
-                                <img src="../images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                <img src="../images/iphone.jpg" alt="IMG-PRODUCT">
                             </div>
                         </div>
 

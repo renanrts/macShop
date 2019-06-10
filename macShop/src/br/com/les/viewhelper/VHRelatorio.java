@@ -54,7 +54,7 @@ public class VHRelatorio implements IViewHelper {
 
 		if (operacao.equals("CONSULTAR")) {
 			request.setAttribute("quantidade", resultado.getQtdeRelatorio());
-			RequestDispatcher rd = request.getRequestDispatcher("relatorios.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("relatorio.jsp");
 			try {
 				rd.forward(request, response);
 			} catch (ServletException e) {

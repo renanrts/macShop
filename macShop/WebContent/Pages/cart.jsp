@@ -82,9 +82,8 @@
 
 					<li><a href="index.jsp">Área Admin</a>
 						<ul class="sub_menu">
-							<li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+							<li><a href="#">Consultar Clientes</a></li>
 							<li><a href="consulta-prod.jsp">Produtos</a></li>
-							<li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
 							<li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
 							<li><a href="relatorio.jsp">Relatórios</a></li>
@@ -236,8 +235,8 @@
 									value=" ${eletronico.produto.preco }"></td>
 								<td class="column-1">
 
-									<div class="flex-w bo5 of-hidden w-size17">
-										<form action="/macShop/Pages/carrinho" method="POST">
+									<div class="flex-w  of-hidden w-size17">
+			<%-- 							<form action="/macShop/Pages/carrinho" method="POST">
 											<button type="submit" class="color1 flex-c-m size7 bg8 eff2"
 												id="btnOperacaoSalvar" name="btnOperacao"
 												value="CARRINHOALTERAR">
@@ -252,11 +251,11 @@
 											<input type="hidden" id="operation" name="operation"
 												value="minus" />
 
-										</form>
+										</form> --%>
 										<input class="size8 m-text18 t-center num-product"
 											type="number" id="qtdeComprada" name="qtdeComprada"
 											value="${eletronico.quantidade }" readonly>
-										<form action="/macShop/Pages/carrinho" method="POST">
+										<%-- <form action="/macShop/Pages/carrinho" method="POST">
 											<button type="submit" class="color1 flex-c-m size7 bg8 eff2"
 												id="btnOperacaoSalvar" name="btnOperacao"
 												value="CARRINHOALTERAR">
@@ -270,7 +269,7 @@
 												id="txtID" name="txtID" value="${eletronico.produto.id}" />
 											<input type="hidden" id="operation" name="operation"
 												value="add" />
-										</form>
+										</form> --%>
 									</div>
 
 								</td>

@@ -83,9 +83,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -206,7 +205,7 @@
 
                         <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
                             <!-- Button -->
-                            <a href="product.jsp" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                                 Shop Now
                             </a>
                         </div>
@@ -223,7 +222,7 @@
 
                         <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
                             <!-- Button -->
-                            <a href="product.jsp" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                                 Shop Now
                             </a>
                         </div>
@@ -266,7 +265,7 @@
                             </div>
 
                             <div class="block2-txt p-t-20">
-                                <a href="product.jsp" class="block2-name dis-block s-text3 p-b-5"
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="block2-name dis-block s-text3 p-b-5"
                                     style="text-align: center">
                                     iPhone
                                 </a>
@@ -292,7 +291,7 @@
                             </div>
 
                             <div class="block2-txt p-t-20">
-                                <a href="product.jsp" class="block2-name dis-block s-text3 p-b-5"
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="block2-name dis-block s-text3 p-b-5"
                                     style="text-align: center">
                                     iPad
                                 </a>
@@ -321,7 +320,7 @@
                             </div>
 
                             <div class="block2-txt p-t-20">
-                                <a href="product.jsp" class="block2-name dis-block s-text3 p-b-5"
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="block2-name dis-block s-text3 p-b-5"
                                     style="text-align: center">
                                     Macbook
                                 </a>
@@ -349,7 +348,7 @@
                             </div>
 
                             <div class="block2-txt p-t-20">
-                                <a href="product.jsp" class="block2-name dis-block s-text3 p-b-5"
+                                <a href="product?btnOperacao=CONSULTAR&FormName=VHELETRONICO&direcionamento=CATALOGO&txtStatus=Ativo" class="block2-name dis-block s-text3 p-b-5"
                                     style="text-align: center">
                                     Acessórios
                                 </a>

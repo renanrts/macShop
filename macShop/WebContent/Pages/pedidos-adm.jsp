@@ -81,9 +81,8 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                    <li><a href="consulta-cli.jsp">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                    <li><a href="troca.jsp">Consultar Trocas</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
                                     <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
@@ -208,30 +207,8 @@
 
         <div class="container">
 
-            <div class="col-md-4">
-                <div class="p-b-35">
-                    <div>
-                        <div class="rs2-select2 bo4 m-t-5 m-b-5">
-                            <select class="selection-2" name="sorting">
-                                <option>Filtro 1</option>
-                                <option>Filtro 2</option>
-                                <option>Filtro 3</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="search-product pos-relative bo4 of-hidden">
-                    <input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product"
-                        placeholder="Buscar pedidos...">
-
-                    <button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-                        <i class="fs-12 fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
+            
+   
 
             <div class="table-wrapper">
 
@@ -322,18 +299,7 @@
 
                     </tbody>
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Mostrando <b>5</b> de <b>25</b> pedidos.</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Anterior</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Próximo</a></li>
-                    </ul>
-                </div>
+             
             </div>
         </div>
         <!-- Edit Modal HTML -->
