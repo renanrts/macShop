@@ -12,6 +12,7 @@ public class Resultado {
 	private String mensagem;
 	private int contagem = 0;
 	private List<EntidadeDominio> categoria;
+	private List<Integer> qtdeRelatorio;
 	
 	
 	public List<EntidadeDominio> getListaResultado() {
@@ -60,6 +61,12 @@ public class Resultado {
 	public List<EntidadeDominio> getCategoria ()
 	{
 		return categoria;
+	}
+	public List<Integer> getQtdeRelatorio() {
+		return qtdeRelatorio;
+	}
+	public void setQtdeRelatorio(List<Integer> qtdeRelatorio) {
+		this.qtdeRelatorio = qtdeRelatorio;
 	}
 
 }

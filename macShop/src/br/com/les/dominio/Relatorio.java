@@ -9,6 +9,8 @@ public class Relatorio extends EntidadeDominio {
 	private LocalDate dataFim;
 	private List<EntidadeDominio> variavel1;
 	private List<EntidadeDominio> variavel2;
+	private List<Integer> variavel3;
+	
 	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
@@ -32,6 +34,12 @@ public class Relatorio extends EntidadeDominio {
 	}
 	public void setVariavel2(List<EntidadeDominio> variavel2) {
 		this.variavel2 = variavel2;
+	}
+	public List<Integer> getVariavel3() {
+		return variavel3;
+	}
+	public void setVariavel3(List<Integer> variavel3) {
+		this.variavel3 = variavel3;
 	}
 	
 	

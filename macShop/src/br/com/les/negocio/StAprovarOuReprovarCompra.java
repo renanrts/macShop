@@ -20,8 +20,10 @@ public class StAprovarOuReprovarCompra implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		 System.out.println("StAprovarOuReprovarCompra ");
-		 Random random = new Random();
-		 Integer analisarPedido = random.nextInt(3);
+//		 Random random = new Random();
+//		 Integer analisarPedido = random.nextInt(3);
+		 
+		 Integer analisarPedido = 2;
 		    DAOPedido daoPedido = new DAOPedido();
 		    if(analisarPedido % 2 == 0) {
 		      

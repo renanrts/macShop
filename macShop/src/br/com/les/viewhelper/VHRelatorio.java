@@ -1,8 +1,11 @@
 package br.com.les.viewhelper;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,7 +43,28 @@ public class VHRelatorio implements IViewHelper {
 
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		
+		String operacao = request.getParameter("btnOperacao");
+		String mensagem[] = resultado.getMensagem().split("\n");
+
+		if (resultado.getErro())
+			request.setAttribute("erro", mensagem);
+		else
+			request.setAttribute("sucesso", mensagem);
+
+		if (operacao.equals("CONSULTAR")) {
+			request.setAttribute("quantidade", resultado.getQtdeRelatorio());
+			RequestDispatcher rd = request.getRequestDispatcher("relatorios.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 

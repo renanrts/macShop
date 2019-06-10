@@ -40,22 +40,72 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Data', 'iPhone', 'iPad', 'Macbook'],
-          ['01', 1000, 400, 200],
-          ['02', 1170, 460, 250],
-          ['03', 660, 1120, 300],
-          ['31', 1030, 540, 350]
+          ['Categoria', 'Masculino', 'Feminino'],
+          ['iPhone', ${quantidade[0]}, ${quantidade[1]}],
+          ['iPad', ${quantidade[2]}, ${quantidade[3]}],
+          ['Macbook', ${quantidade[4]}, ${quantidade[5]}]
         ]);
-
+        
+		
         var options = {
           chart: {
-            title: 'Vendas Produtos macShop',
+            title: 'Vendas Eletronicos macShop',
           }
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    
+     <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChartTroca);
+
+      function drawChartTroca() {
+        var data = google.visualization.arrayToDataTable([
+          ['Status', 'Eletrônicos'],
+          ['Total', ${quantidade[10]}],
+          ['Em Troca', ${quantidade[11]}],
+          ['Trocados', ${quantidade[9]}],
+          ['Reprovado', ${quantidade[12]}],
+          
+        ]);
+        
+		
+        var options = {
+          chart: {
+            title: 'Troca Eletronicos macShop',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_troca'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawPieChart);
+
+      function drawPieChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Categorias', 'Quantidade'],
+          ['iPhone',     ${quantidade[6]}],
+          ['iPad',      ${quantidade[7]}],
+          ['Macbook',  ${quantidade[8]}],
+        ]);
+
+        var options = {
+          title: 'Vendas Totais de Eletrônicos'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
       }
     </script>
 </head>
@@ -224,18 +274,25 @@
     <!-- content page -->
 
     <section class="bgwhite p-t-66 p-b-60">
+    
+    <form action="/macShop/Pages/relatorio3variaveis" method="POST">
     <center><label> Data de Início</label>
-    <input type="date">
+    <input type="date" name="txtDataInicio">
     
     <label> Data de Fim</label>
-    <input type="date">
-    <input type="submit">
+    <input type="date" name="txtDataFim">
+    <input type="hidden" id="FormName" name="FormName" value="VHRELATORIO" />
+    <button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="CONSULTAR">
+							Enviar</button>
     </center>
-    
+    </form>
     <center>
     <br><br>
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div></center>
-        
+    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <hr>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <hr>
+    <div id="columnchart_troca" style="width: 800px; height: 500px;"></div></center>
     </section>
     <!-- Footer -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
