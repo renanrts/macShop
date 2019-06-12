@@ -38,6 +38,11 @@ public class VHProduto implements IViewHelper{
 					eletronico.setEstoque(Integer.parseInt(request.getParameter("txtEstoque")));
 				}
 				
+				if(request.getParameter("txtEstoque") == null)
+				{
+					eletronico.setEstoque(0);
+				}
+				
 				eletronico.setAlimentacao(request.getParameter("txtAlimentacao"));
 				eletronico.setCaminhoFoto(request.getParameter("txtFoto"));
 				eletronico.setCategoria(categoria);

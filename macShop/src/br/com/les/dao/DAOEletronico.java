@@ -196,7 +196,7 @@ public class DAOEletronico extends AbstractDAO {
 			}
 
 			else {
-				String sql = "UPDATE ELETRONICOS SET ele_nome = ?, ele_alimentacao = ?, ele_caminhofoto = ?, cat_id = ?, ele_codigobarras = ?, ele_conteudoembalagem = ?, ele_cor = ?, ele_datafabricaco = ?, ele_descricao = ?, ele_dimensoes = ?, ele_memoria = ?, ele_modelo = ?, ele_processador = ?, ele_ram = ?, ele_resolucaocamera = ?, ele_sistemaoperacional = ?, ele_display = ?, ele_preco = ?, ele_status = ?, ele_estoque = ? WHERE ele_id = ?";
+				String sql = "UPDATE ELETRONICOS SET ele_nome = ?, ele_alimentacao = ?, ele_caminhofoto = ?, cat_id = ?, ele_codigobarras = ?, ele_conteudoembalagem = ?, ele_cor = ?, ele_datafabricaco = ?, ele_descricao = ?, ele_dimensoes = ?, ele_memoria = ?, ele_modelo = ?, ele_processador = ?, ele_ram = ?, ele_resolucaocamera = ?, ele_sistemaoperacional = ?, ele_display = ?, ele_preco = ?, ele_status = ? WHERE ele_id = ?";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, eletronico.getNome());
 				stmt.setString(2, eletronico.getAlimentacao());
@@ -218,7 +218,7 @@ public class DAOEletronico extends AbstractDAO {
 				stmt.setDouble(18, eletronico.getPreco());
 				stmt.setString(19, eletronico.getAtivo());
 				stmt.setInt(20, eletronico.getId());
-				stmt.setInt(21, eletronico.getEstoque());
+				
 			}
 
 			ResultSet rs = stmt.executeQuery();
