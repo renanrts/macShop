@@ -122,9 +122,13 @@ public class VHPedido implements IViewHelper {
 
 		pedido.setFormapagto(listPgto);
 
-		if (request.getParameter("cli_id") != null) {
-			pedido.setCli_id(Integer.parseInt(request.getParameter("cli_id")));
+
+		if (request.getSession().getAttribute("idUsuario") != null)
+		{
+			int userid = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idUsuario")));
+			pedido.setCli_id(userid);
 		}
+		
 		pedido.setTipo(request.getParameter("Direcionamento"));
 
 		if (request.getParameter("enderecoselecionado_id") != null) {

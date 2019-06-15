@@ -21,15 +21,15 @@ import br.com.les.viewhelper.VHUsuario;
 /**
  * Servlet Filter implementation class LoginController
  */
-@WebFilter("/Pages/LoginController")
+@WebFilter({ "/Pages/LoginController", "/Pages/LoginControllerPedidos", "/Pages/LoginControllerMeusDados" })
 public class LoginController implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public LoginController() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public LoginController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -41,55 +41,91 @@ public class LoginController implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		HttpServletRequest req = (HttpServletRequest) request;
-	    HttpServletResponse res = (HttpServletResponse) response;
-	    
-	    boolean usuarioLogado = false;
-	    
-	    VHCliente vh = new VHCliente();
-	    
-	    String idCliente="-1";
-	      
-	    Cliente cli = (Cliente) vh.getEntidade(req);
-	    
-	    DAOCliente dao = new DAOCliente();
-	    
-	    Boolean resultado = dao.validarLogin(cli);
-	
-	    req.getSession().setAttribute("sessionId", req.getSession().getId());
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-	      if (resultado == true) {
-	    	cli.setId(Integer.parseInt(dao.consultarID(cli)));
-	        idCliente = cli.getId().toString();
-	        Cookie logado = new Cookie("clienteLogado", idCliente);
-	        res.addCookie(logado);
-	        req.getSession().setAttribute("idUsuario", cli.getId().toString());  
-	        RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
-			
-		    rd.forward(request, response);
-	        
-	        return;
-	      } else {
-	        req.getSession().setAttribute("usuario", "Usuário ou senha inválidos");     
-	      }      
-	    
-	    if(req.getCookies()!=null){
-	      for(Cookie cookie : req.getCookies()){
-	        if(cookie.getName().equals("clienteLogado")) {
-	          usuarioLogado = true;
-	          if(req.getRequestURI().equals("/macShop/Pages/cart.jsp")) {
-	            res.sendRedirect("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
-	          } 
-	          break;
-	        }
-	      }
-	    }
-	    if(!usuarioLogado){
-	        //Redireciona para a página de login
-	        res.sendRedirect("login.jsp");
-	      }
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		String direcionamento = req.getRequestURI();
+		RequestDispatcher rd = null;
+
+		System.out.println(direcionamento);
+
+		boolean usuarioLogado = false;
+
+		Integer userid = 0;
+
+		if (req.getSession().getAttribute("idUsuario") == null) {
+			userid = null;
+		}
+
+		else {
+			userid = Integer.parseInt(String.valueOf(req.getSession().getAttribute("idUsuario")));
+		}
+
+		if (userid != null) {
+			usuarioLogado = true;
+			if (req.getRequestURI().equals("/macShop/Pages/cart.jsp")) {
+				rd = request.getRequestDispatcher(
+						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
+				rd.forward(request, response);
+				return;
+			} else if (direcionamento.equals("/macShop/Pages/LoginControllerPedidos")) 
+			{
+				rd = request
+						.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=CLIENTE");
+				rd.forward(request, response);
+				return;
+			}
+
+		}
+		
+		else if (!direcionamento.equals("/macShop/Pages/LoginController") )
+		{
+			res.sendRedirect("login.jsp");
+			return;
+		}
+
+		VHCliente vh = new VHCliente();
+
+		String idCliente = "-1";
+
+		Cliente cli = (Cliente) vh.getEntidade(req);
+
+		DAOCliente dao = new DAOCliente();
+
+		Boolean resultado = dao.validarLogin(cli);
+
+		req.getSession().setAttribute("sessionId", req.getSession().getId());
+
+		if (resultado == true) {
+			cli.setId(Integer.parseInt(dao.consultarID(cli)));
+			idCliente = cli.getId().toString();
+			Cookie logado = new Cookie("clienteLogado", idCliente);
+			res.addCookie(logado);
+			req.getSession().setAttribute("idUsuario", cli.getId().toString());
+
+			if (direcionamento.equals("/Pages/LoginControllerPedidos")) {
+				rd = request
+						.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=CLIENTE");
+
+			}
+
+			else {
+				rd = request.getRequestDispatcher(
+						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
+
+			}
+
+			rd.forward(request, response);
+
+			return;
+		}
+
+		if (!usuarioLogado) {
+			// Redireciona para a página de login
+			res.sendRedirect("login.jsp");
+		}
 	}
 
 	/**
