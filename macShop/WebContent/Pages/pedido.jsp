@@ -324,7 +324,7 @@
 														<div class="col-md-12">
 															<div class="radio">
 																<label><input type="checkbox" name="cupom-troca"
-																	class="mr-2" value="${cupom.id }">ID:
+																	class="mr-2" value="${cupom.id }" id="cupomTroca" >ID:
 																	${cupom.id } - VALOR: R$${cupom.valor } </label>
 															</div>
 														</div>
@@ -894,6 +894,23 @@
 
 		 $("#total").text("R$ " + (a-totalDescontos))
 	})
+	
+	
+	
+	
+	</script>
+	
+		<script>
+		$("#cupomTroca").change(function(){
+			var totalDescontos = 0 
+			totalDescontos += Number($("#idcupom option:selected").attr("preco"))	
+			$("#descontos").text("R$ " + totalDescontos)
+			
+			var a = subtotal.innerText.trim().replace("R$ ", "")
+
+			 $("#total").text("R$ " + (a-totalDescontos))
+		})
+	
 	
 	
 	

@@ -411,4 +411,54 @@ public class DAOCliente extends AbstractDAO {
 		}
 
 	}
+
+	public Boolean validarLogin(Cliente cli) {
+		
+		Cliente cliBase = new Cliente();
+		Resultado resultado = new Resultado();
+		int contagem = 0;
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+
+			String sql = "SELECT * FROM CLIENTES WHERE cli_email = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, cli.getEmail());
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				cliBase.setEmail(rs.getString("cli_email"));
+				List<String> senhas = new ArrayList<String>();
+				
+				senhas.add(rs.getString("cli_email"));
+
+				cliBase.setSenhas(senhas);
+				cliBase.setId(Integer.parseInt(rs.getString("cli_id")));
+				contagem++;
+			}
+			
+			if(cliBase.getEmail().equals(cli.getEmail()) && cliBase.getSenhas().get(0).equals(cli.getSenhas().get(0)))
+			{
+				return true;
+			}
+			
+			else
+			{
+				return false;
+			}
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+		
+		
+		return null;
+	}
 }
