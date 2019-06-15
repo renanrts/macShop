@@ -30,6 +30,14 @@ public class VHCliente implements IViewHelper{
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		Cliente cliente = new Cliente();
+
+		
+		if (request.getSession().getAttribute("idUsuario") != null)
+		{
+
+			int userid = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idUsuario")));
+			cliente.setId(userid);
+		}
 		
 		if(request.getParameter("txtStatus") != null)
 		{

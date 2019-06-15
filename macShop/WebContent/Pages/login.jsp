@@ -204,18 +204,18 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form p-l-55 p-r-55 p-t-178">
+                <form action="/macShop/Pages/LoginController" method="POST" class="login100-form validate-form p-l-55 p-r-55 p-t-178">
                     <span class="login100-form-title ">
                         Login
                     </span>
 
                     <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
-                        <input class="input100" type="text" name="username" placeholder="Usuário">
+                        <input class="input100" type="text" name="txtEmail" placeholder="Usuário">
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Please enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Senha">
+                        <input class="input100" type="password" name="txtSenha1" placeholder="Senha">
                         <span class="focus-input100"></span>
                     </div>
 
@@ -230,6 +230,8 @@
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn s-text8">
                             Entrar
+                            
+                            
                         </button>
                     </div>
 </form>

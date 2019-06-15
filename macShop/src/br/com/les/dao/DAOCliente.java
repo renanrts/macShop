@@ -432,7 +432,7 @@ public class DAOCliente extends AbstractDAO {
 				cliBase.setEmail(rs.getString("cli_email"));
 				List<String> senhas = new ArrayList<String>();
 				
-				senhas.add(rs.getString("cli_email"));
+				senhas.add(rs.getString("cli_senha"));
 
 				cliBase.setSenhas(senhas);
 				cliBase.setId(Integer.parseInt(rs.getString("cli_id")));
@@ -448,6 +448,42 @@ public class DAOCliente extends AbstractDAO {
 			{
 				return false;
 			}
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+
+		}finally {
+			ConnectionFactory.closeConnection(stmt, con);
+		}
+		
+		
+		return null;
+	}
+
+	public String consultarID(Cliente cli) {
+		Resultado resultado = new Resultado();
+	
+		con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+
+			String sql = "SELECT * FROM CLIENTES WHERE cli_email = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, cli.getEmail());
+			String id = "";
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+			
+				id = rs.getString("cli_id");
+			
+			}
+			
+			return id;
 
 		} catch (SQLException e1) {
 

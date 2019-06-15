@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.les.dao.DAOCliente;
 import br.com.les.dominio.Cliente;
+import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHUsuario;
 
 /**
  * Servlet Filter implementation class LoginController
  */
-@WebFilter("/LoginController")
+@WebFilter("/Pages/LoginController")
 public class LoginController implements Filter {
 
     /**
@@ -47,7 +48,7 @@ public class LoginController implements Filter {
 	    
 	    boolean usuarioLogado = false;
 	    
-	    VHUsuario vh = new VHUsuario();
+	    VHCliente vh = new VHCliente();
 	    
 	    String idCliente="-1";
 	      
@@ -60,10 +61,11 @@ public class LoginController implements Filter {
 	    req.getSession().setAttribute("sessionId", req.getSession().getId());
 
 	      if (resultado == true) {
+	    	cli.setId(Integer.parseInt(dao.consultarID(cli)));
 	        idCliente = cli.getId().toString();
 	        Cookie logado = new Cookie("clienteLogado", idCliente);
 	        res.addCookie(logado);
-	       
+	        req.getSession().setAttribute("idUsuario", cli.getId().toString());  
 	        RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 			
 		    rd.forward(request, response);

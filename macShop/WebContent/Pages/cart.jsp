@@ -359,7 +359,7 @@
 				<div class="size15 trans-0-4">
 					<!-- Button -->
 					<a
-						href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=PAGAMENTO"
+						href="login.jsp"
 						class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 						Pagamento </a>
 				</div>
