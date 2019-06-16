@@ -72,10 +72,10 @@
 
 
 
-                            <li>
+                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
+                                    <li><a href="LoginControllerMeusDados">Meus Dados</a></li>
                                     <li><a href="LoginControllerPedidos">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>

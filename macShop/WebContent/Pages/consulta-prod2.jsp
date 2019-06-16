@@ -69,12 +69,12 @@
 
 
 
-                            <li>
+                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="area-cli.jsp">Meus Dados</a></li>
-                                    <li><a href="pedidos-cli.jsp">Pedidos</a></li>
-                                    <li><a href="/macShop/Pages/consultaCategoria?btnOperacao=CONSULTAR">Logout</a></li>
+                                    <li><a href="LoginControllerMeusDados">Meus Dados</a></li>
+                                    <li><a href="LoginControllerPedidos">Pedidos</a></li>
+                                    <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
 
@@ -84,7 +84,7 @@
                                     <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
-                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
+                                 <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>

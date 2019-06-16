@@ -142,11 +142,11 @@
 
 
 
-                            <li>
+                             <li>
                                 <a href="index.jsp">Área Cliente</a>
                                 <ul class="sub_menu">
-                                    <li><a href="contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS">Meus Dados</a></li>
-                                    <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&cli_id=10&Direcionamento=CLIENTE">Pedidos</a></li>
+                                    <li><a href="LoginControllerMeusDados">Meus Dados</a></li>
+                                    <li><a href="LoginControllerPedidos">Pedidos</a></li>
                                     <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
@@ -154,11 +154,10 @@
                             <li>
                                 <a href="index.jsp">Área Admin</a>
                                 <ul class="sub_menu">
-                                   <li><a href="#">Consultar Clientes</a></li>
+                                    <li><a href="#">Consultar Clientes</a></li>
                                     <li><a href="consulta-prod.jsp">Produtos</a></li>
-                                   
                                     <li><a href="orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=ADMIN">Consultar Pedidos</a></li>
-                                  <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
+                                 <li><a href="gerarCupom.jsp">Gerar Cupom</a></li>
                                     <li><a href="relatorio.jsp">Relatórios</a></li>
                                 </ul>
                             </li>
