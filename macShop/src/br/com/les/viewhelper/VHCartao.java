@@ -38,8 +38,9 @@ public class VHCartao implements IViewHelper {
 		LocalDate dataVencimento = LocalDate.parse(strDataVencimento, formatter);
 		cartao.setDtVenciamento(dataVencimento);
 		
-		if(request.getParameter("txtCliID") != null){
-			cartao.setCliId(Integer.parseInt(request.getParameter("txtCliID")));
+		if(request.getSession().getAttribute("idUsuario") != null){
+			int userid = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idUsuario")));
+			cartao.setCliId(userid);
 		}	
 				
 		return cartao;
@@ -60,7 +61,7 @@ public class VHCartao implements IViewHelper {
 		if(operacao.equals("SALVAR")){	
 			if(request.getParameter("Direcionamento").equals("COMPRA"))
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=PAGAMENTO");
+				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException e) {
@@ -74,7 +75,7 @@ public class VHCartao implements IViewHelper {
 			else
 				
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS");
+				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=DADOS");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException e) {

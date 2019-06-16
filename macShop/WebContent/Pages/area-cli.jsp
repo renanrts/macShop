@@ -667,6 +667,7 @@
 
 
                                             <form action="#" class="billing-form bg-light p-3 p-md-5">
+                                            
                                                 <h3 class="mb-4 billing-heading">Selecionar endereço de entrega
                                                     preferencial</h3>
                                                 <div class="row align-items-end">
@@ -690,14 +691,14 @@
                                                         </div>
                                                         </c:forEach>
                                                        
-
+</form>
                                                     </div>
 
                                                     <div class="w-100"></div>
                                                     <hr>
                                   <form action="/macShop/Pages/endereco" method="POST" class="billing-form bg-light p-3 p-md-5">
 									
-
+<div class="row align-items-end">
 											<div class="w-100"></div>
 											<hr>
 											<h3 class="mb-4 billing-heading">Cadastrar novo endereço
@@ -835,12 +836,13 @@
 														<input type="hidden" id="Direcionamento" name="Direcionamento" value="AREACLIE" />
 														<input type="hidden" id="cliId" name="cliId" value="${cliente.id }" />
 														<button class="btn mosh-btn mt-50" id= "btnOperacaoSalvar" name="btnOperacao" value="SALVAR">Cadastrar</button>
+														  </form>
 													</div>
 												</center>
 											</div>
 										</div>
 								 </div>
-                                        </form><!-- END -->
+                                      <!-- END -->
                                     </div> <!-- .col-md-8 -->
                                 </div>
                             </div>

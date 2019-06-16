@@ -42,9 +42,10 @@ public class VHEndereco implements IViewHelper {
 		enderecoEntrega.setObservacao(request.getParameter("txtObservacaoEntrega"));
 		enderecoEntrega.setBairro(request.getParameter("txtBairroEntrega"));
 		
-		if (request.getParameter("cliId") != null)
+		if (request.getSession().getAttribute("idUsuario") != null)
 		{
-			enderecoEntrega.setCliId(Integer.parseInt(request.getParameter("cliId")));
+			int userid = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idUsuario")));
+			enderecoEntrega.setCliId(userid);
 		}
 
 		return enderecoEntrega;
@@ -64,7 +65,7 @@ public class VHEndereco implements IViewHelper {
 		if(operacao.equals("SALVAR")){	
 			if(request.getParameter("Direcionamento").equals("COMPRA"))
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=PAGAMENTO");
+				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException e) {
@@ -78,7 +79,7 @@ public class VHEndereco implements IViewHelper {
 			else
 				
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&txtID=10&Direcionamento=DADOS");
+				RequestDispatcher rd = request.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=DADOS");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException e) {
