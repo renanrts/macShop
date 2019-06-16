@@ -30,7 +30,7 @@ public class DAOAcessorio extends AbstractDAO{
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, acessorio.getNome());
 			stmt.setDouble(2, acessorio.getPreco());
-			stmt.setString(3, String.valueOf(acessorio.getCategoria().getId()));
+			stmt.setInt(3, acessorio.getCategoria().getId());
 			stmt.setString(4, acessorio.getDataaFabricacao());
 			stmt.setString(5, acessorio.getCor());
 			stmt.setString(6, acessorio.getDimensoes());
@@ -185,7 +185,7 @@ public class DAOAcessorio extends AbstractDAO{
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, acessorio.getNome());
 				stmt.setDouble(2, acessorio.getPreco());
-				stmt.setString(3, String.valueOf(acessorio.getCategoria().getId()));
+				stmt.setInt(3, acessorio.getCategoria().getId());
 				stmt.setString(4, acessorio.getDataaFabricacao());
 				stmt.setString(5, acessorio.getCor());
 				stmt.setString(6, acessorio.getDimensoes());
@@ -193,7 +193,7 @@ public class DAOAcessorio extends AbstractDAO{
 				stmt.setString(8, acessorio.getCaminhoFoto());
 				stmt.setString(9, acessorio.getDescricao());
 				stmt.setString(10, acessorio.getAtivo());
-				stmt.setString(11, acessorio.getModeloCompativel());;
+				stmt.setString(11, acessorio.getModeloCompativel());
 				stmt.setBoolean(12, acessorio.isSeloMfi());	
 				stmt.setInt(13, acessorio.getId());
 			}

@@ -32,7 +32,7 @@ public class DAOPedido extends AbstractDAO {
 		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 
-		String sql = "INSERT INTO PEDIDOS (cli_id, end_id, ped_total, ped_status, ped_frete, cupom_id, ped_data) "
+		String sql = "INSERT INTO PEDIDOS (cli_id, end_id, ped_total, ped_status, ped_frete, cup_id, ped_data) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
@@ -323,8 +323,7 @@ public class DAOPedido extends AbstractDAO {
 					Pedido ped = new Pedido();
 
 					ped.setId(Integer.parseInt(rs.getString("ped_id")));
-					System.out.println(rs.getDate("ped_data"));
-					System.out.println(rs.getString("ped_data"));
+					
 					ped.setDataPedido(rs.getDate("ped_data").toLocalDate());
 					ped.setValorTotal(rs.getDouble("ped_total"));
 					ped.setCli_id(rs.getInt("cli_id"));
@@ -374,7 +373,7 @@ public class DAOPedido extends AbstractDAO {
 
 					for (ItemCarrinho item : pe.getCarrinho().getItensCarrinho()) {
 						Produto prod2 = item.getProduto();
-						System.out.println(prod2.getTipo());
+						
 						if (prod2.getTipo().equals("VHELETRONICO")) {
 
 							Eletronico a = new Eletronico();
@@ -646,7 +645,9 @@ public class DAOPedido extends AbstractDAO {
 							a.setSeloMfi(rsT.getBoolean("acs_mfi"));
 							a.setTipo("VHACESSORIO");
 							a.setEstoque(rsT.getInt("acs_estoque"));
+							a.setAtivo(prod2.getAtivo());
 							prod2 = (Produto) a;
+							item.setProduto(a);
 						}
 						rsT.close();
 

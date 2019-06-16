@@ -109,6 +109,11 @@ public class VHProduto implements IViewHelper{
 			{
 				acessorio.setEstoque(Integer.parseInt(request.getParameter("txtEstoque")));
 			}
+			
+			if(request.getParameter("txtEstoque") == null)
+			{
+				acessorio.setEstoque(0);
+			}
 
 			acessorio.setCaminhoFoto(request.getParameter("txtFoto"));
 			acessorio.setCategoria(categoria);

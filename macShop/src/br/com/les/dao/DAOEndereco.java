@@ -23,7 +23,7 @@ public class DAOEndereco extends AbstractDAO {
 		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, end_cli_id, end_status, end_preferencial, end_tipo) "
+		String sql = "INSERT INTO ENDERECOS (end_cid_id, end_tipo_residencia, end_cep, end_logradouro, end_numero, end_tipo_logradouro, end_bairro, end_obs, cli_id, end_status, end_preferencial, end_tipo) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)";
 
 		try {

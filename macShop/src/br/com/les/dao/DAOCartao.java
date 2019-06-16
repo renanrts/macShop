@@ -18,7 +18,7 @@ public class DAOCartao extends AbstractDAO {
 		PreparedStatement stmt = null;
 		Resultado resultado = new Resultado();
 		
-		String sql = "INSERT INTO CARTOES (cart_bandeira, cart_nome, cart_numero, cart_cod, cart_vencimento, cart_preferencial, cart_cli_id, cart_status) "
+		String sql = "INSERT INTO CARTOES (cart_bandeira, cart_nome, cart_numero, cart_cod, cart_vencimento, cart_preferencial, cli_id, cart_status) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {

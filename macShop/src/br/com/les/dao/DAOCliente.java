@@ -136,7 +136,7 @@ public class DAOCliente extends AbstractDAO {
 			rs.close();
 			
 			
-			String sqlEnderecos = "Select * from Enderecos as C INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id AND c.end_status = 1 and end_cli_id = ?";
+			String sqlEnderecos = "Select * from Enderecos as C INNER JOIN cidade AS G ON C.end_cid_id = G.cid_id INNER JOIN estado AS P ON P.est_id = g.cid_est_id WHERE G.cid_id = C.end_cid_id AND P.est_id = g.cid_est_id AND c.end_status = 1 and cli_id = ?";
 			stmt = con.prepareStatement(sqlEnderecos);
 			stmt.setInt(1, cliente.getId());
 			ResultSet rsEndereco = stmt.executeQuery();
@@ -179,7 +179,7 @@ public class DAOCliente extends AbstractDAO {
 			rsEndereco.close();
 			
 			
-			String sqlCartoes = "Select * from Cartoes where cart_cli_id = ?";
+			String sqlCartoes = "Select * from Cartoes where cli_id = ?";
 			stmt = con.prepareStatement(sqlCartoes);
 			stmt.setInt(1, cliente.getId());
 			ResultSet rsCartoes = stmt.executeQuery();
@@ -199,7 +199,7 @@ public class DAOCliente extends AbstractDAO {
 			rsCartoes.close();
 			
 
-			String sqlCuPOM = "SELECT * from CUPONS AS C INNER JOIN CLIENTES AS F ON C.CLI_ID = f.cli_id where f.cli_id = ? and CUP_STATUS = ?";
+			String sqlCuPOM = "SELECT * from CUPONS AS C INNER JOIN CLIENTES AS F ON C.cli_id = f.cli_id where f.cli_id = ? and CUP_STATUS = ?";
 			stmt = con.prepareStatement(sqlCuPOM);
 			stmt.setInt(1, cliente.getId());
 			stmt.setString(2, "ATIVO");

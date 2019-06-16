@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.les.dao.DAOAcessorio;
 import br.com.les.dao.DAOEletronico;
+import br.com.les.dominio.Acessorio;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.Eletronico;
@@ -44,7 +45,7 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	    else
 	  		{
 	  		    DAOAcessorio daoAcessorio = new DAOAcessorio();
-	  		    resultado = daoAcessorio.consultar(produto);
+	  		    resultado = daoAcessorio.visualizar(produto);
 	  		    
 	  		}
 	    
@@ -66,9 +67,21 @@ public class StConsultarQuantidadeEstoque implements IStrategy {
 	         }  
 	       }
 	    }
+	    
+	    Integer quantidadeEmEstoque  = 0 ;
+	    if (produtoBloqueado.getCarrinho().getItensCarrinho().get(0).getProduto().getTipo().equals("VHELETRONICO"))
+		{
+	    	Eletronico estoque = (Eletronico) resultado.getListaResultado().get(0);
+	    	quantidadeEmEstoque = estoque.getEstoque();
+		}
+	    
+	    else
+	    {
+	    	Acessorio estoque = (Acessorio) resultado.getListaResultado().get(0);
+	    	quantidadeEmEstoque = estoque.getEstoque();
+	    }
 	 
-	    Eletronico estoque = (Eletronico) resultado.getListaResultado().get(0);
-	    Integer quantidadeEmEstoque = estoque.getEstoque(); 
+
 	    Integer quantidadeDisponivel = quantidadeEmEstoque - quantidadeDeItensBloqueados ;
 	   
 	    if(quantidadeAInserir > quantidadeDisponivel) {
