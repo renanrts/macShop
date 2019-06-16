@@ -65,7 +65,7 @@ public class LoginController implements Filter {
 
 		if (userid != null) {
 			usuarioLogado = true;
-			if (req.getRequestURI().equals("/macShop/Pages/cart.jsp")) {
+			if (req.getRequestURI().equals("/macShop/Pages/LoginController")) {
 				rd = request.getRequestDispatcher(
 						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 				rd.forward(request, response);
@@ -76,13 +76,34 @@ public class LoginController implements Filter {
 						.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=CLIENTE");
 				rd.forward(request, response);
 				return;
+			} else if (direcionamento.equals("/macShop/Pages/LoginControllerMeusDados")) 
+			{
+				rd = request
+						.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=DADOS");
+				rd.forward(request, response);
+				return;
 			}
 
 		}
 		
 		else if (!direcionamento.equals("/macShop/Pages/LoginController") )
 		{
-			res.sendRedirect("login.jsp");
+			if (req.getRequestURI().equals("/macShop/Pages/cart.jsp"))
+			{
+				request.setAttribute("direcionamento", "pagamento");
+			}
+			else if (direcionamento.equals("/macShop/Pages/LoginControllerPedidos")) 
+			{
+				request.setAttribute("direcionamento", "pedidos");
+			}
+			else if (direcionamento.equals("/macShop/Pages/LoginControllerDados")) 
+			{
+				request.setAttribute("direcionamento", "dados");
+			}
+			rd = request
+					.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		
 			return;
 		}
 
@@ -104,16 +125,22 @@ public class LoginController implements Filter {
 			Cookie logado = new Cookie("clienteLogado", idCliente);
 			res.addCookie(logado);
 			req.getSession().setAttribute("idUsuario", cli.getId().toString());
-
-			if (direcionamento.equals("/Pages/LoginControllerPedidos")) {
+			direcionamento = request.getParameter("direcionamento");
+			if (direcionamento.equals("pedidos")) {
 				rd = request
 						.getRequestDispatcher("orders?btnOperacao=CONSULTAR&FormName=VHPEDIDO&Direcionamento=CLIENTE");
 
 			}
+			
+			else if (direcionamento.equals("pagamento")) {
+				rd = request
+						.getRequestDispatcher("contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 
-			else {
+			}
+
+			else if (direcionamento.equals("dados")){
 				rd = request.getRequestDispatcher(
-						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
+						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=DADOS");
 
 			}
 
