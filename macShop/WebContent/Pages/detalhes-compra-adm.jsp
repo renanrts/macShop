@@ -236,7 +236,7 @@
 							<li><a><span>Frete</span> : R$ <fmt:formatNumber type = "number" 
          maxIntegerDigits = "2" value = "${pedidos[0].frete}" />  </a></li>
 							<li><a><span>Total</span> : R$  <fmt:formatNumber type = "number" 
-         maxIntegerDigits = "2" value = "${pedidos[0].valorTotal}" /> </a></li>
+         maxIntegerDigits = "4" value = "${pedidos[0].valorTotal}" /> </a></li>
 						</ul>
 					</div>
 				</div>
