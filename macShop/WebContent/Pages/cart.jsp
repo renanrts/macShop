@@ -359,7 +359,7 @@
 				<div class="size15 trans-0-4">
 					<!-- Button -->
 					<a
-						href="LoginController"
+						href="LoginControllerPagamento"
 						class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 						Pagamento </a>
 				</div>

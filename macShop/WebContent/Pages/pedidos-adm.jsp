@@ -259,6 +259,11 @@
                                         class="material-icons" data-toggle="tooltip" title="Add"
                                         style="display:inline-block">check</i></a>
                                         </c:if>
+                                        <c:if test="${pedido.status  == 'Troca'}">
+                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
+                                        class="material-icons" data-toggle="tooltip" title="Add"
+                                        style="display:inline-block">check</i></a>
+                                        </c:if>
                             </td>
 
                             <td>
@@ -274,6 +279,12 @@
 								</c:if>
 								
 								 <c:if test="${pedido.status  == 'Entregue'}">
+                           <a class="confirm" data-toggle="modal" style="display:inline-block"><i
+                                        class="material-icons" data-toggle="tooltip" title="Add"
+                                        style="display:inline-block">check</i></a>
+                                        </c:if>
+                                        
+                                        <c:if test="${pedido.status  == 'Troca'}">
                            <a class="confirm" data-toggle="modal" style="display:inline-block"><i
                                         class="material-icons" data-toggle="tooltip" title="Add"
                                         style="display:inline-block">check</i></a>

@@ -281,7 +281,7 @@
             					   </form>  
             				</c:if>
             				
-            				<c:if test="${pedido.status == 'Trocado'}">
+            				<c:if test="${pedido.status == 'Troca'}">
             				<form action="/macShop/Pages/orders" method="POST">
             					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
                         				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
@@ -290,14 +290,7 @@
             					   </form>  
             				</c:if>
             				
-            				<c:if test="${pedido.status == 'Devolvido'}">
-            				<form action="/macShop/Pages/orders" method="POST">
-            					<input type="hidden" id="FormName" name="FormName" value="VHPEDIDO" />
-                        				  <input type="hidden" id="ped_id" name="pedID" value="${pedido.id }" />
-                        				  <input type="hidden" id="Direcionamento" name="Direcionamento" value="CLIENTE" />
-            	      			  <input type="submit" style="display:inline-block" name="btnOperacao" value="VISUALIZAR">
-            					   </form>  
-            				</c:if>
+            		
             		
                             </td>
 

@@ -2,6 +2,7 @@ package br.com.les.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,13 +35,33 @@ public class DAOItemProduto extends AbstractDAO {
 		con = ConnectionFactory.getConnection();
 
 		PreparedStatement pst = null;
-
+		Pedido ped = new Pedido();
+		
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, item.getProduto().getAtivo());
 			pst.setInt(2, item.getId());
 
 			pst.executeQuery();
+			
+			
+			if (item.getProduto().getAtivo().equals(StatusPedido.EMTROCA.getDescription()))
+			{
+				String sql2 = "Select * from ProdxPed where prodxped_id = ? ";
+				pst = con.prepareStatement(sql2);
+				pst.setInt(1, item.getId());
+				ResultSet rs = pst.executeQuery();
+
+				if (rs.next())
+				{
+					ped.setId(rs.getInt("ped_id"));
+				}
+				
+				ped.setStatus("Troca");
+				IDAO dao = new DAOPedido();
+				dao.alterar(ped);
+			}
+		
 
 		} catch (Exception e) {
 			resultado.erro("Erro ao consultar itens em processamento");

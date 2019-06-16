@@ -21,7 +21,7 @@ import br.com.les.viewhelper.VHUsuario;
 /**
  * Servlet Filter implementation class LoginController
  */
-@WebFilter({ "/Pages/LoginController", "/Pages/LoginControllerPedidos", "/Pages/LoginControllerMeusDados" })
+@WebFilter({ "/Pages/LoginController", "/Pages/LoginControllerPedidos", "/Pages/LoginControllerMeusDados", "/Pages/LoginControllerPagamento" })
 public class LoginController implements Filter {
 
 	/**
@@ -65,7 +65,7 @@ public class LoginController implements Filter {
 
 		if (userid != null) {
 			usuarioLogado = true;
-			if (req.getRequestURI().equals("/macShop/Pages/LoginController")) {
+			if (req.getRequestURI().equals("/macShop/Pages/LoginControllerPagamento")) {
 				rd = request.getRequestDispatcher(
 						"contact?btnOperacao=CONSULTAR&FormName=VHCLIENTE&Direcionamento=PAGAMENTO");
 				rd.forward(request, response);
@@ -88,7 +88,7 @@ public class LoginController implements Filter {
 		
 		else if (!direcionamento.equals("/macShop/Pages/LoginController") )
 		{
-			if (req.getRequestURI().equals("/macShop/Pages/cart.jsp"))
+			if (req.getRequestURI().equals("/macShop/Pages/LoginControllerPagamento"))
 			{
 				request.setAttribute("direcionamento", "pagamento");
 			}
@@ -100,6 +100,7 @@ public class LoginController implements Filter {
 			{
 				request.setAttribute("direcionamento", "dados");
 			}
+
 			rd = request
 					.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
