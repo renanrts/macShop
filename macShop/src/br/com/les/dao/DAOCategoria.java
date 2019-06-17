@@ -13,7 +13,7 @@ import br.com.les.dominio.EntidadeDominio;
 import br.com.les.util.ConnectionFactory;
 import br.com.les.util.Resultado;
 
-public class DAOCategoria extends AbstractDAO{
+public class DAOCategoria extends AbstractDAO {
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
@@ -28,55 +28,52 @@ public class DAOCategoria extends AbstractDAO{
 		con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 
-
 		try {
-			
+
 			List<EntidadeDominio> categorias = new ArrayList<EntidadeDominio>();
-	
+
 			Boolean visualizar = false;
-			
+
 			String sql = "SELECT * FROM CATEGORIAS";
 			stmt = con.prepareStatement(sql);
-			
+
 			ResultSet rs = stmt.executeQuery();
-						
+
 			while (rs.next()) {
-								
+
 				Categoria a = new Categoria();
-				
+
 				a.setId(rs.getInt("cat_id"));
 				a.setDescricao(rs.getString("cat_descricao"));
-						
+
 				categorias.add(a);
 				contagem++;
 			}
-			
-			if(visualizar){
+
+			if (visualizar) {
 				resultado.setResultado(categorias.get(0));
-			} else{
+			} else {
 				resultado.setListaResultado(categorias);
 				resultado.setCategoria(categorias);
 			}
-			
-			
-			if(contagem == 0){
+
+			if (contagem == 0) {
 				resultado.sucesso("Nenhuma categoria encontrado.");
-			}
-			else{
+			} else {
 				resultado.sucesso("");
 			}
-			
+
 			resultado.setContagem(contagem);
 			rs.close();
 			stmt.close();
 			return resultado;
-			
+
 		} catch (SQLException e1) {
-			
-						e1.printStackTrace();
-						resultado.erro("Erro de consulta.");
-						return resultado;
-		}finally {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return resultado;
+		} finally {
 			ConnectionFactory.closeConnection(stmt, con);
 		}
 	}
@@ -96,89 +93,78 @@ public class DAOCategoria extends AbstractDAO{
 	@Override
 	public Resultado visualizar(EntidadeDominio e) {
 		return null;
-		
+
 	}
 	
-	public Resultado consultarCategoria(EntidadeDominio e)
-	{
-		
-		
+	//metodo para identificar a categoria de um produto em questão (StComplementarCategoria)
+	public Resultado consultarCategoria(EntidadeDominio e) {
+
 		Resultado resultado = new Resultado();
 		con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
-		
-		if (e.getTipo().equals("VHELETRONICO"))
-		{
+
+		if (e.getTipo().equals("VHELETRONICO")) {
 			Eletronico eletronico = (Eletronico) e;
 			int idCategoria = eletronico.getCategoria().getId();
 			try {
-				
-				
-
-					
 				String sql = "SELECT * FROM CATEGORIAS WHERE CAT_ID = ?";
 				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, idCategoria);
-	
+
 				ResultSet rs = stmt.executeQuery();
-							
+
 				while (rs.next()) {
-									
+
 					eletronico.getCategoria().setDescricao(rs.getString("cat_descricao"));
-					
+
 				}
-				
-				
+
 				rs.close();
 				stmt.close();
 				return null;
-				
+
 			} catch (SQLException e1) {
-				
-							e1.printStackTrace();
-							resultado.erro("Erro de consulta.");
-							return resultado;
-			}finally {
+
+				e1.printStackTrace();
+				resultado.erro("Erro de consulta.");
+				return resultado;
+			} finally {
 				ConnectionFactory.closeConnection(stmt, con);
 			}
-		
+
 		}
-		
-		else
-		{
+
+		else {
 			Acessorio acessorio = (Acessorio) e;
 			int idCategoria = acessorio.getCategoria().getId();
 			try {
-				
 
-				
 				String sql = "SELECT * FROM CATEGORIAS WHERE CAT_ID = ?";
 				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, idCategoria);
-	
+
 				ResultSet rs = stmt.executeQuery();
-							
+
 				while (rs.next()) {
-									
+
 					acessorio.getCategoria().setDescricao(rs.getString("cat_descricao"));
-					
+
 				}
-				
-				
+
 				rs.close();
 				stmt.close();
 				return null;
-				
+
 			} catch (SQLException e1) {
-				
-							e1.printStackTrace();
-							resultado.erro("Erro de consulta.");
-							return resultado;
-			}finally {
+
+				e1.printStackTrace();
+				resultado.erro("Erro de consulta.");
+				return resultado;
+			} finally {
 				ConnectionFactory.closeConnection(stmt, con);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -187,40 +173,38 @@ public class DAOCategoria extends AbstractDAO{
 		return null;
 	}
 
-	public List<EntidadeDominio> consultarCategorias()
-	{
+	//metodo para consultar todas as categorias cadastradas para montar o relatório
+	public List<EntidadeDominio> consultarCategorias() {
 		List<EntidadeDominio> categorias = new ArrayList<EntidadeDominio>();
 		Resultado resultado = new Resultado();
 		con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		try {
-		String sql = "SELECT * FROM CATEGORIAS";
-		stmt = con.prepareStatement(sql);
+			String sql = "SELECT * FROM CATEGORIAS";
+			stmt = con.prepareStatement(sql);
 
+			ResultSet rs = stmt.executeQuery();
 
-		ResultSet rs = stmt.executeQuery();
-					
-		while (rs.next()) {
-			
-			Categoria cat = new Categoria();
-			cat.setDescricao(rs.getString("cat_descricao"));
-			categorias.add(cat);
+			while (rs.next()) {
 
+				Categoria cat = new Categoria();
+				cat.setDescricao(rs.getString("cat_descricao"));
+				categorias.add(cat);
+
+			}
+
+			rs.close();
+			stmt.close();
+			return categorias;
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+			resultado.erro("Erro de consulta.");
+			return null;
+		} finally {
+			ConnectionFactory.closeConnection(stmt, con);
 		}
 
-		
-		rs.close();
-		stmt.close();
-		return categorias;
-		
-	} catch (SQLException e1) {
-		
-					e1.printStackTrace();
-					resultado.erro("Erro de consulta.");
-					return null;
-	}finally {
-		ConnectionFactory.closeConnection(stmt, con);
-	}
-	
 	}
 }

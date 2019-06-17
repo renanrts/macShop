@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class calcFrete extends HttpServlet{
 	
-	
+	//Controller para cálculo do frete
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String cep = request.getParameter("cep");
 		Double numero = 0.0;
 		cep.trim().replace("-", "");
+		//simula o calculo do valor do frete a partir do valor numerico do CEP que é informado no carrinho
 		for(char c: cep.toCharArray())
 		{
 			numero += Character.getNumericValue(c);

@@ -24,7 +24,6 @@ public class StValidarItensCarrinhoComTempoExpirado implements Job {
 
 	    ServletContext servletContext = (ServletContext) context.getMergedJobDataMap().get("servletContext");
 	    
-
 	    @SuppressWarnings("unchecked")
 		Map<String, Bloqueio> produtosBloqueados = 
 	        (Map<String, Bloqueio>) servletContext.getAttribute("bloqueio");
@@ -33,6 +32,7 @@ public class StValidarItensCarrinhoComTempoExpirado implements Job {
 		Map<String, Carrinho> produtosDesbloqueados = 
 	        (Map<String, Carrinho>) servletContext.getAttribute("desbloqueio"); 
 
+	   //For de produtos bloqueados disponíveis no Contexto da Aplicação
 	    for(Map.Entry<String, Bloqueio> entry : produtosBloqueados.entrySet()) {
 	      Bloqueio bloqueioCarrinho = entry.getValue();
 	      LocalDateTime horarioAtual = LocalDateTime.now();
@@ -50,7 +50,7 @@ public class StValidarItensCarrinhoComTempoExpirado implements Job {
 	        Carrinho carrinhoDesbloqueado = new Carrinho();
 	        ArrayList<ItemCarrinho> itensDesbloqueados = new ArrayList<>();
 	        
-	        // Monta lista de carrinhos
+	        // Monta lista de carrinhos de itens desbloqueados
 	        for( ItemCarrinho item : carrinhoSessao.getItensCarrinho()) {
 	          ItemCarrinho itemCarrinho = new ItemCarrinho();
 	          Produto produtoSessao  = (Produto) item.getProduto();

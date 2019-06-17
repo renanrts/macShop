@@ -83,25 +83,28 @@ public class DAOEletronico extends AbstractDAO {
 			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
 
 			Boolean visualizar = false;
-
+			// SQL para retornar um produto específico
 			if (eletronico.getCodigoBarras() != null && !eletronico.getCodigoBarras().isEmpty()) {
 				String sql = "SELECT * FROM ELETRONICOS WHERE ele_codigobarras = ?";
 				stmt = con.prepareStatement(sql);
 
 				stmt.setString(1, eletronico.getCodigoBarras());
 				visualizar = true;
+				// SQL para retornar somente os produtos ativos e uma categoria específica
 			} else if (eletronico.getAtivo() != null && !eletronico.getAtivo().isEmpty()
 					&& eletronico.getCategoria().getId() != null) {
 				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where F.cat_id = ? and ele_status = ? order by ele_id";
 				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, eletronico.getCategoria().getId());
 				stmt.setString(2, eletronico.getAtivo());
+				// SQL para retornar somente os produtos ativos
 			} else if (eletronico.getAtivo() != null && !eletronico.getAtivo().isEmpty()) {
 				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_estoque AS ele_estoque, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_status = ? order by ele_id";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, eletronico.getAtivo());
 
 			}
+			// SQL para retornar todos os produtos
 
 			else {
 				String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_alimentacao AS ele_alimentacao, C.ele_estoque AS ele_estoque, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id order by ele_id";
@@ -187,14 +190,14 @@ public class DAOEletronico extends AbstractDAO {
 		try {
 
 			List<EntidadeDominio> eletronicos = new ArrayList<EntidadeDominio>();
-
+			// alterar estoque
 			if (eletronico.getEstoque() != 0) {
 				String sql = "UPDATE ELETRONICOS SET ele_estoque = ele_estoque + ? WHERE ele_id = ?";
 				stmt = con.prepareStatement(sql);
 				stmt.setInt(1, eletronico.getEstoque());
 				stmt.setInt(2, eletronico.getId());
 			}
-
+			// alterar informações de cadastro
 			else {
 				String sql = "UPDATE ELETRONICOS SET ele_nome = ?, ele_alimentacao = ?, ele_caminhofoto = ?, cat_id = ?, ele_codigobarras = ?, ele_conteudoembalagem = ?, ele_cor = ?, ele_datafabricaco = ?, ele_descricao = ?, ele_dimensoes = ?, ele_memoria = ?, ele_modelo = ?, ele_processador = ?, ele_ram = ?, ele_resolucaocamera = ?, ele_sistemaoperacional = ?, ele_display = ?, ele_preco = ?, ele_status = ? WHERE ele_id = ?";
 				stmt = con.prepareStatement(sql);
@@ -218,11 +221,11 @@ public class DAOEletronico extends AbstractDAO {
 				stmt.setDouble(18, eletronico.getPreco());
 				stmt.setString(19, eletronico.getAtivo());
 				stmt.setInt(20, eletronico.getId());
-				
+
 			}
 
 			ResultSet rs = stmt.executeQuery();
-
+			// select para exibir informações
 			String sql = "SELECT C.ele_nome AS ele_nome, F.cat_descricao AS cat_descricao, F.cat_id AS cat_id, C.ele_estoque AS ele_estoque, C.ele_alimentacao AS ele_alimentacao, C.ele_caminhofoto AS ele_caminhofoto, C.ele_codigobarras AS ele_codigobarras, C.ele_conteudoembalagem AS ele_conteudoembalagem, C.ele_cor AS ele_cor, C.ele_datafabricaco AS ele_datafabricaco, C.ele_descricao AS ele_descricao, C.ele_dimensoes AS ele_dimensoes, C.ele_memoria AS ele_memoria, C.ele_modelo AS ele_modelo, C.ele_preco AS ele_preco, C.ele_processador AS ele_processador, C.ele_ram AS ele_ram, C.ele_resolucaocamera AS ele_resolucaocamera, C.ele_sistemaoperacional AS ele_sistemaoperacional, C.ele_display AS ele_display, C.ele_status AS ele_ativo, C.ele_id AS ele_id FROM ELETRONICOS AS C INNER JOIN CATEGORIAS AS F ON C.cat_id = F.cat_id where ele_id = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, eletronico.getId());
@@ -445,6 +448,7 @@ public class DAOEletronico extends AbstractDAO {
 		}
 	}
 
+	//Método implementado para futura inclusão da funcionalidade de diminuir estoque
 	public Resultado alterarEstoque(EntidadeDominio e) {
 		System.out.println(e.getClass().getSimpleName());
 		Eletronico eletronico = (Eletronico) e;
@@ -488,6 +492,7 @@ public class DAOEletronico extends AbstractDAO {
 		}
 	}
 
+	//Metodo para voltar produto ao estoque (quando há troca).
 	public Resultado voltarEstoque(EntidadeDominio e) {
 
 		Eletronico eletronico = (Eletronico) e;

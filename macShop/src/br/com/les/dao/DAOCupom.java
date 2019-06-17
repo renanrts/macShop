@@ -165,7 +165,8 @@ public class DAOCupom extends AbstractDAO {
 		}
 
 	}
-
+	
+	//Método para criar um cupom de troca 
 	public void criarCupomTroca(Produto produto) {
 		
 
@@ -178,11 +179,13 @@ public class DAOCupom extends AbstractDAO {
 	    	Random gerador = new Random();
 	    	StringBuilder codigo = new StringBuilder();
 	    	
+	    	//gera um código random de 5 dígitos
 	        for (int i = 0; i < 5; i++) {
 				codigo.append(String.valueOf(gerador.nextInt(10)));
 			}
 	        
 	        novoCupom.setCodigo(codigo.toString());
+	        //o valor do cupom é o valor do produto trocado em questão
 	        novoCupom.setValor(produto.getPreco());
 	        novoCupom.setCliId(produto.getId());
 	        novoCupom.setStatus("Ativo");
@@ -190,6 +193,7 @@ public class DAOCupom extends AbstractDAO {
 	        novoCupom.setDataDeValidade(LocalDate.now().plusMonths(1));
 	        
 
+	        //insere na tabela de Cupons
 		try {
 			
 			String sql = "INSERT INTO CUPONS (CUP_CODIGO, CUP_VALOR, CLI_ID, CUP_STATUS, CUP_TIPO, CUP_VALIDADE) " + "VALUES (?, ?, ?, ?, ?, ?)";

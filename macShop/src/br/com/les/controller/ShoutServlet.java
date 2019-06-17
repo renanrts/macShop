@@ -15,6 +15,7 @@ import br.com.les.viewhelper.VHBaseCadastro;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns={"/Pages/baseCadastro"})
+//Controller para instanciar a BaseCadastro de um Cliente (form)
 public class ShoutServlet extends HttpServlet{
 		
 		@Override

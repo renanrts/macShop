@@ -18,10 +18,12 @@ public class StAprovarPedido implements IStrategy {
 		Double valorTotalCartoes = 0.0;
 		Double valorTotalCupons = 0.0;
 
+		//contabiliza todos os valores de Cupons de troca
 		for (int i = 0; i < pedido.getCuponsTroca().size(); i++) {
 			valorTotalCupons += pedido.getCuponsTroca().get(i).getValor();
 		}
 		
+		//contabiliza valor do cupom promocional
 		if (pedido.getCupom_id().getId().equals(0))
 		{
 			pedido.getCupom_id().setValor(0.0);
@@ -29,6 +31,7 @@ public class StAprovarPedido implements IStrategy {
 
 		valorTotalCupons += pedido.getCupom_id().getValor();
 
+		//contabiliza valores dos cartões de crédito
 		for (FormaPagamento pagto : pedido.getFormapagto()) {
 			valorTotalCartoes += pagto.getValor();
 		}

@@ -32,7 +32,7 @@ public class CarrinhoAdicionar implements IServico {
 	      Produto produtoSessao = carrinhoSessao
 	          .getItensCarrinho()
 	          .get(i).getProduto();
-	      // Armazenar a quantidade atual de um determinado produto
+	      // Armazenar a quantidade atual de um determinado produto. Qtde Reservados = qtde já bloqueada do mesmo produto
 	      if(produtoSessao.getId().equals(produto.getId())) {
 	        quantidadeReservados = carrinhoSessao
 	            .getItensCarrinho()
@@ -43,6 +43,7 @@ public class CarrinhoAdicionar implements IServico {
 	    
 	  boolean contemProduto = false; 
 	  
+	  	//Inserir a quantidade de produtos bloqueados
 	    for ( int i = 0; i < itensCarrinhoSessao.size(); i++) {
 	      Produto prod = itensCarrinhoSessao.get(i).getProduto();
 	      if(prod.getId().equals(idProduto)) {

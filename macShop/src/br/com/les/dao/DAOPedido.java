@@ -53,6 +53,8 @@ public class DAOPedido extends AbstractDAO {
 				pedido.setId(rs.getInt("ped_id"));
 
 			stmt.close();
+			
+			//Salvar cada item do carrinho na tabela de ProdxPed
 
 			for (ItemCarrinho item : pedido.getCarrinho().getItensCarrinho()) {
 				
@@ -81,6 +83,7 @@ public class DAOPedido extends AbstractDAO {
 
 			}
 
+			//Salvar cada forma de pagamento do pedido
 			for (int i = 0; i < pedido.getFormapagto().size(); i++) {
 				String sql3 = "INSERT INTO Form_pagto (cart_id, Form_pagto_psrcelas, Form_pagto_valor, ped_id) "
 						+ "VALUES (?, ?, ?, ?)";
@@ -99,6 +102,8 @@ public class DAOPedido extends AbstractDAO {
 			
 			}
 
+			
+			//altera estoque de cada produto em questão
 			for (ItemCarrinho item : pedido.getCarrinho().getItensCarrinho()) {
 				Produto prod = item.getProduto();
 
@@ -145,6 +150,8 @@ public class DAOPedido extends AbstractDAO {
 		con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		
+		
+		//Se o direcionamento for a visão do cliente, select nos pedidos específicos do cliente em questão
 		if(pedido.getTipo().equals("CLIENTE"))
 		{
 			try {
@@ -306,6 +313,8 @@ public class DAOPedido extends AbstractDAO {
 			}
 		}
 		
+		
+		//visão admin. Seleciona todos os pedidos de todos os clientes
 		else
 		{
 			try {
@@ -469,6 +478,8 @@ public class DAOPedido extends AbstractDAO {
 		
 	}
 
+	
+	//método para alterar status do pedido
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
 		Pedido pedido = (Pedido) entidade;
@@ -505,6 +516,7 @@ public class DAOPedido extends AbstractDAO {
 		return null;
 	}
 
+	//visualizar um pedido em questão 
 	@SuppressWarnings("resource")
 	@Override
 	public Resultado visualizar(EntidadeDominio e) {
@@ -708,6 +720,8 @@ public class DAOPedido extends AbstractDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//metodo para aprovação dos pedidos ainda não processados
 
 	public void aprovarCompra() {
 		String sql = "UPDATE PEDIDOS set ped_status = ? WHERE ped_status = ? ";
@@ -734,6 +748,8 @@ public class DAOPedido extends AbstractDAO {
 		}
 		
 	}
+	
+	//metodo para reprovação dos pedidos ainda não processados
 
 	public void reprovarCompra() {
 		String sql = "UPDATE PEDIDOS set ped_status = ? WHERE ped_status = ? ";

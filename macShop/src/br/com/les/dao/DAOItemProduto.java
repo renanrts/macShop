@@ -44,7 +44,7 @@ public class DAOItemProduto extends AbstractDAO {
 
 			pst.executeQuery();
 			
-			
+			//Alterar status do pedido quando há solicitação de troca
 			if (item.getProduto().getAtivo().equals(StatusPedido.EMTROCA.getDescription()))
 			{
 				String sql2 = "Select * from ProdxPed where prodxped_id = ? ";
@@ -81,6 +81,7 @@ public class DAOItemProduto extends AbstractDAO {
 		return null;
 	}
 
+	//método para alterar status do ItemPedido + voltar ao Estoque
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
 		this.salvar(entidade);
@@ -149,6 +150,7 @@ public class DAOItemProduto extends AbstractDAO {
 
 	}
 
+	//método para reprovar uma solicitação de troca
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();

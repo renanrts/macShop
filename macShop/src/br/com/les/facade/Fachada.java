@@ -9,7 +9,6 @@ import br.com.les.command.CommandCarrinhoAlterar;
 import br.com.les.command.CommandCarrinhoAdicionar;
 import br.com.les.command.CommandCarrinhoExcluir;
 import br.com.les.dao.DAOAcessorio;
-import br.com.les.dao.DAOBloqueio;
 import br.com.les.dao.DAOCartao;
 import br.com.les.dao.DAOCategoria;
 import br.com.les.dao.DAOCliente;
@@ -64,7 +63,7 @@ import br.com.les.negocio.StValidarFormaDePagamento;
 import br.com.les.negocio.StValidarQuantidadeAIncluirOuExcluirCarrinho;
 import br.com.les.negocio.StValidarSenhasCliente;
 import br.com.les.negocio.StValidarValorExcendenteAoPagamento;
-import br.com.les.negocio.StVoltarAoEstoqueTroca;
+
 import br.com.les.util.Resultado;
 import service.CarrinhoAdicionar;
 import service.CarrinhoAlterar;
@@ -88,7 +87,6 @@ public class Fachada implements IFachada {
 		mapDAO.put("PRODUTO", new DAOEletronico());
 		mapDAO.put("ACESSORIO", new DAOAcessorio());
 		mapDAO.put("CLIENTE", new DAOCliente());
-		mapDAO.put("BLOQUEIO", new DAOBloqueio());
 		mapDAO.put("PEDIDO", new DAOPedido());
 		mapDAO.put("CUPOM", new DAOCupom());
 		mapDAO.put("ENDERECO", new DAOEndereco());
@@ -238,7 +236,7 @@ public class Fachada implements IFachada {
 		
 		List<IStrategy> rnsAlterarItemProduto = new ArrayList<IStrategy>();
 		rnsAlterarItemProduto.add(new StAlterarStatusItemProduto());
-		rnsAlterarItemProduto.add(new StVoltarAoEstoqueTroca());
+		
 		
 
 		rnsItemProduto.put("ALTERAR", rnsAlterarItemProduto);

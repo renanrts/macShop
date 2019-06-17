@@ -7,6 +7,7 @@ import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.ItemCarrinho;
 
+//Validar se existe o carrinho na sessao
 public class StValidarExistenciaCarrinhoSessao implements IStrategy{
 
 	@Override
