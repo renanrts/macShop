@@ -60,7 +60,7 @@ public class DAOPedido extends AbstractDAO {
 				
 				for (int i = 1; i <= item.getQuantidade(); i++)
 				{
-					String sql2 = "INSERT INTO ProdxPed (ped_id, prodxped_qtde, prodxped_status, ele_id, acs_id)"
+					String sql2 = "INSERT INTO ProdxPed2 (ped_id, prodxped_qtde, prodxped_status, ele_id, acs_id)"
 							+ "VALUES (?, ?, ?, ?, ?)";
 
 					PreparedStatement stmt2 = con.prepareStatement(sql2);
@@ -182,7 +182,7 @@ public class DAOPedido extends AbstractDAO {
 
 				for (int i = 0; i < pedidos.size(); i++) {
 					Pedido prod = (Pedido) pedidos.get(i);
-					String sql2 = "SELECT * from ProdxPed WHERE ped_id = ?";
+					String sql2 = "SELECT * from ProdxPed2 WHERE ped_id = ?";
 					stmt = con.prepareStatement(sql2);
 					stmt.setInt(1, prod.getId());
 
@@ -344,7 +344,7 @@ public class DAOPedido extends AbstractDAO {
 
 				for (int i = 0; i < pedidos.size(); i++) {
 					Pedido prod = (Pedido) pedidos.get(i);
-					String sql2 = "SELECT * from ProdxPed WHERE ped_id = ?";
+					String sql2 = "SELECT * from ProdxPed2 WHERE ped_id = ?";
 					stmt = con.prepareStatement(sql2);
 					stmt.setInt(1, prod.getId());
 
@@ -558,7 +558,7 @@ public class DAOPedido extends AbstractDAO {
 
 			for (int i = 0; i < pedidos.size(); i++) {
 				Pedido prod = (Pedido) pedidos.get(i);
-				String sql2 = "SELECT * from ProdxPed WHERE ped_id = ?";
+				String sql2 = "SELECT * from ProdxPed2 WHERE ped_id = ?";
 				stmt = con.prepareStatement(sql2);
 				stmt.setInt(1, prod.getId());
 

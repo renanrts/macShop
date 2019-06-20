@@ -28,7 +28,7 @@ public class DAOProdxPed extends AbstractDAO {
 	public Resultado alterar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
 		
-	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    String sql = "UPDATE ProdxPed2 SET prodxped_status = ? WHERE prodxped_status = ? ";
 	    
 	    con = ConnectionFactory.getConnection();
 	    
@@ -70,7 +70,7 @@ public class DAOProdxPed extends AbstractDAO {
 
 	public Resultado consultarPedidosEmProcessamento() {
 		Resultado resultado = new Resultado();
-	    String sql = "SELECT * FROM  ProdxPed WHERE prodxped_status = ? ";
+	    String sql = "SELECT * FROM  ProdxPed2 WHERE prodxped_status = ? ";
 	    con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 	    ArrayList<EntidadeDominio> itens = new ArrayList<>();
@@ -117,7 +117,7 @@ public class DAOProdxPed extends AbstractDAO {
 	public void reprovar() {
 		Resultado resultado = new Resultado();
 		
-	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    String sql = "UPDATE ProdxPed2 SET prodxped_status = ? WHERE prodxped_status = ? ";
 	    
 	    con = ConnectionFactory.getConnection();
 	    
@@ -143,7 +143,7 @@ public class DAOProdxPed extends AbstractDAO {
 	public Resultado aprovar() {
 	Resultado resultado = new Resultado();
 		
-	    String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_status = ? ";
+	    String sql = "UPDATE ProdxPed2 SET prodxped_status = ? WHERE prodxped_status = ? ";
 	    
 	    con = ConnectionFactory.getConnection();
 	    

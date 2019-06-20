@@ -134,23 +134,18 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		//para inicializar os serviços de Bloqueio/Desbloqueio do Produto e Aprovação/Reprovação de Pedidos
 		@Override
 		  public void init() {
-			   System.out.println("contextInitialized");
-
+			 
 			   //inicializa um map de bloqueio de produtos
 			    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
 			    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
-
-			    //inicializa um map de desbloqueio de produtos
-			    HashMap<String, Carrinho> mapProdutosDesbloqueados = new HashMap<>();     
-			    getServletContext().setAttribute("desbloqueio", mapProdutosDesbloqueados);
-
-			    
 			    SchedulerFactory shedFact = new StdSchedulerFactory();
+			    
 			    try {
-			           Scheduler scheduler = shedFact.getScheduler();
-			           Scheduler scheduler2 = shedFact.getScheduler();
-			           scheduler.start();
-			           scheduler2.start();
+			           Scheduler schedulerBloqueio = shedFact.getScheduler();
+			           Scheduler schedulerAprovacaoPedido = shedFact.getScheduler();
+			           schedulerBloqueio.start();
+			           schedulerAprovacaoPedido.start();
+			           
 			          //utiliza o contexto da aplicação
 			         JobDataMap jobDataMap = new JobDataMap();
 			         jobDataMap.put("servletContext", getServletContext());
@@ -174,11 +169,11 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 			           //Trigger do Job2 de 60 segundos
 			           Trigger trigger2 = TriggerBuilder.newTrigger()
 			               .withIdentity("validadorTRIGGER2","grupo02")
-//			               .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 0 ? * * * "))
 			             .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
 			               .build();
-			           scheduler.scheduleJob(job, trigger);
-			           scheduler2.scheduleJob(jobAprovarOuReprovarCompra, trigger2);
+			           
+			           schedulerBloqueio.scheduleJob(job, trigger);
+			           schedulerAprovacaoPedido.scheduleJob(jobAprovarOuReprovarCompra, trigger2);
 			           
 			  } catch (SchedulerException e) {
 			      e.printStackTrace();

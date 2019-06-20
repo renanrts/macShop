@@ -23,12 +23,14 @@ public class StAprovarOuReprovarCompra implements Job {
 //		 Random random = new Random();
 //		 Integer analisarPedido = random.nextInt(3);
 		 
-		 Integer analisarPedido = 2;
+		 	Integer analisarPedido = 2;
 		    DAOPedido daoPedido = new DAOPedido();
+		    
 		    if(analisarPedido % 2 == 0) {
 		      
 		      daoPedido.aprovarCompra(); 
 		      System.out.println("Aprovar");
+		      
 		    } else {
 		      
 		      DAOProdxPed daoItens = new DAOProdxPed();

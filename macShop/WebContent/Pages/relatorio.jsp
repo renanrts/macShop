@@ -40,10 +40,19 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Categoria', 'Masculino', 'Feminino'],
-          ['iPhone', ${quantidade[0]}, ${quantidade[1]}],
-          ['iPad', ${quantidade[2]}, ${quantidade[3]}],
-          ['Macbook', ${quantidade[4]}, ${quantidade[5]}]
+          ['Categoria', 'iPhone', 'iPad', 'Macbook'],
+          ['Janeiro', ${quantidade[0]}, ${quantidade[12]}, ${quantidade[24]}],
+          ['Fevereiro', ${quantidade[1]}, ${quantidade[13]}, ${quantidade[25]}],
+          ['Março', ${quantidade[2]}, ${quantidade[14]}, ${quantidade[26]}],
+          ['Abril', ${quantidade[3]}, ${quantidade[15]}, ${quantidade[27]}],
+          ['Maio', ${quantidade[4]}, ${quantidade[16]}, ${quantidade[28]}],
+          ['Junho', ${quantidade[5]}, ${quantidade[17]}, ${quantidade[29]}],
+          ['Julho', ${quantidade[6]}, ${quantidade[18]}, ${quantidade[30]}],
+          ['Agosto', ${quantidade[7]}, ${quantidade[19]}, ${quantidade[31]}],
+          ['Setembro', ${quantidade[8]}, ${quantidade[20]}, ${quantidade[32]}],
+          ['Outubro', ${quantidade[9]}, ${quantidade[21]}, ${quantidade[33]}],
+          ['Novembro', ${quantidade[10]}, ${quantidade[22]}, ${quantidade[34]}],
+          ['Dezembro', ${quantidade[11]}, ${quantidade[23]}, ${quantidade[35]}]
         ]);
         
 		
@@ -59,6 +68,40 @@
       }
     </script>
     
+      <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChartFeminino);
+
+      function drawChartFeminino() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'iPhone', 'iPad', 'Macbook'],
+          ['Janeiro', ${quantidade[36]}, ${quantidade[48]}, ${quantidade[60]}],
+          ['Fevereiro', ${quantidade[37]}, ${quantidade[49]}, ${quantidade[61]}],
+          ['Março', ${quantidade[38]}, ${quantidade[50]}, ${quantidade[62]}],
+          ['Abril', ${quantidade[39]}, ${quantidade[51]}, ${quantidade[63]}],
+          ['Maio', ${quantidade[40]}, ${quantidade[52]}, ${quantidade[64]}],
+          ['Junho', ${quantidade[41]}, ${quantidade[53]}, ${quantidade[65]}],
+          ['Julho', ${quantidade[42]}, ${quantidade[54]}, ${quantidade[66]}],
+          ['Agosto', ${quantidade[43]}, ${quantidade[55]}, ${quantidade[67]}],
+          ['Setembro', ${quantidade[44]}, ${quantidade[56]}, ${quantidade[68]}],
+          ['Outubro', ${quantidade[45]}, ${quantidade[57]}, ${quantidade[69]}],
+          ['Novembro', ${quantidade[46]}, ${quantidade[58]}, ${quantidade[70]}],
+          ['Dezembro', ${quantidade[47]}, ${quantidade[59]}, ${quantidade[71]}]
+        ]);
+        
+		
+        var options = {
+          chart: {
+            title: 'Vendas Eletronicos macShop - Feminino',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material_feminino'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    
      <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChartTroca);
@@ -66,10 +109,10 @@
       function drawChartTroca() {
         var data = google.visualization.arrayToDataTable([
           ['Status', 'Eletrônicos'],
-          ['Total', ${quantidade[10]}],
-          ['Em Troca', ${quantidade[11]}],
-          ['Trocados', ${quantidade[9]}],
-          ['Reprovado', ${quantidade[12]}],
+          ['Total', ${quantidade[72]}],
+          ['Em Troca', ${quantidade[73]}],
+          ['Trocados', ${quantidade[74]}],
+          ['Reprovado', ${quantidade[75]}],
           
         ]);
         
@@ -94,9 +137,9 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Categorias', 'Quantidade'],
-          ['iPhone',     ${quantidade[6]}],
-          ['iPad',      ${quantidade[7]}],
-          ['Macbook',  ${quantidade[8]}],
+          ['iPhone',     ${quantidade[76]}],
+          ['iPad',      ${quantidade[77]}],
+          ['Macbook',  ${quantidade[78]}],
         ]);
 
         var options = {
@@ -287,11 +330,13 @@
     </form>
     <center>
     <br><br>
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
     <hr>
     <div id="piechart" style="width: 900px; height: 500px;"></div>
     <hr>
-    <div id="columnchart_troca" style="width: 800px; height: 500px;"></div></center>
+    <div id="columnchart_troca" style="width: 800px; height: 500px;"></div>
+      <hr>
+    <div id="columnchart_material_feminino" style="width: 800px; height: 500px;"></div></center>
     </section>
     <!-- Footer -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
