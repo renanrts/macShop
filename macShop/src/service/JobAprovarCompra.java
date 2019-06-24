@@ -1,4 +1,4 @@
-package br.com.les.negocio;
+package service;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ import br.com.les.dominio.ItemCarrinho;
 import br.com.les.dominio.Produto;
 import br.com.les.util.Resultado;
 
-public class StAprovarOuReprovarCompra implements Job {
+public class JobAprovarCompra implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {

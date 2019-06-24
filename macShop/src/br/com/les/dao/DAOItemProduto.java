@@ -30,7 +30,7 @@ public class DAOItemProduto extends AbstractDAO {
 
 		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
 
-		String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
+		String sql = "UPDATE ProdxPed2 SET prodxped_status = ? WHERE prodxped_id = ? ";
 
 		con = ConnectionFactory.getConnection();
 
@@ -47,7 +47,7 @@ public class DAOItemProduto extends AbstractDAO {
 			//Alterar status do pedido quando há solicitação de troca
 			if (item.getProduto().getAtivo().equals(StatusPedido.EMTROCA.getDescription()))
 			{
-				String sql2 = "Select * from ProdxPed where prodxped_id = ? ";
+				String sql2 = "Select * from ProdxPed2 where prodxped_id = ? ";
 				pst = con.prepareStatement(sql2);
 				pst.setInt(1, item.getId());
 				ResultSet rs = pst.executeQuery();
@@ -91,7 +91,7 @@ public class DAOItemProduto extends AbstractDAO {
 		ItemCarrinho item = (ItemCarrinho) entidade;
 		Produto prod = new Produto();
 
-		String sql = "Select * from ProdxPed WHERE prodxped_id = ? ";
+		String sql = "Select * from ProdxPed2 WHERE prodxped_id = ? ";
 
 		con = ConnectionFactory.getConnection();
 
@@ -159,7 +159,7 @@ public class DAOItemProduto extends AbstractDAO {
 
 		List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
 
-		String sql = "UPDATE ProdxPed SET prodxped_status = ? WHERE prodxped_id = ? ";
+		String sql = "UPDATE ProdxPed2 SET prodxped_status = ? WHERE prodxped_id = ? ";
 
 		con = ConnectionFactory.getConnection();
 

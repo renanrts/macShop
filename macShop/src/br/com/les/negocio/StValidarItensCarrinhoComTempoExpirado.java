@@ -27,10 +27,7 @@ public class StValidarItensCarrinhoComTempoExpirado implements Job {
 	    @SuppressWarnings("unchecked")
 		Map<String, Bloqueio> produtosBloqueados = 
 	        (Map<String, Bloqueio>) servletContext.getAttribute("bloqueio");
-	    
-	    @SuppressWarnings("unchecked")
-		Map<String, Carrinho> produtosDesbloqueados = 
-	        (Map<String, Carrinho>) servletContext.getAttribute("desbloqueio"); 
+	 
 
 	   //For de produtos bloqueados disponíveis no Contexto da Aplicação
 	    for(Map.Entry<String, Bloqueio> entry : produtosBloqueados.entrySet()) {
@@ -45,32 +42,6 @@ public class StValidarItensCarrinhoComTempoExpirado implements Job {
 	        produtosBloqueados.remove(entry.getKey());
 	        
 	        Carrinho carrinhoSessao = (Carrinho) entry.getValue().getCarrinho();
-	        
-	        // Monta um novo carrinho para colocar na lista de carrinhos desbloqueados
-	        Carrinho carrinhoDesbloqueado = new Carrinho();
-	        ArrayList<ItemCarrinho> itensDesbloqueados = new ArrayList<>();
-	        
-	        // Monta lista de carrinhos de itens desbloqueados
-	        for( ItemCarrinho item : carrinhoSessao.getItensCarrinho()) {
-	          ItemCarrinho itemCarrinho = new ItemCarrinho();
-	          Produto produtoSessao  = (Produto) item.getProduto();
-	          
-	          Produto prod = new Produto();
-	          prod.setId(item.getProduto().getId().intValue());
-	          prod.setNome(produtoSessao.getNome());
-	          prod.setAtivo("Inativo");
-	          
-	       
-	          itemCarrinho.setProduto(prod);
-	          itemCarrinho.setQuantidade(item.getQuantidade());
-	          
-	          itensDesbloqueados.add(itemCarrinho);
-	        }
-	        
-	        carrinhoDesbloqueado.setItensCarrinho(itensDesbloqueados);
-	        
-	        // Coloca o carrinho na lista de carrinhos desbloqueados
-	        produtosDesbloqueados.put(entry.getValue().getSessao().getId(),carrinhoDesbloqueado);
 	        
 	        // Remove carrinho da sessão do usuário
 	        entry.getValue().getSessao().removeAttribute("carrinho");

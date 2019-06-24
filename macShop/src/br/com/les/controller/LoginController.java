@@ -18,41 +18,20 @@ import br.com.les.dominio.Cliente;
 import br.com.les.viewhelper.VHCliente;
 import br.com.les.viewhelper.VHUsuario;
 
-/**
- * Servlet Filter implementation class LoginController
- */
 @WebFilter({ "/Pages/LoginController", "/Pages/LoginControllerPedidos", "/Pages/LoginControllerMeusDados",
 		"/Pages/LoginControllerPagamento" })
 
 // Controller para o Login
 public class LoginController implements Filter {
 
-	/**
-	 * Default constructor.
-	 */
-	public LoginController() {
-		// TODO Auto-generated constructor stub
-	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
 		// inicialização das variáveis
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
 		String direcionamento = req.getRequestURI();
 		RequestDispatcher rd = null;
-		boolean usuarioLogado = false;
 		Integer userid = 0;
 
 		//verificar se o usuário não está logado
@@ -68,7 +47,6 @@ public class LoginController implements Filter {
 		//direcionamento se o cliente já estiver logado, dependendo de que lugar foi feita a requisição
 
 		if (userid != null) {
-			usuarioLogado = true;
 			//direciona para o pagamento
 			if (req.getRequestURI().equals("/macShop/Pages/LoginControllerPagamento")) {
 				rd = request.getRequestDispatcher(
@@ -97,7 +75,7 @@ public class LoginController implements Filter {
 				request.setAttribute("direcionamento", "pagamento");
 			} else if (direcionamento.equals("/macShop/Pages/LoginControllerPedidos")) {
 				request.setAttribute("direcionamento", "pedidos");
-			} else if (direcionamento.equals("/macShop/Pages/LoginControllerDados")) {
+			} else if (direcionamento.equals("/macShop/Pages/LoginControllerMeusDados")) {
 				request.setAttribute("direcionamento", "dados");
 			}
 
@@ -111,7 +89,6 @@ public class LoginController implements Filter {
 		
 		//inicialização das variáveis
 		VHCliente vh = new VHCliente();
-		String idCliente = "-1";
 		
 		//instanciar um cliente
 		Cliente cli = (Cliente) vh.getEntidade(req);
@@ -125,10 +102,6 @@ public class LoginController implements Filter {
 		if (resultado == true) {
 			//consulta o ID do cliente
 			cli.setId(Integer.parseInt(dao.consultarID(cli)));
-			idCliente = cli.getId().toString();
-			//seta um cookie
-			Cookie logado = new Cookie("clienteLogado", idCliente);
-			res.addCookie(logado);
 			req.getSession().setAttribute("idUsuario", cli.getId().toString());
 			//verificar o direcionamento de acordo com a requisicao
 			direcionamento = request.getParameter("direcionamento");
@@ -152,17 +125,7 @@ public class LoginController implements Filter {
 			return;
 		}
 
-		if (!usuarioLogado) {
-			// Redireciona para a página de login
-			res.sendRedirect("login.jsp");
-		}
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
-	}
 
 }

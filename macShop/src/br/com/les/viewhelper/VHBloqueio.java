@@ -26,7 +26,8 @@ public class VHBloqueio implements IViewHelper {
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 
 		Bloqueio bloqueio = new Bloqueio();
-
+		
+		bloqueio.setServCon(request.getServletContext());
 		Carrinho carrinho = new Carrinho();
 		ItemCarrinho item = new ItemCarrinho();
 		ArrayList<ItemCarrinho> itensCarrinho = new ArrayList<>();

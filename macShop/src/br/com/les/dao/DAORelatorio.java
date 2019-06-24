@@ -4,11 +4,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.les.dominio.Categoria;
 import br.com.les.dominio.EntidadeDominio;
 import br.com.les.dominio.Relatorio;
 import br.com.les.util.ConnectionFactory;
@@ -180,39 +178,6 @@ public class DAORelatorio extends AbstractDAO implements IDAO {
 				quantidadeTotaisItens++;
 
 			}
-		
-
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesiPhoneMasculino.get(i-1));
-				}
-				
-
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesiPadMasculino.get(i-1));
-				}
-
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesMacbookMasculino.get(i-1));
-				}
-				
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesiPhoneFeminino.get(i-1));
-				}
-				
-
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesiPadFeminino.get(i-1));
-				}
-
-				for (int i = 1; i <= 12; i++)
-				{
-					quantidades.add(quantidadesMacbookFeminino.get(i-1));
-				}
 			
 				quantidades.addAll(quantidadesiPhoneMasculino);
 				quantidades.addAll(quantidadesiPadMasculino);

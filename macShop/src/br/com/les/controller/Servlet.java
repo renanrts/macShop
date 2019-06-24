@@ -33,7 +33,6 @@ import br.com.les.command.ICommand;
 import br.com.les.dominio.Bloqueio;
 import br.com.les.dominio.Carrinho;
 import br.com.les.dominio.EntidadeDominio;
-import br.com.les.negocio.StAprovarOuReprovarCompra;
 import br.com.les.negocio.StValidarItensCarrinhoComTempoExpirado;
 import br.com.les.util.Resultado;
 import br.com.les.viewhelper.IViewHelper;
@@ -49,6 +48,7 @@ import br.com.les.viewhelper.VHItemProduto;
 import br.com.les.viewhelper.VHPedido;
 import br.com.les.viewhelper.VHProduto;
 import br.com.les.viewhelper.VHRelatorio;
+import service.JobAprovarCompra;
 
 
 //Controller principal do sistema
@@ -60,7 +60,6 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		private Map<String, ICommand> mapCommand;
 		private Map<String, IViewHelper> mapViewHelper;
 		
-
 		
 		public Servlet(){
 			
@@ -104,27 +103,18 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		@Override
 		public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 			
-			//Codificação e acentuação
 			request.setCharacterEncoding("UTF-8");
-		    
-			//Verifica se há bloqueio no Contexto da Aplicação
-			if(getServletContext().getAttribute("bloqueio") == null)
-			{
-				//se não houver, ele instancia um map de produtos bloqueados
-				//que servirá de base para o controle do carrinho
-				HashMap<String, Carrinho> mapProdutosBloqueados = new HashMap<>();
-				getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
-			}
 			
 			String operacao = request.getParameter("btnOperacao");
+			
 			ICommand command = mapCommand.get(operacao);
 			
 			String formName = request.getParameter("FormName");
-	 		IViewHelper viewHelper = mapViewHelper.get(formName);
+	 		
+			IViewHelper viewHelper = mapViewHelper.get(formName);
 	 			 		
 			EntidadeDominio entidade = viewHelper.getEntidade(request);
 			
-
 			Resultado resultado = command.executar(entidade);
 			
 			viewHelper.setView(resultado, request, response);
@@ -134,50 +124,52 @@ public class Servlet extends HttpServlet implements ServletContextListener{
 		//para inicializar os serviços de Bloqueio/Desbloqueio do Produto e Aprovação/Reprovação de Pedidos
 		@Override
 		  public void init() {
-			 
-			   //inicializa um map de bloqueio de produtos
-			    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
-			    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
-			    SchedulerFactory shedFact = new StdSchedulerFactory();
-			    
-			    try {
-			           Scheduler schedulerBloqueio = shedFact.getScheduler();
-			           Scheduler schedulerAprovacaoPedido = shedFact.getScheduler();
-			           schedulerBloqueio.start();
-			           schedulerAprovacaoPedido.start();
-			           
-			          //utiliza o contexto da aplicação
-			         JobDataMap jobDataMap = new JobDataMap();
-			         jobDataMap.put("servletContext", getServletContext());
-			         
-			         //Job1 de StValidarItensCarrinhoComTempoExpirado - bloqueio de produtos no carrinho
-			           JobDetail job = JobBuilder.newJob(StValidarItensCarrinhoComTempoExpirado.class)
-			                         .withIdentity("validadorJOB", "grupo01")
-			                         .usingJobData(jobDataMap)
-			                         .build();
-			         //Job2 de Aprovação ou Reprovação do pedido
-			          JobDetail jobAprovarOuReprovarCompra = JobBuilder.newJob(StAprovarOuReprovarCompra.class)
-			                                                .withIdentity("validadorOperadora", "grupo02")
-			                                                .usingJobData(jobDataMap)
-			                                                .build();
-			          //Trigger do Job1 de 1 minuto
-			           Trigger trigger = TriggerBuilder.newTrigger()
-			                         .withIdentity("validadorTRIGGER","grupo01")
-			                         .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
-			                         .build();
-			           
-			           //Trigger do Job2 de 60 segundos
-			           Trigger trigger2 = TriggerBuilder.newTrigger()
-			               .withIdentity("validadorTRIGGER2","grupo02")
-			             .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
-			               .build();
-			           
-			           schedulerBloqueio.scheduleJob(job, trigger);
-			           schedulerAprovacaoPedido.scheduleJob(jobAprovarOuReprovarCompra, trigger2);
-			           
-			  } catch (SchedulerException e) {
-			      e.printStackTrace();
-			  }
+			System.out.println("contexto inicializado");
+		    HashMap<String, Bloqueio> mapProdutosBloqueados = new HashMap<>();     
+		    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
+
+		    SchedulerFactory shedFact = new StdSchedulerFactory();
+		    
+		    try {
+		           Scheduler schedulerBloqueio = shedFact.getScheduler();
+		           Scheduler schedulerAprovacaoPedido = shedFact.getScheduler();
+		           schedulerBloqueio.start();
+		           schedulerAprovacaoPedido.start();
+		           
+		          //utiliza o contexto da aplicação
+		         JobDataMap jobDataMap = new JobDataMap();
+		         jobDataMap.put("servletContext", getServletContext());
+		         
+		         //Job1 de StValidarItensCarrinhoComTempoExpirado - bloqueio de produtos no carrinho
+		           JobDetail job = JobBuilder.newJob(StValidarItensCarrinhoComTempoExpirado.class)
+		                         .withIdentity("validadorJOB", "grupo01")
+		                         .usingJobData(jobDataMap)
+		                         .build();
+		         //Job2 de Aprovação ou Reprovação do pedido
+		          JobDetail jobAprovarOuReprovarCompra = JobBuilder.newJob(JobAprovarCompra.class)
+		                                                .withIdentity("validadorOperadora", "grupo02")
+		                                                .build();
+		         
+		         
+		          //Trigger do Job1 de 1 minuto
+		           Trigger trigger = TriggerBuilder.newTrigger()
+		                         .withIdentity("validadorTRIGGER","grupo01")
+		                         .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
+		                         .build();
+		           
+		           //Trigger do Job2 de 60 segundos
+		           Trigger trigger2 = TriggerBuilder.newTrigger()
+		               .withIdentity("validadorTRIGGER2","grupo02")
+		             .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
+		               .build();
+		           
+		           schedulerBloqueio.scheduleJob(job, trigger);
+		           schedulerAprovacaoPedido.scheduleJob(jobAprovarOuReprovarCompra, trigger2);
+		           
+		  } catch (SchedulerException e) {
+		      e.printStackTrace();
+		  }
+			  
 		      
 		      
 		    

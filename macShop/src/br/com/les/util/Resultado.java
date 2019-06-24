@@ -3,6 +3,7 @@ package br.com.les.util;
 import java.util.List;
 
 import br.com.les.dominio.EntidadeDominio;
+import br.com.les.dominio.Relatorio;
 
 public class Resultado {
 	
@@ -13,7 +14,6 @@ public class Resultado {
 	private int contagem = 0;
 	private List<EntidadeDominio> categoria;
 	private List<Integer> qtdeRelatorio;
-	
 	
 	public List<EntidadeDominio> getListaResultado() {
 		return listaResultado;
@@ -68,5 +68,6 @@ public class Resultado {
 	public void setQtdeRelatorio(List<Integer> qtdeRelatorio) {
 		this.qtdeRelatorio = qtdeRelatorio;
 	}
+
 
 }

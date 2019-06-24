@@ -3,6 +3,7 @@ package br.com.les.dominio;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 public class Bloqueio extends EntidadeDominio{
@@ -11,6 +12,7 @@ public class Bloqueio extends EntidadeDominio{
 	private LocalDateTime timeStamp;
 	private HttpSession sessao;
 	private String operation;
+	private ServletContext servCon;
 	
 	public Carrinho getCarrinho() {
 		return carrinho;
@@ -36,6 +38,12 @@ public class Bloqueio extends EntidadeDominio{
 	}
 	public void setTimeStamp(LocalDateTime timeStamp) {
 		this.timeStamp = timeStamp;
+	}
+	public ServletContext getServCon() {
+		return servCon;
+	}
+	public void setServCon(ServletContext servCon) {
+		this.servCon = servCon;
 	}
 	
 	

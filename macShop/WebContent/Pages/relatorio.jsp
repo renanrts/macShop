@@ -58,7 +58,7 @@
 		
         var options = {
           chart: {
-            title: 'Vendas Eletronicos macShop',
+            title: 'Vendas Eletronicos: Categoria x Data x Gênero Masculino',
           }
         };
 
@@ -70,8 +70,9 @@
     
       <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChartFeminino);
-
+      google.charts.setOnLoadCallback(drawChartFeminino)
+      
+      
       function drawChartFeminino() {
         var data = google.visualization.arrayToDataTable([
           ['Categoria', 'iPhone', 'iPad', 'Macbook'],
@@ -92,7 +93,7 @@
 		
         var options = {
           chart: {
-            title: 'Vendas Eletronicos macShop - Feminino',
+            title: 'Vendas Eletronicos: Categoria x Data x Gênero Feminino',
           }
         };
 
@@ -332,11 +333,13 @@
     <br><br>
     <div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
     <hr>
+     <div id="columnchart_material_feminino" style="width: 1000px; height: 500px;"></div>
+      <hr>
     <div id="piechart" style="width: 900px; height: 500px;"></div>
     <hr>
     <div id="columnchart_troca" style="width: 800px; height: 500px;"></div>
-      <hr>
-    <div id="columnchart_material_feminino" style="width: 800px; height: 500px;"></div></center>
+     
+   </center>
     </section>
     <!-- Footer -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
